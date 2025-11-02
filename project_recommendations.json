@@ -1,0 +1,243 @@
+{
+    "Machine Learning": [
+        {
+            "title": "Predictive Analysis for Stock Trading",
+            "difficulty": "Advanced",
+            "estimated_time": "30 days",
+            "description": "A machine learning project where you predict stock prices using historical data. The predictions can be used for trading stocks.",
+            "key_features": [
+                "Historical data analysis",
+                "Predictive algorithms",
+                "Graphic visualization of predictions"
+            ],
+            "skills_demonstrated": [
+                "Data analysis",
+                "Machine learning",
+                "Data visualization"
+            ],
+            "technologies": [
+                "Python",
+                "Scikit-learn",
+                "Pandas",
+                "Matplotlib/Seaborn"
+            ],
+            "portfolio_impact": "This project showcases the ability to apply machine learning techniques to real world financial data, a highly valuable skill in many industries.",
+            "bonus_challenges": [
+                "Implement real-time data feed",
+                "Predict multiple stocks concurrently"
+            ]
+        },
+        {
+            "title": "Image Recognition System",
+            "difficulty": "Intermediate",
+            "estimated_time": "20 days",
+            "description": "A machine learning project to identify objects in images. Can be used for cataloging images, self-driving cars, or surveillance systems.",
+            "key_features": [
+                "Object identification",
+                "Image processing",
+                "Data training"
+            ],
+            "skills_demonstrated": [
+                "Computer Vision",
+                "Deep Learning",
+                "Data Training"
+            ],
+            "technologies": [
+                "Python",
+                "TensorFlow",
+                "Keras",
+                "OpenCV"
+            ],
+            "portfolio_impact": "Image recognition is a hot topic in AI sector, showcasing your proficiency in this field can make you stand out.",
+            "bonus_challenges": [
+                "Identify multiple objects in one image",
+                "Identify objects in video"
+            ]
+        },
+        {
+            "title": "Sentiment Analysis Chatbot",
+            "difficulty": "Beginner",
+            "estimated_time": "10 days",
+            "description": "A simple chatbot that can analyze emotions in text messages. Can be used in customer service to identify unhappy customers.",
+            "key_features": [
+                "Text processing",
+                "Emotion analysis",
+                "Interactive bot"
+            ],
+            "skills_demonstrated": [
+                "Natural Language Processing",
+                "Machine Learning",
+                "Text processing"
+            ],
+            "technologies": [
+                "Python",
+                "NLTK",
+                "TextBlob"
+            ],
+            "portfolio_impact": "This project demonstrates practical application of NLP and ML, which are in high demand due to increasing use of chatbots in customer service.",
+            "bonus_challenges": [
+                "Improve bot responses based on sentiment",
+                "Live chat interface"
+            ]
+        }
+    ],
+    "React.js": [
+        {
+            "title": "Interactive Dashboard",
+            "difficulty": "Intermediate",
+            "estimated_time": "15 days",
+            "description": "A dynamic and interactive dashboard that visualizes data. Can be used for business intelligence, analytics, or project management.",
+            "key_features": [
+                "Data visualization",
+                "Interactive elements",
+                "Dynamic data loading"
+            ],
+            "skills_demonstrated": [
+                "React.js",
+                "Data visualization",
+                "API Integration"
+            ],
+            "technologies": [
+                "React.js",
+                "D3.js",
+                "REST API"
+            ],
+            "portfolio_impact": "Interactive dashboards are common in many industries, demonstrating your ability to create one will showcase versatility and attention to user experience.",
+            "bonus_challenges": [
+                "User customization of dashboard",
+                "Real-time data updates"
+            ]
+        },
+        {
+            "title": "E-commerce App",
+            "difficulty": "Advanced",
+            "estimated_time": "30 days",
+            "description": "A full-featured e-commerce app where users can browse products, add them to their cart, and make purchases.",
+            "key_features": [
+                "Product listing",
+                "Shopping cart",
+                "Payment integration"
+            ],
+            "skills_demonstrated": [
+                "React.js",
+                "State management",
+                "Backend integration"
+            ],
+            "technologies": [
+                "React.js",
+                "Redux",
+                "Node.js",
+                "Stripe API"
+            ],
+            "portfolio_impact": "E-commerce apps are complex and ubiquitous, handling such a project will demonstrate your ability to work on large scale applications.",
+            "bonus_challenges": [
+                "User reviews for products",
+                "Recommendation system based on user's purchase history"
+            ]
+        },
+        {
+            "title": "Task Manager",
+            "difficulty": "Beginner",
+            "estimated_time": "7 days",
+            "description": "A simple task manager where users can create, update, delete and prioritize tasks.",
+            "key_features": [
+                "Task creation",
+                "Task prioritization",
+                "Task status updates"
+            ],
+            "skills_demonstrated": [
+                "React.js",
+                "CRUD Operations",
+                "UI Design"
+            ],
+            "technologies": [
+                "React.js",
+                "Local Storage"
+            ],
+            "portfolio_impact": "This project allows you to highlight your understanding of basic CRUD operations and your ability to create an intuitive UI.",
+            "bonus_challenges": [
+                "User accounts and authentication",
+                "Sync tasks across devices"
+            ]
+        }
+    ],
+    "Docker": [
+        {
+            "title": "Continuous Integration Pipeline",
+            "difficulty": "Advanced",
+            "estimated_time": "20 days",
+            "description": "A CI/CD pipeline that automatically tests and deploys code using Docker and Jenkins.",
+            "key_features": [
+                "Automated testing",
+                "Automated deployment",
+                "Pipeline configuration"
+            ],
+            "skills_demonstrated": [
+                "Docker",
+                "Continuous Integration",
+                "Continuous Deployment"
+            ],
+            "technologies": [
+                "Docker",
+                "Jenkins",
+                "GitHub"
+            ],
+            "portfolio_impact": "DevOps skills are in high demand. Demonstrating your ability to automate testing and deployment using Docker will be highly attractive to employers.",
+            "bonus_challenges": [
+                "Parallel testing",
+                "Rollback mechanism on deployment failure"
+            ]
+        },
+        {
+            "title": "Multi-Container App Deployment",
+            "difficulty": "Intermediate",
+            "estimated_time": "15 days",
+            "description": "An application that uses multiple containers to separate different services of the application.",
+            "key_features": [
+                "Service isolation",
+                "Container orchestration",
+                "Load balancing"
+            ],
+            "skills_demonstrated": [
+                "Docker",
+                "Orchestration",
+                "Microservices"
+            ],
+            "technologies": [
+                "Docker",
+                "Docker Compose",
+                "Any programming language"
+            ],
+            "portfolio_impact": "This project shows your ability to design and implement a modern microservices architecture using Docker, which is an important skill for cloud-native development.",
+            "bonus_challenges": [
+                "Auto-scaling based on load",
+                "Add a service discovery mechanism"
+            ]
+        },
+        {
+            "title": "Dockerized Development Environment",
+            "difficulty": "Beginner",
+            "estimated_time": "5 days",
+            "description": "A fully dockerized development environment for a simple web application. This will eliminate the 'it works on my machine' problem.",
+            "key_features": [
+                "Environment standardization",
+                "Container setup",
+                "Documentation"
+            ],
+            "skills_demonstrated": [
+                "Docker",
+                "DevOps",
+                "Documentation"
+            ],
+            "technologies": [
+                "Docker",
+                "Any programming language"
+            ],
+            "portfolio_impact": "This project demonstrates your understanding of Docker's role in creating consistent development environments, an important aspect of DevOps.",
+            "bonus_challenges": [
+                "Include database container",
+                "Automate setup with scripts"
+            ]
+        }
+    ]
+}

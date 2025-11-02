@@ -1,0 +1,86 @@
+{
+    "free_courses": [
+        {
+            "title": "Python for Everybody",
+            "platform": "Coursera",
+            "skills_covered": [
+                "Python",
+                "SQL"
+            ],
+            "additional_skills": [
+                "Data Analysis"
+            ],
+            "duration": "7 weeks",
+            "difficulty": "Beginner",
+            "description": "This course teaches Python programming from basics to advanced concepts, including data structures, databases, and SQL. It focuses on practical applications for data analysis.",
+            "why_efficient": "Efficiently covers Python and SQL fundamentals essential for data analysis tasks.",
+            "cost": "Free",
+            "link": "https://www.coursera.org/specializations/python"
+        },
+        {
+            "title": "Data Science Math Skills",
+            "platform": "Coursera",
+            "skills_covered": [
+                "Statistics"
+            ],
+            "additional_skills": [
+                "Data Analysis"
+            ],
+            "duration": "4 weeks",
+            "difficulty": "Intermediate",
+            "description": "This course covers the essential mathematical foundations for data science, including probability, linear algebra, and calculus. It emphasizes applying these concepts to real-world data analysis problems.",
+            "why_efficient": "Covers statistical concepts crucial for data analysis tasks.",
+            "cost": "Free",
+            "link": "https://www.coursera.org/learn/datasciencemathskills"
+        },
+        {
+            "title": "Data Visualization with Python",
+            "platform": "Udemy",
+            "skills_covered": [
+                "Data Visualization"
+            ],
+            "additional_skills": [
+                "Pandas"
+            ],
+            "duration": "6 hours",
+            "difficulty": "Intermediate",
+            "description": "This course focuses on creating effective data visualizations using Python libraries like Matplotlib and Seaborn. It also includes hands-on exercises for working with Pandas data structures.",
+            "why_efficient": "Combines data visualization techniques with practical Pandas skills for analyzing and visualizing data.",
+            "cost": "Free",
+            "link": "https://www.udemy.com/course/data-visualization-with-python/"
+        }
+    ],
+    "skill_coverage": {
+        "Python": [
+            "Python for Everybody",
+            "Machine Learning",
+            "Data Analysis with Pandas and Python"
+        ],
+        "Machine Learning": [
+            "Machine Learning"
+        ],
+        "Data Analysis": [
+            "Python for Everybody",
+            "Data Analysis with Pandas and Python",
+            "Data Visualization with Tableau"
+        ],
+        "SQL": [
+            "Python for Everybody"
+        ],
+        "Data Visualization": [
+            "Data Visualization with Python",
+            "Data Visualization with Tableau"
+        ],
+        "Statistics": [
+            "Data Science Math Skills"
+        ],
+        "Pandas": [
+            "Data Analysis with Pandas and Python"
+        ],
+        "NumPy": [
+            "Data Analysis with Pandas and Python"
+        ]
+    },
+    "uncovered_skills": [],
+    "coverage_percentage": 100
+}

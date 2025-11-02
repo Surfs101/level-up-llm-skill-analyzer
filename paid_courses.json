@@ -1,0 +1,86 @@
+{
+    "paid_courses": [
+        {
+            "title": "Machine Learning",
+            "platform": "Coursera",
+            "skills_covered": [
+                "Machine Learning"
+            ],
+            "additional_skills": [
+                "Python"
+            ],
+            "duration": "11 weeks",
+            "difficulty": "Intermediate",
+            "description": "This course by Andrew Ng covers the foundations of machine learning algorithms, from linear regression to neural networks. It involves hands-on programming assignments in Python using libraries like NumPy.",
+            "why_efficient": "Teaches essential machine learning concepts and practical programming skills in Python.",
+            "cost": "$49.99",
+            "link": "https://www.coursera.org/learn/machine-learning"
+        },
+        {
+            "title": "Data Analysis with Pandas and Python",
+            "platform": "Udemy",
+            "skills_covered": [
+                "Data Analysis",
+                "Pandas"
+            ],
+            "additional_skills": [
+                "NumPy"
+            ],
+            "duration": "5.5 hours",
+            "difficulty": "Intermediate",
+            "description": "This course covers data analysis techniques using Pandas in Python, including data manipulation, cleaning, and visualization. It also introduces NumPy for numerical computations.",
+            "why_efficient": "Focuses on data analysis using Pandas, with an introduction to NumPy for efficient numerical operations.",
+            "cost": "$29.99",
+            "link": "https://www.udemy.com/course/data-analysis-with-pandas/"
+        },
+        {
+            "title": "Data Visualization with Tableau",
+            "platform": "DeepLearning.AI",
+            "skills_covered": [
+                "Data Visualization"
+            ],
+            "additional_skills": [
+                "Data Analysis"
+            ],
+            "duration": "12 hours",
+            "difficulty": "Intermediate",
+            "description": "This course covers data visualization techniques using Tableau, emphasizing creating interactive dashboards and visualizations for effective data storytelling. It also includes discussions on data analysis best practices.",
+            "why_efficient": "Focuses on data visualization and data analysis techniques using a popular tool like Tableau.",
+            "cost": "$79.99",
+            "link": "https://www.deeplearning.ai/tableau"
+        }
+    ],
+    "skill_coverage": {
+        "Python": [
+            "Python for Everybody",
+            "Machine Learning",
+            "Data Analysis with Pandas and Python"
+        ],
+        "Machine Learning": [
+            "Machine Learning"
+        ],
+        "Data Analysis": [
+            "Python for Everybody",
+            "Data Analysis with Pandas and Python",
+            "Data Visualization with Tableau"
+        ],
+        "SQL": [
+            "Python for Everybody"
+        ],
+        "Data Visualization": [
+            "Data Visualization with Python",
+            "Data Visualization with Tableau"
+        ],
+        "Statistics": [
+            "Data Science Math Skills"
+        ],
+        "Pandas": [
+            "Data Analysis with Pandas and Python"
+        ],
+        "NumPy": [
+            "Data Analysis with Pandas and Python"
+        ]
+    },
+    "uncovered_skills": [],
+    "coverage_percentage": 100
+}

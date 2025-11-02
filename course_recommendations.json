@@ -1,0 +1,152 @@
+{
+    "free_courses": [
+        {
+            "title": "Python for Data Science and Machine Learning Bootcamp",
+            "platform": "Udemy",
+            "skills_covered": [
+                "Python",
+                "Machine Learning",
+                "Data Analysis",
+                "NumPy",
+                "Pandas"
+            ],
+            "additional_skills": [
+                "Data Visualization"
+            ],
+            "duration": "10.5 hours",
+            "difficulty": "Intermediate",
+            "description": "This course covers Python for data science and machine learning, including NumPy, Pandas, data analysis, and machine learning algorithms. It also introduces data visualization techniques.",
+            "why_efficient": "Efficiently covers Python, data analysis, and machine learning in a single course with practical examples and projects.",
+            "cost": "Free",
+            "link": null
+        },
+        {
+            "title": "SQL for Data Science",
+            "platform": "Coursera",
+            "skills_covered": [
+                "SQL",
+                "Data Analysis"
+            ],
+            "additional_skills": [],
+            "duration": "4 weeks",
+            "difficulty": "Beginner",
+            "description": "This course teaches SQL for data science, focusing on querying databases and performing data analysis tasks using SQL.",
+            "why_efficient": "Efficiently covers SQL for data analysis, a crucial skill in the data science field.",
+            "cost": "Free",
+            "link": null
+        },
+        {
+            "title": "Introduction to Data Science",
+            "platform": "DeepLearning.AI",
+            "skills_covered": [
+                "Data Analysis",
+                "Statistics"
+            ],
+            "additional_skills": [],
+            "duration": "4 weeks",
+            "difficulty": "Beginner",
+            "description": "This course provides an introductory overview of data science, covering data analysis, statistical concepts, and their applications.",
+            "why_efficient": "Efficiently introduces data analysis and statistics essential for data science fundamentals.",
+            "cost": "Free",
+            "link": null
+        }
+    ],
+    "paid_courses": [
+        {
+            "title": "Data Science and Machine Learning Bootcamp with R",
+            "platform": "Udemy",
+            "skills_covered": [
+                "Machine Learning",
+                "Data Analysis",
+                "Statistics"
+            ],
+            "additional_skills": [
+                "Data Visualization"
+            ],
+            "duration": "29 hours",
+            "difficulty": "Intermediate",
+            "description": "This course covers data science and machine learning concepts using R, focusing on data analysis, machine learning algorithms, and statistical techniques.",
+            "why_efficient": "Efficiently covers machine learning, data analysis, and statistics with a focus on practical applications using R.",
+            "cost": "$49.99",
+            "link": null
+        },
+        {
+            "title": "Applied Data Science with Python Specialization",
+            "platform": "Coursera",
+            "skills_covered": [
+                "Python",
+                "Data Analysis",
+                "Data Visualization",
+                "Pandas",
+                "NumPy"
+            ],
+            "additional_skills": [
+                "Machine Learning"
+            ],
+            "duration": "2 months",
+            "difficulty": "Intermediate",
+            "description": "This specialization covers various aspects of data science with Python, including data analysis, visualization, and machine learning using libraries like Pandas and NumPy.",
+            "why_efficient": "Efficiently covers Python, data analysis, data visualization, and machine learning in a structured specialization format.",
+            "cost": "$49",
+            "link": null
+        },
+        {
+            "title": "Machine Learning",
+            "platform": "DeepLearning.AI",
+            "skills_covered": [
+                "Machine Learning",
+                "Data Analysis",
+                "Statistics"
+            ],
+            "additional_skills": [
+                "Python"
+            ],
+            "duration": "2 months",
+            "difficulty": "Intermediate",
+            "description": "This course covers machine learning concepts, algorithms, and statistical techniques in Python, focusing on practical applications and real-world projects.",
+            "why_efficient": "Efficiently covers machine learning, data analysis, and statistics with hands-on projects and Python programming.",
+            "cost": "$49",
+            "link": null
+        }
+    ],
+    "skill_coverage": {
+        "Python": [
+            "Python for Data Science and Machine Learning Bootcamp",
+            "Applied Data Science with Python Specialization",
+            "Machine Learning"
+        ],
+        "Machine Learning": [
+            "Python for Data Science and Machine Learning Bootcamp",
+            "Data Science and Machine Learning Bootcamp with R",
+            "Machine Learning"
+        ],
+        "Data Analysis": [
+            "Python for Data Science and Machine Learning Bootcamp",
+            "SQL for Data Science",
+            "Applied Data Science with Python Specialization",
+            "Machine Learning"
+        ],
+        "SQL": [
+            "SQL for Data Science"
+        ],
+        "Data Visualization": [
+            "Python for Data Science and Machine Learning Bootcamp",
+            "Applied Data Science with Python Specialization"
+        ],
+        "Statistics": [
+            "Introduction to Data Science",
+            "Data Science and Machine Learning Bootcamp with R",
+            "Machine Learning"
+        ],
+        "Pandas": [
+            "Python for Data Science and Machine Learning Bootcamp",
+            "Applied Data Science with Python Specialization"
+        ],
+        "NumPy": [
+            "Python for Data Science and Machine Learning Bootcamp",
+            "Applied Data Science with Python Specialization"
+        ]
+    },
+    "uncovered_skills": [],
+    "coverage_percentage": 100
+}
