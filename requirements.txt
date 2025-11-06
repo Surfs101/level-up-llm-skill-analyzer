@@ -1,7 +1,0 @@
-openai
-python-dotenv
-PyPDF2
-pytesseract
-pillow
-PyMuPDF
-flask==2.3.3
