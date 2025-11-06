@@ -6,6 +6,9 @@ The objective of this project is to help students identify and bridge the skill 
 
 To be able to run it for now:
 1. Add a `.env` file in the project root directory.
-2. Run the app with:
+2. Install the needed requirements with:
+   ``` bash
+   pip install -r requirements.txt
+3. Run the app with:
    ```bash
    python app_fastapi.py
