@@ -110,15 +110,20 @@ Job Description:
         is_grad_student_job = data.get("is_grad_student_job", False)
         data = ensure_schema(data)
         data["is_grad_student_job"] = is_grad_student_job
-        print(json.dumps(data, indent=2, ensure_ascii=False))
-
+        
         output_file = os.path.splitext(file_name)[0] + "_skills.json"
         with open(output_file, "w", encoding="utf-8") as out_f:
             json.dump(data, out_f, indent=2, ensure_ascii=False)
-        print(f"✅ Skills data saved to: {output_file}")
+        
+        # Output JSON ONLY to stdout (for programmatic use)
+        # Send informative messages to stderr instead so they don't interfere with JSON parsing
+        json_output = json.dumps(data, indent=2, ensure_ascii=False)
+        print(json_output, file=sys.stdout)
+        print(f"✅ Skills data saved to: {output_file}", file=sys.stderr)
     except json.JSONDecodeError:
-        print("⚠️ JSON decoding failed, raw response:")
-        print(raw)
+        print("⚠️ JSON decoding failed, raw response:", file=sys.stderr)
+        print(raw, file=sys.stderr)
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

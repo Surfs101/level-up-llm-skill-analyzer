@@ -1,6 +1,9 @@
 # app_fastapi.py
 # FastAPI web application for resume-job matching
 
+from dotenv import load_dotenv
+load_dotenv()  # Load environment variables from .env file
+
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Request
 from typing import Optional
 from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
@@ -1106,6 +1109,8 @@ async def analyze_with_progress(resume: UploadFile, job_text: str):
         # Store progress messages (thread-safe list)
         progress_list = []
         progress_lock = threading.Lock()
+        error_occurred = threading.Event()
+        error_message = [None]  # Use list to allow modification from nested function
         
         def progress_callback(message: str):
             """Callback that stores progress (called from executor thread)"""
@@ -1114,21 +1119,32 @@ async def analyze_with_progress(resume: UploadFile, job_text: str):
         
         # Start report generation in executor
         loop = asyncio.get_event_loop()
-        report_task = loop.run_in_executor(
-            None,
-            lambda: generate_report(
-                resume_text=resume_text,
-                job_description_text=job_text,
-                role_label="Target Role",
-                progress_callback=progress_callback
-            )
-        )
+        
+        def run_report():
+            try:
+                return generate_report(
+                    resume_text=resume_text,
+                    job_description_text=job_text,
+                    role_label="Target Role",
+                    progress_callback=progress_callback
+                )
+            except Exception as e:
+                error_message[0] = str(e)
+                error_occurred.set()
+                raise
+        
+        report_task = loop.run_in_executor(None, run_report)
         
         # Poll for progress messages while waiting for report
         last_progress_count = 0
         emitted_messages = set()
         
         while not report_task.done():
+            # Check if an error occurred
+            if error_occurred.is_set():
+                yield f"data: {json.dumps({'type': 'error', 'message': f'Error generating report: {error_message[0]}'})}\n\n"
+                return
+            
             # Check for new progress messages
             with progress_lock:
                 current_count = len(progress_list)
@@ -1145,8 +1161,17 @@ async def analyze_with_progress(resume: UploadFile, job_text: str):
             # Small delay to prevent busy waiting
             await asyncio.sleep(0.3)
         
+        # Check for errors after task completion
+        if error_occurred.is_set():
+            yield f"data: {json.dumps({'type': 'error', 'message': f'Error generating report: {error_message[0]}'})}\n\n"
+            return
+        
         # Get final result
-        report_result = await report_task
+        try:
+            report_result = await report_task
+        except Exception as e:
+            yield f"data: {json.dumps({'type': 'error', 'message': f'Error generating report: {str(e)}'})}\n\n"
+            return
         
         # Emit any remaining progress messages
         with progress_lock:
@@ -1160,7 +1185,9 @@ async def analyze_with_progress(resume: UploadFile, job_text: str):
         yield f"data: {json.dumps({'type': 'complete', 'data': report_result})}\n\n"
         
     except Exception as e:
-        yield f"data: {json.dumps({'type': 'error', 'message': f'Internal server error: {str(e)}'})}\n\n"
+        import traceback
+        error_trace = traceback.format_exc()
+        yield f"data: {json.dumps({'type': 'error', 'message': f'Internal server error: {str(e)}', 'trace': error_trace})}\n\n"
     finally:
         # Clean up temporary file
         if temp_path and os.path.exists(temp_path):
@@ -1310,6 +1337,151 @@ async def cover_letter(
             "X-Accel-Buffering": "no"
         }
     )
+
+
+@app.post("/analyze-sync")
+async def analyze_sync(
+    resume: UploadFile = File(..., description="PDF resume file"),
+    job_text: str = Form(..., description="Job description text")
+):
+    """
+    Synchronous analyze endpoint (fallback for environments where SSE doesn't work).
+    Returns JSON response directly without streaming.
+    """
+    temp_path = None
+    try:
+        # Validate file type
+        if not resume.filename.lower().endswith('.pdf'):
+            raise HTTPException(status_code=400, detail='Invalid file type. Only PDF files are allowed.')
+        
+        if not job_text.strip():
+            raise HTTPException(status_code=400, detail='Job description is required')
+        
+        # Save uploaded file temporarily
+        temp_dir = tempfile.gettempdir()
+        temp_path = os.path.join(temp_dir, f"resume_{os.getpid()}_{resume.filename}")
+        
+        with open(temp_path, "wb") as f:
+            content = await resume.read()
+            f.write(content)
+        
+        # Convert PDF to text
+        converter = PDFToTextConverter(temp_path)
+        if not converter.convert():
+            raise HTTPException(status_code=400, detail='Failed to extract text from PDF')
+        
+        resume_text = converter.cleaned_text
+        if not resume_text:
+            raise HTTPException(status_code=400, detail='No text extracted from PDF. The PDF might be image-based or corrupted.')
+        
+        # Generate report synchronously
+        loop = asyncio.get_event_loop()
+        report_result = await loop.run_in_executor(
+            None,
+            lambda: generate_report(
+                resume_text=resume_text,
+                job_description_text=job_text,
+                role_label="Target Role",
+                progress_callback=None
+            )
+        )
+        
+        return JSONResponse(content=report_result)
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        error_trace = traceback.format_exc()
+        print(f"Error in analyze_sync: {error_trace}")
+        raise HTTPException(status_code=500, detail=f'Internal server error: {str(e)}')
+    finally:
+        if temp_path and os.path.exists(temp_path):
+            try:
+                os.remove(temp_path)
+            except Exception:
+                pass
+
+
+@app.post("/cover-letter-sync")
+async def cover_letter_sync(
+    resume: UploadFile = File(..., description="PDF resume file"),
+    job_text: str = Form(..., description="Job description text"),
+    template: Optional[UploadFile] = File(None, description="Optional cover letter template file")
+):
+    """
+    Synchronous cover letter endpoint (fallback for environments where SSE doesn't work).
+    Returns JSON response directly without streaming.
+    """
+    temp_resume_path = None
+    temp_template_path = None
+    try:
+        # Validate file type
+        if not resume.filename.lower().endswith('.pdf'):
+            raise HTTPException(status_code=400, detail='Invalid file type. Only PDF files are allowed.')
+        
+        if not job_text.strip():
+            raise HTTPException(status_code=400, detail='Job description is required')
+        
+        # Save uploaded resume file temporarily
+        temp_dir = tempfile.gettempdir()
+        temp_resume_path = os.path.join(temp_dir, f"resume_{os.getpid()}_{resume.filename}")
+        
+        with open(temp_resume_path, "wb") as f:
+            content = await resume.read()
+            f.write(content)
+        
+        # Convert PDF to text
+        converter = PDFToTextConverter(temp_resume_path)
+        if not converter.convert():
+            raise HTTPException(status_code=400, detail='Failed to extract text from PDF')
+        
+        resume_text = converter.cleaned_text
+        if not resume_text:
+            raise HTTPException(status_code=400, detail='No text extracted from PDF. The PDF might be image-based or corrupted.')
+        
+        # Process template if provided
+        template_text = None
+        if template is not None:
+            try:
+                if hasattr(template, 'filename') and template.filename and template.filename.strip():
+                    temp_template_path = os.path.join(temp_dir, f"template_{os.getpid()}_{template.filename}")
+                    with open(temp_template_path, "wb") as f:
+                        content = await template.read()
+                        f.write(content)
+                    with open(temp_template_path, "r", encoding="utf-8", errors="ignore") as f:
+                        template_text = f.read()
+            except Exception as e:
+                print(f"Warning: Failed to process template: {e}")
+                template_text = None
+        
+        # Generate cover letter synchronously
+        loop = asyncio.get_event_loop()
+        result = await loop.run_in_executor(
+            None,
+            lambda: generate_cover_letter_from_text(
+                resume_text=resume_text,
+                job_text=job_text,
+                template_text=template_text
+            )
+        )
+        
+        return JSONResponse(content=result)
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        error_trace = traceback.format_exc()
+        print(f"Error in cover_letter_sync: {error_trace}")
+        raise HTTPException(status_code=500, detail=f'Internal server error: {str(e)}')
+    finally:
+        for temp_path in [temp_resume_path, temp_template_path]:
+            if temp_path and os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except Exception:
+                    pass
 
 
 @app.get("/health")

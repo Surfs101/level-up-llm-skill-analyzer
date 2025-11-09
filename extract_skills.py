@@ -187,14 +187,19 @@ try:
     # Rule-based pass for recall boost
     rule_based = rule_based_extract(resume_text)
     merged = {"skills": merge_outputs(skills_data.get("skills", {}), rule_based)}
-    print(json.dumps(merged, indent=2, ensure_ascii=False))
-
+    
     # --- Step 7: Save JSON to file ---
     output_file = os.path.splitext(file_name)[0] + "_skills.json"
     with open(output_file, "w", encoding="utf-8") as out_f:
         json.dump(merged, out_f, indent=2, ensure_ascii=False)
-    print(f"✅ Skills data saved to: {output_file}")
+    
+    # Output JSON ONLY to stdout (for programmatic use)
+    # Send informative messages to stderr instead so they don't interfere with JSON parsing
+    json_output = json.dumps(merged, indent=2, ensure_ascii=False)
+    print(json_output, file=sys.stdout)
+    print(f"✅ Skills data saved to: {output_file}", file=sys.stderr)
 
 except json.JSONDecodeError:
-    print("⚠️ JSON decoding failed, raw response:")
-    print(raw)
+    print("⚠️ JSON decoding failed, raw response:", file=sys.stderr)
+    print(raw, file=sys.stderr)
+    sys.exit(1)

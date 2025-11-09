@@ -144,14 +144,43 @@ def extract_skills_with_script(resume_text: str) -> Dict[str, List[str]]:
             text=True,
             check=False,
         )
+        
+        if proc.returncode != 0:
+            raise RuntimeError(f"extract_skills.py failed with return code {proc.returncode}.\nSTDERR: {proc.stderr}")
+        
         stdout = proc.stdout.strip()
-        # Try to locate the final JSON in stdout
-        json_match = re.search(r"\{[\s\S]*\}$", stdout)
-        if not json_match:
-            # Sometimes the script prints logs; search for a JSON block
-            raise RuntimeError(f"Could not parse skills JSON from extract_skills.py output:\n{stdout}\nSTDERR:\n{proc.stderr}")
-
-        data = json.loads(json_match.group(0))
+        stderr = proc.stderr.strip()
+        
+        # Try to parse JSON from stdout (should be clean JSON now)
+        data = None
+        try:
+            # First, try parsing stdout directly as JSON
+            data = json.loads(stdout)
+        except json.JSONDecodeError:
+            # If that fails, try to extract JSON using regex (for backwards compatibility)
+            json_match = re.search(r'\{[\s\S]*\}', stdout)
+            if json_match:
+                try:
+                    data = json.loads(json_match.group(0))
+                except json.JSONDecodeError:
+                    pass
+        
+        # If parsing from stdout failed, try reading the output file directly
+        if data is None:
+            output_file = os.path.splitext(tmp_name)[0] + "_skills.json"
+            if os.path.exists(output_file):
+                try:
+                    with open(output_file, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                except (json.JSONDecodeError, IOError) as e:
+                    pass
+        
+        if data is None:
+            raise RuntimeError(
+                f"Could not parse skills JSON from extract_skills.py output.\n"
+                f"STDOUT:\n{stdout}\n\nSTDERR:\n{stderr}"
+            )
+        
         skills = data.get("skills", {})
         # Ensure schema presence
         for k in ("ProgrammingLanguages", "FrameworksLibraries", "ToolsPlatforms"):
@@ -160,6 +189,13 @@ def extract_skills_with_script(resume_text: str) -> Dict[str, List[str]]:
     finally:
         try:
             os.remove(tmp_name)
+            # Also try to clean up the skills JSON file if it exists
+            output_file = os.path.splitext(tmp_name)[0] + "_skills.json"
+            if os.path.exists(output_file):
+                try:
+                    os.remove(output_file)
+                except OSError:
+                    pass
         except OSError:
             pass
 

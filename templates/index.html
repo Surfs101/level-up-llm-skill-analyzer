@@ -1398,7 +1398,7 @@
             URL.revokeObjectURL(url);
         }
         
-        // Skill Analyzer form handler with progress updates
+        // Skill Analyzer form handler with automatic fallback to sync endpoint
         document.getElementById('analyzeForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -1423,65 +1423,140 @@
             resultArea.innerHTML = '<div style="padding: 0; display: flex; align-items: center; gap: 12px;"><div class="spinner" style="border: 2px solid var(--border-color); border-top: 2px solid var(--accent-primary); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div><span id="progressText" style="color: var(--text-secondary); font-size: 14px;">Processing...</span></div>';
             const progressText = document.getElementById('progressText');
             
+            // Helper function to try sync endpoint as fallback
+            const trySyncEndpoint = async () => {
+                if (progressText) {
+                    progressText.textContent = 'Processing (using fallback method)...';
+                }
+                // Recreate FormData since it can only be read once
+                const syncFormData = new FormData();
+                syncFormData.append('resume', resumeFile);
+                syncFormData.append('job_text', jobText);
+                
+                const syncResponse = await fetch('/analyze-sync', {
+                    method: 'POST',
+                    body: syncFormData
+                });
+                
+                if (!syncResponse.ok) {
+                    const errorData = await syncResponse.json().catch(() => ({ detail: 'Unknown error' }));
+                    throw new Error(errorData.detail || `Server error: ${syncResponse.status}`);
+                }
+                
+                const syncData = await syncResponse.json();
+                return syncData;
+            };
+            
             try {
+                // Try SSE endpoint first
                 const response = await fetch('/analyze', {
                     method: 'POST',
                     body: formData
                 });
                 
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    console.warn('SSE endpoint failed, trying sync endpoint...');
+                    const finalData = await trySyncEndpoint();
+                    resultArea.innerHTML = renderSkillAnalyzerResults(finalData);
+                    return;
+                }
+                
+                // Check if response is actually a stream
+                if (!response.body) {
+                    console.warn('No response body, trying sync endpoint...');
+                    const finalData = await trySyncEndpoint();
+                    resultArea.innerHTML = renderSkillAnalyzerResults(finalData);
+                    return;
                 }
                 
                 const reader = response.body.getReader();
                 const decoder = new TextDecoder();
                 let buffer = '';
                 let finalData = null;
+                let streamError = null;
+                let timeoutId = null;
                 
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-                    
-                    buffer += decoder.decode(value, { stream: true });
-                    const lines = buffer.split('\n');
-                    buffer = lines.pop() || '';
-                    
-                    for (const line of lines) {
-                        if (line.startsWith('data: ')) {
-                            try {
-                                const data = JSON.parse(line.slice(6));
+                // Set a timeout for the stream (30 seconds)
+                const streamTimeout = new Promise((_, reject) => {
+                    timeoutId = setTimeout(() => {
+                        reject(new Error('Stream timeout'));
+                    }, 30000);
+                });
+                
+                try {
+                    const readStream = async () => {
+                        while (true) {
+                            const { done, value } = await reader.read();
+                            if (done) break;
+                            
+                            buffer += decoder.decode(value, { stream: true });
+                            const lines = buffer.split('\n');
+                            buffer = lines.pop() || '';
+                            
+                            for (const line of lines) {
+                                if (line.trim() === '') continue;
                                 
-                                if (data.type === 'progress') {
-                                    // Update single line of text - remove "Step X: " prefix
-                                    let message = data.message;
-                                    message = message.replace(/^Step \d+:\s*/i, '');
-                                    progressText.textContent = message;
-                                } else if (data.type === 'complete') {
-                                    finalData = data.data;
-                                } else if (data.type === 'error') {
-                                    throw new Error(data.message);
+                                if (line.startsWith('data: ')) {
+                                    try {
+                                        const jsonStr = line.slice(6).trim();
+                                        if (!jsonStr) continue;
+                                        
+                                        const data = JSON.parse(jsonStr);
+                                        
+                                        if (data.type === 'progress') {
+                                            if (progressText) {
+                                                let message = data.message;
+                                                message = message.replace(/^Step \d+:\s*/i, '');
+                                                progressText.textContent = message;
+                                            }
+                                        } else if (data.type === 'complete') {
+                                            finalData = data.data;
+                                        } else if (data.type === 'error') {
+                                            streamError = new Error(data.message);
+                                        }
+                                    } catch (e) {
+                                        console.error('Error parsing SSE data:', e, 'Line:', line);
+                                    }
                                 }
-                            } catch (e) {
-                                console.error('Error parsing SSE data:', e);
                             }
                         }
+                    };
+                    
+                    await Promise.race([readStream(), streamTimeout]);
+                    
+                    if (timeoutId) clearTimeout(timeoutId);
+                    
+                    if (streamError) {
+                        throw streamError;
+                    }
+                    
+                    if (finalData) {
+                        resultArea.innerHTML = renderSkillAnalyzerResults(finalData);
+                    } else {
+                        // No data from stream, try sync endpoint
+                        console.warn('No data from SSE stream, trying sync endpoint...');
+                        const syncData = await trySyncEndpoint();
+                        resultArea.innerHTML = renderSkillAnalyzerResults(syncData);
+                    }
+                } catch (streamErr) {
+                    if (timeoutId) clearTimeout(timeoutId);
+                    console.warn('Stream error:', streamErr, '- trying sync endpoint...');
+                    try {
+                        const syncData = await trySyncEndpoint();
+                        resultArea.innerHTML = renderSkillAnalyzerResults(syncData);
+                    } catch (syncErr) {
+                        throw syncErr;
                     }
                 }
-                
-                if (finalData) {
-                    // Render beautiful report
-                    resultArea.innerHTML = renderSkillAnalyzerResults(finalData);
-                } else {
-                    resultArea.innerHTML = '<div class="error">Error: No data received</div>';
-                }
             } catch (error) {
-                resultArea.innerHTML = '<div class="error">Error: ' + error.message + '</div>';
+                console.error('Request error:', error);
+                resultArea.innerHTML = '<div class="alert alert-error">❌ Error: ' + escapeHtml(error.message) + '</div>';
             } finally {
                 submitBtn.disabled = false;
             }
         });
         
-        // Cover Letter form handler with progress updates
+        // Cover Letter form handler with automatic fallback to sync endpoint
         document.getElementById('coverForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -1513,89 +1588,170 @@
             coverView.innerHTML = '<div style="padding: 0; display: flex; align-items: center; gap: 12px;"><div class="spinner" style="border: 2px solid var(--border-color); border-top: 2px solid var(--accent-primary); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div><span id="coverProgressText" style="color: var(--text-secondary); font-size: 14px;">Processing...</span></div>';
             const progressText = document.getElementById('coverProgressText');
             
+            // Helper function to render cover letter
+            const renderCoverLetter = (finalData) => {
+                const letterText = finalData.cover_letter || '';
+                const lines = letterText.split('\n');
+                
+                // Extract first line (name) and rest of the content
+                const firstName = lines[0]?.trim() || '';
+                const restOfContent = lines.slice(1).join('\n');
+                
+                // Split remaining content into paragraphs
+                const paragraphs = restOfContent.split(/\n{2,}/).map(p => {
+                    const para = p.replace(/\n/g, '<br>');
+                    return `<p>${para}</p>`;
+                }).join('');
+                
+                // Create header with name and copy button
+                const headerHtml = `
+                    <div class="cover-letter-header">
+                        <div class="cover-letter-name">${escapeHtml(firstName)}</div>
+                        <button class="copy-button" onclick="copyCoverLetter()" title="Copy cover letter">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            Copy
+                        </button>
+                    </div>
+                `;
+                
+                coverView.innerHTML = headerHtml + paragraphs;
+                currentCoverLetterText = letterText;
+            };
+            
+            // Helper function to try sync endpoint as fallback
+            const trySyncEndpoint = async () => {
+                if (progressText) {
+                    progressText.textContent = 'Processing (using fallback method)...';
+                }
+                // Recreate FormData since it can only be read once
+                const syncFormData = new FormData();
+                syncFormData.append('resume', resumeFile);
+                syncFormData.append('job_text', jobText);
+                if (templateFile) {
+                    syncFormData.append('template', templateFile);
+                }
+                
+                const syncResponse = await fetch('/cover-letter-sync', {
+                    method: 'POST',
+                    body: syncFormData
+                });
+                
+                if (!syncResponse.ok) {
+                    const errorData = await syncResponse.json().catch(() => ({ detail: 'Unknown error' }));
+                    throw new Error(errorData.detail || `Server error: ${syncResponse.status}`);
+                }
+                
+                const syncData = await syncResponse.json();
+                return syncData;
+            };
+            
             try {
+                // Try SSE endpoint first
                 const response = await fetch('/cover-letter', {
                     method: 'POST',
                     body: formData
                 });
                 
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    console.warn('SSE endpoint failed, trying sync endpoint...');
+                    const finalData = await trySyncEndpoint();
+                    renderCoverLetter(finalData);
+                    return;
+                }
+                
+                // Check if response is actually a stream
+                if (!response.body) {
+                    console.warn('No response body, trying sync endpoint...');
+                    const finalData = await trySyncEndpoint();
+                    renderCoverLetter(finalData);
+                    return;
                 }
                 
                 const reader = response.body.getReader();
                 const decoder = new TextDecoder();
                 let buffer = '';
                 let finalData = null;
+                let streamError = null;
+                let timeoutId = null;
                 
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-                    
-                    buffer += decoder.decode(value, { stream: true });
-                    const lines = buffer.split('\n');
-                    buffer = lines.pop() || '';
-                    
-                    for (const line of lines) {
-                        if (line.startsWith('data: ')) {
-                            try {
-                                const data = JSON.parse(line.slice(6));
+                // Set a timeout for the stream (30 seconds)
+                const streamTimeout = new Promise((_, reject) => {
+                    timeoutId = setTimeout(() => {
+                        reject(new Error('Stream timeout'));
+                    }, 30000);
+                });
+                
+                try {
+                    const readStream = async () => {
+                        while (true) {
+                            const { done, value } = await reader.read();
+                            if (done) break;
+                            
+                            buffer += decoder.decode(value, { stream: true });
+                            const lines = buffer.split('\n');
+                            buffer = lines.pop() || '';
+                            
+                            for (const line of lines) {
+                                if (line.trim() === '') continue;
                                 
-                                if (data.type === 'progress') {
-                                    // Update single line of text - remove "Step X: " prefix
-                                    let message = data.message;
-                                    message = message.replace(/^Step \d+:\s*/i, '');
-                                    progressText.textContent = message;
-                                } else if (data.type === 'complete') {
-                                    finalData = data.data;
-                                } else if (data.type === 'error') {
-                                    throw new Error(data.message);
+                                if (line.startsWith('data: ')) {
+                                    try {
+                                        const jsonStr = line.slice(6).trim();
+                                        if (!jsonStr) continue;
+                                        
+                                        const data = JSON.parse(jsonStr);
+                                        
+                                        if (data.type === 'progress') {
+                                            if (progressText) {
+                                                let message = data.message;
+                                                message = message.replace(/^Step \d+:\s*/i, '');
+                                                progressText.textContent = message;
+                                            }
+                                        } else if (data.type === 'complete') {
+                                            finalData = data.data;
+                                        } else if (data.type === 'error') {
+                                            streamError = new Error(data.message);
+                                        }
+                                    } catch (e) {
+                                        console.error('Error parsing SSE data:', e, 'Line:', line);
+                                    }
                                 }
-                            } catch (e) {
-                                console.error('Error parsing SSE data:', e);
                             }
                         }
+                    };
+                    
+                    await Promise.race([readStream(), streamTimeout]);
+                    
+                    if (timeoutId) clearTimeout(timeoutId);
+                    
+                    if (streamError) {
+                        throw streamError;
+                    }
+                    
+                    if (finalData) {
+                        renderCoverLetter(finalData);
+                    } else {
+                        // No data from stream, try sync endpoint
+                        console.warn('No data from SSE stream, trying sync endpoint...');
+                        const syncData = await trySyncEndpoint();
+                        renderCoverLetter(syncData);
+                    }
+                } catch (streamErr) {
+                    if (timeoutId) clearTimeout(timeoutId);
+                    console.warn('Stream error:', streamErr, '- trying sync endpoint...');
+                    try {
+                        const syncData = await trySyncEndpoint();
+                        renderCoverLetter(syncData);
+                    } catch (syncErr) {
+                        throw syncErr;
                     }
                 }
-                
-                if (finalData) {
-                    // Render cover letter with copy button on first line
-                    const letterText = finalData.cover_letter || '';
-                    const lines = letterText.split('\n');
-                    
-                    // Extract first line (name) and rest of the content
-                    const firstName = lines[0]?.trim() || '';
-                    const restOfContent = lines.slice(1).join('\n');
-                    
-                    // Split remaining content into paragraphs
-                    const paragraphs = restOfContent.split(/\n{2,}/).map(p => {
-                        const para = p.replace(/\n/g, '<br>');
-                        return `<p>${para}</p>`;
-                    }).join('');
-                    
-                    // Create header with name and copy button
-                    const headerHtml = `
-                        <div class="cover-letter-header">
-                            <div class="cover-letter-name">${escapeHtml(firstName)}</div>
-                            <button class="copy-button" onclick="copyCoverLetter()" title="Copy cover letter">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                </svg>
-                                Copy
-                            </button>
-                        </div>
-                    `;
-                    
-                    coverView.innerHTML = headerHtml + paragraphs;
-                    
-                    // Store the full text globally for copying
-                    currentCoverLetterText = letterText;
-                } else {
-                    coverView.innerHTML = '<div class="error">Error: No data received</div>';
-                }
             } catch (error) {
-                coverView.innerHTML = '<div class="error">Error: ' + error.message + '</div>';
+                console.error('Request error:', error);
+                coverView.innerHTML = '<div class="alert alert-error">❌ Error: ' + escapeHtml(error.message) + '</div>';
             } finally {
                 submitBtn.disabled = false;
             }
