@@ -1,7 +1,6 @@
 import sys
 import re
 import os
-import io
 from pathlib import Path
 import argparse
 
@@ -147,4 +146,5 @@ def main():
 
 
 if __name__ == "__main__":
+    import io  # Import here to avoid issues if packages aren't installed
     main()

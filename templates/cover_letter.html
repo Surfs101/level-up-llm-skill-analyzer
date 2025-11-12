@@ -1,0 +1,40 @@
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Generate Cover Letter</div>
+    </div>
+    <div class="card-body">
+        <form id="coverForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="coverResume">Résumé File (PDF)</label>
+                <input type="file" id="coverResume" name="resume" accept=".pdf" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="coverJobText">Job Description</label>
+                <textarea id="coverJobText" name="job_text" rows="8" required placeholder="Paste the complete job description here..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="coverTemplate">Cover Letter Template (Optional)</label>
+                <input type="file" id="coverTemplate" name="template" accept=".txt,.text">
+                <small style="color: var(--text-secondary); font-size: 12px; display: block; margin-top: 5px;">Upload a text file with your cover letter template. If not provided, a default template will be used.</small>
+            </div>
+            
+            <button type="submit">Generate Cover Letter</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Cover Letter Preview</div>
+    </div>
+    <div class="card-body" style="padding-top: 12px;">
+        <div class="result-area">
+            <div id="coverLetterView" class="cover-letter-view">
+                <p style="color: var(--text-secondary); margin: 0;">Your generated cover letter will appear here.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
