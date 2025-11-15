@@ -1,0 +1,35 @@
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Upload Your Résumé</div>
+    </div>
+    <div class="card-body">
+        <form id="analyzeForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="analyzeResume">Résumé File (PDF)</label>
+                <input type="file" id="analyzeResume" name="resume" accept=".pdf" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="analyzeJobText">Job Description</label>
+                <textarea id="analyzeJobText" name="job_text" rows="8" required placeholder="Paste the complete job description here..."></textarea>
+            </div>
+            
+            <button type="submit">Analyze Match</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Analysis Results</div>
+        <div class="badge">Live</div>
+    </div>
+    <div class="card-body" style="padding-top: 12px;">
+        <div class="result-area">
+            <div id="analyzeResult">
+                <p style="color: var(--text-secondary); margin: 0;">Results will appear here after submission.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
