@@ -1,0 +1,32 @@
+# Core dependencies
+openai
+python-dotenv
+
+# PDF handling
+PyPDF2
+PyMuPDF
+pdfminer.six
+
+# OCR (Optical Character Recognition)
+pytesseract
+pillow
+
+# Encoding detection
+chardet
+
+# Optional but recommended for structured logging and CLI
+argparse
+
+# Web frameworks
+flask
+fastapi
+uvicorn[standard]
+python-multipart
+jinja2
+
+# Word document support
+python-docx
+
+# Database
+pymongo
+pandas
