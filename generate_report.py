@@ -266,14 +266,15 @@ def get_course_recommendations(resume_json: dict, job_json: dict, role: str = "T
     return recommendations
 
 
-def get_project_recommendations(job_description_text: str, resume_json: dict, job_json: dict, primary_gap_skill: str | None = None) -> dict:
-    """Get project recommendations based on job, resume, and explicit gaps.
+def get_project_recommendations(job_description_text: str, resume_json: dict, job_json: dict, primary_gap_skill: str | None = None, course_recommendations: dict | None = None) -> dict:
+    """Get project recommendations based on job, resume, explicit gaps, and course recommendations.
     
     Args:
         job_description_text: Raw job description text
         resume_json: Resume skills JSON
         job_json: Job skills JSON (required/preferred)
         primary_gap_skill: Primary missing skill to focus on (same as course recommendations)
+        course_recommendations: Course recommendations dict (from get_course_recommendations) to align projects with
     """
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     
@@ -287,7 +288,7 @@ def get_project_recommendations(job_description_text: str, resume_json: dict, jo
         need = get_job_preferred_skills(job_json)
         gaps = compute_gaps(have, need)
     
-    prompt = build_project_prompt(job_description_text, resume_skills, gaps, primary_gap_skill=primary_gap_skill)
+    prompt = build_project_prompt(job_description_text, resume_skills, gaps, primary_gap_skill=primary_gap_skill, course_recommendations=course_recommendations)
     
     response = client.chat.completions.create(
         model="gpt-4o",
@@ -298,9 +299,17 @@ def get_project_recommendations(job_description_text: str, resume_json: dict, jo
     raw = response.choices[0].message.content
     data = json.loads(raw)
     
+    # Extract paid course skills for enforcement
+    paid_course_skills_set = set()
+    if course_recommendations:
+        paid_courses = course_recommendations.get("paid_courses", [])
+        for course in paid_courses[:3]:  # Top 3 paid courses
+            skills_covered = course.get("skills_covered", [])
+            paid_course_skills_set.update(skills_covered)
+    
     # Flatten required gaps to a list for enforcement (technical buckets only handled in project module)
     flat_gaps = sorted({s for b in gaps for s in gaps[b]})
-    cleaned = enforce_top_schema(data, required_gap_skills=flat_gaps, primary_gap_skill=primary_gap_skill)
+    cleaned = enforce_top_schema(data, required_gap_skills=flat_gaps, primary_gap_skill=primary_gap_skill, resume_skills=resume_skills, paid_course_skills=paid_course_skills_set if paid_course_skills_set else None)
     return cleaned
 
 
@@ -374,7 +383,7 @@ def generate_report(
         role_label
     )
     
-    # Step 5: Get project recommendations (sync with course recommendations via primary gap skill)
+    # Step 5: Get project recommendations (sync with course recommendations via primary gap skill and course data)
     step_msg = "Generating project recommendations..."
     print(step_msg)
     if progress_callback:
@@ -383,7 +392,8 @@ def generate_report(
         job_description_text,
         resume_skills_json,
         job_skills_json,
-        primary_gap_skill=primary_gap_skill
+        primary_gap_skill=primary_gap_skill,
+        course_recommendations=course_recommendations  # Pass course recommendations to align projects
     )
     
     # Compile final report
