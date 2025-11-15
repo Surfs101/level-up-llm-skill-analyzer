@@ -965,6 +965,7 @@ HTML_TEMPLATE = """
                                 <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border-color);">
                                     <h4 style="color: var(--accent-success); margin-bottom: 12px;">🆓 Free Course: ${free.title || 'N/A'}</h4>
                                     <div class="detail"><strong>Platform:</strong> ${free.platform || 'N/A'}</div>
+                                    <div class="detail"><strong>Rating:</strong> ${free.rating ? free.rating.toFixed(2) : 'N/A'}</div>
                                     <div class="detail"><strong>Duration:</strong> ${free.duration || 'N/A'}</div>
                                     <div class="detail"><strong>Difficulty:</strong> ${free.difficulty || 'N/A'}</div>
                                     <div class="detail"><strong>Cost:</strong> ${free.cost || 'Free'}</div>
@@ -983,6 +984,7 @@ HTML_TEMPLATE = """
                                 <div>
                                     <h4 style="color: var(--accent-primary); margin-bottom: 12px;">💰 Paid Course: ${paid.title || 'N/A'}</h4>
                                     <div class="detail"><strong>Platform:</strong> ${paid.platform || 'N/A'}</div>
+                                    <div class="detail"><strong>Rating:</strong> ${paid.rating ? paid.rating.toFixed(2) : 'N/A'}</div>
                                     <div class="detail"><strong>Duration:</strong> ${paid.duration || 'N/A'}</div>
                                     <div class="detail"><strong>Difficulty:</strong> ${paid.difficulty || 'N/A'}</div>
                                     <div class="detail"><strong>Cost:</strong> ${paid.cost || 'N/A'}</div>

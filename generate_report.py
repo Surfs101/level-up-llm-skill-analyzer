@@ -15,7 +15,7 @@ from pdf_resume_parser import PDFToTextConverter
 from score_skills_match import score_match, parse_weights
 from recommend_courses import (
     get_resume_skills, get_job_required_skills, get_job_preferred_skills, compute_gaps,
-    build_prompt, enforce_schema_and_rules, gaps_empty, _rank_missing_skills
+    gaps_empty, _rank_missing_skills, recommend_courses_from_gaps
 )
 from recommend_projects import (
     get_resume_skills as get_resume_skills_projects,
@@ -249,31 +249,19 @@ Job Description:
 
 
 def get_course_recommendations(resume_json: dict, job_json: dict, role: str = "Target Role") -> dict:
-    """Get course recommendations based on skill gaps."""
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-    
-    have = get_resume_skills(resume_json)
-    need_required = get_job_required_skills(job_json)
-    gaps = compute_gaps(have, need_required)
-    # If no REQUIRED gaps, fall back to PREFERRED gaps
-    if gaps_empty(gaps):
-        need_pref = get_job_preferred_skills(job_json)
-        gaps = compute_gaps(have, need_pref)
-    
-    prompt = build_prompt(role, gaps)
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role": "user", "content": prompt}],
-        response_format={"type": "json_object"}
+    """Get course recommendations from MongoDB based on skill gaps."""
+    # Use MongoDB-based recommendation function
+    recommendations = recommend_courses_from_gaps(
+        resume_json=resume_json,
+        job_json=job_json,
+        role=role,
+        require_free=False,
+        require_paid=False,
+        max_free=1,
+        max_paid=1
     )
     
-    raw = response.choices[0].message.content
-    data = json.loads(raw)
-    
-    target_skills = sorted({s for b in BUCKETS for s in gaps.get(b, [])})
-    cleaned = enforce_schema_and_rules(data, target_skills)
-    
-    return cleaned
+    return recommendations
 
 
 def get_project_recommendations(job_description_text: str, resume_json: dict, job_json: dict, primary_gap_skill: str | None = None) -> dict:
