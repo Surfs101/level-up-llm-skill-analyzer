@@ -21,6 +21,15 @@ from pathlib import Path
 from collections import defaultdict
 
 BUCKETS = ["ProgrammingLanguages", "FrameworksLibraries", "ToolsPlatforms", "SoftSkills"]
+TARGET_BUCKETS = ["ProgrammingLanguages", "FrameworksLibraries", "ToolsPlatforms"]
+
+# Importance weights per bucket (higher → more important for gap closure)
+BUCKET_WEIGHTS = {
+    "ToolsPlatforms": 1.0,
+    "FrameworksLibraries": 0.9,
+    "ProgrammingLanguages": 0.8,
+    "SoftSkills": 0.3,
+}
 
 # -------------------------
 # Helpers
@@ -66,6 +75,41 @@ def parse_weights(s: str):
 
 def pct(n: int, d: int) -> float:
     return round(100.0 * n / d, 2) if d > 0 else 0.0
+
+def rank_missing_skills_by_priority(missing_skills_list: list, gaps_by_bucket: dict) -> list:
+    """Rank missing skills by bucket importance (priority) instead of alphabetically.
+    
+    Args:
+        missing_skills_list: List of missing skills (original case)
+        gaps_by_bucket: Dict mapping bucket names to lists of missing skills in that bucket
+    
+    Returns:
+        List of skills sorted by priority (highest priority first)
+    """
+    if not missing_skills_list:
+        return []
+    
+    # Build a map of skill -> bucket for quick lookup
+    skill_to_bucket = {}
+    for bucket in BUCKETS:
+        bucket_skills = gaps_by_bucket.get(bucket, [])
+        for skill in bucket_skills:
+            skill_lower = norm_skill(skill)
+            skill_to_bucket[skill_lower] = bucket
+    
+    # Score each skill by bucket weight
+    scored = []
+    for skill in missing_skills_list:
+        skill_lower = norm_skill(skill)
+        bucket = skill_to_bucket.get(skill_lower, "SoftSkills")  # Default to SoftSkills if not found
+        weight = BUCKET_WEIGHTS.get(bucket, 0.5)
+        # Negative weight for descending sort (highest priority first)
+        # Use skill.lower() as tiebreaker for consistent ordering
+        scored.append((-(weight), skill.lower(), skill))
+    
+    # Sort by priority (highest weight first), then alphabetically as tiebreaker
+    scored.sort()
+    return [orig for _, __, orig in scored]
 
 # Keep an original-casing registry so we can display nicer names in outputs
 def build_original_case_map(*lists):
@@ -118,10 +162,15 @@ def score_match(resume_json: dict, job_json: dict, w_required: float, w_preferre
         job_pref_all |= need_pref
 
         covered_req = sorted(list(have & need_req))
-        missing_req = sorted(list(need_req - have))
+        missing_req_raw = list(need_req - have)
 
         covered_pref = sorted(list(have & need_pref))
-        missing_pref = sorted(list(need_pref - have))
+        missing_pref_raw = list(need_pref - have)
+        
+        # Rank missing skills by priority (will be sorted later in overall section)
+        # For per-bucket, we'll still show them but they'll be sorted by priority in the overall list
+        missing_req = [orig_map.get(s, s) for s in missing_req_raw]
+        missing_pref = [orig_map.get(s, s) for s in missing_pref_raw]
 
         req_total = len(need_req)
         pref_total = len(need_pref)
@@ -177,9 +226,23 @@ def score_match(resume_json: dict, job_json: dict, w_required: float, w_preferre
 
     # Collect covered/missing lists overall in a bucket-agnostic way (pretty cased)
     covered_required_all = [orig_map.get(s, s) for s in sorted(list(resume_all & job_req_all))]
-    missing_required_all = [orig_map.get(s, s) for s in sorted(list(job_req_all - resume_all))]
+    missing_required_all_raw = [orig_map.get(s, s) for s in list(job_req_all - resume_all)]
     covered_preferred_all = [orig_map.get(s, s) for s in sorted(list(resume_all & job_pref_all))]
-    missing_preferred_all = [orig_map.get(s, s) for s in sorted(list(job_pref_all - resume_all))]
+    missing_preferred_all_raw = [orig_map.get(s, s) for s in list(job_pref_all - resume_all)]
+    
+    # Build gaps by bucket for priority ranking
+    gaps_required_by_bucket = {}
+    gaps_preferred_by_bucket = {}
+    for b in BUCKETS:
+        have = to_set_safe(resume_sk, b)
+        need_req = to_set_safe(job_req_sk, b)
+        need_pref = to_set_safe(job_pref_sk, b)
+        gaps_required_by_bucket[b] = [orig_map.get(s, s) for s in (need_req - have)]
+        gaps_preferred_by_bucket[b] = [orig_map.get(s, s) for s in (need_pref - have)]
+    
+    # Rank missing skills by priority instead of alphabetically
+    missing_required_all = rank_missing_skills_by_priority(missing_required_all_raw, gaps_required_by_bucket)
+    missing_preferred_all = rank_missing_skills_by_priority(missing_preferred_all_raw, gaps_preferred_by_bucket)
 
     # Extra skills on resume not mentioned in job (could be nice-to-have)
     extra_resume = sorted(list(resume_all - job_all))
@@ -205,8 +268,8 @@ def score_match(resume_json: dict, job_json: dict, w_required: float, w_preferre
             "preferred": sorted(list(set(covered_preferred_all)))
         },
         "missing_skills": {
-            "required": sorted(list(set(missing_required_all))),
-            "preferred": sorted(list(set(missing_preferred_all)))
+            "required": list(dict.fromkeys(missing_required_all)),  # Preserve priority order, remove duplicates
+            "preferred": list(dict.fromkeys(missing_preferred_all))  # Preserve priority order, remove duplicates
         },
         "extra_resume_skills": extra_resume
     }
