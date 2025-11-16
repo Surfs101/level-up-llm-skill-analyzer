@@ -53,6 +53,104 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 def _read_text_file(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
 
+def _extract_paragraphs(text: str) -> List[str]:
+    """
+    Extract paragraphs from text, handling both line-break and period-separated formats.
+    
+    First tries splitting by double newlines. If that doesn't yield good results,
+    falls back to splitting by periods followed by spaces/capital letters.
+    
+    Args:
+        text: Input text to extract paragraphs from
+    
+    Returns:
+        List of paragraph strings
+    """
+    # First, try splitting by double newlines (most common format)
+    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
+    
+    # If we got good results (multiple paragraphs of reasonable length), use them
+    if len(paragraphs) >= 2:
+        # Check if paragraphs are substantial (not just single sentences)
+        substantial_paras = [p for p in paragraphs if len(p) > 50]
+        if len(substantial_paras) >= 2:
+            return paragraphs
+    
+    # If splitting by newlines didn't work well, try splitting by periods
+    # Look for patterns like ". " followed by a capital letter (new paragraph)
+    # or periods at the end of lines
+    # Pattern: period followed by space and capital letter (likely new paragraph)
+    # Also handle cases where period is at end of line
+    para_pattern = r'\.\s+(?=[A-Z][a-z])|\.\n+|\.\r\n+'
+    
+    # Split by the pattern
+    potential_paras = re.split(para_pattern, text)
+    
+    # Clean up and filter
+    cleaned_paras = []
+    for para in potential_paras:
+        para = para.strip()
+        # Only keep substantial paragraphs (more than just a few words)
+        if para and len(para) > 30:
+            cleaned_paras.append(para)
+    
+    # If we got better results with period splitting, use those
+    if len(cleaned_paras) >= 2:
+        return cleaned_paras
+    
+    # Fallback: if all else fails, treat the whole text as one paragraph
+    # or split by single newlines as last resort
+    if text.strip():
+        single_line_paras = [p.strip() for p in text.split("\n") if p.strip() and len(p.strip()) > 30]
+        if single_line_paras:
+            return single_line_paras
+        return [text.strip()]
+    
+    return []
+
+def load_template_file(path: Path) -> str:
+    """
+    Load a user-provided template / old cover letter file and return its plain-text content.
+    Supports .txt/.md, .pdf, and .doc/.docx. Falls back to raw text for unknown extensions.
+    """
+    ext = path.suffix.lower()
+    
+    # Simple text formats
+    if ext in {".txt", ".md"}:
+        return _read_text_file(path)
+    
+    # PDF → use the same converter we already use for resumes
+    if ext == ".pdf":
+        try:
+            from pdf_resume_parser import PDFToTextConverter
+        except ImportError as e:
+            raise RuntimeError(
+                "pdf_resume_parser.PDFToTextConverter is required to use PDF as a template."
+            ) from e
+        
+        conv = PDFToTextConverter(str(path))
+        ok = conv.convert()
+        if not ok:
+            raise RuntimeError(f"Failed to convert template PDF to text: {path}")
+        # use cleaned_text just like for resumes
+        return conv.cleaned_text
+    
+    # DOC/DOCX → use python-docx
+    if ext in {".doc", ".docx"}:
+        try:
+            from docx import Document
+        except ImportError as e:
+            raise RuntimeError(
+                "python-docx is required to use .doc/.docx files as templates."
+            ) from e
+        
+        doc = Document(str(path))
+        # join paragraphs with blank lines so paragraph splitting works later
+        return "\n\n".join(p.text.strip() for p in doc.paragraphs if p.text.strip())
+    
+    # Fallback: read as text anyway (best-effort)
+    return _read_text_file(path)
+
 def _load_template(template_path: Optional[Path]) -> str:
     if template_path and template_path.exists():
         return _read_text_file(template_path)
@@ -347,19 +445,53 @@ Output JSON format:
                 first_name = name_parts[0]
                 last_name = ' '.join(name_parts[1:])
         
+        # Ensure we strip whitespace and handle None values
+        first_name = first_name.strip() if first_name else None
+        last_name = last_name.strip() if last_name else None
+        
+        # If we have a name but it's not split correctly, try to split it
+        # Sometimes the LLM might return the full name in first_name or last_name
+        if first_name and not last_name:
+            # Check if first_name contains multiple words (full name)
+            if len(first_name.split()) > 1:
+                name_parts = first_name.split()
+                first_name = name_parts[0]
+                last_name = ' '.join(name_parts[1:])
+        elif last_name and not first_name:
+            # Check if last_name contains multiple words (full name)
+            if len(last_name.split()) > 1:
+                name_parts = last_name.split()
+                first_name = name_parts[0]
+                last_name = ' '.join(name_parts[1:])
+        
         return {
-            "first_name": first_name.strip() if first_name else None,
-            "last_name": last_name.strip() if last_name else None,
+            "first_name": first_name,
+            "last_name": last_name,
             "email": email,
             "phone": phone,
             "address": address
         }
     except Exception as e:
         print(f"Warning: Error in LLM extraction: {e}")
-        # Return what we extracted from regex
+        # Return what we extracted from regex, with same name splitting logic
+        first_name_clean = first_name.strip() if first_name else None
+        last_name_clean = last_name.strip() if last_name else None
+        
+        # If we have a name but it's not split correctly, try to split it
+        if first_name_clean and not last_name_clean:
+            if len(first_name_clean.split()) > 1:
+                name_parts = first_name_clean.split()
+                first_name_clean = name_parts[0]
+                last_name_clean = ' '.join(name_parts[1:])
+        elif last_name_clean and not first_name_clean:
+            if len(last_name_clean.split()) > 1:
+                name_parts = last_name_clean.split()
+                first_name_clean = name_parts[0]
+                last_name_clean = ' '.join(name_parts[1:])
+        
         return {
-            "first_name": first_name.strip() if first_name else None,
-            "last_name": last_name.strip() if last_name else None,
+            "first_name": first_name_clean,
+            "last_name": last_name_clean,
             "email": email,
             "phone": phone,
             "address": address
@@ -490,21 +622,175 @@ def fill_template_placeholders(
 ) -> str:
     """
     Replace placeholders in template with extracted information.
-    Removes lines for missing optional fields (phone, address, company_address).
+    For missing fields, uses placeholder text like "[replace with contact number - or remove it if not needed]".
     """
     lines = template.split('\n')
     result_lines = []
     i = 0
-    address_added = False
-    last_contact_index = -1
     
-    # First pass: replace placeholders and track contact info position
+    # First pass: replace placeholders
     while i < len(lines):
         line = lines[i]
         line_stripped = line.strip()
         
         # Replace name
         if line_stripped == "First Last Name":
+            full_name = ""
+            # Try to construct full name from first_name and last_name
+            if personal_info.get("first_name") and personal_info.get("last_name"):
+                full_name = f"{personal_info['first_name']} {personal_info['last_name']}"
+            elif personal_info.get("first_name"):
+                full_name = personal_info['first_name']
+            elif personal_info.get("last_name"):
+                full_name = personal_info['last_name']
+            
+            if full_name:
+                result_lines.append(full_name.strip())
+            else:
+                result_lines.append("[replace with your name]")
+            i += 1
+        
+        # Replace email
+        elif line_stripped == "Email Address":
+            email = personal_info.get("email")
+            if email:
+                result_lines.append(email)
+            else:
+                result_lines.append("[replace with email address]")
+            i += 1
+        
+        # Replace phone
+        elif line_stripped == "Contact Number":
+            phone = personal_info.get("phone")
+            if phone:
+                result_lines.append(phone)
+            else:
+                result_lines.append("[replace with contact number - or remove it if not needed]")
+            i += 1
+        
+        # Replace date
+        elif line_stripped == "Date of application submission":
+            # Before adding date, check if we need to insert address
+            # Address should go after contact info, before date
+            address = personal_info.get("address")
+            if address and not any(address in line for line in result_lines):
+                # Check if we just processed contact number
+                if result_lines and (
+                    "[replace with contact number" in result_lines[-1] or 
+                    (personal_info.get("phone") and personal_info.get("phone") in result_lines[-1])
+                ):
+                    # Insert blank line and address before date
+                    result_lines.append("")
+                    result_lines.append(address)
+            
+            result_lines.append(current_date)
+            i += 1
+        
+        # Keep blank lines
+        elif line_stripped == "":
+            result_lines.append(line)
+            i += 1
+        
+        # Replace company name
+        elif line_stripped == "Company Name":
+            company_name = company_info.get("company_name")
+            if company_name:
+                result_lines.append(company_name)
+            else:
+                result_lines.append("[replace with company name]")
+            i += 1
+        
+        # Replace company street
+        elif line_stripped == "Company Street":
+            company_address = company_info.get("company_address")
+            if company_address:
+                # Try to split address into street and city/state
+                # Common patterns: "123 Street, City, State ZIP" or "123 Street, City, State"
+                address_parts = company_address.split(", ")
+                if len(address_parts) >= 2:
+                    # First part is usually street
+                    street = address_parts[0]
+                    result_lines.append(street)
+                    # Check if next line is "Company City, State"
+                    if i + 1 < len(lines) and lines[i + 1].strip() == "Company City, State":
+                        # City, State is the rest
+                        city_state = ", ".join(address_parts[1:])
+                        result_lines.append(city_state)
+                        i += 2  # Skip both street and city/state lines
+                        continue
+                    else:
+                        # No separate city/state line, put everything on street line
+                        result_lines[-1] = company_address
+                else:
+                    # Can't split (only one part), put full address on street line
+                    # Mark that we need a placeholder for city/state
+                    result_lines.append(company_address)
+                    # Check if next line is "Company City, State" - if so, we'll handle it
+                    if i + 1 < len(lines) and lines[i + 1].strip() == "Company City, State":
+                        # We'll add placeholder for city/state in the next iteration
+                        pass
+            else:
+                result_lines.append("[replace with company street - or remove it if not needed]")
+            i += 1
+        
+        # Replace company city/state
+        elif line_stripped == "Company City, State":
+            # Check if street was already processed
+            if result_lines:
+                last_line = result_lines[-1].strip()
+                company_address = company_info.get("company_address")
+                
+                # Check if city/state was already added (when we processed street with multiple parts)
+                # If the last line contains ", " and is part of the address, city/state was already added
+                if company_address and ", " in company_address:
+                    address_parts = company_address.split(", ")
+                    if len(address_parts) >= 2:
+                        city_state_part = ", ".join(address_parts[1:])
+                        # If last line is the city/state part, it was already added
+                        if last_line == city_state_part:
+                            # City/state already added, skip this line
+                            i += 1
+                            continue
+                        # If last line is the full address, we need to add city/state separately
+                        elif last_line == company_address:
+                            # Full address on street line, add city/state part
+                            result_lines.append(city_state_part)
+                            i += 1
+                            continue
+                
+                # If we have an address but it was put on street line as a single part (no ", ")
+                if company_address and company_address == last_line and ", " not in company_address:
+                    # Address couldn't be split, so city/state needs placeholder
+                    result_lines.append("[replace with company city, state - or remove it if not needed]")
+                elif "[replace with company street" in last_line or not company_address:
+                    # Street wasn't processed or address not found, add placeholder
+                    result_lines.append("[replace with company city, state - or remove it if not needed]")
+                # Otherwise, city/state was already handled above, so skip
+            else:
+                result_lines.append("[replace with company city, state - or remove it if not needed]")
+            i += 1
+        
+        # Keep all other lines as-is
+        else:
+            result_lines.append(line)
+            i += 1
+    
+    # Join lines and clean up extra blank lines (more than 2 consecutive)
+    result = '\n'.join(result_lines)
+    result = re.sub(r'\n{3,}', '\n\n', result)
+    
+    # Post-processing: If we still have "First Last Name" placeholders but we have a name in the signature,
+    # extract it and replace the placeholder
+    if "[replace with your name]" in result or "First Last Name" in result:
+        # Look for the name in the signature area (after "Sincerely,")
+        signature_match = re.search(r'Sincerely,.*?\n+([A-Za-z]+(?:\s+[A-Za-z-]+)+)', result, re.IGNORECASE | re.DOTALL)
+        if signature_match:
+            extracted_name = signature_match.group(1).strip()
+            # Replace any remaining placeholders with the extracted name
+            result = result.replace("[replace with your name]", extracted_name)
+            result = result.replace("First Last Name", extracted_name)
+        # Also try to construct from personal_info one more time
+        elif personal_info.get("first_name") or personal_info.get("last_name"):
             full_name = ""
             if personal_info.get("first_name") and personal_info.get("last_name"):
                 full_name = f"{personal_info['first_name']} {personal_info['last_name']}"
@@ -513,105 +799,8 @@ def fill_template_placeholders(
             elif personal_info.get("last_name"):
                 full_name = personal_info['last_name']
             if full_name:
-                result_lines.append(full_name)
-            else:
-                result_lines.append(line)  # Keep placeholder if no name found
-            i += 1
-        
-        # Replace email
-        elif line_stripped == "Email Address":
-            email = personal_info.get("email")
-            if email:
-                result_lines.append(email)
-                last_contact_index = len(result_lines) - 1
-            # Skip this line if email not found
-            i += 1
-        
-        # Replace phone
-        elif line_stripped == "Contact Number":
-            phone = personal_info.get("phone")
-            if phone:
-                result_lines.append(phone)
-                last_contact_index = len(result_lines) - 1
-            # Skip this line if phone not found
-            i += 1
-        
-        # Track when we're past contact section (before date)
-        elif line_stripped == "Date of application submission":
-            # Insert address before date if we have one and haven't added it
-            address = personal_info.get("address")
-            if address and not address_added and last_contact_index >= 0:
-                # Find the right place to insert (after last contact, before date)
-                # Add blank line and address before date
-                result_lines.append("")  # Blank line
-                result_lines.append(address)
-                address_added = True
-            
-            result_lines.append(current_date)
-            i += 1
-        
-        # Keep blank lines for now (will handle address insertion)
-        elif line_stripped == "":
-            # Only keep blank line if we're not about to insert address
-            if not (address_added == False and personal_info.get("address") and last_contact_index >= 0):
-                result_lines.append(line)
-            i += 1
-        
-        # Replace company name
-        elif line_stripped == "Company Name":
-            company_name = company_info.get("company_name")
-            if company_name:
-                result_lines.append(company_name)
-            # Skip this line if company name not found
-            i += 1
-        
-        # Replace company street
-        elif line_stripped == "Company Street":
-            company_address = company_info.get("company_address")
-            if company_address:
-                # Split address into parts
-                address_parts = company_address.split(", ")
-                if len(address_parts) >= 2:
-                    result_lines.append(address_parts[0])  # Street
-                    # Check next line for city/state
-                    if i + 1 < len(lines) and lines[i + 1].strip() == "Company City, State":
-                        result_lines.append(", ".join(address_parts[1:]))  # City, State
-                        i += 2  # Skip both street and city/state lines
-                        continue
-                    else:
-                        result_lines.append(", ".join(address_parts[1:]))  # City, State on same line
-                else:
-                    result_lines.append(company_address)
-            # Skip this line if address not found
-            i += 1
-        
-        # Replace company city/state (should be handled above, but catch if needed)
-        elif line_stripped == "Company City, State":
-            # If we reach here, company street wasn't processed, so skip this line
-            i += 1
-        
-        # Keep all other lines as-is
-        else:
-            result_lines.append(line)
-            i += 1
-    
-    # If we still need to add address and haven't done so, add it after contact info
-    if not address_added and personal_info.get("address") and last_contact_index >= 0:
-        # Find insertion point: after last contact, before date
-        date_idx = -1
-        for idx, line in enumerate(result_lines):
-            if "Date of application submission" in line or current_date in line:
-                date_idx = idx
-                break
-        
-        if date_idx > 0:
-            # Insert address before date
-            result_lines.insert(date_idx, "")
-            result_lines.insert(date_idx + 1, personal_info.get("address"))
-    
-    # Join lines and clean up extra blank lines (more than 2 consecutive)
-    result = '\n'.join(result_lines)
-    result = re.sub(r'\n{3,}', '\n\n', result)
+                result = result.replace("[replace with your name]", full_name.strip())
+                result = result.replace("First Last Name", full_name.strip())
     
     return result
 
@@ -619,9 +808,25 @@ def fill_template_placeholders(
 def draft_body(resume_text: str,
                job_text: str,
                skills: Dict[str, List[str]],
-               projects: List[Dict[str, str]]) -> Tuple[str, Dict[str, List[str]]]:
+               projects: List[Dict[str, str]],
+               style_example: Optional[str] = None,
+               style_paragraphs: Optional[List[str]] = None) -> Tuple[str, Dict[str, List[str]]]:
     """
-    Returns (body_text, meta) where meta contains 'skills_used' and 'projects_referenced'.
+    Draft the cover letter body using LLM, constrained to resume-only info.
+    
+    Args:
+        resume_text: Raw resume text content
+        job_text: Job description text
+        skills: Extracted skills from resume
+        projects: Extracted projects/experiences from resume
+        style_example: Optional example cover letter to mimic writing style.
+                      If provided, the LLM will match tone and formality but
+                      will NOT copy sentences, phrases, dates, or company names.
+        style_paragraphs: Optional list of paragraphs from style_example.
+                          Used to match paragraph count, narrative flow, and structure.
+    
+    Returns:
+        Tuple of (body_text, meta) where meta contains 'skills_used' and 'projects_referenced'.
     """
     # Flatten skills for readability
     flat_skills = _safe_unique(
@@ -641,24 +846,107 @@ def draft_body(resume_text: str,
         "Keep it ~150–220 words, 2–3 paragraphs, direct and impact-focused."
     )
 
+    # Build paragraph structure block if provided
+    paragraph_style_block = ""
+    if style_paragraphs:
+        n_paragraphs = len(style_paragraphs)
+        summarized = [
+            f"- Paragraph {i+1}: {p[:220]}..." for i, p in enumerate(style_paragraphs)
+        ]
+        paragraph_style_block = f"""
+
+Paragraph structure of my previous cover letter:
+
+{chr(10).join(summarized)}
+
+
+
+You MUST produce **exactly {n_paragraphs} paragraphs** in the new body.
+
+Each paragraph should serve a similar narrative purpose and order
+
+(e.g., introduction, past experience, current project, technical skills, motivation/fit, closing),
+
+but all wording must be new and all content must come only from my resume and the job description.
+
+Separate paragraphs using a single blank line.
+
+"""
+
+    # Build style example block if provided
+    style_block = ""
+    if style_example:
+        style_block = f"""
+
+Here is an example of my previous cover letter.
+
+Mimic its tone, level of formality, and general sentence rhythm,
+
+but DO NOT copy any sentences, phrases, company names, or dates.
+
+Treat it ONLY as a style reference:
+
+
+
+---
+
+{style_example}
+
+---
+
+"""
+
+    # Build the user prompt with all components
     user_prompt = f"""
 Resume skills (canonicalized, resume-only):
+
+---
+
 {json.dumps(flat_skills, ensure_ascii=False)}
 
-Projects/experiences (resume-only):
-{json.dumps(projects, ensure_ascii=False)}
+---
+
+
+
+Projects / experiences from the resume:
+
+---
+
+{chr(10).join(projects_compact) if projects_compact else "None"}
+
+---
+
+
 
 Job description (verbatim, may be long):
----
-{job_text}
+
 ---
 
-Write the BODY (no salutation, no sign-off) that:
-- Aligns my resume skills/projects to the job’s needs.
-- Mentions 5–8 of the above skills naturally.
-- Cites 1–2 of the listed projects/experiences with a specific takeaway.
-- Avoids any info not present in the resume.
-- No headers, just prose paragraphs.
+{job_text}
+
+---
+
+
+
+{style_block}{paragraph_style_block}
+Write ONLY the BODY of the cover letter (no greeting/salutation and no closing/sign-off).
+
+
+
+Requirements:
+
+- Use only information from my resume and the job description.
+
+- Mention 5–8 of the above skills naturally and credibly.
+
+- Reference 1–2 of the listed projects with specific contributions or outcomes.
+
+- Follow the paragraph structure described above and output **exactly** that many paragraphs.
+
+- Separate paragraphs with a single blank line.
+
+- Do not include headers, contact details, dates, or signatures.
+
 """
 
     resp = client.chat.completions.create(
@@ -696,7 +984,10 @@ def generate_cover_letter_from_text(
     Args:
         resume_text: Raw resume text content
         job_text: Job description text
-        template_text: Optional template text (uses default if None)
+        template_text: Optional template text. If provided:
+            - If it contains BODY markers (<<BODY>>, {{BODY}}, etc.), treats it as a real template
+            - If it does NOT contain BODY markers, treats it as a style example (old cover letter)
+            - If None, uses default CTP template
     
     Returns:
         Dictionary with:
@@ -706,10 +997,28 @@ def generate_cover_letter_from_text(
         - skills_all: All skills extracted from resume
         - projects_all: All projects extracted from resume
     """
-    # 1) Load template (from text or use default)
+    # 1) Distinguish between real template and style example
+    body_markers = ("<<BODY>>", "{{BODY}}", "[[BODY]]", "[BODY]")
+    style_example = None
+    style_paragraphs = None
+    
     if template_text:
-        template = template_text
+        has_body_marker = any(marker in template_text for marker in body_markers)
+        
+        if has_body_marker:
+            # Case 1: user provided a real template with a BODY marker
+            # → use it directly as the layout template
+            template = template_text
+        else:
+            # Case 2: user uploaded an old finished cover letter
+            # → use it only for style + paragraph structure
+            template = _load_template(None)  # keep using the existing CTP template
+            style_example = template_text
+            
+            # derive paragraph structure - handle both line breaks and period separators
+            style_paragraphs = _extract_paragraphs(template_text)
     else:
+        # No optional file → behave as today
         template = _load_template(None)
     
     # 2) Extract personal information from resume
@@ -731,7 +1040,15 @@ def generate_cover_letter_from_text(
     projects = extract_projects_from_resume(resume_text)
     
     # 8) Draft body + inject into template
-    body, meta = draft_body(resume_text, job_text, skills, projects)
+    # Pass style_example and style_paragraphs to draft_body so it can mimic writing style and structure
+    body, meta = draft_body(
+        resume_text, 
+        job_text, 
+        skills, 
+        projects, 
+        style_example=style_example,
+        style_paragraphs=style_paragraphs
+    )
     letter = _inject_body_into_template(template, body)
     
     # 9) Return result dictionary
@@ -748,7 +1065,7 @@ def main():
     parser = argparse.ArgumentParser(description="Generate a tailored cover letter (Phase 2).")
     parser.add_argument("--resume", required=True, help="Path to resume (PDF or TXT).")
     parser.add_argument("--job", required=True, help="Path to job description .txt.")
-    parser.add_argument("--template", required=False, help="Path to cover-letter template .txt.")
+    parser.add_argument("--template", required=False, help="Path to cover-letter template (.txt, .pdf, or .docx).")
     parser.add_argument("--out", required=False, default="cover_letter.txt", help="Output cover letter .txt path.")
     parser.add_argument("--meta", required=False, default="cover_letter_meta.json", help="Output meta JSON path.")
     args = parser.parse_args()
@@ -769,7 +1086,7 @@ def main():
     # Load texts
     resume_text = load_resume_text(resume_path)
     job_text = _read_text_file(job_path)
-    template_text = _read_text_file(template_path) if template_path else None
+    template_text = load_template_file(template_path) if template_path else None
 
     # Use the API-friendly function which handles all extraction and template filling
     result = generate_cover_letter_from_text(resume_text, job_text, template_text)

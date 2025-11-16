@@ -23,3 +23,10 @@ fastapi
 uvicorn[standard]
 python-multipart
 jinja2
+
+# Word document support
+python-docx
+
+# Database
+pymongo
+pandas

@@ -20,10 +20,68 @@ from generate_report import generate_report
 from generate_cover_letter import generate_cover_letter_from_text
 from pdf_resume_parser import PDFToTextConverter
 
+# Try to import docx support
+try:
+    from docx import Document
+    DOCX_AVAILABLE = True
+except ImportError:
+    DOCX_AVAILABLE = False
+    print("Warning: python-docx not installed. Word document (.docx) support will be unavailable.")
+
 app = FastAPI(title="skillbridge.AI", version="1.0.0")
 
 # Template support
 templates = Jinja2Templates(directory="templates")
+
+
+def extract_text_from_template_file(file_path: str, filename: str) -> str:
+    """
+    Extract text from a template file (supports .txt, .docx, .pdf).
+    
+    Args:
+        file_path: Path to the uploaded file
+        filename: Original filename (used to determine file type)
+    
+    Returns:
+        Extracted text content as string
+    
+    Raises:
+        ValueError: If file type is not supported or extraction fails
+    """
+    file_ext = os.path.splitext(filename.lower())[1]
+    
+    if file_ext in ['.txt', '.text']:
+        # Plain text file
+        with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+            return f.read()
+    
+    elif file_ext == '.docx':
+        # Word document
+        if not DOCX_AVAILABLE:
+            raise ValueError("Word document (.docx) support requires python-docx. Install with: pip install python-docx")
+        
+        try:
+            doc = Document(file_path)
+            paragraphs = []
+            for para in doc.paragraphs:
+                if para.text.strip():
+                    paragraphs.append(para.text)
+            return "\n\n".join(paragraphs)
+        except Exception as e:
+            raise ValueError(f"Failed to extract text from Word document: {str(e)}")
+    
+    elif file_ext == '.pdf':
+        # PDF file - reuse existing PDF parser
+        try:
+            converter = PDFToTextConverter(file_path)
+            if not converter.convert():
+                raise ValueError("Failed to extract text from PDF")
+            return converter.cleaned_text
+        except Exception as e:
+            raise ValueError(f"Failed to extract text from PDF: {str(e)}")
+    
+    else:
+        raise ValueError(f"Unsupported file type: {file_ext}. Supported types: .txt, .docx, .pdf")
 
 # Enable CORS
 app.add_middleware(
@@ -965,7 +1023,6 @@ HTML_TEMPLATE = """
                                 <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border-color);">
                                     <h4 style="color: var(--accent-success); margin-bottom: 12px;">🆓 Free Course: ${free.title || 'N/A'}</h4>
                                     <div class="detail"><strong>Platform:</strong> ${free.platform || 'N/A'}</div>
-                                    <div class="detail"><strong>Rating:</strong> ${free.rating ? free.rating.toFixed(2) : 'N/A'}</div>
                                     <div class="detail"><strong>Duration:</strong> ${free.duration || 'N/A'}</div>
                                     <div class="detail"><strong>Difficulty:</strong> ${free.difficulty || 'N/A'}</div>
                                     <div class="detail"><strong>Cost:</strong> ${free.cost || 'Free'}</div>
@@ -984,7 +1041,6 @@ HTML_TEMPLATE = """
                                 <div>
                                     <h4 style="color: var(--accent-primary); margin-bottom: 12px;">💰 Paid Course: ${paid.title || 'N/A'}</h4>
                                     <div class="detail"><strong>Platform:</strong> ${paid.platform || 'N/A'}</div>
-                                    <div class="detail"><strong>Rating:</strong> ${paid.rating ? paid.rating.toFixed(2) : 'N/A'}</div>
                                     <div class="detail"><strong>Duration:</strong> ${paid.duration || 'N/A'}</div>
                                     <div class="detail"><strong>Difficulty:</strong> ${paid.difficulty || 'N/A'}</div>
                                     <div class="detail"><strong>Cost:</strong> ${paid.cost || 'N/A'}</div>
@@ -1011,6 +1067,9 @@ HTML_TEMPLATE = """
                                 const badgeClass = isCurrentSkills ? 'badge-current' : 'badge-missing';
                                 const cardClass = isCurrentSkills ? 'current' : 'missing';
                                 
+                                // Generate unique ID for this project's outline
+                                const projectId = `project-${track.replace(/[^a-zA-Z0-9]/g, '-')}-${idx}`;
+                                
                                 html += `
                                     <div style="margin-bottom: 24px;">
                                         <span class="project-badge ${badgeClass}">${badgeText}</span>
@@ -1019,12 +1078,37 @@ HTML_TEMPLATE = """
                                             <div class="detail"><strong>Difficulty:</strong> ${project.difficulty || 'N/A'}</div>
                                             <div class="detail"><strong>Estimated Time:</strong> ${project.estimated_time || 'N/A'}</div>
                                             ${project.description ? `<div class="description"><strong>Description:</strong><br>${project.description}</div>` : ''}
+                                            ${project.tech_stack && project.tech_stack.length > 0 ? 
+                                                `<div class="detail"><strong>Tech Stack:</strong> <ul><li>${project.tech_stack.join('</li><li>')}</li></ul></div>` : ''}
                                             ${project.key_features && project.key_features.length > 0 ? 
                                                 `<div class="detail"><strong>Key Features:</strong> <ul><li>${project.key_features.join('</li><li>')}</li></ul></div>` : ''}
                                             ${project.skills_demonstrated && project.skills_demonstrated.length > 0 ? 
                                                 `<div class="detail"><strong>Skills Demonstrated:</strong> <ul><li>${project.skills_demonstrated.join('</li><li>')}</li></ul></div>` : ''}
                                             ${project.technologies && project.technologies.length > 0 ? 
                                                 `<div class="detail"><strong>Technologies:</strong> <ul><li>${project.technologies.join('</li><li>')}</li></ul></div>` : ''}
+                                            ${project.project_outline ? 
+                                                `<div class="detail">
+                                                    <strong>Project Outline:</strong> 
+                                                    <span id="${projectId}-outline" style="cursor: pointer; color: var(--accent-primary); text-decoration: underline;" onclick="toggleProjectPhases('${projectId}')">
+                                                        ${project.project_outline}
+                                                    </span>
+                                                    <div id="${projectId}-phases" style="display: none; margin-top: 12px; padding: 12px; background: var(--bg-secondary); border-radius: 6px; border-left: 3px solid var(--accent-primary);">
+                                                        <strong style="display: block; margin-bottom: 8px;">Implementation Phases:</strong>
+                                                        ${project.implementation_phases && project.implementation_phases.length > 0 ? 
+                                                            project.implementation_phases.map((phase, phaseIdx) => {
+                                                                const phaseName = typeof phase === 'object' ? phase.phase : phase;
+                                                                const phaseDetails = typeof phase === 'object' ? phase.details : '';
+                                                                return `
+                                                                    <div style="margin-bottom: 12px;">
+                                                                        <strong style="color: var(--accent-primary);">${phaseName || `Phase ${phaseIdx + 1}`}</strong>
+                                                                        ${phaseDetails ? `<div style="margin-top: 4px; margin-left: 16px; color: var(--text-secondary);">${phaseDetails}</div>` : ''}
+                                                                    </div>
+                                                                `;
+                                                            }).join('') : 
+                                                            '<div style="color: var(--text-secondary);">No implementation phases available.</div>'
+                                                        }
+                                                    </div>
+                                                </div>` : ''}
                                             ${project.portfolio_impact ? `<div class="detail"><strong>Portfolio Impact:</strong> ${project.portfolio_impact}</div>` : ''}
                                             ${project.bonus_challenges && project.bonus_challenges.length > 0 ? 
                                                 `<div class="detail"><strong>Bonus Challenges:</strong> <ul><li>${project.bonus_challenges.join('</li><li>')}</li></ul></div>` : ''}
@@ -1054,6 +1138,24 @@ HTML_TEMPLATE = """
             const element = document.getElementById(id);
             if (element) {
                 element.classList.toggle('expanded');
+            }
+        }
+        
+        function toggleProjectPhases(projectId) {
+            const phasesDiv = document.getElementById(projectId + '-phases');
+            const outlineSpan = document.getElementById(projectId + '-outline');
+            if (phasesDiv) {
+                if (phasesDiv.style.display === 'none') {
+                    phasesDiv.style.display = 'block';
+                    if (outlineSpan) {
+                        outlineSpan.style.fontWeight = 'bold';
+                    }
+                } else {
+                    phasesDiv.style.display = 'none';
+                    if (outlineSpan) {
+                        outlineSpan.style.fontWeight = 'normal';
+                    }
+                }
             }
         }
         
@@ -1273,10 +1375,12 @@ async def cover_letter_with_progress(resume: UploadFile, job_text: str, template
                     with open(temp_template_path, "wb") as f:
                         content = await template.read()
                         f.write(content)
-                    with open(temp_template_path, "r", encoding="utf-8", errors="ignore") as f:
-                        template_text = f.read()
+                    # Extract text from template file (supports .txt, .docx, .pdf)
+                    template_text = extract_text_from_template_file(temp_template_path, template.filename)
             except Exception as e:
-                print(f"Warning: Failed to process template: {e}")
+                error_msg = f"Failed to process template file: {str(e)}"
+                print(f"Warning: {error_msg}")
+                yield f"data: {json.dumps({'type': 'error', 'message': error_msg})}\n\n"
                 template_text = None
         
         # Progress updates for cover letter generation
@@ -1451,11 +1555,12 @@ async def cover_letter_sync(
                     with open(temp_template_path, "wb") as f:
                         content = await template.read()
                         f.write(content)
-                    with open(temp_template_path, "r", encoding="utf-8", errors="ignore") as f:
-                        template_text = f.read()
+                    # Extract text from template file (supports .txt, .docx, .pdf)
+                    template_text = extract_text_from_template_file(temp_template_path, template.filename)
             except Exception as e:
-                print(f"Warning: Failed to process template: {e}")
-                template_text = None
+                error_msg = f"Failed to process template file: {str(e)}"
+                print(f"Warning: {error_msg}")
+                raise HTTPException(status_code=400, detail=error_msg)
         
         # Generate cover letter synchronously
         loop = asyncio.get_event_loop()
@@ -1494,6 +1599,13 @@ async def health_check():
 
 if __name__ == '__main__':
     import uvicorn
-    print("🚀 FastAPI app starting on http://127.0.0.1:8000")
-    print("📖 API documentation available at http://127.0.0.1:8000/docs")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Get port and host from environment variables (for deployment compatibility)
+    port = int(os.getenv("PORT", 8000))
+    host = os.getenv("HOST", "0.0.0.0")
+    
+    # For local development, show localhost in the message (0.0.0.0 is not accessible in browser)
+    display_host = "localhost" if host == "0.0.0.0" else host
+    print(f"🚀 FastAPI app starting on http://{display_host}:{port}")
+    print(f"📖 API documentation available at http://{display_host}:{port}/docs")
+    print(f"   (Server binding to {host}:{port})")
+    uvicorn.run(app, host=host, port=port)

@@ -2,35 +2,21 @@
 Email Address
 Contact Number
 
-
 Date of application submission
-
 
 Company Name
 Company Street
 Company City, State
 
-
 Dear Hiring Manager:
-
 
 I heard about your internship from CUNY Tech Prep, where I am currently a Full Stack Fellow. I am a senior majoring in Computer Science at Queens College and graduating in May 2023. I have had experience building mobile applications in Android and would love to apply my skills to Kinship’s mission as a Whistle Mobile (Native Android or iOS) Intern position for Spring 2023 so that I can work on providing users with amazing new features.
 
-
 Through the CodePath Android Development course, I learned how to coordinate with a team, construct layouts, work with APIs, and implement a backend through a series of different mobile applications, applying my understanding of the fundamentals of application design in Android. I have also used graphics editing software such as Figma to create a design that can be implemented into the mobile development process. With my proficient knowledge in Java, I am able to grasp new concepts and apply them quickly and efficiently. I believe that with my skills, I would benefit from this experience and make a valuable addition to your Whistle Mobile team.
-
 
 Interning at Kinship would serve as a great opportunity to apply what I have learned and further enhance my skills as well as contribute to solving the challenges in pet healthcare, nutrition, and science to create a better world for pets. Enclosed is my resume that expands on my coursework and projects that I have worked on. I hope to hear from you soon. If you have any questions, you can reach me via email or phone.
 
-
 Thank you for your time and consideration.
 
-
-
-
 Sincerely,
-
-
-
-
 First Last Name
