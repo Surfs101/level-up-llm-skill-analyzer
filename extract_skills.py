@@ -174,7 +174,7 @@ Resume:
 
 # --- Step 5: Call GPT ---
 response = client.chat.completions.create(
-    model="gpt-4o",  # best model available now
+    model="gpt-5.1",  # best model available now
     messages=[{"role": "user", "content": prompt}],
     response_format={"type": "json_object"}
 )

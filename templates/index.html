@@ -1491,7 +1491,7 @@
             // Helper function to try sync endpoint as fallback
             const trySyncEndpoint = async () => {
                 if (progressText) {
-                    progressText.textContent = 'Processing (using fallback method)...';
+                    progressText.textContent = 'Analyzing report before final output...';
                 }
                 // Recreate FormData since it can only be read once
                 const syncFormData = new FormData();
@@ -1689,7 +1689,7 @@
             // Helper function to try sync endpoint as fallback
             const trySyncEndpoint = async () => {
                 if (progressText) {
-                    progressText.textContent = 'Processing (using fallback method)...';
+                    progressText.textContent = 'Finalizing cover letter...';
                 }
                 // Recreate FormData since it can only be read once
                 const syncFormData = new FormData();
@@ -1883,4 +1883,3 @@
     </script>
 </body>
 </html>
-
