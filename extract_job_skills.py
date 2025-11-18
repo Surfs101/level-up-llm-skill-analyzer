@@ -48,13 +48,27 @@ You are an expert job-description parser.
 Task:
 1) Identify the MAIN DOMAIN/FIELD of this job (e.g., "Machine Learning", "AI", "Data Science", "MLOps", "Software Engineering", "DevOps", "Cloud Computing", "Cybersecurity", etc.). If the job is clearly in a technical domain, include this domain as a skill in FrameworksLibraries bucket (e.g., "Machine Learning", "Artificial Intelligence", "Data Science", "MLOps").
 
-2) Extract ALL technical skills explicitly present in the text OR implied by the job domain.
+2) Extract ONLY technical skills that can be learned through courses or projects. Focus on:
+   - Specific programming languages (Python, Java, Go, JavaScript, etc.)
+   - Specific frameworks and libraries (React, Angular, Vue, TensorFlow, PyTorch, etc.)
+   - Specific tools, platforms, and services (Docker, Kubernetes, AWS, GCP, Azure, MongoDB, PostgreSQL, Redis, etc.)
+   - Technical domains that can be learned (Machine Learning, Data Science, AI, MLOps, etc.)
 
-3) Split them into two groups:
+3) DO NOT extract:
+   - Practices or methodologies (CI/CD, automated testing, monitoring, observability, alerting, drift detection, version control)
+   - Concepts or techniques (RAG, Retrieval-Augmented Generation, Agentic AI, Model Context Protocol, MCP)
+   - Generic terms that are too broad or abstract
+   - Soft skills or non-technical requirements
+   
+   Only extract concrete, learnable technical skills that can be taught in courses or practiced in projects.
+
+4) Split them into two groups:
    - required  = cues like "required", "must", "we need", "minimum"
    - preferred = cues like "preferred", "nice to have", "plus", "bonus"
+   
+CRITICAL: A skill should appear in ONLY ONE section. If a skill is marked as "required", it MUST NOT appear in "preferred". If a skill appears in both sections, prioritize it as "required" and remove it from "preferred".
 
-4) Classify each group into EXACTLY these buckets:
+5) Classify each group into EXACTLY these buckets:
    - ProgrammingLanguages: specific programming languages (Python, Java, etc.)
    - FrameworksLibraries: frameworks, libraries, AND the main job domain/field if technical (e.g., "Machine Learning", "Data Science", "MLOps", "AI")
    - ToolsPlatforms: tools, platforms, cloud services
@@ -65,7 +79,7 @@ IMPORTANT: If the job title or description clearly indicates a technical domain 
 - "Machine Learning Engineer" → add "Machine Learning" to FrameworksLibraries
 - "AI Engineer" → add "Artificial Intelligence" or "AI" to FrameworksLibraries
 
-5) Determine if this job requires a graduate degree (Master's or PhD). Look for cues like:
+6) Determine if this job requires a graduate degree (Master's or PhD). Look for cues like:
    - "Master's degree required", "PhD required", "graduate degree"
    - "Master's or PhD", "MS/PhD", "graduate student"
    - Job titles like "Research Intern", "PhD Intern", "Graduate Intern"
@@ -97,7 +111,7 @@ Job Description:
 
     # --- Step 5: Call GPT (same model + response_format as resume extractor) ---
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-5.1",
         messages=[{"role": "user", "content": prompt}],
         response_format={"type": "json_object"}  # same enforcement as your resume script
     )
@@ -110,6 +124,70 @@ Job Description:
         is_grad_student_job = data.get("is_grad_student_job", False)
         data = ensure_schema(data)
         data["is_grad_student_job"] = is_grad_student_job
+        
+        # Filter out non-recommendable skills (practices, methodologies, concepts)
+        def filter_non_recommendable_skills(skills_dict):
+            """Remove skills that cannot be recommended."""
+            if not isinstance(skills_dict, dict):
+                return skills_dict
+            
+            non_recommendable = {
+                "ci/cd", "cicd", "ci/cd pipelines", "continuous integration", "continuous deployment",
+                "automated testing", "testing", "monitoring", "observability", "alerting",
+                "drift detection", "version control", "agile", "scrum",
+                "rag", "retrieval-augmented generation", "agentic ai", "mcp", "model context protocol",
+                "prompt engineering", "fine-tuning", "transfer learning",
+                "best practices", "software development", "problem solving", "troubleshooting",
+                "code review", "documentation", "api design", "system design"
+            }
+            
+            filtered = {}
+            for bucket, skills_list in skills_dict.items():
+                if not isinstance(skills_list, list):
+                    filtered[bucket] = skills_list
+                    continue
+                
+                filtered_skills = []
+                for skill in skills_list:
+                    if not skill:
+                        continue
+                    skill_lower = str(skill).lower().strip()
+                    if skill_lower not in non_recommendable:
+                        is_non_rec = False
+                        for non_rec in non_recommendable:
+                            if non_rec in skill_lower or skill_lower in non_rec:
+                                is_non_rec = True
+                                break
+                        if not is_non_rec:
+                            filtered_skills.append(skill)
+                filtered[bucket] = filtered_skills
+            return filtered
+        
+        # Apply filter to both required and preferred
+        required_skills = filter_non_recommendable_skills(data.get("required", {}).get("skills", {}))
+        preferred_skills = filter_non_recommendable_skills(data.get("preferred", {}).get("skills", {}))
+        data["required"]["skills"] = required_skills
+        data["preferred"]["skills"] = preferred_skills
+        
+        # CRITICAL: Remove any skills from preferred that are already in required
+        # This ensures no duplication between required and preferred
+        
+        # Build flat set of required skills (case-insensitive)
+        required_flat = set()
+        for bucket in BUCKETS:
+            required_list = required_skills.get(bucket, [])
+            required_flat.update({str(s).lower().strip() for s in required_list if s})
+        
+        # Remove duplicates from preferred
+        for bucket in BUCKETS:
+            preferred_list = preferred_skills.get(bucket, [])
+            filtered_preferred = [
+                s for s in preferred_list 
+                if s and str(s).lower().strip() not in required_flat
+            ]
+            preferred_skills[bucket] = filtered_preferred
+        
+        data["preferred"]["skills"] = preferred_skills
         
         output_file = os.path.splitext(file_name)[0] + "_skills.json"
         with open(output_file, "w", encoding="utf-8") as out_f:

@@ -82,10 +82,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
-            font-size: 18px;
-            color: white;
             box-shadow: 0 4px 12px rgba(91, 140, 255, 0.3);
+        }
+        
+        .brand-logo svg {
+            width: 24px;
+            height: 24px;
         }
 
         .brand-text {
@@ -201,9 +203,9 @@
         }
 
         .hero-feature-icon svg {
-            width: 28px;
-            height: 28px;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
         }
 
         /* Skill Analysis - Blue/Purple gradient */
@@ -422,6 +424,13 @@
             border: 1px solid;
             font-weight: 600;
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .alert svg {
+            flex-shrink: 0;
         }
 
         .alert-success {
@@ -454,6 +463,14 @@
         .alert-warning-icon {
             font-size: 24px;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .alert-warning-icon svg {
+            width: 24px;
+            height: 24px;
         }
 
         .alert-warning-content {
@@ -793,7 +810,13 @@
     <div class="container">
         <nav class="navbar">
             <div class="brand">
-                <div class="brand-logo">SB</div>
+                <div class="brand-logo">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
                 <div class="brand-text">skillbridge.AI</div>
             </div>
             <div class="nav-actions">
@@ -814,32 +837,155 @@
                 <div class="hero-features">
                     <div class="hero-feature">
                         <div class="hero-feature-icon">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 3V21H21V3H3ZM5 5H19V19H5V5ZM7 7V17H17V7H7ZM9 9H15V11H9V9ZM9 13H15V15H9V13Z" fill="white"/>
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Document base -->
+                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" fill="#ffffff"/>
+                                <!-- Folded corner highlight -->
+                                <path d="M14 2V8H20L14 2Z" fill="#e8e8e8"/>
+                                <!-- Blue header section -->
+                                <rect x="6" y="6" width="12" height="3" fill="#4a90e2" rx="0.5"/>
+                                <!-- Text lines -->
+                                <rect x="8" y="11" width="8" height="1.2" fill="#d0d0d0" rx="0.3"/>
+                                <rect x="8" y="13" width="6" height="1.2" fill="#d0d0d0" rx="0.3"/>
+                                <rect x="8" y="15" width="7" height="1.2" fill="#d0d0d0" rx="0.3"/>
+                                <rect x="8" y="17" width="5" height="1.2" fill="#d0d0d0" rx="0.3"/>
+                                <!-- Chart/graph element -->
+                                <rect x="8" y="19" width="8" height="2" fill="#f0f0f0" rx="0.3"/>
+                                <rect x="8.5" y="19.5" width="1.5" height="1" fill="#4a90e2"/>
+                                <rect x="10.5" y="19.2" width="1.5" height="1.3" fill="#4a90e2"/>
+                                <rect x="12.5" y="19.8" width="1.5" height="0.7" fill="#4a90e2"/>
+                                <rect x="14.5" y="19.4" width="1.5" height="1.1" fill="#4a90e2"/>
                             </svg>
                         </div>
                         <h3 class="hero-feature-title">Resume Analysis</h3>
                     </div>
                     <div class="hero-feature">
                         <div class="hero-feature-icon">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19ZM17 12H7V10H17V12ZM15 16H7V14H15V16ZM17 8H7V6H17V8Z" fill="white"/>
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Left page with shadow -->
+                                <path d="M12 4.5H6C5.44772 4.5 5 4.94772 5 5.5V18.5C5 19.0523 5.44772 19.5 6 19.5H12V4.5Z" fill="#ffffff"/>
+                                <path d="M12 4.5H6C5.44772 4.5 5 4.94772 5 5.5V18.5C5 19.0523 5.44772 19.5 6 19.5H12V4.5Z" fill="none" stroke="#e8e8e8" stroke-width="0.8"/>
+                                <!-- Right page with shadow -->
+                                <path d="M18.5 4.5H12V19.5H18.5C19.0523 19.5 19.5 19.0523 19.5 18.5V5.5C19.5 4.94772 19.0523 4.5 18.5 4.5Z" fill="#ffffff"/>
+                                <path d="M18.5 4.5H12V19.5H18.5C19.0523 19.5 19.5 19.0523 19.5 18.5V5.5C19.5 4.94772 19.0523 4.5 18.5 4.5Z" fill="none" stroke="#e8e8e8" stroke-width="0.8"/>
+                                <!-- Book binding/center crease with depth -->
+                                <line x1="12" y1="4.5" x2="12" y2="19.5" stroke="#d0d0d0" stroke-width="1.2"/>
+                                <line x1="11.5" y1="4.5" x2="11.5" y2="19.5" stroke="#c0c0c0" stroke-width="0.5" opacity="0.6"/>
+                                <!-- Left page text lines (more visible) -->
+                                <line x1="7" y1="7" x2="11" y2="7" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="7" y1="8.5" x2="10.5" y2="8.5" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="7" y1="10" x2="11" y2="10" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="7" y1="11.5" x2="9.5" y2="11.5" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="7" y1="13" x2="10" y2="13" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="7" y1="14.5" x2="11" y2="14.5" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="7" y1="16" x2="9" y2="16" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="7" y1="17.5" x2="10.5" y2="17.5" stroke="#c8c8c8" stroke-width="1"/>
+                                <!-- Right page text lines (more visible) -->
+                                <line x1="13" y1="7" x2="17.5" y2="7" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="13" y1="8.5" x2="16.5" y2="8.5" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="13" y1="10" x2="17.5" y2="10" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="13" y1="11.5" x2="15.5" y2="11.5" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="13" y1="13" x2="16" y2="13" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="13" y1="14.5" x2="17" y2="14.5" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="13" y1="16" x2="15" y2="16" stroke="#c8c8c8" stroke-width="1"/>
+                                <line x1="13" y1="17.5" x2="16.5" y2="17.5" stroke="#c8c8c8" stroke-width="1"/>
+                                <!-- Page corners for depth -->
+                                <path d="M5 5.5L12 4.5L12 5.5L5 6.5Z" fill="#f5f5f5" opacity="0.8"/>
+                                <path d="M19.5 5.5L12.5 4.5L12.5 5.5L19.5 6.5Z" fill="#f5f5f5" opacity="0.8"/>
+                                <!-- Bottom page edges -->
+                                <line x1="5" y1="18.5" x2="12" y2="19.5" stroke="#e0e0e0" stroke-width="0.8"/>
+                                <line x1="12" y1="19.5" x2="19.5" y2="18.5" stroke="#e0e0e0" stroke-width="0.8"/>
+                                <!-- Highlight on pages -->
+                                <rect x="6" y="5.5" width="5" height="13" fill="none" stroke="#f8f8f8" stroke-width="0.5" opacity="0.4"/>
+                                <rect x="13" y="5.5" width="5.5" height="13" fill="none" stroke="#f8f8f8" stroke-width="0.5" opacity="0.4"/>
+                                <!-- Pen/Pencil - Blue pen with details -->
+                                <!-- Pen body (blue) -->
+                                <rect x="15.2" y="5.2" width="5" height="1.8" fill="#2563eb" rx="0.9" transform="rotate(45 17.7 6.1)"/>
+                                <!-- Pen body highlight -->
+                                <rect x="15.4" y="5.4" width="4.6" height="1.4" fill="#3b82f6" rx="0.7" transform="rotate(45 17.7 6.1)"/>
+                                <!-- Pen body shadow -->
+                                <rect x="15.5" y="5.5" width="4.2" height="1.2" fill="#1e40af" rx="0.6" transform="rotate(45 17.7 6.1)" opacity="0.4"/>
+                                <!-- Pen tip (silver/metallic) -->
+                                <path d="M19.2 9.2L20.8 10.8L19.5 10.5L19.2 9.2Z" fill="#cbd5e1"/>
+                                <path d="M19.2 9.2L20.8 10.8L19.5 10.5L19.2 9.2Z" fill="#94a3b8" opacity="0.7"/>
+                                <!-- Pen tip highlight -->
+                                <path d="M19.3 9.3L20.5 10.5L19.4 10.3L19.3 9.3Z" fill="#e2e8f0"/>
+                                <!-- Pen clip (silver) -->
+                                <path d="M16 5.5L16.8 6.3L16.5 6.6L15.7 5.8Z" fill="#94a3b8"/>
+                                <path d="M16 5.5L16.8 6.3L16.5 6.6L15.7 5.8Z" fill="#cbd5e1" opacity="0.6"/>
+                                <!-- Pen clip detail -->
+                                <line x1="16.2" y1="5.7" x2="16.6" y2="6.1" stroke="#64748b" stroke-width="0.3"/>
+                                <!-- Pen grip section (darker blue) -->
+                                <rect x="16.5" y="6.5" width="2.5" height="1.2" fill="#1e40af" rx="0.3" transform="rotate(45 17.75 7.1)"/>
+                                <!-- Pen button/cap (red accent) -->
+                                <circle cx="16.3" cy="5.9" r="0.4" fill="#ef4444"/>
+                                <circle cx="16.3" cy="5.9" r="0.3" fill="#dc2626"/>
                             </svg>
                         </div>
                         <h3 class="hero-feature-title">Learn Skills</h3>
                     </div>
                     <div class="hero-feature">
                         <div class="hero-feature-icon">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2.81 14.12L5.64 11.29L8.17 10.79C11.39 6.41 17.55 4.22 19.78 4.22C19.78 6.45 17.59 12.61 13.21 15.83L12.71 18.36L9.88 21.19C9.34 21.74 8.71 22 8.08 22C7.45 22 6.83 21.74 6.29 21.19L2.81 17.71C1.71 16.61 1.71 14.83 2.81 14.12ZM8.08 20.29L11 17.36L11.64 14.64L14.36 14L17.29 11.08C16.74 11.26 16.05 11.55 15.33 11.94C14.28 12.49 13.11 13.25 12.06 14.06C11.25 15.11 10.49 16.28 9.94 17.33C9.55 18.05 9.26 18.74 9.08 19.29L8.08 20.29Z" fill="white"/>
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Laptop base -->
+                                <rect x="4" y="15" width="16" height="3" fill="#ffffff" rx="0.5"/>
+                                <rect x="4.5" y="15.5" width="15" height="2" fill="#e8e8e8" rx="0.3"/>
+                                <!-- Laptop screen -->
+                                <rect x="5" y="6" width="14" height="10" fill="#1e293b" rx="0.8"/>
+                                <rect x="5.5" y="6.5" width="13" height="9" fill="#0f172a" rx="0.6"/>
+                                <!-- Screen bezel -->
+                                <rect x="5" y="6" width="14" height="10" fill="none" stroke="#ffffff" stroke-width="0.8" rx="0.8"/>
+                                <!-- Screen inner border -->
+                                <rect x="6" y="7.5" width="12" height="7" fill="none" stroke="#334155" stroke-width="0.5" rx="0.3"/>
+                                
+                                <!-- Code lines (visual representation without text) -->
+                                <rect x="7" y="9" width="8" height="0.8" fill="#10b981" rx="0.2"/>
+                                <rect x="7" y="10.5" width="3" height="0.8" fill="#ffffff" rx="0.2"/>
+                                <rect x="7" y="12" width="6" height="0.8" fill="#f59e0b" rx="0.2"/>
+                                <rect x="7" y="13.5" width="4" height="0.8" fill="#3b82f6" rx="0.2"/>
+                                <rect x="7" y="15" width="5" height="0.8" fill="#ffffff" rx="0.2"/>
+                                
+                                <!-- Laptop hinge -->
+                                <rect x="10" y="15" width="4" height="1" fill="#cbd5e1" rx="0.2"/>
+                                <rect x="10.5" y="15.2" width="3" height="0.6" fill="#94a3b8" rx="0.1"/>
+                                
+                                <!-- Keyboard area (on base) -->
+                                <rect x="6" y="16" width="12" height="1.5" fill="#cbd5e1" rx="0.2"/>
+                                <!-- Keyboard keys -->
+                                <rect x="6.5" y="16.3" width="1" height="0.8" fill="#94a3b8" rx="0.1"/>
+                                <rect x="8" y="16.3" width="1" height="0.8" fill="#94a3b8" rx="0.1"/>
+                                <rect x="9.5" y="16.3" width="1" height="0.8" fill="#94a3b8" rx="0.1"/>
+                                <rect x="11" y="16.3" width="1" height="0.8" fill="#94a3b8" rx="0.1"/>
+                                <rect x="12.5" y="16.3" width="1" height="0.8" fill="#94a3b8" rx="0.1"/>
+                                <rect x="14" y="16.3" width="1" height="0.8" fill="#94a3b8" rx="0.1"/>
+                                <rect x="15.5" y="16.3" width="1" height="0.8" fill="#94a3b8" rx="0.1"/>
+                                
+                                <!-- Screen glow/reflection -->
+                                <rect x="5.5" y="6.5" width="13" height="2" fill="#ffffff" opacity="0.1" rx="0.6"/>
                             </svg>
                         </div>
                         <h3 class="hero-feature-title">Build Projects</h3>
                     </div>
                     <div class="hero-feature">
                         <div class="hero-feature-icon">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM11 7H13V11H17V13H13V17H11V13H7V11H11V7Z" fill="white"/>
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Document base (white paper) -->
+                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" fill="#ffffff"/>
+                                <!-- Folded corner -->
+                                <path d="M14 2V8H20L14 2Z" fill="#f5f5f5"/>
+                                <!-- Pink header section -->
+                                <rect x="6" y="5" width="12" height="2.5" fill="#ec4899" rx="0.3"/>
+                                <!-- Letter content lines -->
+                                <rect x="8" y="9" width="8" height="1" fill="#c0c0c0" rx="0.2"/>
+                                <rect x="8" y="10.8" width="7" height="1" fill="#c0c0c0" rx="0.2"/>
+                                <rect x="8" y="12.6" width="8" height="1" fill="#c0c0c0" rx="0.2"/>
+                                <rect x="8" y="14.4" width="6" height="1" fill="#c0c0c0" rx="0.2"/>
+                                <rect x="8" y="16.2" width="7.5" height="1" fill="#c0c0c0" rx="0.2"/>
+                                <!-- Signature line -->
+                                <line x1="8" y1="18" x2="14" y2="18" stroke="#a855f7" stroke-width="1.2" stroke-linecap="round"/>
+                                <path d="M13 17.5L14.5 18L13 18.5" stroke="#a855f7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <!-- Decorative heart/stamp -->
+                                <path d="M16 16C16 16.5 15.5 17 15 17C14.5 17 14 16.5 14 16C14 15.5 15 14.5 15 14.5C15 14.5 16 15.5 16 16Z" fill="#ec4899" opacity="0.6"/>
                             </svg>
                         </div>
                         <h3 class="hero-feature-title">Create Cover Letters</h3>
@@ -895,12 +1041,12 @@
             let html = '';
             
             // Success message
-            html += '<div class="alert alert-success">✅ Analysis complete! Your comprehensive report is ready.</div>';
+            html += '<div class="alert alert-success" style="display: flex; align-items: center; gap: 10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Analysis complete! Your comprehensive report is ready.</div>';
             
             // Grad student warning
             if (data.is_grad_student_job) {
                 html += '<div class="alert alert-warning">';
-                html += '<div class="alert-warning-icon">🎓</div>';
+                html += '<div class="alert-warning-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg></div>';
                 html += '<div class="alert-warning-content">';
                 html += '<strong>Graduate Student Position Detected</strong><br>';
                 html += 'This job requires a Master\'s or PhD degree. You may not be qualified for this position based on education requirements. However, you may still take your shot if you want to apply.';
@@ -926,15 +1072,16 @@
             // Required Skills
             html += '<div class="skills-section">';
             html += '<div class="skills-header collapsed" id="required-skills-header" onclick="toggleSkillsSection(\'required-skills\')">';
-            html += '<div>';
-            html += '<div class="skills-header-title">📋 Required Skills Coverage</div>';
-            html += '<div class="skills-header-stats">' + data.required_skills.covered_count + ' of ' + data.required_skills.total_count + ' skills matched</div>';
+            html += '<div style="display: flex; align-items: center; gap: 10px;">';
+            html += '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"></path><path d="M14 2V8H20"></path><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H9H8"></path></svg>';
+            html += '<div><div class="skills-header-title">Required Skills Coverage</div>';
+            html += '<div class="skills-header-stats">' + data.required_skills.covered_count + ' of ' + data.required_skills.total_count + ' skills matched</div></div>';
             html += '</div>';
             html += '<div class="arrow-icon" style="color: var(--accent-primary);">►</div>';
             html += '</div>';
             html += '<div id="required-skills" class="section-content collapsed">';
             if (data.required_skills.covered_skills && data.required_skills.covered_skills.length > 0) {
-                html += '<div class="section-title">✅ Matched Skills (' + data.required_skills.covered_skills.length + ')</div>';
+                html += '<div class="section-title" style="display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Matched Skills (' + data.required_skills.covered_skills.length + ')</div>';
                 data.required_skills.covered_skills.forEach(skill => {
                     html += '<span class="skill-tag skill-matched">' + escapeHtml(skill) + '</span>';
                 });
@@ -942,12 +1089,12 @@
                 html += '<div class="section-title">No matched skills</div>';
             }
             if (data.required_skills.missing_skills && data.required_skills.missing_skills.length > 0) {
-                html += '<div class="section-title" style="margin-top: 20px;">❌ Missing Skills (' + data.required_skills.missing_skills.length + ')</div>';
+                html += '<div class="section-title" style="margin-top: 20px; display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-error)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Missing Skills (' + data.required_skills.missing_skills.length + ')</div>';
                 data.required_skills.missing_skills.forEach(skill => {
                     html += '<span class="skill-tag skill-missing">' + escapeHtml(skill) + '</span>';
                 });
             } else {
-                html += '<div class="section-title" style="margin-top: 20px;">✅ All required skills covered!</div>';
+                html += '<div class="section-title" style="margin-top: 20px; display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> All required skills covered!</div>';
             }
             html += '</div>';
             html += '</div>';
@@ -955,15 +1102,16 @@
             // Preferred Skills
             html += '<div class="skills-section">';
             html += '<div class="skills-header collapsed" id="preferred-skills-header" onclick="toggleSkillsSection(\'preferred-skills\')">';
-            html += '<div>';
-            html += '<div class="skills-header-title">⭐ Preferred Skills Coverage</div>';
-            html += '<div class="skills-header-stats">' + data.preferred_skills.covered_count + ' of ' + data.preferred_skills.total_count + ' skills matched</div>';
+            html += '<div style="display: flex; align-items: center; gap: 10px;">';
+            html += '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>';
+            html += '<div><div class="skills-header-title">Preferred Skills Coverage</div>';
+            html += '<div class="skills-header-stats">' + data.preferred_skills.covered_count + ' of ' + data.preferred_skills.total_count + ' skills matched</div></div>';
             html += '</div>';
             html += '<div class="arrow-icon" style="color: var(--accent-primary);">►</div>';
             html += '</div>';
             html += '<div id="preferred-skills" class="section-content collapsed">';
             if (data.preferred_skills.covered_skills && data.preferred_skills.covered_skills.length > 0) {
-                html += '<div class="section-title">✅ Matched Skills (' + data.preferred_skills.covered_skills.length + ')</div>';
+                html += '<div class="section-title" style="display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Matched Skills (' + data.preferred_skills.covered_skills.length + ')</div>';
                 data.preferred_skills.covered_skills.forEach(skill => {
                     html += '<span class="skill-tag skill-matched">' + escapeHtml(skill) + '</span>';
                 });
@@ -971,12 +1119,12 @@
                 html += '<div class="section-title">No matched skills</div>';
             }
             if (data.preferred_skills.missing_skills && data.preferred_skills.missing_skills.length > 0) {
-                html += '<div class="section-title" style="margin-top: 20px;">❌ Missing Skills (' + data.preferred_skills.missing_skills.length + ')</div>';
+                html += '<div class="section-title" style="margin-top: 20px; display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-error)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Missing Skills (' + data.preferred_skills.missing_skills.length + ')</div>';
                 data.preferred_skills.missing_skills.forEach(skill => {
                     html += '<span class="skill-tag skill-missing">' + escapeHtml(skill) + '</span>';
                 });
             } else {
-                html += '<div class="section-title" style="margin-top: 20px;">✅ All preferred skills covered!</div>';
+                html += '<div class="section-title" style="margin-top: 20px; display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> All preferred skills covered!</div>';
             }
             html += '</div>';
             html += '</div>';
@@ -984,7 +1132,7 @@
             // Course Recommendations
             if (data.course_recommendations) {
                 html += '<div class="content-card">';
-                html += '<h4>📚 Course Recommendations</h4>';
+                html += '<h4 style="display: flex; align-items: center; gap: 10px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.25278V19.2528M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.2528C4.16789 18.4769 5.75351 18 7.5 18C9.24649 18 10.8321 18.4769 12 19.2528M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.2528C19.8321 18.4769 18.2465 18 16.5 18C14.7535 18 13.1679 18.4769 12 19.2528"></path></svg> Course Recommendations</h4>';
                 
                 // Combine free and paid courses, label them appropriately
                 const allCourses = [];
@@ -1054,7 +1202,7 @@
             // Project Recommendations
             if (data.project_recommendations && Object.keys(data.project_recommendations).length > 0) {
                 html += '<div class="content-card">';
-                html += '<h4>🚀 Project Recommendations</h4>';
+                html += '<h4 style="display: flex; align-items: center; gap: 10px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7L12 12L22 7L12 2Z"></path><path d="M2 17L12 22L22 17"></path><path d="M2 12L12 17L22 12"></path></svg> Project Recommendations</h4>';
                 
                 Object.entries(data.project_recommendations).forEach(([track, projects]) => {
                     html += '<div style="margin-bottom: 20px;">';
@@ -1062,7 +1210,7 @@
                     
                     projects.forEach((project, idx) => {
                         const isCurrentSkills = idx === 0;
-                        const badgeText = isCurrentSkills ? '✨ Build with Your Current Skills' : '🎯 Learn Missing Skills & Fill the Gap';
+                        const badgeText = isCurrentSkills ? 'Build with Your Current Skills' : 'Learn Missing Skills & Fill the Gap';
                         const badgeClass = isCurrentSkills ? 'badge-current' : 'badge-missing';
                         const cardClass = isCurrentSkills ? 'current' : 'missing';
                         
@@ -1155,7 +1303,7 @@
             }
             
             // Add download button
-            html += '<button class="toggle-section" onclick="downloadAnalysisReport()" style="margin-top: 24px;">📥 Download Full Report</button>';
+            html += '<button class="toggle-section" onclick="downloadAnalysisReport()" style="margin-top: 24px; display: flex; align-items: center; gap: 8px; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download Full Report</button>';
             
             return html;
         }
@@ -1491,7 +1639,7 @@
             // Helper function to try sync endpoint as fallback
             const trySyncEndpoint = async () => {
                 if (progressText) {
-                    progressText.textContent = 'Processing (using fallback method)...';
+                    progressText.textContent = 'Analyzing report before final output...';
                 }
                 // Recreate FormData since it can only be read once
                 const syncFormData = new FormData();
@@ -1615,7 +1763,7 @@
                 }
             } catch (error) {
                 console.error('Request error:', error);
-                resultArea.innerHTML = '<div class="alert alert-error">❌ Error: ' + escapeHtml(error.message) + '</div>';
+                resultArea.innerHTML = '<div class="alert alert-error" style="display: flex; align-items: center; gap: 10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Error: ' + escapeHtml(error.message) + '</div>';
             } finally {
                 submitBtn.disabled = false;
             }
@@ -1689,7 +1837,7 @@
             // Helper function to try sync endpoint as fallback
             const trySyncEndpoint = async () => {
                 if (progressText) {
-                    progressText.textContent = 'Processing (using fallback method)...';
+                    progressText.textContent = 'Finalizing cover letter...';
                 }
                 // Recreate FormData since it can only be read once
                 const syncFormData = new FormData();
@@ -1816,7 +1964,7 @@
                 }
             } catch (error) {
                 console.error('Request error:', error);
-                coverView.innerHTML = '<div class="alert alert-error">❌ Error: ' + escapeHtml(error.message) + '</div>';
+                coverView.innerHTML = '<div class="alert alert-error" style="display: flex; align-items: center; gap: 10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Error: ' + escapeHtml(error.message) + '</div>';
             } finally {
                 submitBtn.disabled = false;
             }

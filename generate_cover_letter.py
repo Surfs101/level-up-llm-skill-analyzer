@@ -411,7 +411,7 @@ Output JSON format:
 """
     try:
         resp = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-5.1",
             temperature=0.1,
             messages=[
                 {"role": "system", "content": sys_prompt},
@@ -527,7 +527,7 @@ Output JSON format:
 If the address is not explicitly mentioned, set company_address to null.
 """
     resp = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-5.1",
         temperature=0.1,
         messages=[
             {"role": "system", "content": sys_prompt},
@@ -580,7 +580,7 @@ Output JSON format:
 }}
 """
     resp = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-5.1",
         temperature=0.2,
         messages=[
             {"role": "system", "content": sys_prompt},
@@ -950,7 +950,7 @@ Requirements:
 """
 
     resp = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-5.1",
         temperature=0.4,
         messages=[
             {"role": "system", "content": sys_prompt},

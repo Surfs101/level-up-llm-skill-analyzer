@@ -15,10 +15,17 @@ import tempfile
 import json
 import asyncio
 import threading
+import hashlib
+import time
 from pathlib import Path
 from generate_report import generate_report
 from generate_cover_letter import generate_cover_letter_from_text
 from pdf_resume_parser import PDFToTextConverter
+
+# Request deduplication cache (simple in-memory cache)
+_request_cache = {}
+_cache_lock = threading.Lock()
+_cache_ttl = 60  # Cache for 60 seconds
 
 # Try to import docx support
 try:
@@ -1036,21 +1043,26 @@ HTML_TEMPLATE = """
                         }
                         
                         if (data.course_recommendations.paid_courses && data.course_recommendations.paid_courses.length > 0) {
-                            const paid = data.course_recommendations.paid_courses[0];
-                            html += `
-                                <div>
-                                    <h4 style="color: var(--accent-primary); margin-bottom: 12px;">💰 Paid Course: ${paid.title || 'N/A'}</h4>
-                                    <div class="detail"><strong>Platform:</strong> ${paid.platform || 'N/A'}</div>
-                                    <div class="detail"><strong>Duration:</strong> ${paid.duration || 'N/A'}</div>
-                                    <div class="detail"><strong>Difficulty:</strong> ${paid.difficulty || 'N/A'}</div>
-                                    <div class="detail"><strong>Cost:</strong> ${paid.cost || 'N/A'}</div>
-                                    ${paid.link ? `<div class="detail"><strong>Link:</strong> <a href="${paid.link}" target="_blank" style="color: var(--accent-primary);">${paid.link}</a></div>` : ''}
-                                    ${paid.skills_covered && paid.skills_covered.length > 0 ? 
-                                        `<div class="detail"><strong>Skills Covered:</strong> <ul><li>${paid.skills_covered.join('</li><li>')}</li></ul></div>` : ''}
-                                    ${paid.description ? `<div class="description">${paid.description}</div>` : ''}
-                                    ${paid.why_efficient ? `<div class="detail"><strong>Why This Course:</strong> ${paid.why_efficient}</div>` : ''}
-                                </div>
-                            `;
+                            // Display all paid courses (1 or 2)
+                            data.course_recommendations.paid_courses.forEach((paid, index) => {
+                                const courseNumber = data.course_recommendations.paid_courses.length > 1 ? ` ${index + 1}` : '';
+                                const borderStyle = index < data.course_recommendations.paid_courses.length - 1 ? 
+                                    'margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border-color);' : '';
+                                html += `
+                                    <div style="${borderStyle}">
+                                        <h4 style="color: var(--accent-primary); margin-bottom: 12px;">💰 Paid Course${courseNumber}: ${paid.title || 'N/A'}</h4>
+                                        <div class="detail"><strong>Platform:</strong> ${paid.platform || 'N/A'}</div>
+                                        <div class="detail"><strong>Duration:</strong> ${paid.duration || 'N/A'}</div>
+                                        <div class="detail"><strong>Difficulty:</strong> ${paid.difficulty || 'N/A'}</div>
+                                        <div class="detail"><strong>Cost:</strong> ${paid.cost || 'N/A'}</div>
+                                        ${paid.link ? `<div class="detail"><strong>Link:</strong> <a href="${paid.link}" target="_blank" style="color: var(--accent-primary);">${paid.link}</a></div>` : ''}
+                                        ${paid.skills_covered && paid.skills_covered.length > 0 ? 
+                                            `<div class="detail"><strong>Skills Covered:</strong> <ul><li>${paid.skills_covered.join('</li><li>')}</li></ul></div>` : ''}
+                                        ${paid.description ? `<div class="description">${paid.description}</div>` : ''}
+                                        ${paid.why_efficient ? `<div class="detail"><strong>Why This Course:</strong> ${paid.why_efficient}</div>` : ''}
+                                    </div>
+                                `;
+                            });
                         }
                         
                         html += `</div>`;
@@ -1453,6 +1465,7 @@ async def analyze_sync(
     """
     Synchronous analyze endpoint (fallback for environments where SSE doesn't work).
     Returns JSON response directly without streaming.
+    Includes request deduplication to prevent duplicate processing.
     """
     temp_path = None
     try:
@@ -1463,12 +1476,29 @@ async def analyze_sync(
         if not job_text.strip():
             raise HTTPException(status_code=400, detail='Job description is required')
         
+        # Create request hash for deduplication (based on file content + job text)
+        content = await resume.read()
+        request_hash = hashlib.md5(
+            content + job_text.encode('utf-8')
+        ).hexdigest()
+        
+        # Check cache for duplicate request
+        with _cache_lock:
+            current_time = time.time()
+            if request_hash in _request_cache:
+                cached_result, cache_time = _request_cache[request_hash]
+                if current_time - cache_time < _cache_ttl:
+                    print(f"Debug: Returning cached result for request {request_hash[:8]}...")
+                    return JSONResponse(content=cached_result)
+                else:
+                    # Cache expired, remove it
+                    del _request_cache[request_hash]
+        
         # Save uploaded file temporarily
         temp_dir = tempfile.gettempdir()
         temp_path = os.path.join(temp_dir, f"resume_{os.getpid()}_{resume.filename}")
         
         with open(temp_path, "wb") as f:
-            content = await resume.read()
             f.write(content)
         
         # Convert PDF to text
@@ -1491,6 +1521,16 @@ async def analyze_sync(
                 progress_callback=None
             )
         )
+        
+        # Cache the result
+        with _cache_lock:
+            _request_cache[request_hash] = (report_result, time.time())
+            # Clean up old cache entries (keep only last 10)
+            if len(_request_cache) > 10:
+                # Remove oldest entries
+                sorted_cache = sorted(_request_cache.items(), key=lambda x: x[1][1])
+                for key, _ in sorted_cache[:-10]:
+                    del _request_cache[key]
         
         return JSONResponse(content=report_result)
         

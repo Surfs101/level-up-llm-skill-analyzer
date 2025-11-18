@@ -506,7 +506,7 @@ def main():
     while attempts < 3:
         prompt = build_prompt(job_text, resume_skills, gaps=gaps_flat, primary_gap_skill=primary_gap, course_recommendations=course_recommendations)
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-5.1",
             messages=[{"role": "user", "content": prompt}],
             response_format={"type": "json_object"}
         )
