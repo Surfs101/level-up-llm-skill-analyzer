@@ -166,6 +166,39 @@ def filter_non_recommendable_skills(skills_dict: dict) -> dict:
     return filtered
 
 
+def ensure_single_letter_languages(job_text: str, required_skills: dict, preferred_skills: dict):
+    """
+    Post-process extracted skills to ensure single-letter languages like "R" and "C" 
+    are included if they appear in the job description text.
+    This is a safety net in case the LLM misses them.
+    """
+    SINGLE_LETTER_LANGS = {"r": "R", "c": "C"}
+    
+    # Get all currently extracted skills (normalized to lowercase)
+    extracted_skills = set()
+    for bucket in BUCKETS:
+        for skill_list in [required_skills.get(bucket, []), preferred_skills.get(bucket, [])]:
+            for skill in skill_list:
+                if skill:
+                    extracted_skills.add(str(skill).lower().strip())
+    
+    # Check if single-letter languages appear in the job text
+    for lang_lower, lang_upper in SINGLE_LETTER_LANGS.items():
+        # Check if the language is mentioned in the text but not in extracted skills
+        if lang_lower not in extracted_skills:
+            # Use regex to find "R" or "C" as standalone words or in comma-separated lists
+            # Pattern: word boundary OR comma/space before, word boundary OR comma/space after
+            pattern = rf"(?<![A-Za-z0-9]){re.escape(lang_upper)}(?![A-Za-z0-9])|(?<=[, ]){re.escape(lang_upper)}(?=[, ])|(?<=,){re.escape(lang_upper)}(?=\s|,|$)|(?<=\s){re.escape(lang_upper)}(?=,|\s|$)"
+            if re.search(pattern, job_text, re.IGNORECASE):
+                # Add to ProgrammingLanguages bucket in required skills (prioritize required)
+                if "ProgrammingLanguages" not in required_skills:
+                    required_skills["ProgrammingLanguages"] = []
+                # Only add if not already present (case-insensitive check)
+                existing_lower = [s.lower() for s in required_skills["ProgrammingLanguages"]]
+                if lang_lower not in existing_lower:
+                    required_skills["ProgrammingLanguages"].append(lang_upper)
+
+
 def ensure_critical_domains_in_skills(text: str, skills_dict: dict):
     if not text or not isinstance(skills_dict, dict):
         return
@@ -339,7 +372,7 @@ Task:
 1) Identify the MAIN DOMAIN/FIELD of this job (e.g., "Machine Learning", "AI", "Data Science", "MLOps", "Software Engineering", "DevOps", "Cloud Computing", "Cybersecurity", etc.). If the job is clearly in a technical domain, include this domain as a skill in FrameworksLibraries bucket (e.g., "Machine Learning", "Artificial Intelligence", "Data Science", "MLOps").
 
 2) Extract ONLY technical skills that can be learned through courses or projects. Focus on:
-   - Specific programming languages (Python, Java, Go, JavaScript, etc.)
+   - Specific programming languages (Python, Java, Go, JavaScript, R, C, C++, etc.) - CRITICAL: Include single-letter languages like "R" and "C" even when they appear in comma-separated lists (e.g., "Python, R, SQL" must extract "R" as a skill)
    - Specific frameworks and libraries (React, Angular, Vue, TensorFlow, PyTorch, etc.)
    - Specific tools, platforms, and services (Docker, Kubernetes, AWS, GCP, Azure, MongoDB, PostgreSQL, Redis, etc.)
    - Technical domains that can be learned (Machine Learning, Data Science, AI, MLOps, etc.)
@@ -433,6 +466,9 @@ Job Description:
     # Filter out non-recommendable skills (practices, methodologies, concepts)
     out["required"]["skills"] = filter_non_recommendable_skills(out["required"]["skills"])
     out["preferred"]["skills"] = filter_non_recommendable_skills(out["preferred"]["skills"])
+    
+    # Post-process: Ensure single-letter languages like "R" and "C" are extracted if they appear in the text
+    ensure_single_letter_languages(job_description_text, out["required"]["skills"], out["preferred"]["skills"])
     
     # CRITICAL: Remove any skills from preferred that are already in required
     # This ensures no duplication between required and preferred

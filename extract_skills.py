@@ -33,6 +33,9 @@ except FileNotFoundError:
 KNOWN_LANGUAGES = {
     "python","java","c","c++","c#","javascript","typescript","go","rust","ruby","php","sql","scala","kotlin","swift","r","matlab"
 }
+
+# Single-letter languages that need special regex handling
+SINGLE_LETTER_LANGS = {"r", "c"}
 KNOWN_FRAMEWORKS = {
     "react","angular","vue","django","flask","spring","fastapi","pytorch","tensorflow","keras","scikit-learn","sklearn","pandas","numpy","opencv","spark","hadoop","airflow","dbt","next.js","node.js","express","laravel",".net","dotnet","rails","bootstrap","tailwind css","material ui",
     # Machine Learning & AI Domain Terms
@@ -62,8 +65,20 @@ def find_terms_in_text(terms: List[str], text: str) -> Set[str]:
     for term in terms:
         if not term:
             continue
-        # Build regex that avoids partial matches inside longer tokens
-        pat = re.compile(rf"(?<![A-Za-z0-9+#.]){re.escape(term)}(?![A-Za-z0-9.+#-])", re.IGNORECASE)
+        # Special handling for single-letter languages (like "R", "C")
+        # These need to match when separated by commas, spaces, or at word boundaries
+        if len(term) == 1 and term.lower() in SINGLE_LETTER_LANGS:
+            # Match single letter with flexible boundaries
+            # Handles: "R", " R ", ",R,", " R,", ",R ", "Python, R, SQL", "Skills: R, Python"
+            # Pattern allows: word boundary, comma, space, start/end of string
+            pattern = rf"(?<![A-Za-z0-9]){re.escape(term.upper())}(?![A-Za-z0-9])|(?<=[, ]){re.escape(term.upper())}(?=[, ])|(?<=,){re.escape(term.upper())}(?=\s|,|$)|(?<=\s){re.escape(term.upper())}(?=,|\s|$)"
+            pat = re.compile(pattern)
+        else:
+            # For multi-character terms, use standard word boundary matching
+            # Also allow comma-separated patterns
+            pattern = rf"(?<![A-Za-z0-9+#.]){re.escape(term)}(?![A-Za-z0-9.+#-])|(?<=[, ]){re.escape(term)}(?=[, ])|(?<=,){re.escape(term)}(?=,|\s|$)"
+            pat = re.compile(pattern, re.IGNORECASE)
+        
         for m in pat.finditer(text):
             # Grab original slice to preserve case
             hits.add(text[m.start():m.end()])
@@ -143,7 +158,7 @@ You are an expert résumé parser.
 Make sure to list only the languages and skills that are actually mentioned in the résumé.
 
 Extract ALL technical skills from the resume text below, including:
-- Programming languages (Python, Java, etc.)
+- Programming languages (Python, Java, R, C, C++, JavaScript, etc.) - IMPORTANT: Include single-letter languages like "R" and "C" even when they appear in comma-separated lists or skill sections
 - Frameworks and libraries (React, PyTorch, TensorFlow, etc.)
 - Tools and platforms (Git, Docker, AWS, etc.)
 - Domain expertise areas (Machine Learning, Deep Learning, Data Science, AI, Computer Vision, NLP, etc.)
