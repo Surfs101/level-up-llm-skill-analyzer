@@ -26,6 +26,7 @@
 - [API Documentation](#api-documentation)
 - [Project Structure](#project-structure)
 - [Authors](#authors)
+
 ---
 
 ## 🎯 Overview
@@ -94,44 +95,59 @@
 
 ## 🛠️ Tech Stack
 
-### Backend
+### Frontend Technologies
 
-- **Language**: Python 3.8+
-- **Framework**: [FastAPI](https://fastapi.tiangolo.com/) - Modern, fast web framework
-- **Server**: Uvicorn (ASGI server)
-- **AI/LLM**: 
-  - [OpenAI API](https://openai.com/) - GPT models for skill extraction, recommendations, and cover letter generation
-  - OpenAI Python SDK
-- **Database**: 
-  - [MongoDB](https://www.mongodb.com/) - NoSQL database for course data storage
-  - PyMongo - MongoDB Python driver
-- **PDF Processing**: 
-  - PyMuPDF (fitz) - Fast PDF parsing
-  - PyPDF2 - PDF text extraction
-  - pdfminer.six - Advanced PDF parsing
-- **OCR**: 
-  - pytesseract - Optical Character Recognition
-  - Pillow (PIL) - Image processing
-- **Document Support**: 
-  - python-docx - Word document (.docx) processing
-- **Data Processing**: 
-  - pandas - Data manipulation and analysis
-- **Encoding Detection**: chardet
-- **Environment Management**: python-dotenv
+- **HTML5** - Markup language for structuring web pages
+- **CSS3** - Styling and modern design with custom responsive layouts
+- **JavaScript (Vanilla JS)** - Client-side scripting for interactive UI
+- **Jinja2** - Server-side templating engine for dynamic HTML generation
+- **Server-Sent Events (SSE)** - Real-time streaming updates for progress tracking
 
-### Frontend
+### Backend Technologies
 
-- **Markup**: HTML5
-- **Styling**: CSS3 (Custom modern design)
-- **Scripting**: JavaScript (Vanilla JS)
-- **Templates**: Jinja2 - Server-side templating engine
-- **Real-time Updates**: Server-Sent Events (SSE) for streaming responses
+- **Python 3.8+** - Primary programming language
+- **FastAPI** - Modern, fast web framework for building APIs
+- **Uvicorn** - ASGI server for running FastAPI applications
+- **Flask** - Additional web framework support
+- **python-multipart** - File upload handling
 
-### Infrastructure & Deployment
+### AI & Machine Learning
 
-- **Hosting**: [Render](https://render.com/) - Cloud platform
-- **Database Hosting**: MongoDB Atlas - Cloud database service
-- **Version Control**: Git & GitHub
+- **OpenAI API** - GPT models for:
+  - Skill extraction from résumés and job descriptions
+  - Course and project recommendations
+  - AI-powered cover letter generation
+- **OpenAI Python SDK** - Official Python client for OpenAI API
+
+### Database
+
+- **MongoDB** - NoSQL database for storing course data
+- **PyMongo** - MongoDB Python driver
+- **MongoDB Atlas** - Cloud database hosting
+
+### Document Processing
+
+- **PDF Processing**:
+  - **PyMuPDF (fitz)** - Fast and efficient PDF parsing
+  - **PyPDF2** - PDF text extraction
+  - **pdfminer.six** - Advanced PDF parsing and text extraction
+- **OCR (Optical Character Recognition)**:
+  - **pytesseract** - Text extraction from scanned documents
+  - **Pillow (PIL)** - Image processing for OCR
+- **Word Documents**:
+  - **python-docx** - Microsoft Word (.docx) file processing
+
+### Data Processing & Utilities
+
+- **pandas** - Data manipulation and analysis for course data
+- **chardet** - Character encoding detection
+- **argparse** - Command-line argument parsing
+
+### Development & Deployment
+
+- **python-dotenv** - Environment variable management
+- **Git & GitHub** - Version control and code repository
+- **Render** - Cloud hosting platform for deployment
 
 ---
 
