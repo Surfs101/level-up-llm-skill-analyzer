@@ -26,8 +26,6 @@
 - [API Documentation](#api-documentation)
 - [Project Structure](#project-structure)
 - [Authors](#authors)
-- [License](#license)
-
 ---
 
 ## 🎯 Overview
@@ -49,7 +47,11 @@
 
 ### Watch the Demo Video
 
-[![Demo Video](https://img.shields.io/badge/▶️-Watch%20Demo%20Video-red)](https://drive.google.com/file/d/1rwbXLnQzjT6PDIEMzjZcBVmqD1B0OlYA/view?usp=drive_link)
+<a href="https://youtu.be/728sAVC96EI">
+  <img src="https://img.youtube.com/vi/728sAVC96EI/maxresdefault.jpg" alt="skillbridge.AI Demo Video" style="width:100%;max-width:800px;border-radius:8px;">
+</a>
+
+<p><a href="https://youtu.be/728sAVC96EI">▶️ Watch on YouTube</a></p>
 
 **Or visit the live application**: [https://level-up-llm-skill-analyzer.onrender.com/](https://level-up-llm-skill-analyzer.onrender.com/)
 
@@ -94,23 +96,42 @@
 
 ### Backend
 
-- **Framework**: [FastAPI](https://fastapi.tiangolo.com/) - Modern, fast web framework
 - **Language**: Python 3.8+
-- **LLM**: OpenAI GPT Models (via OpenAI API)
-- **Database**: MongoDB (PyMongo) - Course data storage
-- **PDF Processing**: PyMuPDF, PyPDF2, pdfminer.six
-- **Document Support**: python-docx (Word documents)
+- **Framework**: [FastAPI](https://fastapi.tiangolo.com/) - Modern, fast web framework
+- **Server**: Uvicorn (ASGI server)
+- **AI/LLM**: 
+  - [OpenAI API](https://openai.com/) - GPT models for skill extraction, recommendations, and cover letter generation
+  - OpenAI Python SDK
+- **Database**: 
+  - [MongoDB](https://www.mongodb.com/) - NoSQL database for course data storage
+  - PyMongo - MongoDB Python driver
+- **PDF Processing**: 
+  - PyMuPDF (fitz) - Fast PDF parsing
+  - PyPDF2 - PDF text extraction
+  - pdfminer.six - Advanced PDF parsing
+- **OCR**: 
+  - pytesseract - Optical Character Recognition
+  - Pillow (PIL) - Image processing
+- **Document Support**: 
+  - python-docx - Word document (.docx) processing
+- **Data Processing**: 
+  - pandas - Data manipulation and analysis
+- **Encoding Detection**: chardet
+- **Environment Management**: python-dotenv
 
 ### Frontend
 
-- **Templates**: Jinja2
-- **Styling**: Custom CSS with modern design
-- **JavaScript**: Vanilla JS with Server-Sent Events (SSE) for real-time updates
+- **Markup**: HTML5
+- **Styling**: CSS3 (Custom modern design)
+- **Scripting**: JavaScript (Vanilla JS)
+- **Templates**: Jinja2 - Server-side templating engine
+- **Real-time Updates**: Server-Sent Events (SSE) for streaming responses
 
-### Infrastructure
+### Infrastructure & Deployment
 
-- **Deployment**: [Render](https://render.com/)
-- **Database**: MongoDB Atlas
+- **Hosting**: [Render](https://render.com/) - Cloud platform
+- **Database Hosting**: MongoDB Atlas - Cloud database service
+- **Version Control**: Git & GitHub
 
 ---
 
@@ -300,12 +321,6 @@ level-up-llm-skill-analyzer/
 - **Surjo Barua** - [GitHub](https://github.com/Surfs101)
 - **Jiayu Ouyang** - [GitHub](https://github.com/3ouyang3)
 - **Ibnan Hasan**
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
