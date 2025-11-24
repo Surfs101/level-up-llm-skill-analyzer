@@ -30,7 +30,6 @@
 - [API Documentation](#api-documentation)
 - [Project Structure](#project-structure)
 - [Authors](#authors)
-- [License](#license)
 
 ---
 
@@ -95,6 +94,14 @@
 - **Template Support**: Accepts custom templates (.txt, .docx, .pdf)
 - **Professional Formatting**: Creates ready-to-use cover letters
 - **One-Click Copy**: Easy copy-to-clipboard functionality
+- **Real-time Progress**: Live progress updates during generation
+
+### ⚡ Performance Features
+
+- **Request Caching**: Intelligent request deduplication to prevent duplicate processing (60-second TTL)
+- **Streaming Responses**: Server-Sent Events (SSE) for real-time progress updates
+- **Graduate Student Detection**: Automatically detects if a job requires graduate-level education
+- **Multi-format Support**: Handles PDF, DOCX, and TXT files for templates
 
 ---
 
@@ -113,7 +120,6 @@
 - **Python 3.8+** - Primary programming language
 - **FastAPI** - Modern, fast web framework for building APIs
 - **Uvicorn** - ASGI server for running FastAPI applications
-- **Flask** - Additional web framework support
 - **python-multipart** - File upload handling
 
 ### AI & Machine Learning
@@ -154,6 +160,13 @@
 - **Git & GitHub** - Version control and code repository
 - **Render** - Cloud hosting platform for deployment
 
+### Additional Features
+
+- **Request Deduplication** - In-memory caching to prevent duplicate processing
+- **Progress Callbacks** - Real-time progress tracking during long-running operations
+- **Error Handling** - Comprehensive error handling with detailed error messages
+- **File Validation** - Automatic file type validation and error reporting
+
 ---
 
 ## 🏗️ System Architecture
@@ -187,6 +200,73 @@
 
 ### Data Flow
 
+```
+┌─────────────────────┐
+│   Resume Text       │
+└─────────────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│         │
+│   Extract Skills    │
+└─────────────────────┘
+         │
+         ▼
+         │
+         └─────────────────┐
+                           │
+┌─────────────────────┐    │
+│   Job Text          │    │
+└─────────────────────┘    │
+         │                 │
+         ▼                 │
+┌─────────────────────┐    │
+│                     │    │
+│   Extract Skills    │    │
+└─────────────────────┘    │
+         │                 │
+         ▼                 │    
+         │                 │
+         └────────┬────────┘
+                  │
+                  ▼
+         ┌─────────────────────┐
+         │                     │
+         │   Match & Score     │
+         └─────────────────────┘
+                  │
+                  ▼
+         ┌─────────────────────┐
+         │ match_scores        │
+         └─────────────────────┘
+                  │
+         ┌────────┴────────┐
+         │                 │
+         ▼                 │
+┌─────────────────────┐    │
+│                     │    │
+│   Recommend         │    │
+│   Courses           │    │
+└─────────────────────┘    │
+         │                 │
+         ▼                 │   
+         │                 │
+         └────────┬────────┘
+                  │
+                  ▼
+         ┌─────────────────────┐
+         │                     │
+         │   Recommend         │
+         │   Projects          │
+         └─────────────────────┘
+                  │
+                  │
+                  ▼
+         ┌─────────────────────┐
+         │ final_report         │
+         └─────────────────────┘
+```
+
 1. **Input**: User uploads PDF résumé and pastes job description
 2. **Parsing**: PDF text extraction using multiple parsing methods
 3. **Skill Extraction**: LLM extracts and categorizes skills from both documents
@@ -209,29 +289,41 @@ Visit the [live application](https://level-up-llm-skill-analyzer.onrender.com/) 
    - Upload your PDF résumé
    - Paste the job description
    - Click "Analyze Match"
-   - View comprehensive skill gap analysis with course and project recommendations
+   - Watch real-time progress updates as the system processes your request
+   - View comprehensive skill gap analysis with:
+     - Overall match score and coverage statistics
+     - Required and preferred skills breakdown
+     - Course recommendations (free and paid options)
+     - Project recommendations (build with current skills vs. learn missing skills)
+     - Graduate student job detection warnings
 
 2. **Cover Letter Generator Tab**:
    - Upload your PDF résumé
    - Paste the job description
-   - Optionally upload a cover letter template
+   - Optionally upload a cover letter template (.txt, .docx, or .pdf)
    - Click "Generate Cover Letter"
-   - Copy the generated cover letter
+   - Watch real-time progress updates during generation
+   - Copy the generated cover letter with one click
 
 ### API Endpoints
+
+#### Homepage
+
+**GET** `/`
+- Returns the main web interface with tabs for Skill Gap Analyzer and Cover Letter Generator
 
 #### Skill Gap Analysis
 
 **POST** `/analyze` (SSE Streaming)
+- **Content-Type**: `multipart/form-data`
+- **Parameters**:
+  - `resume` (file, required): PDF resume file
+  - `job_text` (string, required): Job description text
+- **Response**: Server-Sent Events stream with progress updates and final JSON result
+- **Features**: Request caching, real-time progress tracking
+
 ```bash
 curl -X POST "https://level-up-llm-skill-analyzer.onrender.com/analyze" \
-  -F "resume=@your_resume.pdf" \
-  -F "job_text=Your job description here"
-```
-
-**POST** `/analyze-sync` (Synchronous)
-```bash
-curl -X POST "https://level-up-llm-skill-analyzer.onrender.com/analyze-sync" \
   -F "resume=@your_resume.pdf" \
   -F "job_text=Your job description here"
 ```
@@ -239,6 +331,13 @@ curl -X POST "https://level-up-llm-skill-analyzer.onrender.com/analyze-sync" \
 #### Cover Letter Generation
 
 **POST** `/cover-letter` (SSE Streaming)
+- **Content-Type**: `multipart/form-data`
+- **Parameters**:
+  - `resume` (file, required): PDF resume file
+  - `job_text` (string, required): Job description text
+  - `template` (file, optional): Cover letter template (.txt, .docx, or .pdf)
+- **Response**: Server-Sent Events stream with progress updates and final cover letter
+
 ```bash
 curl -X POST "https://level-up-llm-skill-analyzer.onrender.com/cover-letter" \
   -F "resume=@your_resume.pdf" \
@@ -246,12 +345,11 @@ curl -X POST "https://level-up-llm-skill-analyzer.onrender.com/cover-letter" \
   -F "template=@template.txt"  # Optional
 ```
 
-**POST** `/cover-letter-sync` (Synchronous)
-```bash
-curl -X POST "https://level-up-llm-skill-analyzer.onrender.com/cover-letter-sync" \
-  -F "resume=@your_resume.pdf" \
-  -F "job_text=Your job description here"
-```
+#### Health Check
+
+**GET** `/health`
+- Returns service health status
+- **Response**: `{"status": "healthy", "service": "Resume-Job Match Analyzer"}`
 
 ---
 
@@ -259,56 +357,135 @@ curl -X POST "https://level-up-llm-skill-analyzer.onrender.com/cover-letter-sync
 
 ### Response Format
 
-#### Skill Gap Analysis Response
+#### Skill Gap Analysis Response (SSE Stream)
 
+The `/analyze` endpoint returns Server-Sent Events (SSE) with the following message types:
+
+**Progress Messages:**
 ```json
 {
-  "overall_score": {
-    "weighted_score": 75.5,
-    "total_skills": 20,
-    "matched_skills": 15
-  },
-  "required_skills": {
-    "total_count": 10,
-    "covered_count": 8,
-    "match_score": 80.0,
-    "covered_skills": ["Python", "FastAPI", "MongoDB"],
-    "missing_skills": ["Docker", "Kubernetes"]
-  },
-  "preferred_skills": {
-    "total_count": 10,
-    "covered_count": 7,
-    "match_score": 70.0,
-    "covered_skills": ["React", "TypeScript"],
-    "missing_skills": ["AWS", "GraphQL", "Redis"]
-  },
-  "course_recommendations": {
-    "free_courses": [...],
-    "paid_courses": [...],
-    "skill_coverage": {...},
-    "coverage_percentage": 75
-  },
-  "project_recommendations": {
-    "MLOps (Marketing)": [
-      {
-        "title": "Project Name",
-        "description": "...",
-        "tech_stack": [...],
-        "implementation_phases": [...]
-      }
-    ]
-  },
-  "is_grad_student_job": false
+  "type": "progress",
+  "message": "Extracting skills from resume..."
 }
 ```
 
-#### Cover Letter Response
-
+**Complete Response:**
 ```json
 {
-  "cover_letter": "Generated cover letter text here..."
+  "type": "complete",
+  "data": {
+    "overall_score": {
+      "weighted_score": 75.5,
+      "total_skills": 20,
+      "matched_skills": 15
+    },
+    "required_skills": {
+      "total_count": 10,
+      "covered_count": 8,
+      "match_score": 80.0,
+      "covered_skills": ["Python", "FastAPI", "MongoDB"],
+      "missing_skills": ["Docker", "Kubernetes"]
+    },
+    "preferred_skills": {
+      "total_count": 10,
+      "covered_count": 7,
+      "match_score": 70.0,
+      "covered_skills": ["React", "TypeScript"],
+      "missing_skills": ["AWS", "GraphQL", "Redis"]
+    },
+    "course_recommendations": {
+      "free_courses": [
+        {
+          "title": "Course Title",
+          "platform": "Udemy",
+          "duration": "10 hours",
+          "difficulty": "Intermediate",
+          "cost": "Free",
+          "link": "https://...",
+          "skills_covered": ["Python", "FastAPI"],
+          "description": "...",
+          "why_efficient": "..."
+        }
+      ],
+      "paid_courses": [
+        {
+          "title": "Course Title",
+          "platform": "Coursera",
+          "duration": "20 hours",
+          "difficulty": "Advanced",
+          "cost": "$49.99",
+          "link": "https://...",
+          "skills_covered": ["Docker", "Kubernetes"],
+          "description": "...",
+          "why_efficient": "..."
+        }
+      ],
+      "skill_coverage": {...},
+      "coverage_percentage": 75
+    },
+    "project_recommendations": {
+      "Track Name": [
+        {
+          "title": "Project Name",
+          "description": "...",
+          "difficulty": "Intermediate",
+          "estimated_time": "2-3 weeks",
+          "tech_stack": ["Python", "FastAPI", "MongoDB"],
+          "key_features": ["Feature 1", "Feature 2"],
+          "skills_demonstrated": ["Skill 1", "Skill 2"],
+          "technologies": ["Tech 1", "Tech 2"],
+          "project_outline": "High-level overview",
+          "implementation_phases": [
+            {
+              "phase": "Phase 1: Setup",
+              "details": "Detailed steps..."
+            }
+          ],
+          "portfolio_impact": "...",
+          "bonus_challenges": ["Challenge 1", "Challenge 2"]
+        }
+      ]
+    },
+    "is_grad_student_job": false
+  }
 }
 ```
+
+**Error Response:**
+```json
+{
+  "type": "error",
+  "message": "Error description here"
+}
+```
+
+#### Cover Letter Response (SSE Stream)
+
+The `/cover-letter` endpoint returns Server-Sent Events (SSE) with similar structure:
+
+**Progress Messages:**
+```json
+{
+  "type": "progress",
+  "message": "Extracting personal information from resume..."
+}
+```
+
+**Complete Response:**
+```json
+{
+  "type": "complete",
+  "data": {
+    "cover_letter": "Generated cover letter text here..."
+  }
+}
+```
+
+### Interactive API Documentation
+
+FastAPI automatically generates interactive API documentation:
+- **Swagger UI**: Available at `/docs` when running locally
+- **ReDoc**: Available at `/redoc` when running locally
 
 ---
 
@@ -316,21 +493,25 @@ curl -X POST "https://level-up-llm-skill-analyzer.onrender.com/cover-letter-sync
 
 ```
 level-up-llm-skill-analyzer/
-├── app_fastapi.py              # Main FastAPI application
-├── extract_skills.py            # Résumé skill extraction
-├── extract_job_skills.py       # Job description skill extraction
-├── score_skills_match.py        # Skill matching and scoring
-├── recommend_courses.py         # Course recommendation engine
-├── recommend_projects.py        # Project recommendation generator
+├── app_fastapi.py              # Main FastAPI application with SSE streaming
+├── extract_skills.py            # Résumé skill extraction using LLM
+├── extract_job_skills.py        # Job description skill extraction using LLM
+├── score_skills_match.py        # Skill matching and scoring engine
+├── recommend_courses.py         # Course recommendation engine (MongoDB integration)
+├── recommend_projects.py        # Project recommendation generator using LLM
 ├── generate_report.py           # Report generation orchestrator
-├── generate_cover_letter.py     # Cover letter generator
-├── pdf_resume_parser.py         # PDF text extraction
+├── generate_cover_letter.py     # AI-powered cover letter generator
+├── pdf_resume_parser.py         # Multi-method PDF text extraction (PyMuPDF, PyPDF2, pdfminer)
+├── skill_normalization.py      # Skill normalization and canonicalization
+├── check_setup.py               # Setup verification script
 ├── requirements.txt             # Python dependencies
 ├── README.md                    # Project documentation
 ├── CTP_template.txt            # Cover letter template example
+├── scripts/
+│   └── load_courses_to_mongo.py # Script to load course data into MongoDB
 └── templates/
-    ├── index.html               # Main UI template
-    ├── skill_analyzer.html      # Analysis form template
+    ├── index.html               # Main UI template with tabs
+    ├── skill_analyzer.html      # Skill analysis form template
     └── cover_letter.html        # Cover letter form template
 ```
 
