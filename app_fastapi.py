@@ -4,9 +4,9 @@
 from dotenv import load_dotenv
 load_dotenv()  # Load environment variables from .env file
 
-from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Request
+from fastapi import FastAPI, File, UploadFile, Form, Request
 from typing import Optional
-from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
+from fastapi.responses import HTMLResponse, StreamingResponse
 from starlette.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -1187,6 +1187,7 @@ async def analyze_with_progress(resume: UploadFile, job_text: str):
     """
     Analyze resume and job description match with progress updates.
     Yields progress messages and final result.
+    Includes request deduplication to prevent duplicate processing.
     """
     temp_path = None
     try:
@@ -1199,7 +1200,29 @@ async def analyze_with_progress(resume: UploadFile, job_text: str):
             yield f"data: {json.dumps({'type': 'error', 'message': 'Job description is required'})}\n\n"
             return
         
-        # Progress: Processing PDF
+        # Read content FIRST (before any processing) for cache check
+        content = await resume.read()
+        
+        # Create request hash for deduplication (based on file content + job text)
+        request_hash = hashlib.md5(
+            content + job_text.encode('utf-8')
+        ).hexdigest()
+        
+        # Check cache BEFORE any processing
+        with _cache_lock:
+            current_time = time.time()
+            if request_hash in _request_cache:
+                cached_result, cache_time = _request_cache[request_hash]
+                if current_time - cache_time < _cache_ttl:
+                    print(f"Debug: Returning cached result for request {request_hash[:8]}...")
+                    yield f"data: {json.dumps({'type': 'progress', 'message': 'Using cached result...'})}\n\n"
+                    yield f"data: {json.dumps({'type': 'complete', 'data': cached_result})}\n\n"
+                    return
+                else:
+                    # Cache expired, remove it
+                    del _request_cache[request_hash]
+        
+        # Progress: Processing PDF (only if not cached)
         yield f"data: {json.dumps({'type': 'progress', 'message': 'Processing PDF resume...'})}\n\n"
         await asyncio.sleep(0.1)  # Small delay for UI update
         
@@ -1208,7 +1231,6 @@ async def analyze_with_progress(resume: UploadFile, job_text: str):
         temp_path = os.path.join(temp_dir, f"resume_{os.getpid()}_{resume.filename}")
         
         with open(temp_path, "wb") as f:
-            content = await resume.read()
             f.write(content)
         
         # Convert PDF to text
@@ -1296,6 +1318,18 @@ async def analyze_with_progress(resume: UploadFile, job_text: str):
                 if msg not in emitted_messages:
                     yield f"data: {json.dumps({'type': 'progress', 'message': msg})}\n\n"
                     emitted_messages.add(msg)
+        
+        # Store result in cache for future duplicate requests
+        with _cache_lock:
+            _request_cache[request_hash] = (report_result, time.time())
+            # Clean up old cache entries (keep only recent ones)
+            current_time = time.time()
+            expired_keys = [
+                key for key, (_, cache_time) in _request_cache.items()
+                if current_time - cache_time >= _cache_ttl
+            ]
+            for key in expired_keys:
+                del _request_cache[key]
         
         # Send final result
         yield f"data: {json.dumps({'type': 'complete', 'data': report_result})}\n\n"
@@ -1457,180 +1491,6 @@ async def cover_letter(
     )
 
 
-@app.post("/analyze-sync")
-async def analyze_sync(
-    resume: UploadFile = File(..., description="PDF resume file"),
-    job_text: str = Form(..., description="Job description text")
-):
-    """
-    Synchronous analyze endpoint (fallback for environments where SSE doesn't work).
-    Returns JSON response directly without streaming.
-    Includes request deduplication to prevent duplicate processing.
-    """
-    temp_path = None
-    try:
-        # Validate file type
-        if not resume.filename.lower().endswith('.pdf'):
-            raise HTTPException(status_code=400, detail='Invalid file type. Only PDF files are allowed.')
-        
-        if not job_text.strip():
-            raise HTTPException(status_code=400, detail='Job description is required')
-        
-        # Create request hash for deduplication (based on file content + job text)
-        content = await resume.read()
-        request_hash = hashlib.md5(
-            content + job_text.encode('utf-8')
-        ).hexdigest()
-        
-        # Check cache for duplicate request
-        with _cache_lock:
-            current_time = time.time()
-            if request_hash in _request_cache:
-                cached_result, cache_time = _request_cache[request_hash]
-                if current_time - cache_time < _cache_ttl:
-                    print(f"Debug: Returning cached result for request {request_hash[:8]}...")
-                    return JSONResponse(content=cached_result)
-                else:
-                    # Cache expired, remove it
-                    del _request_cache[request_hash]
-        
-        # Save uploaded file temporarily
-        temp_dir = tempfile.gettempdir()
-        temp_path = os.path.join(temp_dir, f"resume_{os.getpid()}_{resume.filename}")
-        
-        with open(temp_path, "wb") as f:
-            f.write(content)
-        
-        # Convert PDF to text
-        converter = PDFToTextConverter(temp_path)
-        if not converter.convert():
-            raise HTTPException(status_code=400, detail='Failed to extract text from PDF')
-        
-        resume_text = converter.cleaned_text
-        if not resume_text:
-            raise HTTPException(status_code=400, detail='No text extracted from PDF. The PDF might be image-based or corrupted.')
-        
-        # Generate report synchronously
-        loop = asyncio.get_event_loop()
-        report_result = await loop.run_in_executor(
-            None,
-            lambda: generate_report(
-                resume_text=resume_text,
-                job_description_text=job_text,
-                role_label="Target Role",
-                progress_callback=None
-            )
-        )
-        
-        # Cache the result
-        with _cache_lock:
-            _request_cache[request_hash] = (report_result, time.time())
-            # Clean up old cache entries (keep only last 10)
-            if len(_request_cache) > 10:
-                # Remove oldest entries
-                sorted_cache = sorted(_request_cache.items(), key=lambda x: x[1][1])
-                for key, _ in sorted_cache[:-10]:
-                    del _request_cache[key]
-        
-        return JSONResponse(content=report_result)
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        import traceback
-        error_trace = traceback.format_exc()
-        print(f"Error in analyze_sync: {error_trace}")
-        raise HTTPException(status_code=500, detail=f'Internal server error: {str(e)}')
-    finally:
-        if temp_path and os.path.exists(temp_path):
-            try:
-                os.remove(temp_path)
-            except Exception:
-                pass
-
-
-@app.post("/cover-letter-sync")
-async def cover_letter_sync(
-    resume: UploadFile = File(..., description="PDF resume file"),
-    job_text: str = Form(..., description="Job description text"),
-    template: Optional[UploadFile] = File(None, description="Optional cover letter template file")
-):
-    """
-    Synchronous cover letter endpoint (fallback for environments where SSE doesn't work).
-    Returns JSON response directly without streaming.
-    """
-    temp_resume_path = None
-    temp_template_path = None
-    try:
-        # Validate file type
-        if not resume.filename.lower().endswith('.pdf'):
-            raise HTTPException(status_code=400, detail='Invalid file type. Only PDF files are allowed.')
-        
-        if not job_text.strip():
-            raise HTTPException(status_code=400, detail='Job description is required')
-        
-        # Save uploaded resume file temporarily
-        temp_dir = tempfile.gettempdir()
-        temp_resume_path = os.path.join(temp_dir, f"resume_{os.getpid()}_{resume.filename}")
-        
-        with open(temp_resume_path, "wb") as f:
-            content = await resume.read()
-            f.write(content)
-        
-        # Convert PDF to text
-        converter = PDFToTextConverter(temp_resume_path)
-        if not converter.convert():
-            raise HTTPException(status_code=400, detail='Failed to extract text from PDF')
-        
-        resume_text = converter.cleaned_text
-        if not resume_text:
-            raise HTTPException(status_code=400, detail='No text extracted from PDF. The PDF might be image-based or corrupted.')
-        
-        # Process template if provided
-        template_text = None
-        if template is not None:
-            try:
-                if hasattr(template, 'filename') and template.filename and template.filename.strip():
-                    temp_template_path = os.path.join(temp_dir, f"template_{os.getpid()}_{template.filename}")
-                    with open(temp_template_path, "wb") as f:
-                        content = await template.read()
-                        f.write(content)
-                    # Extract text from template file (supports .txt, .docx, .pdf)
-                    template_text = extract_text_from_template_file(temp_template_path, template.filename)
-            except Exception as e:
-                error_msg = f"Failed to process template file: {str(e)}"
-                print(f"Warning: {error_msg}")
-                raise HTTPException(status_code=400, detail=error_msg)
-        
-        # Generate cover letter synchronously
-        loop = asyncio.get_event_loop()
-        result = await loop.run_in_executor(
-            None,
-            lambda: generate_cover_letter_from_text(
-                resume_text=resume_text,
-                job_text=job_text,
-                template_text=template_text
-            )
-        )
-        
-        return JSONResponse(content=result)
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        import traceback
-        error_trace = traceback.format_exc()
-        print(f"Error in cover_letter_sync: {error_trace}")
-        raise HTTPException(status_code=500, detail=f'Internal server error: {str(e)}')
-    finally:
-        for temp_path in [temp_resume_path, temp_template_path]:
-            if temp_path and os.path.exists(temp_path):
-                try:
-                    os.remove(temp_path)
-                except Exception:
-                    pass
-
-
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
@@ -1648,4 +1508,5 @@ if __name__ == '__main__':
     print(f"🚀 FastAPI app starting on http://{display_host}:{port}")
     print(f"📖 API documentation available at http://{display_host}:{port}/docs")
     print(f"   (Server binding to {host}:{port})")
-    uvicorn.run(app, host=host, port=port)
+    # Set timeout to 120 seconds (2 minutes)
+    uvicorn.run(app, host=host, port=port, timeout_keep_alive=120)

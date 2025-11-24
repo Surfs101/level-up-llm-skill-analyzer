@@ -18,7 +18,6 @@ chardet
 argparse
 
 # Web frameworks
-flask
 fastapi
 uvicorn[standard]
 python-multipart

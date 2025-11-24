@@ -8,7 +8,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
 
-BUCKETS = ["ProgrammingLanguages", "FrameworksLibraries", "ToolsPlatforms", "SoftSkills"]
+# Import shared normalization
+from skill_normalization import BUCKETS
+
 TARGET_BUCKETS = ["ProgrammingLanguages", "FrameworksLibraries", "ToolsPlatforms"]
 
 # =============== Utility Functions ===============
@@ -160,7 +162,7 @@ def enforce_top_schema(data: dict, required_gap_skills: list | None = None, prim
                 if len(p2_tech_stack_filtered) < len(p2_tech_stack):
                     p2["tech_stack"] = clamp_list(p2_tech_stack_filtered, 15)
                 
-                # Now ensure primary gap skill is included (if it's in allowed skills)
+                # Now ensure primary learning skill from course is included (if it's in allowed skills)
                 if required_gap_skills and primary_gap_skill and primary_gap_skill in allowed_p2_skills:
                     # Add primary skill to the front of skills_demonstrated if not present
                     skills_demo = list(p2.get("skills_demonstrated", []))
@@ -286,7 +288,12 @@ def build_prompt(job_text: str, resume_skills: dict, gaps=None, primary_gap_skil
     available_skills_flat = sorted(set(available_skills_flat))
     
     gaps_block = "\n**Candidate Missing Required Skills (from job vs resume):**\n" + json.dumps(gaps, indent=2, ensure_ascii=False) if gaps else ""
-    primary_skill_block = f"\n\n**PRIMARY MISSING SKILL (MUST be the focus of Project 2):**\n{json.dumps(primary_gap_skill, ensure_ascii=False)}" if primary_gap_skill else ""
+    primary_skill_block = (
+        f"\n\n**PRIMARY LEARNING SKILL FROM COURSE (MUST be the focus of Project 2):**\n"
+        f"{json.dumps(primary_gap_skill, ensure_ascii=False)}"
+        if primary_gap_skill
+        else ""
+    )
     
     # Build available skills block for Project 1 restrictions
     available_skills_block = f"""
@@ -442,7 +449,7 @@ The most impactful and relevant project must appear **first** in the output.
   - **DO NOT include ANY skills, technologies, or frameworks that are NOT in the "ALLOWED Skills for Project 2" list.**
   - The project MUST use the EXACT same technologies and skills taught in the paid course(s).
   - The project should be designed so that after taking the paid course, the candidate can immediately build this project using ONLY what they know + what they learned from the paid course.
-  - MUST focus on and prominently feature the PRIMARY MISSING SKILL listed above (if it's in the paid course skills).
+  - MUST focus on and prominently feature the PRIMARY LEARNING SKILL FROM COURSE listed above (if it's in the paid course skills).
   - The primary skill must be:
     - Listed FIRST in "skills_demonstrated" (if it's in the allowed skills list)
     - Included in "tech_stack" (preferably at the front)
@@ -505,11 +512,18 @@ def main():
     primary_gap = args.primary_gap
     while attempts < 3:
         prompt = build_prompt(job_text, resume_skills, gaps=gaps_flat, primary_gap_skill=primary_gap, course_recommendations=course_recommendations)
-        response = client.chat.completions.create(
-            model="gpt-5.1",
-            messages=[{"role": "user", "content": prompt}],
-            response_format={"type": "json_object"}
-        )
+        try:
+            response = client.chat.completions.create(
+                model="gpt-5.1",
+                messages=[{"role": "user", "content": prompt}],
+                response_format={"type": "json_object"}
+            )
+        except Exception as e:
+            error_msg = str(e)
+            if "quota" in error_msg.lower() or "429" in error_msg or "insufficient_quota" in error_msg:
+                raise Exception(f"OpenAI API quota exceeded. Please check your billing and plan. Error: {error_msg}")
+            else:
+                raise Exception(f"Error calling OpenAI API for project recommendations: {error_msg}")
 
         raw = response.choices[0].message.content
         try:

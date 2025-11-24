@@ -1,220 +1,222 @@
+# extract_resume_skills.py
 import os
-import re
-import json
 import sys
-from typing import List, Dict, Set
-from openai import OpenAI
+import json
+from typing import Dict
 from dotenv import load_dotenv
+from openai import OpenAI
 
-# --- Step 1: Read .env file for API key ---
+# Shared normalization
+from skill_normalization import (
+    BUCKETS,
+    canonicalize_skills_by_bucket,
+    canonicalize_skill_name,
+)
+
+# Load environment variables
 load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# --- Step 2: Get file name from command line ---
-if len(sys.argv) < 2:
-    print("❌ Please provide a text file name as an argument.")
-    print("Example: python extract_skills.py resume_cleaned.txt")
-    sys.exit(1)
 
-file_name = sys.argv[1]
-
-# --- Step 3: Read the input file ---
-try:
-    with open(file_name, "r", encoding="utf-8") as f:
-        resume_text = f.read()
-except FileNotFoundError:
-    print(f"❌ File '{file_name}' not found.")
-    sys.exit(1)
-
-# -------------------------
-# Rule-based augmentation
-# -------------------------
-
-KNOWN_LANGUAGES = {
-    "python","java","c","c++","c#","javascript","typescript","go","rust","ruby","php","sql","scala","kotlin","swift","r","matlab"
-}
-
-# Single-letter languages that need special regex handling
-SINGLE_LETTER_LANGS = {"r", "c"}
-KNOWN_FRAMEWORKS = {
-    "react","angular","vue","django","flask","spring","fastapi","pytorch","tensorflow","keras","scikit-learn","sklearn","pandas","numpy","opencv","spark","hadoop","airflow","dbt","next.js","node.js","express","laravel",".net","dotnet","rails","bootstrap","tailwind css","material ui",
-    # Machine Learning & AI Domain Terms
-    "machine learning","deep learning","artificial intelligence","ai","ml","dl","neural networks","cnn","rnn","nlp","natural language processing",
-    "computer vision","cv","data science","data analytics","predictive modeling","reinforcement learning","supervised learning","unsupervised learning",
-    "transfer learning","feature engineering","model training","model evaluation","mlops","data engineering","big data","data mining"
-}
-
-def load_extra_vocab() -> Set[str]:
-    """Optionally load extra skills from skills_vocab.txt (one per line)."""
-    vocab_path = "skills_vocab.txt"
-    extra: Set[str] = set()
-    if os.path.exists(vocab_path):
-        try:
-            with open(vocab_path, "r", encoding="utf-8") as f:
-                for line in f:
-                    term = line.strip()
-                    if term:
-                        extra.add(term)
-        except Exception:
-            pass
-    return extra
-
-def find_terms_in_text(terms: List[str], text: str) -> Set[str]:
-    """Find terms in text with approximate word-boundary matching, return original-cased hits."""
-    hits: Set[str] = set()
-    for term in terms:
-        if not term:
-            continue
-        # Special handling for single-letter languages (like "R", "C")
-        # These need to match when separated by commas, spaces, or at word boundaries
-        if len(term) == 1 and term.lower() in SINGLE_LETTER_LANGS:
-            # Match single letter with flexible boundaries
-            # Handles: "R", " R ", ",R,", " R,", ",R ", "Python, R, SQL", "Skills: R, Python"
-            # Pattern allows: word boundary, comma, space, start/end of string
-            pattern = rf"(?<![A-Za-z0-9]){re.escape(term.upper())}(?![A-Za-z0-9])|(?<=[, ]){re.escape(term.upper())}(?=[, ])|(?<=,){re.escape(term.upper())}(?=\s|,|$)|(?<=\s){re.escape(term.upper())}(?=,|\s|$)"
-            pat = re.compile(pattern)
-        else:
-            # For multi-character terms, use standard word boundary matching
-            # Also allow comma-separated patterns
-            pattern = rf"(?<![A-Za-z0-9+#.]){re.escape(term)}(?![A-Za-z0-9.+#-])|(?<=[, ]){re.escape(term)}(?=[, ])|(?<=,){re.escape(term)}(?=,|\s|$)"
-            pat = re.compile(pattern, re.IGNORECASE)
-        
-        for m in pat.finditer(text):
-            # Grab original slice to preserve case
-            hits.add(text[m.start():m.end()])
-            break
-    return hits
-
-def rule_based_extract(text: str) -> Dict[str, List[str]]:
-    # Domain expertise terms that should be extracted as skills
-    DOMAIN_TERMS = {
-        "machine learning", "deep learning", "artificial intelligence", "ai", "ml", "dl",
-        "neural networks", "cnn", "rnn", "lstm", "transformer", "attention mechanism",
-        "natural language processing", "nlp", "computer vision", "cv", "data science",
-        "data analytics", "predictive modeling", "reinforcement learning", "rl",
-        "supervised learning", "unsupervised learning", "transfer learning",
-        "feature engineering", "model training", "model evaluation", "mlops",
-        "data engineering", "big data", "data mining", "statistical analysis",
-        "time series analysis", "recommendation systems", "anomaly detection",
-        "clustering", "classification", "regression", "optimization", "gradient descent"
-    }
-    
-    base_vocab = set().union(KNOWN_LANGUAGES, KNOWN_FRAMEWORKS, DOMAIN_TERMS, {
-        "git","github","gitlab","docker","kubernetes","aws","gcp","azure","sagemaker","vertex ai","bigquery","databricks","mlflow","airbyte","snowflake","postgres","mysql","mongodb","redis","elasticsearch","tableau","power bi","looker","jira","confluence","jenkins","circleci","terraform","ansible"
-    })
-    base_vocab |= load_extra_vocab()
-    hits = find_terms_in_text(sorted(base_vocab, key=len, reverse=True), text)
-
-    def bucketize(term: str) -> str:
-        t = term.lower()
-        if t in KNOWN_LANGUAGES:
-            return "ProgrammingLanguages"
-        # Check if it's a domain/ML term (should go in FrameworksLibraries)
-        domain_terms = {
-            "machine learning", "deep learning", "artificial intelligence", "ai", "ml", "dl",
-            "neural networks", "cnn", "rnn", "lstm", "transformer", "attention mechanism",
-            "natural language processing", "nlp", "computer vision", "cv", "data science",
-            "data analytics", "predictive modeling", "reinforcement learning", "rl",
-            "supervised learning", "unsupervised learning", "transfer learning",
-            "feature engineering", "model training", "model evaluation", "mlops",
-            "data engineering", "big data", "data mining", "statistical analysis",
-            "time series analysis", "recommendation systems", "anomaly detection",
-            "clustering", "classification", "regression", "optimization", "gradient descent"
-        }
-        if t in domain_terms or t in KNOWN_FRAMEWORKS:
-            return "FrameworksLibraries"
-        return "ToolsPlatforms"
-
-    buckets: Dict[str, Set[str]] = {"ProgrammingLanguages": set(), "FrameworksLibraries": set(), "ToolsPlatforms": set()}
-    for h in hits:
-        buckets[bucketize(h)].add(h)
-
-    return {
-        "ProgrammingLanguages": sorted(buckets["ProgrammingLanguages"]),
-        "FrameworksLibraries": sorted(buckets["FrameworksLibraries"]),
-        "ToolsPlatforms": sorted(buckets["ToolsPlatforms"]),
-    }
-
-def merge_outputs(llm_obj: Dict[str, List[str]], rule_obj: Dict[str, List[str]]) -> Dict[str, List[str]]:
-    out: Dict[str, List[str]] = {k: [] for k in ["ProgrammingLanguages","FrameworksLibraries","ToolsPlatforms"]}
-    for b in out.keys():
-        llm_list = llm_obj.get(b, []) if isinstance(llm_obj, dict) else []
-        rule_list = rule_obj.get(b, []) if isinstance(rule_obj, dict) else []
-        # Preserve insertion order, prefer original-cased items from text
-        seen = set()
-        merged: List[str] = []
-        for src in [llm_list, rule_list]:
-            for s in src:
-                key = s.strip().lower()
-                if key and key not in seen:
-                    merged.append(s)
-                    seen.add(key)
-        out[b] = merged
+def ensure_resume_schema(skills_block: Dict) -> Dict:
+    """
+    Ensure the 'skills' block has all 3 buckets:
+    ProgrammingLanguages, FrameworksLibraries, ToolsPlatforms.
+    """
+    out = {}
+    skills = skills_block or {}
+    for b in BUCKETS:
+        v = skills.get(b, [])
+        out[b] = v if isinstance(v, list) else []
     return out
 
-# --- Step 4: Create prompt ---
-prompt = f"""
+
+def extract_resume_skills_from_text(resume_text: str) -> dict:
+    """
+    Extract ALL learnable skills from a resume using OpenAI, similar to
+    extract_job_skills_from_text but with a single 'skills' block and NO
+    required/preferred split.
+
+    Returns:
+        {
+          "skills": {
+            "ProgrammingLanguages": [...],
+            "FrameworksLibraries": [...],
+            "ToolsPlatforms": [...]
+          },
+          "courses": [
+            "Machine Learning",
+            "Deep Learning",
+            ...
+          ]
+        }
+    """
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+    prompt = f"""
 You are an expert résumé parser.
-Make sure to list only the languages and skills that are actually mentioned in the résumé.
 
-Extract ALL technical skills from the resume text below, including:
-- Programming languages (Python, Java, R, C, C++, JavaScript, etc.) - IMPORTANT: Include single-letter languages like "R" and "C" even when they appear in comma-separated lists or skill sections
-- Frameworks and libraries (React, PyTorch, TensorFlow, etc.)
-- Tools and platforms (Git, Docker, AWS, etc.)
-- Domain expertise areas (Machine Learning, Deep Learning, Data Science, AI, Computer Vision, NLP, etc.)
-- Methodologies and techniques (Supervised Learning, Neural Networks, Feature Engineering, etc.)
+Your job is to extract ONLY learnable technical skills and courses that are actually mentioned in the résumé text below.
 
-IMPORTANT: 
-- Include domain expertise areas like "Machine Learning", "Deep Learning", "Data Science", "AI", "Computer Vision", "NLP" if they appear anywhere in the resume (including courses, projects, experience, education sections).
-- Include methodologies and techniques mentioned in the resume.
-- Classify domain expertise and methodologies into "FrameworksLibraries" bucket.
+Learnable skills are technologies, tools, languages, frameworks, libraries, and fields that can be taught through courses, tutorials, or documentation.
+
+ONLY EXTRACT:
+- Programming languages (Python, Java, C, C++, R, JavaScript, Go, Rust, etc.)
+- Frameworks and libraries (React, Angular, Vue, PyTorch, TensorFlow, scikit-learn, pandas, NumPy, etc.)
+- Tools and platforms (Git, Docker, Kubernetes, AWS, Azure, GCP, Databricks, Snowflake, PostgreSQL, MongoDB, MySQL, etc.)
+- Databases (PostgreSQL, MongoDB, MySQL, Redis, Elasticsearch, etc.)
+- Domain expertise fields (Machine Learning, Deep Learning, Data Science, Artificial Intelligence, Large Language Models, NLP / Natural Language Processing, Computer Vision, RAG / Retrieval-Augmented Generation, Agentic AI, MLOps, LLMOps, etc.)
+- Specific technologies and libraries (OpenAI API, LangChain, etc.)
+
+CRITICAL – DO NOT EXTRACT:
+1. Generic terms or role descriptions:
+   - "Full-stack development", "Full Stack", "Java Full Stack", "Full Stack Developer"
+   - "Web Development", "Software Development", "Application Development" (unless it includes a specific technology)
+   - "Backend Development", "Frontend Development" (unless tied to a specific technology)
+   - Generic job titles like "Developer", "Engineer", "Specialist" without explicit technologies
+
+2. Processes, methodologies, or operational concepts (NOT learnable skills by themselves):
+   - ML pipeline automation, model versioning, production deployment
+   - Autonomous reasoning, multi-step task execution, external tool integration
+   - API integration (the concept; DO extract specific APIs like "OpenAI API")
+   - Document pipelines, monitoring, observability, drift detection, alerting
+   - Automated testing (the concept; DO extract specific tools like "Jest", "pytest")
+   - CI/CD (the concept; DO extract tools like "Jenkins", "GitHub Actions", "CircleCI")
+   - Any description of workflow or process rather than a specific technology
+
+3. Normalize skill variations to standard names:
+   - "CSS3", "CSS 3", "CSS-3" → "CSS"
+   - "HTML5", "HTML 5", "HTML-5" → "HTML"
+   - "JavaScript", "JS", "ECMAScript" → "JavaScript"
+   - "Node.js", "NodeJS", "Node" → "Node.js"
+   - "AI", "Artificial Intelligence" → "Artificial Intelligence"
+   - "ML" → "Machine Learning"
+   - "DL" → "Deep Learning"
+   - "LLM", "Large Language Model", "Large Language Models" → "Large Language Models"
+   - "NLP", "Natural Language Processing" → "Natural Language Processing"
+   - "CV", "Computer Vision" → "Computer Vision"
+   - "RAG", "Retrieval-Augmented Generation" → "Retrieval-Augmented Generation"
+   - "Agentic AI", "AI Agency" → "Agentic AI"
+   - "DS", "Data Science" → "Data Science"
+   Apply these normalizations consistently and always use the canonical full form.
+
+CRITICAL – Extract skills from ALL résumé sections:
+
+1. Project titles / headers:
+   - "Machine Learning Image Classifier" → Machine Learning (and possibly Computer Vision)
+   - "React E-commerce Web App" → React
+   - "Python REST API with Docker" → Python, Docker
+
+2. Job titles in Work Experience:
+   - "Python Developer" → Python
+   - "Machine Learning Engineer" → Machine Learning
+   - "React Frontend Developer" → React
+   - "Full Stack Developer (Node.js, React)" → Node.js, React
+   - "AI/ML Engineer" → Artificial Intelligence, Machine Learning
+   Do NOT extract generic "Developer", "Engineer", etc. without specific technologies.
+
+3. Abbreviations:
+   - If the resume uses abbreviations like "LLM", "ML", "DL", "NLP", "CV", "RAG", "RL", "SL", "UL",
+     extract them as their full normalized forms using the rules above.
+
+ALSO extract COURSES and CERTIFICATIONS:
+
+- Courses from sections like "Relevant Coursework", "Courses", "Coursework", "Academic Courses", etc.
+  Examples: "Machine Learning", "Deep Learning", "Data Science", "Computer Vision", "Software Engineering".
+- Online courses:
+  e.g., "Machine Learning by Andrew Ng", "Deep Learning Specialization", "Python for Data Science".
+- Certifications from sections like "Certifications", "Licenses & Certifications".
+  e.g., "AWS Certified Solutions Architect", "Google Cloud Professional", "Microsoft Azure Certified".
+- Training programs or bootcamps.
 
 Classify skills into:
-- ProgrammingLanguages: Specific programming languages
-- FrameworksLibraries: Frameworks, libraries, domain expertise (ML, AI, Data Science), methodologies
-- ToolsPlatforms: Tools, platforms, cloud services, databases
+- ProgrammingLanguages: specific programming languages.
+- FrameworksLibraries: frameworks, libraries, and domain expertise fields (Machine Learning, Deep Learning, Artificial Intelligence, Large Language Models, NLP, Computer Vision, Data Science, RAG, Agentic AI, MLOps, etc.).
+- ToolsPlatforms: tools, platforms, cloud providers, databases, analytics tools, DevOps tools, etc.
 
 Output must be STRICT JSON only in this format:
 {{
   "skills": {{
     "ProgrammingLanguages": ["Python", "SQL"],
     "FrameworksLibraries": ["React", "scikit-learn", "Machine Learning", "Deep Learning"],
-    "ToolsPlatforms": ["Git", "Docker"],
-  }}
+    "ToolsPlatforms": ["Git", "Docker"]
+  }},
+  "courses": [
+    "Machine Learning",
+    "Deep Learning",
+    "Data Science",
+    "Computer Vision",
+    "Software Engineering",
+    "Machine Learning by Andrew Ng",
+    "Deep Learning Specialization",
+    "AWS Certified Solutions Architect",
+    "Google Cloud Professional"
+  ]
 }}
 
 Resume:
 {resume_text}
 """
 
-# --- Step 5: Call GPT ---
-response = client.chat.completions.create(
-    model="gpt-5.1",  # best model available now
-    messages=[{"role": "user", "content": prompt}],
-    response_format={"type": "json_object"}
-)
+    try:
+        response = client.chat.completions.create(
+            model="gpt-5.1",
+            messages=[{"role": "user", "content": prompt}],
+            response_format={"type": "json_object"},
+            temperature=0.0,
+        )
+    except Exception as e:
+        error_msg = str(e)
+        raise Exception(f"Error calling OpenAI API for resume skill extraction: {error_msg}")
 
-# --- Step 6: Handle response safely ---
-raw = response.choices[0].message.content
+    raw = response.choices[0].message.content
+    try:
+        llm_data = json.loads(raw)
+        # Ensure schema and canonicalize
+        skills_raw = llm_data.get("skills", {}) or {}
+        skills_block = ensure_resume_schema(skills_raw)
+        skills_canon = canonicalize_skills_by_bucket(skills_block)
+        courses = llm_data.get("courses", []) or []
 
-try:
-    skills_data = json.loads(raw)
-    # Rule-based pass for recall boost
-    rule_based = rule_based_extract(resume_text)
-    merged = {"skills": merge_outputs(skills_data.get("skills", {}), rule_based)}
-    
-    # --- Step 7: Save JSON to file ---
-    output_file = os.path.splitext(file_name)[0] + "_skills.json"
-    with open(output_file, "w", encoding="utf-8") as out_f:
-        json.dump(merged, out_f, indent=2, ensure_ascii=False)
-    
-    # Output JSON ONLY to stdout (for programmatic use)
-    # Send informative messages to stderr instead so they don't interfere with JSON parsing
-    json_output = json.dumps(merged, indent=2, ensure_ascii=False)
-    print(json_output, file=sys.stdout)
-    print(f"✅ Skills data saved to: {output_file}", file=sys.stderr)
+        return {
+            "skills": skills_canon,
+            "courses": courses,
+        }
+    except json.JSONDecodeError:
+        print("⚠️ JSON decoding failed, raw response:", file=sys.stderr)
+        print(raw, file=sys.stderr)
+        raise
 
-except json.JSONDecodeError:
-    print("⚠️ JSON decoding failed, raw response:", file=sys.stderr)
-    print(raw, file=sys.stderr)
-    sys.exit(1)
+
+# --- CLI interface (like extract_job_skills.py) ---
+def main():
+    if len(sys.argv) < 2:
+        print("❌ Please provide a resume .txt file as an argument.")
+        print("Example: python extract_resume_skills.py resume_cleaned.txt")
+        sys.exit(1)
+
+    file_name = sys.argv[1]
+
+    try:
+        with open(file_name, "r", encoding="utf-8") as f:
+            resume_text = f.read()
+    except FileNotFoundError:
+        print(f"❌ File '{file_name}' not found.")
+        sys.exit(1)
+
+    try:
+        data = extract_resume_skills_from_text(resume_text)
+
+        output_file = os.path.splitext(file_name)[0] + "_skills.json"
+        with open(output_file, "w", encoding="utf-8") as out_f:
+            json.dump(data, out_f, indent=2, ensure_ascii=False)
+
+        json_output = json.dumps(data, indent=2, ensure_ascii=False)
+        print(json_output, file=sys.stdout)
+        print(f"✅ Skills data saved to: {output_file}", file=sys.stderr)
+    except Exception as e:
+        print(f"❌ Error extracting resume skills: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

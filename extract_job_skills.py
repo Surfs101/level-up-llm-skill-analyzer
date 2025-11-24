@@ -3,49 +3,37 @@ import os
 import sys
 import json
 import re
+from typing import Dict
 from dotenv import load_dotenv
 from openai import OpenAI
 
-BUCKETS = ["ProgrammingLanguages", "FrameworksLibraries", "ToolsPlatforms", "SoftSkills"]
+# Import shared normalization
+from skill_normalization import (
+    BUCKETS,
+    canonicalize_skills_by_bucket,
+    canonicalize_skill_name,
+)
 
-def ensure_single_letter_languages(job_text: str, required_skills: dict, preferred_skills: dict):
-    """
-    Post-process extracted skills to ensure single-letter languages like "R" and "C" 
-    are included if they appear in the job description text.
-    This is a safety net in case the LLM misses them.
-    """
-    SINGLE_LETTER_LANGS = {"r": "R", "c": "C"}
-    
-    # Get all currently extracted skills (normalized to lowercase)
-    extracted_skills = set()
-    for bucket in BUCKETS:
-        for skill_list in [required_skills.get(bucket, []), preferred_skills.get(bucket, [])]:
-            for skill in skill_list:
-                if skill:
-                    extracted_skills.add(str(skill).lower().strip())
-    
-    # Check if single-letter languages appear in the job text
-    for lang_lower, lang_upper in SINGLE_LETTER_LANGS.items():
-        # Check if the language is mentioned in the text but not in extracted skills
-        if lang_lower not in extracted_skills:
-            # Use regex to find "R" or "C" as standalone words or in comma-separated lists
-            # Pattern: word boundary OR comma/space before, word boundary OR comma/space after
-            pattern = rf"(?<![A-Za-z0-9]){re.escape(lang_upper)}(?![A-Za-z0-9])|(?<=[, ]){re.escape(lang_upper)}(?=[, ])|(?<=,){re.escape(lang_upper)}(?=\s|,|$)|(?<=\s){re.escape(lang_upper)}(?=,|\s|$)"
-            if re.search(pattern, job_text, re.IGNORECASE):
-                # Add to ProgrammingLanguages bucket in required skills (prioritize required)
-                if "ProgrammingLanguages" not in required_skills:
-                    required_skills["ProgrammingLanguages"] = []
-                # Only add if not already present (case-insensitive check)
-                existing_lower = [s.lower() for s in required_skills["ProgrammingLanguages"]]
-                if lang_lower not in existing_lower:
-                    required_skills["ProgrammingLanguages"].append(lang_upper)
+# Load environment variables
+load_dotenv()
+
+# Cues that the JD explicitly distinguishes preferred / nice-to-have skills
+PREFERRED_CUES_PATTERN = re.compile(
+    r"\b(preferred|nice to have|nice-to-have|good to have|bonus|"
+    r"would be a plus|a plus|plus)\b",
+    flags=re.IGNORECASE,
+)
+
+def has_preferred_cues(text: str) -> bool:
+    """Return True if the job description explicitly mentions preferred / nice-to-have cues."""
+    return bool(PREFERRED_CUES_PATTERN.search(text or ""))
+
 
 def ensure_schema(d):
-    """Ensure required/preferred blocks exist and contain all buckets."""
+    """Ensure required/preferred blocks exist and contain all buckets (3 buckets only)."""
     out = {"required": {}, "preferred": {}}
     for side in ["required", "preferred"]:
         block = d.get(side, {}) or {}
-        # allow either flat dict of buckets or nested {"skills": {...}}
         skills = block.get("skills", block)
         clean = {}
         for b in BUCKETS:
@@ -54,179 +42,255 @@ def ensure_schema(d):
         out[side] = {"skills": clean}
     return out
 
-def main():
-    # --- Step 1: Load API key ---
-    load_dotenv()
+
+def extract_job_skills_from_text(job_description_text: str) -> dict:
+    """
+    Extract required/preferred skills from job description using OpenAI.
+    This is the main reusable function that can be imported by other modules.
+    
+    The LLM is the single source of truth for:
+    - Which skills are required vs preferred
+    - How skills are bucketed (ProgrammingLanguages, FrameworksLibraries, ToolsPlatforms)
+    
+    Args:
+        job_description_text: Raw text content from job description
+    
+    Returns:
+        Dictionary with structure: {"required": {"skills": {...}}, "preferred": {"skills": {...}}, "is_grad_student_job": bool}
+    """
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
-    # --- Step 2: CLI args ---
-    if len(sys.argv) < 2:
-        print("❌ Please provide a job description .txt file as an argument.")
-        print("Example: python extract_job_skills.py job_description.txt")
-        sys.exit(1)
-    file_name = sys.argv[1]
-
-    # --- Step 3: Read the input file ---
-    try:
-        with open(file_name, "r", encoding="utf-8") as f:
-            jd_text = f.read()
-    except FileNotFoundError:
-        print(f"❌ File '{file_name}' not found.")
-        sys.exit(1)
-
-    # --- Step 4: Prompt (same buckets & shape as resume extractor) ---
+    
+    # LLM-based extraction prompt - LLM decides required vs preferred classification
     prompt = f"""
 You are an expert job-description parser.
 
-Task:
-1) Identify the MAIN DOMAIN/FIELD of this job (e.g., "Machine Learning", "AI", "Data Science", "MLOps", "Software Engineering", "DevOps", "Cloud Computing", "Cybersecurity", etc.). If the job is clearly in a technical domain, include this domain as a skill in FrameworksLibraries bucket (e.g., "Machine Learning", "Artificial Intelligence", "Data Science", "MLOps").
+Extract ONLY learnable technical skills from the job description below. Learnable skills are technologies, tools, languages, frameworks, libraries, and fields that can be taught through courses, tutorials, or documentation.
 
-2) Extract ONLY technical skills that can be learned through courses or projects. Focus on:
-   - Specific programming languages (Python, Java, Go, JavaScript, R, C, C++, etc.) - IMPORTANT: Include single-letter languages like "R" and "C" even when they appear in comma-separated lists (e.g., "Python, R, SQL" should extract "R" as a skill)
-   - Specific frameworks and libraries (React, Angular, Vue, TensorFlow, PyTorch, etc.)
-   - Specific tools, platforms, and services (Docker, Kubernetes, AWS, GCP, Azure, MongoDB, PostgreSQL, Redis, etc.)
-   - Technical domains that can be learned (Machine Learning, Data Science, AI, MLOps, etc.)
+ONLY EXTRACT:
+- Programming languages (Python, Java, C, C++, JavaScript, Go, Rust, etc.) - IMPORTANT: Only extract "R" or "C" if they actually appear in the job description text as programming languages. Do NOT infer or guess "R" if it is not explicitly mentioned.
+- Frameworks and libraries (React, Angular, Vue, PyTorch, TensorFlow, scikit-learn, etc.)
+- Tools and platforms (Git, Docker, Kubernetes, AWS, Azure, GCP, etc.)
+- Databases (PostgreSQL, MongoDB, MySQL, NoSQL databases, etc.)
+- Domain expertise fields (Machine Learning, Deep Learning, Data Science, AI, Agentic AI, RAG, Retrieval-Augmented Generation, Computer Vision, NLP, etc.)
+- Specific technologies and libraries (OpenAI API, LangChain, etc.)
 
-3) DO NOT extract:
-   - Practices or methodologies (CI/CD, automated testing, monitoring, observability, alerting, drift detection, version control)
-   - Concepts or techniques (RAG, Retrieval-Augmented Generation, Agentic AI, Model Context Protocol, MCP)
-   - Generic terms that are too broad or abstract
-   - Soft skills or non-technical requirements
-   
-   Only extract concrete, learnable technical skills that can be taught in courses or practiced in projects.
+CRITICAL - DO NOT EXTRACT:
+1. Generic terms or role descriptions:
+   - "Full-stack development", "Full Stack", "Java Full Stack", "Full Stack Developer"
+   - "Web Development", "Software Development", "Application Development" (unless it's a specific framework)
+   - "Backend Development", "Frontend Development" (unless it's a specific technology)
+   - Generic role descriptions or job titles
 
-4) Split them into two groups:
-   - required  = cues like "required", "must", "we need", "minimum"
-   - preferred = cues like "preferred", "nice to have", "plus", "bonus"
-   
-CRITICAL: A skill should appear in ONLY ONE section. If a skill is marked as "required", it MUST NOT appear in "preferred". If a skill appears in both sections, prioritize it as "required" and remove it from "preferred".
+2. Processes, methodologies, or operational concepts (NOT learnable skills):
+   - ML pipeline automation
+   - Model versioning
+   - Production deployment
+   - Autonomous reasoning
+   - Multi-step task execution
+   - External tool integration
+   - API integration (the concept, but DO extract specific APIs like "OpenAI API")
+   - Document pipelines
+   - Monitoring
+   - Observability
+   - Drift detection
+   - Alerting
+   - Automated testing (the concept, but DO extract specific testing tools like "Jest", "pytest")
+   - CI/CD (the concept, but DO extract specific tools like "Jenkins", "GitHub Actions", "CircleCI")
+   - Any skill that describes a process, workflow, or operational practice rather than a specific technology
 
-5) Classify each group into EXACTLY these buckets:
-   - ProgrammingLanguages: specific programming languages (Python, Java, etc.)
-   - FrameworksLibraries: frameworks, libraries, AND the main job domain/field if technical (e.g., "Machine Learning", "Data Science", "MLOps", "AI")
-   - ToolsPlatforms: tools, platforms, cloud services
+3. Focus ONLY on concrete, specific technologies, languages, frameworks, tools, libraries, and learnable fields that can be taught.
 
-IMPORTANT: If the job title or description clearly indicates a technical domain (ML/AI, Data Science, MLOps, DevOps, etc.), you MUST include that domain name in the FrameworksLibraries bucket as a skill. Examples:
-- "MLOps Engineer" → add "MLOps" to FrameworksLibraries
-- "Data Scientist" → add "Data Science" to FrameworksLibraries  
-- "Machine Learning Engineer" → add "Machine Learning" to FrameworksLibraries
-- "AI Engineer" → add "Artificial Intelligence" or "AI" to FrameworksLibraries
+4. Normalize skill variations to standard names:
+   - "CSS3", "CSS 3", "CSS-3" → "CSS"
+   - "HTML5", "HTML 5", "HTML-5" → "HTML"
+   - "JavaScript", "JS", "ECMAScript" → "JavaScript"
+   - "Node.js", "NodeJS", "Node" → "Node.js"
+   - "AI", "Artificial Intelligence" → "Artificial Intelligence"
+   - "ML", "Machine Learning" → "Machine Learning"
+   - "LLM", "Large Language Models", "Large Language Model" → "Large Language Models"
+   - "NLP", "Natural Language Processing" → "Natural Language Processing"
+   - "CV", "Computer Vision" → "Computer Vision"
+   - "RAG", "Retrieval-Augmented Generation" → "Retrieval-Augmented Generation"
+   - "Agentic AI", "AI Agency" → "Agentic AI"
+   - "Data Science", "Data Scientist" → "Data Science"
+   - Apply this normalization consistently
 
-6) Determine if this job requires a graduate degree (Master's or PhD). Look for cues like:
-   - "Master's degree required", "PhD required", "graduate degree"
-   - "Master's or PhD", "MS/PhD", "graduate student"
-   - Job titles like "Research Intern", "PhD Intern", "Graduate Intern"
-   - If the job explicitly requires Master's or PhD, set "is_grad_student_job" to true, otherwise false.
+5. Include domain expertise fields like "Machine Learning", "Deep Learning", "Data Science", "AI", "Agentic AI", "RAG", "Retrieval-Augmented Generation", "Computer Vision", "NLP" if they appear anywhere in the job description - these are learnable fields.
+6. Classify domain expertise fields into "FrameworksLibraries" bucket.
+7. DO NOT extract methodologies, processes, or operational practices - only extract concrete technologies and learnable fields.
 
-Return STRICT JSON ONLY in this format (no extra text):
+Classify skills into:
+- ProgrammingLanguages: Specific programming languages
+- FrameworksLibraries: Frameworks, libraries, and domain expertise fields
+  (Machine Learning, Deep Learning, Artificial Intelligence, Large Language Models, NLP, Computer Vision, Data Science, MLOps, LLMOps, RAG, Agentic AI, etc.)
+- ToolsPlatforms: Tools, platforms, cloud providers, databases, analytics tools, DevOps tools, etc.
 
+REQUIRED SKILLS (must-have for being seriously considered):
+- Core technologies or tools used in day-to-day work for this job
+- Stack mentioned in the job title or main responsibilities
+- Skills explicitly marked as "required", "must", "we need", "minimum", "essential", "critical"
+- If you are unsure, but the skill appears to be part of the core tech stack, treat it as required
+
+PREFERRED SKILLS (nice-to-have / bonus):
+- Skills explicitly marked as "preferred", "nice to have", "bonus", "plus", "would be a plus", "good to have"
+- Secondary tools or technologies that are helpful but not critical
+- Skills that would make a candidate stand out but aren't necessary
+
+CRITICAL CLASSIFICATION RULES:
+- A skill must appear in only one of required or preferred, not both.
+- If a skill is marked as "required", it MUST NOT appear in "preferred".
+- If the job description does NOT explicitly distinguish preferred/nice-to-have skills
+  using words like "preferred", "nice to have", "nice-to-have", "good to have",
+  "bonus", "plus", or "would be a plus", then you MUST put ALL extracted skills
+  into "required" and leave ALL "preferred" buckets empty.
+- Respect the JSON schema with required.skills and preferred.skills, each broken down into the three buckets: ProgrammingLanguages, FrameworksLibraries, ToolsPlatforms.
+
+CRITICAL: Determine if this job requires a graduate degree (Master's or PhD).
+
+Set "is_grad_student_job" to TRUE if you see ANY of these indicators:
+- Degree requirements: "Master's degree required", "PhD required", "graduate degree required", "MS required", "Master's or PhD", "MS/PhD", "Masters or PhD"
+- Education qualifications: "currently pursuing Master's", "pursuing PhD", "graduate student", "enrolled in graduate program", "current graduate student"
+- Job titles: "Research Intern", "PhD Intern", "Graduate Intern", "Graduate Research Assistant", "PhD Student Intern", "Master's Student Intern"
+- Academic focus: "Research position", "academic research", "thesis research", "graduate-level research"
+- Enrollment status: "must be currently enrolled in graduate program", "graduate student status", "active graduate enrollment"
+- Degree preference with strong language: "Master's preferred (required)", "PhD preferred (required)", "advanced degree required"
+
+Set "is_grad_student_job" to FALSE if:
+- Job only mentions "Bachelor's degree" without any mention of Master's/PhD
+- Job says "Master's preferred" or "PhD preferred" WITHOUT saying "required"
+- No education requirements are mentioned at all
+- Job only requires "undergraduate degree" or "Bachelor's degree"
+
+IMPORTANT: Be thorough in checking the entire job description for graduate degree requirements. Set to true if there's ANY indication that Master's or PhD is required.
+
+Output must be STRICT JSON only in this format:
 {{
   "is_grad_student_job": false,
   "required": {{
     "skills": {{
       "ProgrammingLanguages": ["Python", "SQL"],
       "FrameworksLibraries": ["React", "scikit-learn", "Machine Learning"],
-      "ToolsPlatforms": ["Git", "Docker"],
+      "ToolsPlatforms": ["Git", "Docker"]
     }}
   }},
   "preferred": {{
     "skills": {{
       "ProgrammingLanguages": ["Java"],
       "FrameworksLibraries": ["TensorFlow"],
-      "ToolsPlatforms": ["Kubernetes"],
+      "ToolsPlatforms": ["Kubernetes"]
     }}
   }}
 }}
 
 Job Description:
-{jd_text}
-""".strip()
-
-    # --- Step 5: Call GPT (same model + response_format as resume extractor) ---
-    response = client.chat.completions.create(
-        model="gpt-5.1",
-        messages=[{"role": "user", "content": prompt}],
-        response_format={"type": "json_object"}  # same enforcement as your resume script
-    )
-
-    # --- Step 6: Parse + normalize + save JSON ---
+{job_description_text}
+"""
+    
+    # Call GPT-5.1 with temperature=0.0 for deterministic, consistent classification
+    try:
+        response = client.chat.completions.create(
+            model="gpt-5.1",  # More capable model for accurate required/preferred classification
+            messages=[{"role": "user", "content": prompt}],
+            response_format={"type": "json_object"},
+            temperature=0.0  # Deterministic output for consistency
+        )
+    except Exception as e:
+        error_msg = str(e)
+        if "quota" in error_msg.lower() or "429" in error_msg or "insufficient_quota" in error_msg:
+            raise Exception(f"OpenAI API quota exceeded. Please check your billing and plan. Error: {error_msg}")
+        else:
+            raise Exception(f"Error calling OpenAI API for job skill extraction: {error_msg}")
+    
+    # Handle response
     raw = response.choices[0].message.content
     try:
-        data = json.loads(raw)
-        # Preserve is_grad_student_job flag if present
-        is_grad_student_job = data.get("is_grad_student_job", False)
+        llm_data = json.loads(raw)
+        
+        # Extract data from LLM response (LLM is the single source of truth)
+        required_skills = llm_data.get("required", {}).get("skills", {}) or {}
+        preferred_skills = llm_data.get("preferred", {}).get("skills", {}) or {}
+        is_grad_student_job = llm_data.get("is_grad_student_job", False)
+        
+        # Canonicalize both required and preferred skills
+        required_skills = canonicalize_skills_by_bucket(required_skills)
+        preferred_skills = canonicalize_skills_by_bucket(preferred_skills)
+        
+        # Build output structure
+        data = {
+            "required": {"skills": required_skills},
+            "preferred": {"skills": preferred_skills},
+            "is_grad_student_job": is_grad_student_job
+        }
+        
+        # Ensure schema exists (all buckets present)
         data = ensure_schema(data)
         data["is_grad_student_job"] = is_grad_student_job
-        
-        # Filter out non-recommendable skills (practices, methodologies, concepts)
-        def filter_non_recommendable_skills(skills_dict):
-            """Remove skills that cannot be recommended."""
-            if not isinstance(skills_dict, dict):
-                return skills_dict
-            
-            non_recommendable = {
-                "ci/cd", "cicd", "ci/cd pipelines", "continuous integration", "continuous deployment",
-                "automated testing", "testing", "monitoring", "observability", "alerting",
-                "drift detection", "version control", "agile", "scrum",
-                "rag", "retrieval-augmented generation", "agentic ai", "mcp", "model context protocol",
-                "prompt engineering", "fine-tuning", "transfer learning",
-                "best practices", "software development", "problem solving", "troubleshooting",
-                "code review", "documentation", "api design", "system design"
-            }
-            
-            filtered = {}
-            for bucket, skills_list in skills_dict.items():
-                if not isinstance(skills_list, list):
-                    filtered[bucket] = skills_list
-                    continue
-                
-                filtered_skills = []
-                for skill in skills_list:
-                    if not skill:
-                        continue
-                    skill_lower = str(skill).lower().strip()
-                    if skill_lower not in non_recommendable:
-                        is_non_rec = False
-                        for non_rec in non_recommendable:
-                            if non_rec in skill_lower or skill_lower in non_rec:
-                                is_non_rec = True
-                                break
-                        if not is_non_rec:
-                            filtered_skills.append(skill)
-                filtered[bucket] = filtered_skills
-            return filtered
-        
-        # Apply filter to both required and preferred
-        required_skills = filter_non_recommendable_skills(data.get("required", {}).get("skills", {}))
-        preferred_skills = filter_non_recommendable_skills(data.get("preferred", {}).get("skills", {}))
-        data["required"]["skills"] = required_skills
-        data["preferred"]["skills"] = preferred_skills
-        
-        # Post-process: Ensure single-letter languages like "R" and "C" are extracted if they appear in the text
-        ensure_single_letter_languages(jd_text, required_skills, preferred_skills)
-        data["required"]["skills"] = required_skills
-        data["preferred"]["skills"] = preferred_skills
-        
-        # CRITICAL: Remove any skills from preferred that are already in required
-        # This ensures no duplication between required and preferred
-        
-        # Build flat set of required skills (case-insensitive)
+
+        # If the JD never explicitly mentions preferred / nice-to-have cues,
+        # treat ALL extracted skills as required and clear preferred.
+        if not has_preferred_cues(job_description_text):
+            for bucket in BUCKETS:
+                req_list = data["required"]["skills"].get(bucket, []) or []
+                pref_list = data["preferred"]["skills"].get(bucket, []) or []
+
+                # Merge preferred into required, avoiding duplicates (case-insensitive)
+                existing = {str(s).lower().strip() for s in req_list if s}
+                merged = req_list[:]
+
+                for s in pref_list:
+                    if s and str(s).lower().strip() not in existing:
+                        merged.append(s)
+                        existing.add(str(s).lower().strip())
+
+                data["required"]["skills"][bucket] = merged
+                data["preferred"]["skills"][bucket] = []
+
+        # Deduplication: Remove any skills from preferred that are already in required
+        # Build set of all required skills (lowercased, across all buckets)
         required_flat = set()
         for bucket in BUCKETS:
-            required_list = required_skills.get(bucket, [])
-            required_flat.update({str(s).lower().strip() for s in required_list if s})
+            for s in data["required"]["skills"].get(bucket, []):
+                if s:
+                    required_flat.add(str(s).lower().strip())
         
-        # Remove duplicates from preferred
+        # Filter preferred skills to remove duplicates
         for bucket in BUCKETS:
-            preferred_list = preferred_skills.get(bucket, [])
-            filtered_preferred = [
-                s for s in preferred_list 
+            preferred_list = data["preferred"]["skills"].get(bucket, [])
+            filtered = [
+                s for s in preferred_list
                 if s and str(s).lower().strip() not in required_flat
             ]
-            preferred_skills[bucket] = filtered_preferred
+            data["preferred"]["skills"][bucket] = filtered
         
-        data["preferred"]["skills"] = preferred_skills
+        return data
+    except json.JSONDecodeError:
+        print("⚠️ JSON decoding failed, raw response:", file=sys.stderr)
+        print(raw, file=sys.stderr)
+        raise
+
+
+# CLI interface (only runs when script is executed directly)
+def main():
+    # --- Step 1: CLI args ---
+    if len(sys.argv) < 2:
+        print("❌ Please provide a job description .txt file as an argument.")
+        print("Example: python extract_job_skills.py job_description.txt")
+        sys.exit(1)
+    file_name = sys.argv[1]
+    
+    # --- Step 2: Read the input file ---
+    try:
+        with open(file_name, "r", encoding="utf-8") as f:
+            jd_text = f.read()
+    except FileNotFoundError:
+        print(f"❌ File '{file_name}' not found.")
+        sys.exit(1)
+    
+    # --- Step 3: Extract skills ---
+    try:
+        data = extract_job_skills_from_text(jd_text)
         
+        # --- Step 4: Save JSON to file ---
         output_file = os.path.splitext(file_name)[0] + "_skills.json"
         with open(output_file, "w", encoding="utf-8") as out_f:
             json.dump(data, out_f, indent=2, ensure_ascii=False)
@@ -236,9 +300,8 @@ Job Description:
         json_output = json.dumps(data, indent=2, ensure_ascii=False)
         print(json_output, file=sys.stdout)
         print(f"✅ Skills data saved to: {output_file}", file=sys.stderr)
-    except json.JSONDecodeError:
-        print("⚠️ JSON decoding failed, raw response:", file=sys.stderr)
-        print(raw, file=sys.stderr)
+    except Exception as e:
+        print(f"❌ Error extracting skills: {e}", file=sys.stderr)
         sys.exit(1)
 
 if __name__ == "__main__":

@@ -835,7 +835,7 @@
                     and AI-generated cover letters to land your internship/new grad job.
                 </p>
                 <div class="hero-features">
-                    <div class="hero-feature">
+                    <div class="hero-feature" onclick="navigateToSection('resume-analysis')" style="cursor: pointer;">
                         <div class="hero-feature-icon">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <!-- Document base -->
@@ -859,7 +859,7 @@
                         </div>
                         <h3 class="hero-feature-title">Resume Analysis</h3>
                     </div>
-                    <div class="hero-feature">
+                    <div class="hero-feature" onclick="navigateToSection('learn-skills')" style="cursor: pointer;">
                         <div class="hero-feature-icon">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <!-- Left page with shadow -->
@@ -924,7 +924,7 @@
                         </div>
                         <h3 class="hero-feature-title">Learn Skills</h3>
                     </div>
-                    <div class="hero-feature">
+                    <div class="hero-feature" onclick="navigateToSection('build-projects')" style="cursor: pointer;">
                         <div class="hero-feature-icon">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <!-- Laptop base -->
@@ -966,7 +966,7 @@
                         </div>
                         <h3 class="hero-feature-title">Build Projects</h3>
                     </div>
-                    <div class="hero-feature">
+                    <div class="hero-feature" onclick="navigateToSection('cover-letter')" style="cursor: pointer;">
                         <div class="hero-feature-icon">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <!-- Document base (white paper) -->
@@ -1036,6 +1036,139 @@
             }
         }
         
+        // State detection functions
+        function hasAnalysisDone() {
+            const resultArea = document.getElementById('analyzeResult');
+            if (!resultArea || !resultArea.innerHTML) {
+                return false;
+            }
+            // Check if result area contains metrics grid (analysis results)
+            return resultArea.querySelector('.metrics-grid') !== null;
+        }
+        
+        function isOnCoverLetterTab() {
+            const coverTab = document.getElementById('cover');
+            return coverTab && coverTab.classList.contains('active');
+        }
+        
+        function hasCoverLetterGenerated() {
+            const coverView = document.getElementById('coverLetterView');
+            if (!coverView || !coverView.innerHTML) {
+                return false;
+            }
+            // Check if cover letter view has generated content (not spinner/error/placeholder)
+            const hasSpinner = coverView.querySelector('.spinner') !== null;
+            const hasError = coverView.querySelector('.alert-error') !== null;
+            const hasHeader = coverView.querySelector('.cover-letter-header') !== null;
+            const hasPlaceholder = coverView.textContent.includes('Your generated cover letter will appear here');
+            return !hasSpinner && !hasError && !hasPlaceholder && (hasHeader || coverView.innerHTML.trim().length > 100);
+        }
+        
+        // Navigation function
+        function navigateToSection(sectionName) {
+            const isAnalysisDone = hasAnalysisDone();
+            const isOnCoverTab = isOnCoverLetterTab();
+            const isCoverLetterGenerated = hasCoverLetterGenerated();
+            
+            // Special case: Cover letter box always switches to cover letter tab when on analysis template
+            if (sectionName === 'cover-letter' && !isOnCoverTab) {
+                showTab('cover');
+                return;
+            }
+            
+            // Case a: No analysis done - all boxes link to analysis form
+            if (!isAnalysisDone && !isOnCoverTab) {
+                // Scroll to and focus the analysis form button
+                const analyzeForm = document.getElementById('analyzeForm');
+                if (analyzeForm) {
+                    analyzeForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Focus the submit button
+                    const submitBtn = analyzeForm.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        setTimeout(() => submitBtn.focus(), 300);
+                    }
+                }
+                return;
+            }
+            
+            // Case b: Analysis done (and not on cover tab) - navigate to specific sections
+            if (isAnalysisDone && !isOnCoverTab) {
+                switch(sectionName) {
+                    case 'resume-analysis':
+                        // Scroll to score section
+                        const scoreSection = document.getElementById('score-section');
+                        if (scoreSection) {
+                            scoreSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                        break;
+                    case 'learn-skills':
+                        // Scroll to courses section
+                        const coursesSection = document.getElementById('courses-section');
+                        if (coursesSection) {
+                            coursesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                        break;
+                    case 'build-projects':
+                        // Scroll to projects section
+                        const projectsSection = document.getElementById('projects-section');
+                        if (projectsSection) {
+                            projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                        break;
+                    case 'cover-letter':
+                        // Switch to cover letter tab
+                        showTab('cover');
+                        break;
+                }
+                return;
+            }
+            
+            // Case c: On cover letter tab, cover letter NOT generated
+            if (isOnCoverTab && !isCoverLetterGenerated) {
+                switch(sectionName) {
+                    case 'resume-analysis':
+                    case 'learn-skills':
+                    case 'build-projects':
+                        // Switch to analysis template
+                        showTab('analyze');
+                        break;
+                    case 'cover-letter':
+                        // Scroll to cover letter form button
+                        const coverForm = document.getElementById('coverForm');
+                        if (coverForm) {
+                            coverForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            // Focus the submit button
+                            const submitBtn = coverForm.querySelector('button[type="submit"]');
+                            if (submitBtn) {
+                                setTimeout(() => submitBtn.focus(), 300);
+                            }
+                        }
+                        break;
+                }
+                return;
+            }
+            
+            // Case d: On cover letter tab, cover letter generated
+            if (isOnCoverTab && isCoverLetterGenerated) {
+                switch(sectionName) {
+                    case 'resume-analysis':
+                    case 'learn-skills':
+                    case 'build-projects':
+                        // Switch to analysis template
+                        showTab('analyze');
+                        break;
+                    case 'cover-letter':
+                        // Scroll to cover letter content
+                        const coverView = document.getElementById('coverLetterView');
+                        if (coverView) {
+                            coverView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                        break;
+                }
+                return;
+            }
+        }
+        
         // Function to render skill analyzer results
         function renderSkillAnalyzerResults(data) {
             let html = '';
@@ -1054,7 +1187,7 @@
             }
             
             // Metrics grid
-            html += '<div class="metrics-grid">';
+            html += '<div class="metrics-grid" id="score-section">';
             html += '<div class="metric-card">';
             html += '<div class="metric-label">Overall Match</div>';
             html += '<div class="metric-value">' + data.overall_score.weighted_score.toFixed(1) + '%</div>';
@@ -1131,7 +1264,7 @@
             
             // Course Recommendations
             if (data.course_recommendations) {
-                html += '<div class="content-card">';
+                html += '<div class="content-card" id="courses-section">';
                 html += '<h4 style="display: flex; align-items: center; gap: 10px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.25278V19.2528M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.2528C4.16789 18.4769 5.75351 18 7.5 18C9.24649 18 10.8321 18.4769 12 19.2528M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.2528C19.8321 18.4769 18.2465 18 16.5 18C14.7535 18 13.1679 18.4769 12 19.2528"></path></svg> Course Recommendations</h4>';
                 
                 // Combine free and paid courses, label them appropriately
@@ -1201,7 +1334,7 @@
             
             // Project Recommendations
             if (data.project_recommendations && Object.keys(data.project_recommendations).length > 0) {
-                html += '<div class="content-card">';
+                html += '<div class="content-card" id="projects-section">';
                 html += '<h4 style="display: flex; align-items: center; gap: 10px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7L12 12L22 7L12 2Z"></path><path d="M2 17L12 22L22 17"></path><path d="M2 12L12 17L22 12"></path></svg> Project Recommendations</h4>';
                 
                 Object.entries(data.project_recommendations).forEach(([track, projects]) => {
@@ -1633,53 +1766,47 @@
             submitBtn.disabled = true;
             
             // Initialize simple progress display - single line with spinner (minimal spacing)
-            resultArea.innerHTML = '<div style="padding: 0; display: flex; align-items: center; gap: 12px;"><div class="spinner" style="border: 2px solid var(--border-color); border-top: 2px solid var(--accent-primary); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div><span id="progressText" style="color: var(--text-secondary); font-size: 14px;">Processing...</span></div>';
+            resultArea.innerHTML = '<div style="padding: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px;"><div style="display: flex; align-items: center; gap: 12px;"><div class="spinner" style="border: 2px solid var(--border-color); border-top: 2px solid var(--accent-primary); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div><span id="progressText" style="color: var(--text-secondary); font-size: 14px;">Processing...</span></div><span id="countdownTimer" style="color: var(--text-secondary); font-size: 14px; font-weight: 500; min-width: 50px; text-align: right;"></span></div>';
             const progressText = document.getElementById('progressText');
+            const countdownTimer = document.getElementById('countdownTimer');
             
-            // Helper function to try sync endpoint as fallback
-            const trySyncEndpoint = async () => {
-                if (progressText) {
-                    progressText.textContent = 'Analyzing report before final output...';
+            // Start countdown timer (60 seconds / 1 minute)
+            let countdown = 60;
+            let countdownInterval = null;
+            const updateCountdown = () => {
+                if (countdownTimer) {
+                    if (countdown <= 0) {
+                        if (countdownInterval) {
+                            clearInterval(countdownInterval);
+                            countdownInterval = null;
+                        }
+                        countdownTimer.textContent = 'processing in few seconds';
+                    } else {
+                        countdownTimer.textContent = `${countdown}s`;
+                        countdown--;
+                    }
                 }
-                // Recreate FormData since it can only be read once
-                const syncFormData = new FormData();
-                syncFormData.append('resume', resumeFile);
-                syncFormData.append('job_text', jobText);
-                
-                const syncResponse = await fetch('/analyze-sync', {
-                    method: 'POST',
-                    body: syncFormData
-                });
-                
-                if (!syncResponse.ok) {
-                    const errorData = await syncResponse.json().catch(() => ({ detail: 'Unknown error' }));
-                    throw new Error(errorData.detail || `Server error: ${syncResponse.status}`);
-                }
-                
-                const syncData = await syncResponse.json();
-                return syncData;
             };
+            if (countdownTimer) {
+                updateCountdown();
+                countdownInterval = setInterval(updateCountdown, 1000);
+            }
             
             try {
-                // Try SSE endpoint first
+                // Use streaming endpoint
                 const response = await fetch('/analyze', {
                     method: 'POST',
                     body: formData
                 });
                 
                 if (!response.ok) {
-                    console.warn('SSE endpoint failed, trying sync endpoint...');
-                    const finalData = await trySyncEndpoint();
-                    resultArea.innerHTML = renderSkillAnalyzerResults(finalData);
-                    return;
+                    const errorData = await response.json().catch(() => ({ detail: `Server error: ${response.status}` }));
+                    throw new Error(errorData.detail || `Server error: ${response.status}`);
                 }
                 
                 // Check if response is actually a stream
                 if (!response.body) {
-                    console.warn('No response body, trying sync endpoint...');
-                    const finalData = await trySyncEndpoint();
-                    resultArea.innerHTML = renderSkillAnalyzerResults(finalData);
-                    return;
+                    throw new Error('Server did not return a valid response stream');
                 }
                 
                 const reader = response.body.getReader();
@@ -1689,11 +1816,11 @@
                 let streamError = null;
                 let timeoutId = null;
                 
-                // Set a timeout for the stream (30 seconds)
+                // Set a timeout for the stream (120 seconds / 2 minutes)
                 const streamTimeout = new Promise((_, reject) => {
                     timeoutId = setTimeout(() => {
                         reject(new Error('Stream timeout'));
-                    }, 30000);
+                    }, 120000);
                 });
                 
                 try {
@@ -1746,30 +1873,27 @@
                     if (finalData) {
                         resultArea.innerHTML = renderSkillAnalyzerResults(finalData);
                     } else {
-                        // No data from stream, try sync endpoint
-                        console.warn('No data from SSE stream, trying sync endpoint...');
-                        const syncData = await trySyncEndpoint();
-                        resultArea.innerHTML = renderSkillAnalyzerResults(syncData);
+                        // No data from stream
+                        throw new Error('No data received from server. Please try again.');
                     }
                 } catch (streamErr) {
                     if (timeoutId) clearTimeout(timeoutId);
-                    console.warn('Stream error:', streamErr, '- trying sync endpoint...');
-                    try {
-                        const syncData = await trySyncEndpoint();
-                        resultArea.innerHTML = renderSkillAnalyzerResults(syncData);
-                    } catch (syncErr) {
-                        throw syncErr;
-                    }
+                    throw streamErr;
                 }
             } catch (error) {
                 console.error('Request error:', error);
                 resultArea.innerHTML = '<div class="alert alert-error" style="display: flex; align-items: center; gap: 10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Error: ' + escapeHtml(error.message) + '</div>';
             } finally {
+                // Clear countdown timer
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                }
                 submitBtn.disabled = false;
             }
         });
         
-        // Cover Letter form handler with automatic fallback to sync endpoint
+        // Cover Letter form handler
         document.getElementById('coverForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -1798,8 +1922,31 @@
             currentCoverLetterText = '';
             
             // Initialize simple progress display - single line with spinner (minimal spacing)
-            coverView.innerHTML = '<div style="padding: 0; display: flex; align-items: center; gap: 12px;"><div class="spinner" style="border: 2px solid var(--border-color); border-top: 2px solid var(--accent-primary); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div><span id="coverProgressText" style="color: var(--text-secondary); font-size: 14px;">Processing...</span></div>';
+            coverView.innerHTML = '<div style="padding: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px;"><div style="display: flex; align-items: center; gap: 12px;"><div class="spinner" style="border: 2px solid var(--border-color); border-top: 2px solid var(--accent-primary); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div><span id="coverProgressText" style="color: var(--text-secondary); font-size: 14px;">Processing...</span></div><span id="coverCountdownTimer" style="color: var(--text-secondary); font-size: 14px; font-weight: 500; min-width: 50px; text-align: right;"></span></div>';
             const progressText = document.getElementById('coverProgressText');
+            const countdownTimer = document.getElementById('coverCountdownTimer');
+            
+            // Start countdown timer (60 seconds / 1 minute)
+            let countdown = 60;
+            let countdownInterval = null;
+            const updateCountdown = () => {
+                if (countdownTimer) {
+                    if (countdown <= 0) {
+                        if (countdownInterval) {
+                            clearInterval(countdownInterval);
+                            countdownInterval = null;
+                        }
+                        countdownTimer.textContent = 'processing in few seconds';
+                    } else {
+                        countdownTimer.textContent = `${countdown}s`;
+                        countdown--;
+                    }
+                }
+            };
+            if (countdownTimer) {
+                updateCountdown();
+                countdownInterval = setInterval(updateCountdown, 1000);
+            }
             
             // Helper function to render cover letter
             const renderCoverLetter = (finalData) => {
@@ -1834,53 +1981,21 @@
                 currentCoverLetterText = letterText;
             };
             
-            // Helper function to try sync endpoint as fallback
-            const trySyncEndpoint = async () => {
-                if (progressText) {
-                    progressText.textContent = 'Finalizing cover letter...';
-                }
-                // Recreate FormData since it can only be read once
-                const syncFormData = new FormData();
-                syncFormData.append('resume', resumeFile);
-                syncFormData.append('job_text', jobText);
-                if (templateFile) {
-                    syncFormData.append('template', templateFile);
-                }
-                
-                const syncResponse = await fetch('/cover-letter-sync', {
-                    method: 'POST',
-                    body: syncFormData
-                });
-                
-                if (!syncResponse.ok) {
-                    const errorData = await syncResponse.json().catch(() => ({ detail: 'Unknown error' }));
-                    throw new Error(errorData.detail || `Server error: ${syncResponse.status}`);
-                }
-                
-                const syncData = await syncResponse.json();
-                return syncData;
-            };
-            
             try {
-                // Try SSE endpoint first
+                // Use streaming endpoint
                 const response = await fetch('/cover-letter', {
                     method: 'POST',
                     body: formData
                 });
                 
                 if (!response.ok) {
-                    console.warn('SSE endpoint failed, trying sync endpoint...');
-                    const finalData = await trySyncEndpoint();
-                    renderCoverLetter(finalData);
-                    return;
+                    const errorData = await response.json().catch(() => ({ detail: `Server error: ${response.status}` }));
+                    throw new Error(errorData.detail || `Server error: ${response.status}`);
                 }
                 
                 // Check if response is actually a stream
                 if (!response.body) {
-                    console.warn('No response body, trying sync endpoint...');
-                    const finalData = await trySyncEndpoint();
-                    renderCoverLetter(finalData);
-                    return;
+                    throw new Error('Server did not return a valid response stream');
                 }
                 
                 const reader = response.body.getReader();
@@ -1890,11 +2005,11 @@
                 let streamError = null;
                 let timeoutId = null;
                 
-                // Set a timeout for the stream (30 seconds)
+                // Set a timeout for the stream (120 seconds / 2 minutes)
                 const streamTimeout = new Promise((_, reject) => {
                     timeoutId = setTimeout(() => {
                         reject(new Error('Stream timeout'));
-                    }, 30000);
+                    }, 120000);
                 });
                 
                 try {
@@ -1947,25 +2062,22 @@
                     if (finalData) {
                         renderCoverLetter(finalData);
                     } else {
-                        // No data from stream, try sync endpoint
-                        console.warn('No data from SSE stream, trying sync endpoint...');
-                        const syncData = await trySyncEndpoint();
-                        renderCoverLetter(syncData);
+                        // No data from stream
+                        throw new Error('No data received from server. Please try again.');
                     }
                 } catch (streamErr) {
                     if (timeoutId) clearTimeout(timeoutId);
-                    console.warn('Stream error:', streamErr, '- trying sync endpoint...');
-                    try {
-                        const syncData = await trySyncEndpoint();
-                        renderCoverLetter(syncData);
-                    } catch (syncErr) {
-                        throw syncErr;
-                    }
+                    throw streamErr;
                 }
             } catch (error) {
                 console.error('Request error:', error);
                 coverView.innerHTML = '<div class="alert alert-error" style="display: flex; align-items: center; gap: 10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Error: ' + escapeHtml(error.message) + '</div>';
             } finally {
+                // Clear countdown timer
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                }
                 submitBtn.disabled = false;
             }
         });

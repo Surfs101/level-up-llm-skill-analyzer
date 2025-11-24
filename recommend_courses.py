@@ -5,17 +5,19 @@
 import os
 import json
 import argparse
-import re
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from collections import defaultdict
+from openai import OpenAI
+
+# Import shared normalization
+from skill_normalization import BUCKETS
 
 # Load environment variables
 load_dotenv()
 
-BUCKETS = ["ProgrammingLanguages", "FrameworksLibraries", "ToolsPlatforms", "SoftSkills"]
 PLATFORM_WHITELIST = {"DeepLearning.AI", "Udemy", "Coursera"}
 # Course recommendations should ignore soft skills entirely
 TARGET_BUCKETS = ["ProgrammingLanguages", "FrameworksLibraries", "ToolsPlatforms"]
@@ -24,7 +26,6 @@ BUCKET_WEIGHTS = {
     "ToolsPlatforms": 1.0,
     "FrameworksLibraries": 0.9,
     "ProgrammingLanguages": 0.8,
-    "SoftSkills": 0.3,
 }
 
 # MongoDB connection settings
@@ -153,79 +154,12 @@ def normalize_level(level_value) -> str:
     return level_str
 
 
-def skill_match_score(skill: str, title: str, description: str = "") -> float:
-    """
-    Calculate match score between a skill and a course title/description.
-    Searches both title (higher weight) and description (lower weight) for better accuracy.
-    Returns a score between 0 and 1.
-    
-    Args:
-        skill: The skill to match (e.g., "BigQuery")
-        title: Course title
-        description: Course description (optional, searched with lower weight)
-    """
-    if not skill:
-        return 0.0
-    
-    skill_lower = skill.lower().strip()
-    title_lower = (title or "").lower().strip()
-    desc_lower = (description or "").lower().strip()
-    
-    # Title matching (higher priority)
-    title_score = 0.0
-    if title_lower:
-        # Exact match in title
-        if skill_lower == title_lower:
-            title_score = 1.0
-        # Skill is a word in the title (word boundary match)
-        elif re.search(r'\b' + re.escape(skill_lower) + r'\b', title_lower):
-            title_score = 0.9
-        # Skill is a substring of the title
-        elif skill_lower in title_lower:
-            title_score = 0.7
-        # Title contains skill words (for multi-word skills)
-        else:
-            skill_words = skill_lower.split()
-            if len(skill_words) > 1:
-                matches = sum(1 for word in skill_words if word in title_lower)
-                if matches == len(skill_words):
-                    title_score = 0.8
-                elif matches > 0:
-                    title_score = 0.5 * (matches / len(skill_words))
-    
-    # Description matching (lower priority, but still significant)
-    desc_score = 0.0
-    if desc_lower and len(desc_lower) > 10:  # Only search if description is meaningful
-        # Exact match in description
-        if skill_lower == desc_lower:
-            desc_score = 0.8  # Slightly lower than title exact match
-        # Skill is a word in the description (word boundary match)
-        elif re.search(r'\b' + re.escape(skill_lower) + r'\b', desc_lower):
-            desc_score = 0.6  # Good match in description
-        # Skill is a substring of the description
-        elif skill_lower in desc_lower:
-            desc_score = 0.4  # Partial match in description
-        # Description contains skill words (for multi-word skills)
-        else:
-            skill_words = skill_lower.split()
-            if len(skill_words) > 1:
-                matches = sum(1 for word in skill_words if word in desc_lower)
-                if matches == len(skill_words):
-                    desc_score = 0.5
-                elif matches > 0:
-                    desc_score = 0.3 * (matches / len(skill_words))
-    
-    # Return the maximum of title and description scores
-    # Title matches are preferred, but description matches still count
-    return max(title_score, desc_score)
-
-
-def match_courses_to_skills(skills: List[str], courses: List[Dict], top_n: int = 10, 
+def match_courses_with_llm(skills: List[str], courses: List[Dict], top_n: int = 10,
                            skill_weights: Optional[Dict[str, float]] = None,
                            critical_skills: Optional[List[str]] = None) -> List[Dict]:
     """
-    Match courses to skills and return top N matches sorted by skill coverage.
-    Prioritizes courses that cover the most missing skills, with emphasis on critical skills.
+    Use LLM to intelligently match and rank courses based on skills.
+    This replaces complex regex/scoring logic with semantic understanding.
     
     Args:
         skills: List of skills to match against
@@ -237,392 +171,232 @@ def match_courses_to_skills(skills: List[str], courses: List[Dict], top_n: int =
     Returns:
         List of course dictionaries with match scores and matched skills
     """
-    if not skills:
+    if not skills or not courses:
         return []
     
-    scored_courses = []
-    
-    # If no weights provided, assign equal weight to all skills
-    if skill_weights is None:
-        skill_weights = {skill: 1.0 for skill in skills}
-    
-    # Identify critical skills (top 3 most important if not provided)
+    # Identify critical skills if not provided
     if critical_skills is None:
-        # Sort skills by weight to identify critical ones
-        sorted_by_weight = sorted(skills, key=lambda s: skill_weights.get(s, 1.0), reverse=True)
-        critical_skills = sorted_by_weight[:3] if len(sorted_by_weight) >= 3 else sorted_by_weight
+        if skill_weights:
+            sorted_by_weight = sorted(skills, key=lambda s: skill_weights.get(s, 1.0), reverse=True)
+            critical_skills = sorted_by_weight[:3] if len(sorted_by_weight) >= 3 else sorted_by_weight
+        else:
+            critical_skills = skills[:3] if len(skills) >= 3 else skills
     
-    for course in courses:
-        # Safely extract title, converting to string to handle float/None values
+    # Prepare course summaries for LLM (limit to avoid token limits)
+    course_summaries = []
+    for idx, course in enumerate(courses[:100]):  # Limit to 100 courses to avoid token limits
         title_raw = course.get("course_title") or course.get("title") or course.get("name") or ""
         title = str(title_raw).strip() if title_raw is not None else ""
         if not title or title.lower() == "nan":
             continue
         
-        # Extract description and other text fields for enhanced matching (deep search)
         desc_raw = (course.get("description") or course.get("Description") or
                    course.get("course_description") or course.get("Course Description") or
                    course.get("content") or course.get("Content") or
                    course.get("summary") or course.get("Summary") or
                    course.get("overview") or course.get("Overview") or "")
         description = str(desc_raw).strip() if desc_raw is not None else ""
+        # Limit description to 300 chars to save tokens
+        description = description[:300] + "..." if len(description) > 300 else description
         
-        # Also search in other text fields that might contain skill mentions
-        # Combine all searchable text for comprehensive matching
-        all_text_fields = [
-            title,
-            description,
-            str(course.get("content") or ""),
-            str(course.get("summary") or ""),
-            str(course.get("overview") or ""),
-            str(course.get("instructor") or ""),
-            str(course.get("provider") or ""),
-        ]
-        combined_text = " ".join([f for f in all_text_fields if f and len(f) > 0])
+        rating = normalize_rating(course.get("Rating") or course.get("rating"))
+        platform = course.get("_platform") or course.get("platform") or "Unknown"
+        cost_type = course.get("_cost_type", "Paid")  # Get cost type from metadata
         
-        # Calculate match scores for each skill with weights
-        matched_skills = []
-        matched_critical_skills = []
-        weighted_score = 0.0
-        total_weight = 0.0
-        critical_weighted_score = 0.0
-        
-        for skill in skills:
-            # Use combined text for even deeper search
-            match_score = skill_match_score(skill, title, combined_text)
-            if match_score > 0:
-                matched_skills.append(skill)
-                # Weight the match score by skill importance
-                weight = skill_weights.get(skill, 1.0)
-                weighted_score += match_score * weight
-                total_weight += weight
-                
-                # Track critical skills separately
-                if skill in critical_skills:
-                    matched_critical_skills.append(skill)
-                    # Critical skills get extra weight in scoring
-                    critical_weighted_score += match_score * weight * 2.0
-        
-        if matched_skills:
-            # Calculate coverage percentage (how many skills this course covers)
-            coverage_ratio = len(matched_skills) / len(skills)
-            
-            # Calculate critical skill coverage (how many critical skills covered)
-            critical_coverage_ratio = len(matched_critical_skills) / len(critical_skills) if critical_skills else 0
-            
-            # Calculate weighted average score
-            avg_weighted_score = weighted_score / max(1, total_weight) if total_weight > 0 else 0
-            
-            # CRITICAL SKILL BOOST: Massive boost for covering critical skills
-            # If course covers the #1 most critical skill, give huge boost
-            covers_top_critical = critical_skills and critical_skills[0] in matched_skills
-            top_critical_boost = 5.0 if covers_top_critical else 1.0  # 5x boost for top critical skill
-            
-            # Critical coverage boost (exponential)
-            critical_boost = (1 + critical_coverage_ratio ** 2) * 3.0  # Strong boost for critical skills
-            
-            # Coverage boost for all skills (exponential)
-            coverage_boost = coverage_ratio ** 2  # Exponential boost for high coverage
-            skill_count_boost = len(matched_skills)  # Linear boost for number of skills
-            
-            # Final score formula prioritizes:
-            # 1. Covering the most critical skill (top_critical_boost)
-            # 2. Covering more critical skills (critical_boost)
-            # 3. Covering more skills overall (coverage_boost)
-            final_score = (avg_weighted_score * top_critical_boost * critical_boost * 
-                          (1 + 2.0 * coverage_boost) * (1 + 0.3 * skill_count_boost))
-            
-            course_copy = dict(course)
-            course_copy["_match_score"] = final_score
-            course_copy["_matched_skills"] = matched_skills
-            course_copy["_matched_critical_skills"] = matched_critical_skills
-            course_copy["_coverage_ratio"] = coverage_ratio
-            course_copy["_critical_coverage_ratio"] = critical_coverage_ratio
-            course_copy["_covers_top_critical"] = covers_top_critical
-            scored_courses.append(course_copy)
+        course_summaries.append({
+            "id": idx,
+            "title": title,
+            "description": description,
+            "rating": rating,
+            "platform": platform,
+            "cost_type": cost_type,  # Include cost type for LLM
+            "_original_course": course  # Keep reference to original
+        })
     
-    # Sort by: 
-    # 1) Covers top critical skill (desc)
-    # 2) Critical coverage ratio (desc)
-    # 3) Coverage ratio (desc)
-    # 4) Number of skills covered (desc)
-    # 5) Match score (desc)
-    # 6) Rating (desc)
-    scored_courses.sort(key=lambda x: (
-        -int(x.get("_covers_top_critical", False)),  # Highest priority: covers #1 critical skill
-        -x.get("_critical_coverage_ratio", 0),  # Second: covers how many critical skills
-        -x.get("_coverage_ratio", 0),  # Third: covers how many total skills
-        -len(x.get("_matched_skills", [])),  # Fourth: number of skills covered
-        -x.get("_match_score", 0),  # Fifth: match quality
-        -(normalize_rating(x.get("Rating") or x.get("rating")) or 0)  # Sixth: rating
-    ))
+    if not course_summaries:
+        return []
     
-    return scored_courses[:top_n]
+    # Build LLM prompt
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    
+    critical_skills_str = f"\nCRITICAL SKILLS (must prioritize these): {', '.join(critical_skills[:3])}" if critical_skills else ""
+    skills_str = ', '.join(skills)
+    
+    prompt = f"""You are a course recommendation expert. Find the BEST courses for these required skills.
+
+REQUIRED SKILLS: {skills_str}
+{critical_skills_str}
+
+COURSES TO EVALUATE:
+{json.dumps([{k: v for k, v in c.items() if k not in ["_original_course", "_platform", "_cost_type"]} for c in course_summaries], indent=2)}
+
+Task:
+1. For each course, determine which skills it covers (can be implicit - e.g., "Web Development" covers HTML, CSS, JavaScript)
+2. Prioritize courses that:
+   - Cover the MOST missing skills in one course (efficiency)
+   - Focus on the most CRITICAL skills (already ranked - top skills are most important)
+   - Have high quality (ratings, platform reputation)
+3. Rank courses by overall value considering:
+   - **Skill Coverage**: How many missing skills does it cover? (prioritize courses covering multiple skills)
+   - **Critical Skills Focus**: Does it cover the top-ranked critical skills?
+   - **Quality**: Course ratings, platform reputation (Udemy/Coursera are reputable)
+   - **Comprehensiveness**: Covers multiple skills efficiently
+   - **Value**: Free courses preferred when quality is similar
+4. Return top {top_n} BEST courses ranked by overall quality and relevance
+
+Return JSON in this format:
+{{
+  "ranked_courses": [
+    {{
+      "id": 0,
+      "matched_skills": ["HTML", "CSS", "JavaScript"],
+      "relevance_score": 0.95,
+      "quality_score": 0.9,
+      "reason": "Comprehensive web development course covering all required frontend skills with high ratings"
+    }},
+    ...
+  ]
+}}
+
+Make sure to:
+- Match skills semantically (e.g., "Full Stack Development" = HTML + CSS + JavaScript + backend)
+- Prioritize courses that cover critical skills
+- Consider course quality (ratings, platform)
+- Return exactly {top_n} courses (or fewer if not enough good matches)"""
+    
+    try:
+        response = client.chat.completions.create(
+            model="gpt-5.1",  # Use GPT-5.1 for better course selection
+            messages=[{"role": "user", "content": prompt}],
+            response_format={"type": "json_object"},
+            temperature=0.1  # Low temperature for consistent results
+        )
+        
+        result = json.loads(response.choices[0].message.content)
+        ranked = result.get("ranked_courses", [])
+        
+        # Map back to original course objects
+        matched_courses = []
+        for ranked_item in ranked:
+            course_id = ranked_item.get("id")
+            if course_id < len(course_summaries):
+                original_course = course_summaries[course_id]["_original_course"]
+                course = dict(original_course)
+                course["_matched_skills"] = ranked_item.get("matched_skills", [])
+                course["_relevance_score"] = ranked_item.get("relevance_score", 0)
+                course["_quality_score"] = ranked_item.get("quality_score", 0)
+                course["_match_reason"] = ranked_item.get("reason", "")
+                # Calculate overall match score for sorting
+                course["_match_score"] = (ranked_item.get("relevance_score", 0) * 0.7 + 
+                                         ranked_item.get("quality_score", 0) * 0.3)
+                matched_courses.append(course)
+        
+        # Sort by match score (already ranked by LLM, but ensure consistency)
+        matched_courses.sort(key=lambda x: x.get("_match_score", 0), reverse=True)
+        
+        return matched_courses[:top_n]
+        
+    except Exception as e:
+        error_msg = str(e)
+        if "quota" in error_msg.lower() or "429" in error_msg or "insufficient_quota" in error_msg:
+            print(f"Error: OpenAI API quota exceeded. Please check your billing and plan.")
+            raise Exception(f"OpenAI API quota exceeded. Please check your billing and plan. Error: {error_msg}")
+        else:
+            print(f"Warning: LLM matching failed: {e}. Falling back to simple matching.")
+            import traceback
+            traceback.print_exc()
+            # Fallback: return courses with basic title matching
+            return courses[:top_n]
 
 
-def build_deep_search_query(skills: List[str]) -> dict:
+def fetch_all_courses_from_mongo(skills: List[str], min_courses: int = 50) -> List[Dict]:
     """
-    Build a MongoDB query that searches for skills in multiple fields using regex.
-    This performs a deep search across title, description, and other text fields.
+    Fetch ALL courses (free + paid, Udemy + Coursera) from MongoDB.
+    Returns raw course documents without LLM matching.
     
     Args:
         skills: List of skills to search for
+        min_courses: Minimum number of courses to fetch (at least 50)
     
     Returns:
-        MongoDB query dictionary using $or and $regex
-    """
-    if not skills:
-        return {}
-    
-    # Build regex patterns for each skill (case-insensitive, word boundary aware)
-    regex_patterns = []
-    for skill in skills:
-        if not skill or not skill.strip():
-            continue
-        skill_clean = re.escape(skill.strip())
-        # Use word boundary regex for better matching
-        pattern = rf"\b{skill_clean}\b"
-        regex_patterns.append({
-            "$regex": pattern,
-            "$options": "i"  # Case-insensitive
-        })
-    
-    if not regex_patterns:
-        return {}
-    
-    # Search in multiple possible field names for title and description
-    # This covers variations in field naming across different data sources
-    search_fields = [
-        "course_title", "title", "name", "Course Name", "course_name", "Course_Title",
-        "description", "Description", "course_description", "Course Description",
-        "content", "Content", "summary", "Summary", "overview", "Overview"
-    ]
-    
-    # Build $or query that searches each skill in each field
-    or_conditions = []
-    for pattern in regex_patterns:
-        for field in search_fields:
-            or_conditions.append({field: pattern})
-    
-    if not or_conditions:
-        return {}
-    
-    return {"$or": or_conditions}
-
-
-def fetch_courses_from_mongo(skills: List[str], max_results: int = 100, 
-                             skill_weights: Optional[Dict[str, float]] = None,
-                             free_only: bool = False,
-                             paid_only: bool = False) -> Dict[str, List[Dict]]:
-    """
-    Fetch courses from MongoDB matching the given skills using DEEP SEARCH.
-    Uses MongoDB regex queries to search across multiple fields (title, description, etc.)
-    and also fetches a larger sample for comprehensive matching.
-    
-    Args:
-        skills: List of skills to match against
-        max_results: Maximum number of results to fetch per platform
-        skill_weights: Optional dict mapping skill names to importance weights
-        free_only: If True, only query free course collections
-        paid_only: If True, only query paid course collections
-    
-    Returns:
-        Dictionary with 'udemy' and 'coursera' keys containing course lists
+        List of course documents with platform and cost info added
     """
     db = get_db()
-    results = {"udemy": [], "coursera": []}
+    all_courses = []
     
     if not skills:
-        return results
+        return all_courses
     
-    # Build deep search query for MongoDB
-    deep_query = build_deep_search_query(skills)
+    # Build search query for skills (search in title and description)
+    skill_keywords = [skill.lower() for skill in skills[:10]]  # Limit to top 10 skills
+    search_query = {
+        "$or": [
+            {"course_title": {"$regex": "|".join(skill_keywords), "$options": "i"}},
+            {"title": {"$regex": "|".join(skill_keywords), "$options": "i"}},
+            {"description": {"$regex": "|".join(skill_keywords), "$options": "i"}},
+            {"Description": {"$regex": "|".join(skill_keywords), "$options": "i"}},
+        ]
+    }
     
-    # Determine which collections to query
-    query_free = free_only or (not paid_only)
-    query_paid = paid_only or (not free_only)
+    courses_per_collection = max(15, min_courses // 4)  # Distribute across 4 collections
     
-    # DEEP SEARCH: Use optimized limits and MongoDB queries
-    # Strategy: 
-    # 1) First try targeted MongoDB regex query (faster, more accurate)
-    # 2) Only if that returns ZERO results, fetch a small sample as fallback
-    deep_search_limit = max_results * 3   # Further optimized: only 3x what we need
-    fallback_limit = max_results * 5       # Reduced fallback limit (only used if deep search finds nothing)
+    # Fetch from all collections
+    collections = [
+        (FREE_UDEMY_COLLECTION, "Udemy", "Free"),
+        (PAID_UDEMY_COLLECTION, "Udemy", "Paid"),
+        (FREE_COURSERA_COLLECTION, "Coursera", "Free"),
+        (PAID_COURSERA_COLLECTION, "Coursera", "Paid"),
+    ]
     
-    # Query Udemy courses from appropriate collections
-    try:
-        udemy_courses = []
-        
-        if query_free:
-            free_udemy_count = db[FREE_UDEMY_COLLECTION].count_documents({})
-            if free_udemy_count > 0:
-                # First: Try targeted MongoDB query (deep search)
-                if deep_query:
-                    targeted_courses = list(db[FREE_UDEMY_COLLECTION].find(deep_query).limit(deep_search_limit))
-                    print(f"Debug: Deep search found {len(targeted_courses)} free Udemy courses matching skills")
-                    udemy_courses.extend(targeted_courses)
-                
-                # Fallback: Only if deep search found ZERO results (not just few)
-                if len(udemy_courses) == 0:
-                    fallback_courses = list(db[FREE_UDEMY_COLLECTION].find({}).limit(fallback_limit))
-                    # Deduplicate
-                    existing_titles = {str(c.get("course_title") or c.get("title") or "").lower() for c in udemy_courses}
-                    for course in fallback_courses:
-                        title_key = str(course.get("course_title") or course.get("title") or "").lower()
-                        if title_key and title_key not in existing_titles:
-                            udemy_courses.append(course)
-                            existing_titles.add(title_key)
-                    print(f"Debug: Added {len(fallback_courses)} fallback free Udemy courses (total: {len(udemy_courses)})")
-        
-        if query_paid:
-            paid_udemy_count = db[PAID_UDEMY_COLLECTION].count_documents({})
-            if paid_udemy_count > 0:
-                # First: Try targeted MongoDB query (deep search)
-                if deep_query:
-                    targeted_courses = list(db[PAID_UDEMY_COLLECTION].find(deep_query).limit(deep_search_limit))
-                    print(f"Debug: Deep search found {len(targeted_courses)} paid Udemy courses matching skills")
-                    udemy_courses.extend(targeted_courses)
-                
-                # Fallback: Only if deep search found ZERO results (not just few)
-                if len(udemy_courses) == 0:
-                    fallback_courses = list(db[PAID_UDEMY_COLLECTION].find({}).limit(fallback_limit))
-                    # Deduplicate
-                    existing_titles = {str(c.get("course_title") or c.get("title") or "").lower() for c in udemy_courses}
-                    for course in fallback_courses:
-                        title_key = str(course.get("course_title") or course.get("title") or "").lower()
-                        if title_key and title_key not in existing_titles:
-                            udemy_courses.append(course)
-                            existing_titles.add(title_key)
-                    print(f"Debug: Added {len(fallback_courses)} fallback paid Udemy courses (total: {len(udemy_courses)})")
-        
-        if udemy_courses:
-            # OPTIMIZATION: Limit courses before matching to avoid processing thousands
-            # Only process top candidates (3x what we need) for faster matching
-            max_courses_to_match = min(len(udemy_courses), max_results * 3)
-            courses_to_match = udemy_courses[:max_courses_to_match]
-            print(f"Debug: Matching {len(courses_to_match)} of {len(udemy_courses)} Udemy courses (optimized)")
+    for collection_name, platform, cost_type in collections:
+        try:
+            # Fetch courses related to skills
+            courses = list(db[collection_name].find(search_query).sort("rating", -1).limit(courses_per_collection))
             
-            # Match and score courses with skill weights and critical skills
-            # Pass critical skills (top 3 most important) for prioritization
-            sorted_skills_by_weight = sorted(skills, key=lambda s: skill_weights.get(s, 1.0) if skill_weights else 1.0, reverse=True)
-            critical_skills = sorted_skills_by_weight[:3] if len(sorted_skills_by_weight) >= 3 else sorted_skills_by_weight
-            udemy_matched = match_courses_to_skills(skills, courses_to_match, top_n=max_results, 
-                                                   skill_weights=skill_weights, critical_skills=critical_skills)
-            print(f"Debug: Matched {len(udemy_matched)} Udemy courses")
-            results["udemy"] = udemy_matched
-        else:
-            print(f"Warning: No Udemy courses found in collections")
-            results["udemy"] = []
-    except Exception as e:
-        print(f"Warning: Error fetching Udemy courses: {e}")
-        import traceback
-        traceback.print_exc()
-        results["udemy"] = []
-    
-    # Query Coursera courses from appropriate collections
-    try:
-        coursera_courses_raw = []
-        
-        if query_free:
-            free_coursera_count = db[FREE_COURSERA_COLLECTION].count_documents({})
-            if free_coursera_count > 0:
-                # First: Try targeted MongoDB query (deep search)
-                if deep_query:
-                    targeted_courses = list(db[FREE_COURSERA_COLLECTION].find(deep_query).limit(deep_search_limit))
-                    print(f"Debug: Deep search found {len(targeted_courses)} free Coursera courses matching skills")
-                    coursera_courses_raw.extend(targeted_courses)
-                
-                # Fallback: Only if deep search found ZERO results (not just few)
-                if len(coursera_courses_raw) == 0:
-                    fallback_courses = list(db[FREE_COURSERA_COLLECTION].find({}).limit(fallback_limit))
-                    # Deduplicate
-                    existing_titles = {str(c.get("course_title") or c.get("title") or c.get("name") or "").lower() for c in coursera_courses_raw}
-                    for course in fallback_courses:
-                        title_key = str(course.get("course_title") or course.get("title") or course.get("name") or "").lower()
-                        if title_key and title_key not in existing_titles:
-                            coursera_courses_raw.append(course)
-                            existing_titles.add(title_key)
-                    print(f"Debug: Added {len(fallback_courses)} fallback free Coursera courses (total: {len(coursera_courses_raw)})")
-        
-        if query_paid:
-            paid_coursera_count = db[PAID_COURSERA_COLLECTION].count_documents({})
-            if paid_coursera_count > 0:
-                # First: Try targeted MongoDB query (deep search)
-                if deep_query:
-                    targeted_courses = list(db[PAID_COURSERA_COLLECTION].find(deep_query).limit(deep_search_limit))
-                    print(f"Debug: Deep search found {len(targeted_courses)} paid Coursera courses matching skills")
-                    coursera_courses_raw.extend(targeted_courses)
-                
-                # Fallback: Only if deep search found ZERO results (not just few)
-                if len(coursera_courses_raw) == 0:
-                    fallback_courses = list(db[PAID_COURSERA_COLLECTION].find({}).limit(fallback_limit))
-                    # Deduplicate
-                    existing_titles = {str(c.get("course_title") or c.get("title") or c.get("name") or "").lower() for c in coursera_courses_raw}
-                    for course in fallback_courses:
-                        title_key = str(course.get("course_title") or course.get("title") or course.get("name") or "").lower()
-                        if title_key and title_key not in existing_titles:
-                            coursera_courses_raw.append(course)
-                            existing_titles.add(title_key)
-                    print(f"Debug: Added {len(fallback_courses)} fallback paid Coursera courses (total: {len(coursera_courses_raw)})")
-        
-        if coursera_courses_raw:
-            print(f"Debug: Total {len(coursera_courses_raw)} Coursera courses for processing")
+            # If not enough, fetch more general courses
+            if len(courses) < courses_per_collection:
+                additional = list(db[collection_name].find({}).sort("rating", -1).limit(courses_per_collection - len(courses)))
+                courses.extend(additional)
             
-            # If it's a reviews file, we need to deduplicate by course name
-            # Group by title/name and take the first occurrence with best rating
-            course_dict = {}
-            for course in coursera_courses_raw:
-                # Safely extract title, converting to string and handling None/float values
-                # Try all possible field names from the CSV
-                title_raw = (course.get("course_title") or course.get("title") or 
-                            course.get("name") or course.get("Course Name") or
-                            course.get("course_name") or course.get("Course_Title") or "")
-                # Convert to string and strip, handling None, float, or other non-string types
-                title = str(title_raw).strip() if title_raw is not None else ""
-                if not title or title.lower() == "nan":
-                    continue
-                
-                # Use title as key for deduplication
-                if title not in course_dict:
+            # Add platform and cost metadata
+            for course in courses:
+                course["_platform"] = platform
+                course["_cost_type"] = cost_type
+            
+            all_courses.extend(courses)
+            print(f"Debug: Fetched {len(courses)} {cost_type} {platform} courses")
+        except Exception as e:
+            print(f"Warning: Error fetching from {collection_name}: {e}")
+            continue
+    
+    # Deduplicate Coursera courses by title (Udemy usually doesn't have duplicates)
+    course_dict = {}
+    for course in all_courses:
+        title_raw = (course.get("course_title") or course.get("title") or 
+                    course.get("name") or course.get("Course Name") or "")
+        title = str(title_raw).strip() if title_raw is not None else ""
+        if not title or title.lower() == "nan":
+            continue
+        
+        # For Coursera, deduplicate; for Udemy, keep all
+        if course["_platform"] == "Coursera":
+            if title not in course_dict:
+                course_dict[title] = course
+            else:
+                # Keep the one with higher rating
+                existing_rating = normalize_rating(course_dict[title].get("Rating") or course_dict[title].get("rating")) or 0
+                new_rating = normalize_rating(course.get("Rating") or course.get("rating")) or 0
+                if new_rating > existing_rating:
                     course_dict[title] = course
-                else:
-                    # If duplicate, keep the one with higher rating
-                    existing_rating = normalize_rating(
-                        course_dict[title].get("Rating") or course_dict[title].get("rating")
-                    ) or 0
-                    new_rating = normalize_rating(
-                        course.get("Rating") or course.get("rating")
-                    ) or 0
-                    if new_rating > existing_rating:
-                        course_dict[title] = course
-            
-            coursera_courses = list(course_dict.values())
-            print(f"Debug: Deduplicated to {len(coursera_courses)} unique Coursera courses")
-            
-            # OPTIMIZATION: Limit courses before matching to avoid processing thousands
-            # Only process top candidates (3x what we need) for faster matching
-            max_courses_to_match = min(len(coursera_courses), max_results * 3)
-            courses_to_match = coursera_courses[:max_courses_to_match]
-            print(f"Debug: Matching {len(courses_to_match)} of {len(coursera_courses)} Coursera courses (optimized)")
-            
-            # Match and score courses with skill weights and critical skills
-            # Pass critical skills (top 3 most important) for prioritization
-            sorted_skills_by_weight = sorted(skills, key=lambda s: skill_weights.get(s, 1.0) if skill_weights else 1.0, reverse=True)
-            critical_skills = sorted_skills_by_weight[:3] if len(sorted_skills_by_weight) >= 3 else sorted_skills_by_weight
-            coursera_matched = match_courses_to_skills(skills, courses_to_match, top_n=max_results, 
-                                                      skill_weights=skill_weights, critical_skills=critical_skills)
-            print(f"Debug: Matched {len(coursera_matched)} Coursera courses")
-            results["coursera"] = coursera_matched
         else:
-            print(f"Warning: No Coursera courses found in collections")
-            results["coursera"] = []
-    except Exception as e:
-        print(f"Warning: Error fetching Coursera courses: {e}")
-        import traceback
-        traceback.print_exc()
-        results["coursera"] = []
+            # For Udemy, add directly (no deduplication needed)
+            if title not in course_dict:
+                course_dict[title] = course
     
-    return results
+    deduplicated = list(course_dict.values())
+    print(f"Debug: Fetched {len(deduplicated)} total courses (deduplicated)")
+    
+    return deduplicated
 
 
 def format_course_for_output(course: Dict, platform: str) -> Dict:
@@ -670,7 +444,7 @@ def format_course_for_output(course: Dict, platform: str) -> Dict:
         course.get("Level") or course.get("Difficulty")
     )
     
-    # Get matched skills
+    # Get matched skills (from LLM matching)
     matched_skills = course.get("_matched_skills", [])
     
     # Extract description if available
@@ -709,6 +483,7 @@ def get_course_recommendations(
 ) -> Dict[str, Any]:
     """
     Get course recommendations from MongoDB based on skills.
+    Fetches ALL courses first, then uses LLM to select best free and paid courses.
     
     Args:
         skills: List of skills to match against
@@ -716,6 +491,7 @@ def get_course_recommendations(
         require_paid: If True, only return paid courses
         max_free: Maximum number of free courses to return
         max_paid: Maximum number of paid courses to return
+        skill_weights: Optional dict mapping skill names to importance weights
     
     Returns:
         Dictionary with course recommendations in expected format
@@ -729,59 +505,66 @@ def get_course_recommendations(
             "coverage_percentage": 0
         }
     
-    # Fetch free and paid courses separately from their respective collections
+    # Step 1: Fetch ALL courses at once (free + paid, Udemy + Coursera)
+    min_courses = max(50, (max_free + max_paid) * 3)  # At least 50, or 3x what we need
+    all_courses_raw = fetch_all_courses_from_mongo(skills, min_courses=min_courses)
+    
+    if not all_courses_raw:
+        return {
+            "free_courses": [],
+            "paid_courses": [],
+            "skill_coverage": {},
+            "uncovered_skills": skills,
+            "coverage_percentage": 0
+        }
+    
+    # Step 2: Use LLM to select best courses from ALL fetched courses
+    # Use first 3 skills from the list (which is already priority-ordered if ranked_skills was passed)
+    critical_skills = skills[:3] if len(skills) >= 3 else skills
+    
+    try:
+        # LLM selects best courses from all platforms and cost types
+        # Skills list is already in priority order (most critical first)
+        matched_courses = match_courses_with_llm(
+            skills, 
+            all_courses_raw, 
+            top_n=max_free + max_paid + 5,  # Get a few extra for filtering
+            skill_weights=skill_weights, 
+            critical_skills=critical_skills  # Top 3 are the most critical (priority-ordered)
+        )
+        print(f"Debug: LLM matched {len(matched_courses)} courses from all platforms")
+    except Exception as e:
+        print(f"Warning: LLM matching failed: {e}. Using simple fallback.")
+        import traceback
+        traceback.print_exc()
+        # Fallback: return first courses
+        matched_courses = all_courses_raw[:max_free + max_paid]
+    
+    # Step 3: Separate into free and paid, format for output
     free_courses = []
     paid_courses = []
     
-    # Fetch free courses (only from free collections)
-    if not require_paid and max_free > 0:
-        fetch_limit = max_free * 3   # Further optimized: only 3x what we need
-        free_courses_data = fetch_courses_from_mongo(
-            skills, 
-            max_results=fetch_limit, 
-            skill_weights=skill_weights,
-            free_only=True,
-            paid_only=False
-        )
+    for course in matched_courses:
+        cost_type = course.get("_cost_type", "Paid")
+        platform = course.get("_platform", "Unknown")
         
-        # Process free Udemy courses
-        for course in free_courses_data["udemy"]:
-            formatted = format_course_for_output(course, "Udemy")
-            # Set cost to Free since it's from free collection
-            formatted["cost"] = "Free"
+        # Skip if restricted
+        if require_free and cost_type != "Free":
+            continue
+        if require_paid and cost_type != "Paid":
+            continue
+        
+        formatted = format_course_for_output(course, platform)
+        formatted["cost"] = "Free" if cost_type == "Free" else "Paid"
+        
+        if cost_type == "Free" and len(free_courses) < max_free:
             free_courses.append(formatted)
-        
-        # Process free Coursera courses
-        for course in free_courses_data["coursera"]:
-            formatted = format_course_for_output(course, "Coursera")
-            # Set cost to Free since it's from free collection
-            formatted["cost"] = "Free"
-            free_courses.append(formatted)
-    
-    # Fetch paid courses (only from paid collections)
-    if not require_free and max_paid > 0:
-        fetch_limit = max_paid * 3   # Further optimized: only 3x what we need
-        paid_courses_data = fetch_courses_from_mongo(
-            skills, 
-            max_results=fetch_limit, 
-            skill_weights=skill_weights,
-            free_only=False,
-            paid_only=True
-        )
-        
-        # Process paid Udemy courses
-        for course in paid_courses_data["udemy"]:
-            formatted = format_course_for_output(course, "Udemy")
-            # Don't show price for paid courses, just mark as "Paid"
-            formatted["cost"] = "Paid"
+        elif cost_type == "Paid" and len(paid_courses) < max_paid:
             paid_courses.append(formatted)
         
-        # Process paid Coursera courses
-        for course in paid_courses_data["coursera"]:
-            formatted = format_course_for_output(course, "Coursera")
-            # Don't show price for paid courses, just mark as "Paid"
-            formatted["cost"] = "Paid"
-            paid_courses.append(formatted)
+        # Stop if we have enough
+        if len(free_courses) >= max_free and len(paid_courses) >= max_paid:
+            break
     
     # Sort by match score (if available) and rating
     def sort_key(c):
@@ -863,57 +646,58 @@ def compute_coverage(target_set, free_courses, paid_courses):
 
 # ---------- main recommendation function ----------
 def recommend_courses_from_gaps(
-    resume_json: dict,
-    job_json: dict,
+    missing_skills_data: dict,
     role: str = "Target Role",
     require_free: bool = False,
     require_paid: bool = False,
     max_free: int = 1,
-    max_paid: int = 1
+    max_paid: int = 1,
+    ranked_skills: Optional[List[str]] = None
 ) -> dict:
     """
-    Main function to get course recommendations based on **skill gaps** between
-    the resume and the job description.
+    Main function to get course recommendations based on **skill gaps** and pre-calculated weights
+    from score_skills_match.
     
-    Priority logic (used by the app):
-    1) Try to recommend courses based on missing skills (primary path).
-    2) If we cannot find any courses for the missing skills, the caller can
-       fall back to job-title/domain-based recommendations (see
-       `recommend_courses_for_job_skills` below).
-    3) If nothing is found for either, return an object with empty course lists.
+    This function simply uses the prioritized skills and weights already calculated by score_skills_match
+    to fetch and match courses from MongoDB.
     
     Args:
-        resume_json: Resume skills JSON
-        job_json: Job skills JSON
+        missing_skills_data: Dictionary containing:
+            - "gaps": {"required": {bucket: [skills]}, "preferred": {bucket: [skills]}}
+            - "skill_weights": {"required": {skill: final_weight}, "preferred": {skill: final_weight}}
         role: Target role name (currently informational only)
         require_free: If True, only return free courses
         require_paid: If True, only return paid courses
         max_free: Maximum free courses to return (default 1 for compatibility)
         max_paid: Maximum paid courses to return (default 1 for compatibility)
+        ranked_skills: Optional priority-ranked list of missing skills (from match_scores). 
+                      If provided, this will be used instead of flattening gaps, preserving priority order.
     
     Returns:
         Dictionary with course recommendations
     """
-    have = get_resume_skills(resume_json)
-    need_required = get_job_required_skills(job_json)
-    gaps = compute_gaps(have, need_required)
+    gaps = missing_skills_data.get("gaps", {})
+    skill_weights_dict = missing_skills_data.get("skill_weights", {})
     
-    # If no REQUIRED gaps, fall back to PREFERRED gaps
-    if gaps_empty(gaps):
-        need_pref = get_job_preferred_skills(job_json)
-        gaps = compute_gaps(have, need_pref)
+    # Use required gaps first, fall back to preferred if no required gaps
+    gaps_to_use = gaps.get("required", {})
+    skill_weights_to_use = skill_weights_dict.get("required", {})
     
-    # Flatten gaps to a list of skills, preserving bucket information for weighting
-    target_skills = []
-    skill_weights = {}
+    if not any(gaps_to_use.values()):  # Check if any required gaps exist
+        gaps_to_use = gaps.get("preferred", {})
+        skill_weights_to_use = skill_weights_dict.get("preferred", {})
     
-    # Build skill list with weights based on bucket importance
-    for bucket in TARGET_BUCKETS:
-        bucket_weight = BUCKET_WEIGHTS.get(bucket, 0.5)
-        for skill in gaps.get(bucket, []):
-            if skill not in target_skills:
-                target_skills.append(skill)
-                skill_weights[skill] = bucket_weight
+    # Use priority-ranked skills if provided, otherwise flatten gaps (fallback)
+    if ranked_skills:
+        # Use the priority-ordered skills directly (preserves LLM ranking)
+        target_skills = ranked_skills
+    else:
+        # Fallback: Flatten gaps to a list of skills (loses priority order, but maintains compatibility)
+        target_skills = []
+        for bucket in TARGET_BUCKETS:
+            for skill in gaps_to_use.get(bucket, []):
+                if skill not in target_skills:
+                    target_skills.append(skill)
     
     # If no skills, return empty (no gaps to close)
     if not target_skills:
@@ -925,32 +709,21 @@ def recommend_courses_from_gaps(
             "coverage_percentage": 100
         }
     
-    # Rank skills by importance - if no course covers many skills, focus on most important
-    ranked_skills = _rank_missing_skills(gaps)
-    
-    # Boost weight of most important skills (top 3 get extra weight)
-    if ranked_skills:
-        for i, skill in enumerate(ranked_skills[:3]):
-            if skill in skill_weights:
-                # Top skill gets 3x weight, 2nd gets 2x, 3rd gets 1.5x (increased for stronger prioritization)
-                multiplier = [3.0, 2.0, 1.5][i] if i < 3 else 1.0
-                skill_weights[skill] = skill_weights[skill] * multiplier
-    
-    # Identify top 3 critical skills for course matching
-    top_critical_skills = ranked_skills[:3] if ranked_skills else []
+    # Use top 3 from priority-ranked list (most critical first)
+    top_critical_skills = target_skills[:3] if target_skills else []
     
     print(f"Debug: Recommending courses for {len(target_skills)} missing skills")
     print(f"Debug: Top 3 CRITICAL skills (must be covered): {top_critical_skills}")
     print(f"Debug: All missing skills: {target_skills[:10]}{'...' if len(target_skills) > 10 else ''}")
     
-    # Get recommendations from MongoDB with skill weights
+    # Get recommendations from MongoDB with pre-calculated skill weights
     recommendations = get_course_recommendations(
         skills=target_skills,
         require_free=require_free,
         require_paid=require_paid,
         max_free=max_free,
         max_paid=max_paid,
-        skill_weights=skill_weights
+        skill_weights=skill_weights_to_use
     )
     
     return recommendations
@@ -1134,4 +907,5 @@ def main():
 
 
 if __name__ == "__main__":
+
     main()
