@@ -120,7 +120,6 @@
 - **Python 3.8+** - Primary programming language
 - **FastAPI** - Modern, fast web framework for building APIs
 - **Uvicorn** - ASGI server for running FastAPI applications
-- **Flask** - Additional web framework support
 - **python-multipart** - File upload handling
 
 ### AI & Machine Learning
