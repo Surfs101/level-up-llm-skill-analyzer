@@ -33,7 +33,7 @@
 
 ---
 
-## 🎯 Overview
+## 🎯 Overview {#overview}
 
 **skillbridge.AI** is an intelligent career development platform that helps students and job seekers identify skill gaps between their résumé and target job positions. Using advanced Large Language Models (LLMs), the platform provides personalized course recommendations, hands-on project ideas, and AI-generated cover letters to help bridge these gaps and land dream internships or new grad positions.
 
@@ -46,7 +46,7 @@
 
 ---
 
-## 🎥 Demo
+## 🎥 Demo {#demo}
 
 <div align="center">
 
@@ -64,7 +64,7 @@
 
 ---
 
-## ✨ Features
+## ✨ Features {#features}
 
 ### 🔍 Skill Gap Analyzer
 
@@ -105,7 +105,7 @@
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack {#tech-stack}
 
 ### Frontend Technologies
 
@@ -120,6 +120,7 @@
 - **Python 3.8+** - Primary programming language
 - **FastAPI** - Modern, fast web framework for building APIs
 - **Uvicorn** - ASGI server for running FastAPI applications
+- **Flask** - Additional web framework support
 - **python-multipart** - File upload handling
 
 ### AI & Machine Learning
@@ -169,7 +170,7 @@
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ System Architecture {#system-architecture}
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -279,7 +280,7 @@
 
 ---
 
-## 🚀 Usage
+## 🚀 Usage {#usage}
 
 ### Web Interface
 
@@ -353,7 +354,7 @@ curl -X POST "https://level-up-llm-skill-analyzer.onrender.com/cover-letter" \
 
 ---
 
-## 📚 API Documentation
+## 📚 API Documentation {#api-documentation}
 
 ### Response Format
 
@@ -489,7 +490,7 @@ FastAPI automatically generates interactive API documentation:
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Structure {#project-structure}
 
 ```
 level-up-llm-skill-analyzer/
@@ -517,7 +518,7 @@ level-up-llm-skill-analyzer/
 
 ---
 
-## 👥 Authors
+## 👥 Authors {#authors}
 
 - **Ahmed Ali** - [GitHub](https://github.com/AhmedKamal-41)
 - **Surjo Barua** - [GitHub](https://github.com/Surfs101)
@@ -527,6 +528,13 @@ level-up-llm-skill-analyzer/
 ---
 
 <div align="center">
+
+**Made with ❤️ for students and job seekers**
+
+[⭐ Star this repo](https://github.com/AhmedKamal-41/level-up-llm-skill-analyzer) | [🌐 Live Demo](https://level-up-llm-skill-analyzer.onrender.com/)
+
+</div>
+
 
 **Made with ❤️ for students and job seekers**
 
