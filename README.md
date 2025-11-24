@@ -33,7 +33,7 @@
 
 ---
 
-## 🎯 Overview {#overview}
+## 🎯 Overview <a id="overview"></a>
 
 **skillbridge.AI** is an intelligent career development platform that helps students and job seekers identify skill gaps between their résumé and target job positions. Using advanced Large Language Models (LLMs), the platform provides personalized course recommendations, hands-on project ideas, and AI-generated cover letters to help bridge these gaps and land dream internships or new grad positions.
 
@@ -46,7 +46,7 @@
 
 ---
 
-## 🎥 Demo {#demo}
+## 🎥 Demo <a id="demo"></a>
 
 <div align="center">
 
@@ -64,7 +64,7 @@
 
 ---
 
-## ✨ Features {#features}
+## ✨ Features <a id="features"></a>
 
 ### 🔍 Skill Gap Analyzer
 
@@ -105,7 +105,7 @@
 
 ---
 
-## 🛠️ Tech Stack {#tech-stack}
+## 🛠️ Tech Stack <a id="tech-stack"></a>
 
 ### Frontend Technologies
 
@@ -170,7 +170,7 @@
 
 ---
 
-## 🏗️ System Architecture {#system-architecture}
+## 🏗️ System Architecture <a id="system-architecture"></a>
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -280,7 +280,7 @@
 
 ---
 
-## 🚀 Usage {#usage}
+## 🚀 Usage <a id="usage"></a>
 
 ### Web Interface
 
@@ -354,7 +354,7 @@ curl -X POST "https://level-up-llm-skill-analyzer.onrender.com/cover-letter" \
 
 ---
 
-## 📚 API Documentation {#api-documentation}
+## 📚 API Documentation <a id="api-documentation"></a>
 
 ### Response Format
 
@@ -490,7 +490,7 @@ FastAPI automatically generates interactive API documentation:
 
 ---
 
-## 📁 Project Structure {#project-structure}
+## 📁 Project Structure <a id="project-structure"></a>
 
 ```
 level-up-llm-skill-analyzer/
@@ -518,7 +518,7 @@ level-up-llm-skill-analyzer/
 
 ---
 
-## 👥 Authors {#authors}
+## 👥 Authors <a id="authors"></a>
 
 - **Ahmed Ali** - [GitHub](https://github.com/AhmedKamal-41)
 - **Surjo Barua** - [GitHub](https://github.com/Surfs101)
@@ -528,13 +528,6 @@ level-up-llm-skill-analyzer/
 ---
 
 <div align="center">
-
-**Made with ❤️ for students and job seekers**
-
-[⭐ Star this repo](https://github.com/AhmedKamal-41/level-up-llm-skill-analyzer) | [🌐 Live Demo](https://level-up-llm-skill-analyzer.onrender.com/)
-
-</div>
-
 
 **Made with ❤️ for students and job seekers**
 
