@@ -61,41 +61,6 @@ def slugify(s: str) -> str:
 # For output, we use normalize_to_full_form_for_output
 
 
-def flatten_and_canonicalize(skills_by_bucket: dict) -> list:
-    """
-    Flatten skills from all buckets into a single canonicalized list.
-    Used for gathering all resume skills or job skills before matching.
-    
-    Args:
-        skills_by_bucket: Dictionary mapping bucket names to lists of skills
-    
-    Returns:
-        Sorted list of unique canonicalized skill names
-    """
-    out = []
-    for bucket, skills in (skills_by_bucket or {}).items():
-        for s in skills or []:
-            canon = canonicalize_skill_name(s)
-            if canon:
-                out.append(canon)
-    return sorted(set(out), key=str.lower)
-
-
-def to_set_safe(d: dict, bucket: str):
-    """Convert skills list to normalized lowercase set for intelligent comparison."""
-    if not isinstance(d, dict):
-        return set()
-    v = d.get(bucket, [])
-    if not isinstance(v, list):
-        return set()
-    # Normalize each skill before adding to set to ensure abbreviations match full forms
-    normalized_skills = set()
-    for x in v:
-        if isinstance(x, str) and x.strip():
-            # Use canonicalize_skill_name and then lowercase for comparison
-            normalized = canonicalize_skill_name(x).lower()
-            normalized_skills.add(normalized)
-    return normalized_skills
 
 def parse_weights(s: str):
     # format: "required=1.0,preferred=0.5"
@@ -119,9 +84,9 @@ def pct(n: int, d: int) -> float:
     return round(100.0 * n / d, 2) if d > 0 else 0.0
 
 def match_and_rank_skills_with_llm(
-    resume_skills: dict,
-    job_required_skills: dict,
-    job_preferred_skills: dict,
+    resume_skills: list,
+    job_required_skills: list,
+    job_preferred_skills: list,
     job_description_text: str
 ) -> dict:
     """
@@ -133,9 +98,9 @@ def match_and_rank_skills_with_llm(
     3. Rank missing skills by priority (most critical first)
     
     Args:
-        resume_skills: Resume skills by bucket
-        job_required_skills: Job required skills by bucket
-        job_preferred_skills: Job preferred skills by bucket
+        resume_skills: Resume skills as flat list
+        job_required_skills: Job required skills as flat list
+        job_preferred_skills: Job preferred skills as flat list
         job_description_text: Full job description text
     
     Returns:
@@ -148,18 +113,14 @@ def match_and_rank_skills_with_llm(
     """
     if not job_description_text:
         # Fallback to simple matching if no job description
-        resume_all = set()
-        job_req_all = set()
-        job_pref_all = set()
-        for b in BUCKETS:
-            resume_all.update(to_set_safe(resume_skills, b))
-            job_req_all.update(to_set_safe(job_required_skills, b))
-            job_pref_all.update(to_set_safe(job_preferred_skills, b))
+        resume_set = {s.lower() for s in resume_skills}
+        job_req_set = {s.lower() for s in job_required_skills}
+        job_pref_set = {s.lower() for s in job_preferred_skills}
         
-        missing_req = sorted(list(job_req_all - resume_all))
-        missing_pref = sorted(list(job_pref_all - resume_all))
-        covered_req = sorted(list(resume_all & job_req_all))
-        covered_pref = sorted(list(resume_all & job_pref_all))
+        missing_req = sorted(list(job_req_set - resume_set))
+        missing_pref = sorted(list(job_pref_set - resume_set))
+        covered_req = sorted(list(resume_set & job_req_set))
+        covered_pref = sorted(list(resume_set & job_pref_set))
         
         return {
             "covered_required": covered_req,
@@ -171,7 +132,7 @@ def match_and_rank_skills_with_llm(
     
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     
-    # Prepare skills data for LLM
+    # Prepare skills data for LLM (flat lists)
     resume_skills_str = json.dumps(resume_skills, indent=2, ensure_ascii=False)
     job_required_str = json.dumps(job_required_skills, indent=2, ensure_ascii=False)
     job_preferred_str = json.dumps(job_preferred_skills, indent=2, ensure_ascii=False)
@@ -277,18 +238,14 @@ CRITICAL:
     except Exception as e:
         print(f"Warning: LLM skill matching failed: {e}. Falling back to simple matching.")
         # Fallback to simple matching
-        resume_all = set()
-        job_req_all = set()
-        job_pref_all = set()
-        for b in BUCKETS:
-            resume_all.update(to_set_safe(resume_skills, b))
-            job_req_all.update(to_set_safe(job_required_skills, b))
-            job_pref_all.update(to_set_safe(job_preferred_skills, b))
+        resume_set = {s.lower() for s in resume_skills}
+        job_req_set = {s.lower() for s in job_required_skills}
+        job_pref_set = {s.lower() for s in job_preferred_skills}
         
-        missing_req = sorted(list(job_req_all - resume_all))
-        missing_pref = sorted(list(job_pref_all - resume_all))
-        covered_req = sorted(list(resume_all & job_req_all))
-        covered_pref = sorted(list(resume_all & job_pref_all))
+        missing_req = sorted(list(job_req_set - resume_set))
+        missing_pref = sorted(list(job_pref_set - resume_set))
+        covered_req = sorted(list(resume_set & job_req_set))
+        covered_pref = sorted(list(resume_set & job_pref_set))
         
         return {
             "covered_required": covered_req,
@@ -313,38 +270,51 @@ def build_original_case_map(*lists):
 # Scoring
 # -------------------------
 def score_match(resume_json: dict, job_json: dict, w_required: float, w_preferred: float, job_description_text: str = ""):
-    resume_sk = resume_json.get("skills", {}) or {}
-    job_req_sk = (job_json.get("required", {}) or {}).get("skills", {}) or {}
-    job_pref_sk = (job_json.get("preferred", {}) or {}).get("skills", {}) or {}
+    raw_resume_skills = resume_json.get("skills", []) or []
+    raw_req_skills = (job_json.get("required") or {}).get("skills", []) or []
+    raw_pref_skills = (job_json.get("preferred") or {}).get("skills", []) or []
+    
+    from skill_normalization import canonicalize_skill_name
+    
+    def canonicalize_list(skills_list):
+        out = []
+        seen = set()
+        for s in skills_list or []:
+            if not isinstance(s, str):
+                continue
+            name = s.strip()
+            if not name:
+                continue
+            canon = canonicalize_skill_name(name)
+            key = canon.lower()
+            if key not in seen:
+                seen.add(key)
+                out.append(canon)
+        return out
+    
+    resume_skills = canonicalize_list(raw_resume_skills)
+    job_req_skills = canonicalize_list(raw_req_skills)
+    job_pref_skills = canonicalize_list(raw_pref_skills)
+    
+    resume_set = {s.lower() for s in resume_skills}
+    req_set = {s.lower() for s in job_req_skills}
+    pref_set = {s.lower() for s in job_pref_skills}
 
     # For pretty outputs, gather all original skills to map back case
-    orig_map = build_original_case_map(
-        *[resume_sk.get(b, []) for b in BUCKETS],
-        *[job_req_sk.get(b, []) for b in BUCKETS],
-        *[job_pref_sk.get(b, []) for b in BUCKETS],
-    )
+    orig_map = build_original_case_map(resume_skills, job_req_skills, job_pref_skills)
 
     # Use LLM only for smart ranking / priorities (not for deciding which skills exist)
     llm_results = match_and_rank_skills_with_llm(
-        resume_sk, job_req_sk, job_pref_sk, job_description_text
+        resume_skills, job_req_skills, job_pref_skills, job_description_text
     )
     skill_priorities = llm_results.get("skill_priorities", {}) or {}
 
     # --- Deterministic coverage from normalized sets ---
-    # Build normalized sets for resume, required, and preferred skills
-    resume_all = set()
-    job_req_all = set()
-    job_pref_all = set()
-    for b in BUCKETS:
-        resume_all.update(to_set_safe(resume_sk, b))
-        job_req_all.update(to_set_safe(job_req_sk, b))
-        job_pref_all.update(to_set_safe(job_pref_sk, b))
-
-    # Set-based coverage (bucket-agnostic)
-    raw_covered_required = job_req_all & resume_all
-    raw_missing_required = job_req_all - resume_all
-    raw_covered_preferred = job_pref_all & resume_all
-    raw_missing_preferred = job_pref_all - resume_all
+    # Set-based coverage (flat lists, no buckets)
+    raw_covered_required = req_set & resume_set
+    raw_missing_required = req_set - resume_set
+    raw_covered_preferred = pref_set & resume_set
+    raw_missing_preferred = pref_set - resume_set
 
     # Helper: sort a list of missing skills by LLM priority (highest first)
     def sort_by_priority(skills):
@@ -359,83 +329,46 @@ def score_match(resume_json: dict, job_json: dict, w_required: float, w_preferre
             key=lambda pair: (priority_key(pair[1]), pair[0])
         )]
 
-    # Convert sets → ordered lists
-    covered_required_all = sorted(list(raw_covered_required))
-    covered_preferred_all = sorted(list(raw_covered_preferred))
-    missing_required_all = sort_by_priority(list(raw_missing_required))
-    missing_preferred_all = sort_by_priority(list(raw_missing_preferred))
+    # Map lowercase names back to canonical casing using original lists
+    def map_to_canonical(lowercase_set, canonical_list):
+        canonical_map = {s.lower(): s for s in canonical_list}
+        return [canonical_map.get(s, s) for s in lowercase_set if s in canonical_map]
 
-    # Compute per-bucket stats (still needed for detailed breakdown)
-    per_bucket = {}
-    total_req_needed = 0
-    total_req_covered = 0
-    total_pref_needed = 0
-    total_pref_covered = 0
-
-    for b in BUCKETS:
-        have = to_set_safe(resume_sk, b)
-        need_req = to_set_safe(job_req_sk, b)
-        need_pref = to_set_safe(job_pref_sk, b)
-
-        covered_req = sorted(list(have & need_req))
-        missing_req_raw = list(need_req - have)
-        covered_pref = sorted(list(have & need_pref))
-        missing_pref_raw = list(need_pref - have)
-
-        req_total = len(need_req)
-        pref_total = len(need_pref)
-
-        total_req_needed += req_total
-        total_pref_needed += pref_total
-        total_req_covered += len(covered_req)
-        total_pref_covered += len(covered_pref)
-
-        per_bucket[b] = {
-            "required": {
-                "total": req_total,
-                "covered": len(covered_req),
-                "coverage_pct": pct(len(covered_req), req_total),
-                "covered_skills": [orig_map.get(s, s) for s in covered_req],
-                "missing_skills": [orig_map.get(s, s) for s in missing_req_raw],
-            },
-            "preferred": {
-                "total": len(need_pref),
-                "covered": len(covered_pref),
-                "coverage_pct": pct(len(covered_pref), len(need_pref)),
-                "covered_skills": [orig_map.get(s, s) for s in covered_pref],
-                "missing_skills": [orig_map.get(s, s) for s in missing_pref_raw],
-            }
-        }
+    # Convert sets → ordered lists with canonical casing
+    covered_required_all = sorted(map_to_canonical(raw_covered_required, job_req_skills))
+    covered_preferred_all = sorted(map_to_canonical(raw_covered_preferred, job_pref_skills))
+    missing_required_lower = list(raw_missing_required)
+    missing_preferred_lower = list(raw_missing_preferred)
+    
+    # Map missing skills back to canonical casing
+    missing_required_all = sort_by_priority(map_to_canonical(missing_required_lower, job_req_skills))
+    missing_preferred_all = sort_by_priority(map_to_canonical(missing_preferred_lower, job_pref_skills))
 
     # Overall coverages using deterministic set-based matching
     # Total should be covered + missing (all job-required/preferred skills are accounted for)
-    req_cov_bucket_agnostic = len(covered_required_all)
-    pref_cov_bucket_agnostic = len(covered_preferred_all)
-    req_total_bucket_agnostic = req_cov_bucket_agnostic + len(missing_required_all)
-    pref_total_bucket_agnostic = pref_cov_bucket_agnostic + len(missing_preferred_all)
-    req_cov_pct = pct(req_cov_bucket_agnostic, req_total_bucket_agnostic) if req_total_bucket_agnostic > 0 else 0.0
-    pref_cov_pct = pct(pref_cov_bucket_agnostic, pref_total_bucket_agnostic) if pref_total_bucket_agnostic > 0 else 0.0
+    req_cov_total = len(covered_required_all)
+    pref_cov_total = len(covered_preferred_all)
+    req_total = req_cov_total + len(missing_required_all)
+    pref_total = pref_cov_total + len(missing_preferred_all)
+    req_cov_pct = pct(req_cov_total, req_total) if req_total > 0 else 0.0
+    pref_cov_pct = pct(pref_cov_total, pref_total) if pref_total > 0 else 0.0
 
     # Weighted score
     # Normalize by weights present (if a section has 0 required skills, don't penalize)
     weight_den = 0.0
     weighted_sum = 0.0
-    if req_total_bucket_agnostic > 0:
-        weighted_sum += w_required * (req_cov_bucket_agnostic / req_total_bucket_agnostic)
+    if req_total > 0:
+        weighted_sum += w_required * (req_cov_total / req_total)
         weight_den += w_required
-    if pref_total_bucket_agnostic > 0:
-        weighted_sum += w_preferred * (pref_cov_bucket_agnostic / pref_total_bucket_agnostic)
+    if pref_total > 0:
+        weighted_sum += w_preferred * (pref_cov_total / pref_total)
         weight_den += w_preferred
     weighted_score = round(100.0 * (weighted_sum / weight_den), 2) if weight_den > 0 else 0.0
 
     # Jaccard overall (resume vs job required+preferred)
     # Use normalized sets for smart matching
-    all_resume_skills = set()
-    all_job_skills = set()
-    for b in BUCKETS:
-        all_resume_skills.update(to_set_safe(resume_sk, b))
-        all_job_skills.update(to_set_safe(job_req_sk, b))
-        all_job_skills.update(to_set_safe(job_pref_sk, b))
+    all_resume_skills = resume_set
+    all_job_skills = req_set | pref_set
     
     # For Jaccard, use simple set operations on normalized sets (canonicalization handles smart matching)
     inter = len(all_resume_skills & all_job_skills)
@@ -443,25 +376,8 @@ def score_match(resume_json: dict, job_json: dict, w_required: float, w_preferre
     jaccard_pct = pct(inter, uni)
 
     # Extra skills on resume not mentioned in job (could be nice-to-have)
-    extra_resume = sorted(list(all_resume_skills - all_job_skills))
-    extra_resume = [orig_map.get(s, s) for s in extra_resume]
-
-    # Build structured gaps by bucket (for TARGET_BUCKETS only) - use deterministically computed missing skills
-    gaps_required_structured = {}
-    gaps_preferred_structured = {}
-    for b in TARGET_BUCKETS:
-        have = to_set_safe(resume_sk, b)
-        need_req = to_set_safe(job_req_sk, b)
-        need_pref = to_set_safe(job_pref_sk, b)
-        # Filter deterministically computed missing skills (sorted by LLM priority) to this bucket
-        gaps_required_structured[b] = [
-            s for s in missing_required_all 
-            if str(s).lower().strip() in [str(sk).lower().strip() for sk in (need_req - have)]
-        ]
-        gaps_preferred_structured[b] = [
-            s for s in missing_preferred_all 
-            if str(s).lower().strip() in [str(sk).lower().strip() for sk in (need_pref - have)]
-        ]
+    extra_resume_lower = sorted(list(all_resume_skills - all_job_skills))
+    extra_resume = map_to_canonical(extra_resume_lower, resume_skills)
 
     # Normalize missing skills to full forms for consistent output to course/project recommenders
     # This ensures "ML" becomes "Machine Learning", "LLM" becomes "Large Language Models", etc.
@@ -483,13 +399,12 @@ def score_match(resume_json: dict, job_json: dict, w_required: float, w_preferre
         priority = skill_priorities.get(skill, skill_priorities.get(canonicalize_skill_name(skill).lower(), 0.5))
         skill_priorities_dict["preferred"][normalized_skill] = priority
 
-    # Calculate final skill weights (bucket weight × LLM priority × multiplier for top 3)
-    # This combines all prioritization logic so recommend_courses.py just uses the weights
+    # Calculate final skill weights (LLM priority × multiplier for top 3)
+    # No bucket weights anymore - just LLM priority and position multiplier
     skill_weights_final = {"required": {}, "preferred": {}}
     
     for priority_type in ["required", "preferred"]:
         missing_skills_list = normalized_missing_required if priority_type == "required" else normalized_missing_preferred
-        original_list = missing_required_all if priority_type == "required" else missing_preferred_all
         priorities_to_use = skill_priorities_dict[priority_type]
         
         if not missing_skills_list:
@@ -497,18 +412,11 @@ def score_match(resume_json: dict, job_json: dict, w_required: float, w_preferre
             continue
         
         # Skills are deterministically computed; order sorted by LLM priority
-        # Calculate base weights using bucket weights and LLM priorities
+        # Calculate base weights using LLM priorities only (no bucket weights)
         base_weights = {}
         for skill in missing_skills_list:
-            # Find which bucket this skill belongs to
-            bucket = None
-            for b in TARGET_BUCKETS:
-                if str(skill).lower().strip() in [str(s).lower().strip() for s in (job_req_sk.get(b, []) if priority_type == "required" else job_pref_sk.get(b, []))]:
-                    bucket = b
-                    break
-            bucket_weight = BUCKET_WEIGHTS.get(bucket, 0.5) if bucket else 0.5
             llm_priority = priorities_to_use.get(skill, 0.5)
-            base_weights[skill] = bucket_weight * llm_priority
+            base_weights[skill] = llm_priority
         
         # Apply multipliers to top 3 skills (deterministically computed, sorted by LLM priority)
         final_weights = {}
@@ -529,22 +437,14 @@ def score_match(resume_json: dict, job_json: dict, w_required: float, w_preferre
         "preferred_coverage_pct": pref_cov_pct,
         "overall_jaccard_pct": jaccard_pct,
         "counts": {
-            "required": {"covered": req_cov_bucket_agnostic, "total": req_total_bucket_agnostic},
-            "preferred": {"covered": pref_cov_bucket_agnostic, "total": pref_total_bucket_agnostic}
+            "required": {"covered": req_cov_total, "total": req_total},
+            "preferred": {"covered": pref_cov_total, "total": pref_total}
         },
         "weights_used": {"required": w_required, "preferred": w_preferred}
     }
-
-    # Normalize gaps structured by bucket to full forms
-    normalized_gaps_required = {}
-    normalized_gaps_preferred = {}
-    for b in TARGET_BUCKETS:
-        normalized_gaps_required[b] = [normalize_to_full_form_for_output(s) for s in gaps_required_structured.get(b, [])]
-        normalized_gaps_preferred[b] = [normalize_to_full_form_for_output(s) for s in gaps_preferred_structured.get(b, [])]
     
     return {
         "summary": summary,
-        "by_bucket": per_bucket,
         "covered_skills": {
             "required": sorted(list(set(covered_required_all))),
             "preferred": sorted(list(set(covered_preferred_all)))
@@ -554,11 +454,11 @@ def score_match(resume_json: dict, job_json: dict, w_required: float, w_preferre
             "preferred": list(dict.fromkeys(normalized_missing_preferred))  # Preserve priority order, remove duplicates, normalized to full forms
         },
         "gaps": {
-            "required": normalized_gaps_required,  # Normalized to full forms
-            "preferred": normalized_gaps_preferred  # Normalized to full forms
+            "required": normalized_missing_required,  # Flat list, normalized to full forms
+            "preferred": normalized_missing_preferred  # Flat list, normalized to full forms
         },
         "skill_priorities": skill_priorities_dict,  # Already uses normalized skill names
-        "skill_weights": skill_weights_final,  # Already uses normalized skill names - Final weights ready to use (bucket × LLM priority × multiplier)
+        "skill_weights": skill_weights_final,  # Already uses normalized skill names - Final weights ready to use (LLM priority × multiplier)
         "extra_resume_skills": extra_resume
     }
 
@@ -592,29 +492,6 @@ def write_outputs(data: dict, outdir: Path, label: str):
     md.append(f"# Skills Match – {label}\n")
     md.append("## Summary\n")
     md.append(dict_to_md_table(data.get("summary", {})))
-    md.append("\n\n## Coverage by Bucket\n")
-    for b in BUCKETS:
-        sec = data.get("by_bucket", {}).get(b, {})
-        if not sec: 
-            continue
-        md.append(f"### {b}")
-        # Required
-        req = sec.get("required", {})
-        md.append(f"- **Required**: {req.get('covered',0)}/{req.get('total',0)} "
-                  f"({req.get('coverage_pct',0)}%)")
-        if req.get("covered_skills"):
-            md.append(f"  - Covered: {', '.join(req['covered_skills'])}")
-        if req.get("missing_skills"):
-            md.append(f"  - Missing: {', '.join(req['missing_skills'])}")
-        # Preferred
-        pref = sec.get("preferred", {})
-        md.append(f"- **Preferred**: {pref.get('covered',0)}/{pref.get('total',0)} "
-                  f"({pref.get('coverage_pct',0)}%)")
-        if pref.get("covered_skills"):
-            md.append(f"  - Covered: {', '.join(pref['covered_skills'])}")
-        if pref.get("missing_skills"):
-            md.append(f"  - Missing: {', '.join(pref['missing_skills'])}")
-        md.append("")  # blank
 
     # Lists
     cov = data.get("covered_skills", {})

@@ -1,10 +1,12 @@
 # recommend_projects.py
 # Generates exactly 2 distinct project ideas, ordered by importance (most relevant first).
+# Uses only JSON skills (no raw resume text).
 
 import os
 import json
 import argparse
 from pathlib import Path
+from typing import Optional
 from dotenv import load_dotenv
 from openai import OpenAI
 
@@ -22,22 +24,6 @@ def load_json(p: str) -> dict:
     with open(p, "r", encoding="utf-8") as f:
         return json.load(f)
 
-def get_resume_skills(resume_json: dict) -> dict:
-    skills = resume_json.get("skills", {})
-    return {b: sorted(set(skills.get(b, []))) for b in BUCKETS}
-
-def get_job_required_skills(job_json: dict) -> dict:
-    required = job_json.get("required", {}).get("skills", {})
-    return {b: sorted(set(required.get(b, []))) for b in BUCKETS}
-
-def compute_missing_required(resume_skills: dict, job_required: dict) -> list:
-    gaps = []
-    for b in TARGET_BUCKETS:
-        have = set(resume_skills.get(b, []))
-        need = set(job_required.get(b, []))
-        gaps.extend(sorted(list(need - have)))
-    return gaps
-
 def slugify(s: str) -> str:
     s = (s or "project").lower()
     for ch in ['/', '\\', ':', '*', '?', '"', '<', '>', '|']:
@@ -50,51 +36,61 @@ def clamp_list(value, max_len=5):
     return value[:max_len]
 
 def ensure_project_shape(pj: dict) -> dict:
-    # Handle implementation_phases - can be a list of strings or a list of dicts with phase details
+    # Handle implementation_phases - now a list of dicts with phase and outline
     implementation_phases = pj.get("implementation_phases", [])
     if isinstance(implementation_phases, list):
-        # Ensure each phase is properly formatted
         phases_cleaned = []
-        for phase in implementation_phases[:10]:  # Limit to 10 phases
+        for phase in implementation_phases[:5]:  # Limit to 5 phases
             if isinstance(phase, dict):
-                # If it's a dict, extract phase name and details
-                phase_name = str(phase.get("phase", phase.get("name", ""))).strip()[:100]
-                phase_details = str(phase.get("details", phase.get("description", ""))).strip()[:500]
+                # New format: dict with "phase" and "outline"
+                phase_name = str(phase.get("phase", phase.get("name", ""))).strip()[:200]
+                phase_outline = str(phase.get("outline", phase.get("details", ""))).strip()[:2000]  # Increased limit for detailed step-by-step instructions
                 if phase_name:
-                    phases_cleaned.append({"phase": phase_name, "details": phase_details})
+                    phases_cleaned.append({
+                        "phase": phase_name,
+                        "outline": phase_outline
+                    })
             elif isinstance(phase, str):
-                # If it's a string, use it as phase name
-                phases_cleaned.append({"phase": str(phase).strip()[:100], "details": ""})
+                # Backward compatibility: if string format, convert to dict
+                phases_cleaned.append({
+                    "phase": str(phase).strip()[:200],
+                    "outline": ""
+                })
     else:
         phases_cleaned = []
     
     return {
         "title": str(pj.get("title", "")).strip()[:200],
-        "difficulty": str(pj.get("difficulty", "")).strip()[:40],
-        "estimated_time": str(pj.get("estimated_time", "")).strip()[:60],
         "description": str(pj.get("description", "")).strip()[:800],
-        "key_features": clamp_list(pj.get("key_features", []), 5),
-        "skills_demonstrated": clamp_list(pj.get("skills_demonstrated", []), 10),
         "tech_stack": clamp_list(pj.get("tech_stack", []), 15),
-        "project_outline": str(pj.get("project_outline", "")).strip()[:500],
         "implementation_phases": phases_cleaned,
-        "portfolio_impact": str(pj.get("portfolio_impact", "")).strip()[:400],
-        "bonus_challenges": clamp_list(pj.get("bonus_challenges", []), 8),
     }
 
 def enforce_top_schema(data: dict, required_gap_skills: list | None = None, primary_gap_skill: str | None = None, resume_skills: dict | None = None, paid_course_skills: set | None = None) -> dict:
-    """Ensure JSON structure with 2 projects, most important listed first."""
+    """
+    Ensure JSON structure with 2 projects, most important listed first.
+    
+    Note: required_gap_skills and primary_gap_skill are kept in signature for backward compatibility
+    but are no longer used in the implementation.
+    """
     if not isinstance(data, dict):
         return {}
     
-    # Build set of available skills from resume for Project 1 filtering
+    # Build set of available skills from resume for Project 1 filtering (once, at start)
     available_skills_set = set()
     if resume_skills:
-        for bucket in TARGET_BUCKETS:
-            available_skills_set.update(resume_skills.get(bucket, []))
+        # Handle both dict (with any bucket keys) and list (flat) formats
+        if isinstance(resume_skills, dict):
+            # Iterate over all values in dict (works with any bucket structure)
+            for bucket_skills in resume_skills.values():
+                if isinstance(bucket_skills, list):
+                    available_skills_set.update(bucket_skills)
+        elif isinstance(resume_skills, list):
+            # If it's a flat list, use it directly
+            available_skills_set.update(resume_skills)
     
-    # Build set of gap skills for filtering
-    gap_skills_set = set(required_gap_skills) if required_gap_skills else set()
+    # Pre-compute lowercase set for Project 1 tech_stack filtering (compute once, not in loop)
+    available_skills_lower = {s.lower() for s in available_skills_set} if available_skills_set else set()
     
     cleaned = {}
     for k, v in data.items():
@@ -105,33 +101,26 @@ def enforce_top_schema(data: dict, required_gap_skills: list | None = None, prim
             if isinstance(pj, dict):
                 projects.append(ensure_project_shape(pj))
         if projects:
-            # Sort projects: the first should be the "most impactful"
-            projects = sorted(projects, key=lambda x: len(x["skills_demonstrated"]), reverse=True)
+            # Sort projects: trust LLM order, but sort by tech_stack length as a tiebreaker
+            projects = sorted(projects, key=lambda x: len(x.get("tech_stack", [])), reverse=True)
             
-            # PROJECT 1 ENFORCEMENT: Remove any gap skills that shouldn't be there
+            # PROJECT 1 ENFORCEMENT: Filter tech_stack to only use available skills
             if len(projects) >= 1:
                 p1 = projects[0]
                 
-                # Filter out gap skills from skills_demonstrated
-                if gap_skills_set and available_skills_set:
-                    p1_skills = p1.get("skills_demonstrated", [])
-                    p1_skills_filtered = [s for s in p1_skills if s not in gap_skills_set]
-                    if len(p1_skills_filtered) < len(p1_skills):
-                        p1["skills_demonstrated"] = clamp_list(p1_skills_filtered, 10)
-                
-                # Filter out gap skills from tech_stack (check each item)
-                if gap_skills_set:
+                # Filter tech_stack to only include available skills (single pass)
+                if available_skills_lower:
                     p1_tech_stack = p1.get("tech_stack", [])
                     p1_tech_stack_filtered = []
                     for stack_item in p1_tech_stack:
-                        # Check if the stack item contains any gap skills
-                        contains_gap_skill = any(gap_skill.lower() in str(stack_item).lower() for gap_skill in gap_skills_set)
-                        if not contains_gap_skill:
+                        item_lower = str(stack_item).lower()
+                        # Check if any available skill substring exists in item
+                        if any(skill in item_lower for skill in available_skills_lower):
                             p1_tech_stack_filtered.append(stack_item)
                     if len(p1_tech_stack_filtered) < len(p1_tech_stack):
                         p1["tech_stack"] = clamp_list(p1_tech_stack_filtered, 15)
             
-            # PROJECT 2 ENFORCEMENT: Filter to only allowed skills (resume + paid course)
+            # PROJECT 2 ENFORCEMENT: Filter tech_stack to only allowed skills (resume + paid course)
             if len(projects) >= 2:
                 p2 = projects[1]
                 
@@ -140,75 +129,20 @@ def enforce_top_schema(data: dict, required_gap_skills: list | None = None, prim
                 if paid_course_skills:
                     allowed_p2_skills.update(paid_course_skills)
                 
-                # Filter skills_demonstrated to only include allowed skills
-                p2_skills = p2.get("skills_demonstrated", [])
-                p2_skills_filtered = [s for s in p2_skills if s in allowed_p2_skills]
-                if len(p2_skills_filtered) < len(p2_skills):
-                    p2["skills_demonstrated"] = clamp_list(p2_skills_filtered, 10)
+                # Pre-compute lowercase allowed skills for faster matching (once)
+                allowed_p2_skills_lower = {s.lower() for s in allowed_p2_skills} if allowed_p2_skills else set()
                 
-                # Filter tech_stack to only include allowed skills
-                p2_tech_stack = list(p2.get("tech_stack", []))
-                p2_tech_stack_filtered = []
-                for stack_item in p2_tech_stack:
-                    # Check if the stack item contains any allowed skill
-                    item_str = str(stack_item).lower()
-                    contains_allowed_skill = any(
-                        allowed_skill.lower() in item_str 
-                        for allowed_skill in allowed_p2_skills
-                    )
-                    if contains_allowed_skill:
-                        p2_tech_stack_filtered.append(stack_item)
-                
-                if len(p2_tech_stack_filtered) < len(p2_tech_stack):
-                    p2["tech_stack"] = clamp_list(p2_tech_stack_filtered, 15)
-                
-                # Now ensure primary learning skill from course is included (if it's in allowed skills)
-                if required_gap_skills and primary_gap_skill and primary_gap_skill in allowed_p2_skills:
-                    # Add primary skill to the front of skills_demonstrated if not present
-                    skills_demo = list(p2.get("skills_demonstrated", []))
-                    if primary_gap_skill not in skills_demo:
-                        skills_demo.insert(0, primary_gap_skill)
-                    else:
-                        # Move to front if already present
-                        skills_demo.remove(primary_gap_skill)
-                        skills_demo.insert(0, primary_gap_skill)
-                    p2["skills_demonstrated"] = clamp_list(skills_demo, 10)
-                    
-                    # Also add to tech_stack if not already present
-                    tech_stack_lower = [str(item).lower() for item in p2.get("tech_stack", [])]
-                    primary_in_stack = any(primary_gap_skill.lower() in item.lower() for item in tech_stack_lower)
-                    if not primary_in_stack:
-                        p2_tech_stack = list(p2.get("tech_stack", []))
-                        p2_tech_stack.insert(0, primary_gap_skill)
-                        p2["tech_stack"] = clamp_list(p2_tech_stack, 15)
-                    else:
-                        # Move to front if already present
-                        p2_tech_stack = list(p2.get("tech_stack", []))
-                        for i, item in enumerate(p2_tech_stack):
-                            if primary_gap_skill.lower() in str(item).lower():
-                                p2_tech_stack.pop(i)
-                                p2_tech_stack.insert(0, primary_gap_skill)
-                                p2["tech_stack"] = clamp_list(p2_tech_stack, 15)
-                                break
-                
-                # Add other missing skills from paid course (but primary is already handled above)
-                if required_gap_skills and paid_course_skills:
-                    p2_tech_stack = list(p2.get("tech_stack", []))
-                    tech_stack_lower = [str(item).lower() for item in p2_tech_stack]
-                    cov_set = set(p2.get("skills_demonstrated", [])) | set([item.lower() for item in p2_tech_stack])
-                    
-                    # Only add skills that are in paid course skills (allowed)
-                    top_needed = set(required_gap_skills[:4]) & paid_course_skills  # Intersection: only skills in paid course
-                    if primary_gap_skill:
-                        top_needed.discard(primary_gap_skill)
-                    missing_to_add = [s for s in top_needed if s.lower() not in cov_set][:3]
-                    if missing_to_add:
-                        # Add to tech_stack if not already present
-                        for skill in missing_to_add:
-                            skill_in_stack = any(skill.lower() in str(item).lower() for item in p2_tech_stack)
-                            if not skill_in_stack:
-                                p2_tech_stack.append(skill)
-                        p2["tech_stack"] = clamp_list(p2_tech_stack, 15)
+                # Filter tech_stack to only include allowed skills (single pass)
+                if allowed_p2_skills_lower:
+                    p2_tech_stack = p2.get("tech_stack", [])
+                    p2_tech_stack_filtered = []
+                    for stack_item in p2_tech_stack:
+                        item_lower = str(stack_item).lower()
+                        # Check if any allowed skill substring exists in item
+                        if any(skill in item_lower for skill in allowed_p2_skills_lower):
+                            p2_tech_stack_filtered.append(stack_item)
+                    if len(p2_tech_stack_filtered) < len(p2_tech_stack):
+                        p2["tech_stack"] = clamp_list(p2_tech_stack_filtered, 15)
             cleaned[k.strip()[:80]] = projects
             break
     return cleaned
@@ -228,72 +162,67 @@ def write_outputs(obj: dict, outdir: Path, role_hint: str):
         md.append("_Projects are ranked by impact and relevance (most important first)_\n")
         for i, pj in enumerate(projects, 1):
             md.append(f"### {i}. {pj['title']}")
-            md.append(f"- **Difficulty:** {pj['difficulty']}")
-            md.append(f"- **Estimated Time:** {pj['estimated_time']}")
             md.append(f"- **Description:** {pj['description']}")
-            md.append(f"- **Key Features:** {', '.join(pj['key_features']) or '-'}")
-            md.append(f"- **Skills Demonstrated:** {', '.join(pj['skills_demonstrated']) or '-'}")
             md.append(f"- **Tech Stack:**")
             for item in pj.get('tech_stack', []):
                 md.append(f"  - {item}")
-            md.append(f"- **Portfolio Impact:** {pj['portfolio_impact']}")
-            if pj['bonus_challenges']:
-                md.append(f"- **Bonus Challenges:** {', '.join(pj['bonus_challenges'])}")
+            md.append(f"- **Implementation Phases:**")
+            for phase_item in pj.get('implementation_phases', []):
+                if isinstance(phase_item, dict):
+                    md.append(f"  - **{phase_item.get('phase', 'Phase')}:** {phase_item.get('outline', '')}")
+                else:
+                    md.append(f"  - {phase_item}")
             md.append("")
     with open(md_path, "w", encoding="utf-8") as f:
         f.write("\n".join(md))
     print(f"✅ Saved JSON → {json_path}")
     print(f"✅ Saved Markdown → {md_path}")
 
-# =============== Prompt Builder ===============
-def build_prompt(job_text: str, resume_skills: dict, gaps=None, primary_gap_skill: str | None = None, course_recommendations: dict | None = None):
+# =============== Simplified Prompt Builder (Skills Only) ===============
+def build_prompt_from_skills(
+    job_text: str | None,
+    available_skills_flat: list[str],
+    paid_course_skills: list[str] | None,
+    role_label: str
+) -> str:
+    """
+    Build project recommendation prompt using only flattened skills lists.
+    No gaps, no course_recommendations dict, no resume_skills dict.
+    
+    Args:
+        job_text: Job description text (optional, for context)
+        available_skills_flat: Flattened list of candidate's skills from resume (TARGET_BUCKETS only)
+        paid_course_skills: List of skills taught by the paid course (from skills_covered field)
+        role_label: Role label for context
+    
+    Returns:
+        Complete prompt string for LLM
+    """
     schema_json = """
 {
     "skill_name": [
         {
             "title": "Project Title",
-            "difficulty": "Beginner/Intermediate/Advanced",
-            "estimated_time": "X hours/days",
-            "description": "Project description",
-            "key_features": ["feature1", "feature2", "feature3"],
-            "skills_demonstrated": ["skill1", "skill2", "skill3"],
-            "tech_stack": ["Frontend: React", "Backend: FastAPI", "Database: PostgreSQL", "Deployment: Docker"],
-            "project_outline": "Brief overview of the project structure and approach",
+            "description": "2-3 sentence description of the project",
+            "tech_stack": ["React", "FastAPI", "PostgreSQL"],
             "implementation_phases": [
                 {
-                    "phase": "Phase 1: Setup and Planning",
-                    "details": "Set up development environment, create project structure, define requirements"
+                    "phase": "Phase 1: Phase Name",
+                    "outline": "Step 1: [Action] using [Skill/Technology]. Step 2: [Action] using [Skill/Technology]. Step 3: [Action] using [Skill/Technology]."
                 },
                 {
-                    "phase": "Phase 2: Core Development",
-                    "details": "Implement main features, build core functionality"
+                    "phase": "Phase 2: Phase Name",
+                    "outline": "Step 1: [Action] using [Skill/Technology]. Step 2: [Action] using [Skill/Technology]. Step 3: [Action] using [Skill/Technology]."
                 },
                 {
-                    "phase": "Phase 3: Testing and Deployment",
-                    "details": "Write tests, deploy to production, document the project"
+                    "phase": "Phase 3: Phase Name",
+                    "outline": "Step 1: [Action] using [Skill/Technology]. Step 2: [Action] using [Skill/Technology]. Step 3: [Action] using [Skill/Technology]."
                 }
-            ],
-            "portfolio_impact": "Why this impresses employers",
-            "bonus_challenges": ["challenge1", "challenge2"]
+            ]
         }
     ]
 }
 """.strip()
-
-    # Extract all available skills from resume (flat list for easy reference)
-    available_skills_flat = []
-    if resume_skills:
-        for bucket in TARGET_BUCKETS:
-            available_skills_flat.extend(resume_skills.get(bucket, []))
-    available_skills_flat = sorted(set(available_skills_flat))
-    
-    gaps_block = "\n**Candidate Missing Required Skills (from job vs resume):**\n" + json.dumps(gaps, indent=2, ensure_ascii=False) if gaps else ""
-    primary_skill_block = (
-        f"\n\n**PRIMARY LEARNING SKILL FROM COURSE (MUST be the focus of Project 2):**\n"
-        f"{json.dumps(primary_gap_skill, ensure_ascii=False)}"
-        if primary_gap_skill
-        else ""
-    )
     
     # Build available skills block for Project 1 restrictions
     available_skills_block = f"""
@@ -302,109 +231,78 @@ def build_prompt(job_text: str, resume_skills: dict, gaps=None, primary_gap_skil
 
 **CRITICAL RESTRICTION FOR PROJECT 1:**
 - Project 1 MUST ONLY use skills from the "Available Skills" list above.
-- Project 1 MUST NOT include ANY skills from the "Missing Required Skills" list.
 - If a technology, framework, or tool is NOT in the available skills list, it CANNOT be used in Project 1.
 - This ensures the candidate can build Project 1 immediately with their current skillset.
 - Project 1 should be creative and impressive while staying within these skill boundaries.
 """
     
-    # Build course recommendations block
-    course_block = ""
-    paid_course_block = ""
-    if course_recommendations:
-        all_courses = []
-        free_courses = course_recommendations.get("free_courses", [])
-        paid_courses = course_recommendations.get("paid_courses", [])
-        
-        # Combine all courses for general reference
-        all_courses.extend(free_courses)
-        all_courses.extend(paid_courses)
-        
-        # Extract paid courses specifically for Project 2 alignment
-        paid_course_skills = set()
-        paid_course_summaries = []
-        if paid_courses:
-            for course in paid_courses[:3]:  # Focus on top 3 paid courses
-                title = course.get("title", "Unknown Course")
-                skills_covered = course.get("skills_covered", [])
-                platform = course.get("platform", "Unknown")
-                description = course.get("description", "")[:300]  # Longer description for paid courses
-                link = course.get("link", "")
-                paid_course_skills.update(skills_covered)
-                paid_course_summaries.append({
-                    "title": title,
-                    "platform": platform,
-                    "skills_covered": skills_covered,
-                    "description": description,
-                    "link": link
-                })
-        
-        if all_courses:
-            # Extract key information from all courses for general reference
-            course_summaries = []
-            all_course_skills = set()
-            for course in all_courses[:5]:  # Limit to top 5 courses
-                title = course.get("title", "Unknown Course")
-                skills_covered = course.get("skills_covered", [])
-                platform = course.get("platform", "Unknown")
-                description = course.get("description", "")[:200]  # Truncate description
-                all_course_skills.update(skills_covered)
-                course_summaries.append({
-                    "title": title,
-                    "platform": platform,
-                    "skills_covered": skills_covered,
-                    "description": description
-                })
-            
-            # Filter course skills to only include those the candidate already has (for Project 1)
-            course_skills_available = [s for s in all_course_skills if s in available_skills_flat]
-            course_skills_missing = [s for s in all_course_skills if s not in available_skills_flat]
-            
-            course_block = f"""
-**RECOMMENDED COURSES (Projects MUST align with these courses):**
-{json.dumps(course_summaries, indent=2, ensure_ascii=False)}
-
-**CRITICAL REQUIREMENT - Course Alignment:**
-- **For Project 1:** Only use course skills that the candidate ALREADY HAS (see "Available Course Skills" below).
-- **For Project 2:** MUST sync with the PAID COURSE recommendations (see separate section below).
-- Projects should serve as practical application and reinforcement of what the candidate learns in these courses.
-- This ensures a cohesive learning path: courses teach the theory, projects provide hands-on practice with the same tools.
-
-**Available Course Skills (Candidate already knows - OK for Project 1):**
-{json.dumps(sorted(course_skills_available), indent=2, ensure_ascii=False) if course_skills_available else "None - candidate doesn't have any skills from recommended courses"}
-
-**Missing Course Skills (Only for Project 2 - learning project):**
-{json.dumps(sorted(course_skills_missing), indent=2, ensure_ascii=False) if course_skills_missing else "None"}
-"""
-        
-        # Build separate block for paid courses - CRITICAL for Project 2
-        if paid_course_summaries:
-            # Combine available skills + paid course skills = ALLOWED skills for Project 2
-            allowed_skills_p2 = sorted(set(available_skills_flat) | paid_course_skills)
-            
-            paid_course_block = f"""
-**🎯 PAID COURSE RECOMMENDATIONS (Project 2 MUST sync with these):**
-{json.dumps(paid_course_summaries, indent=2, ensure_ascii=False)}
+    # Build Project 2 restrictions block
+    paid_course_skills_list = paid_course_skills or []
+    allowed_skills_p2 = sorted(set(available_skills_flat) | set(paid_course_skills_list))
+    
+    paid_course_skills_block = ""
+    if paid_course_skills_list:
+        paid_course_skills_block = f"""
+**🎯 PAID COURSE SKILLS (Skills that will be learned from the paid course):**
+{json.dumps(sorted(paid_course_skills_list), indent=2, ensure_ascii=False)}
 
 **CRITICAL - Project 2 STRICT RESTRICTIONS:**
-- Project 2 MUST be designed to work hand-in-hand with the PAID COURSE recommendations above.
+- Project 2 MUST be designed to work hand-in-hand with the paid course that teaches these skills.
 - **Project 2 can ONLY use skills from TWO sources:**
   1. Skills the candidate ALREADY HAS (from resume - see "Available Skills" section above)
-  2. Skills taught in the PAID COURSE recommendations (listed below)
+  2. Skills taught in the PAID COURSE (listed above)
 - **Project 2 MUST NOT include ANY other skills, technologies, or frameworks that are NOT in these two lists.**
 - The tech_stack for Project 2 MUST ONLY include technologies from: (resume skills) + (paid course skills)
 - The project should be structured so that after completing the paid course, the candidate can immediately build this project using ONLY what they know + what they learned from the paid course.
 - This creates a perfect learning-to-practice pipeline: Course → Project.
 
-**Paid Course Skills (will be learned from the course):**
-{json.dumps(sorted(list(paid_course_skills)), indent=2, ensure_ascii=False) if paid_course_skills else "None"}
-
 **ALLOWED Skills for Project 2 (Resume Skills + Paid Course Skills ONLY):**
-{json.dumps(allowed_skills_p2, indent=2, ensure_ascii=False) if allowed_skills_p2 else "None"}
+{json.dumps(allowed_skills_p2, indent=2, ensure_ascii=False)}
 
-**IMPORTANT:** Project 2's tech_stack, skills_demonstrated, and all technologies MUST ONLY come from the "ALLOWED Skills" list above. NO EXCEPTIONS.
+**IMPORTANT:** Project 2's tech_stack and all technologies MUST ONLY come from the "ALLOWED Skills for Project 2" list above. NO EXCEPTIONS.
 """
+    
+    job_text_block = f"""
+**Job Description:**
+{job_text if job_text else "Not provided"}
+"""
+    
+    job_tailoring_block = f"""
+**🎯 CRITICAL - JOB DESCRIPTION TAILORING REQUIREMENT:**
+The projects MUST be directly tailored to the job description's specific domain, industry, company type, and functionality.
 
+**How to tailor projects:**
+1. **Analyze the job description carefully:**
+   - What industry/domain is the company in? (e.g., sports, healthcare, finance, e-commerce, education)
+   - What does the company do? (e.g., sports analytics platform, healthcare data management, fintech payments)
+   - What are the specific problems/challenges mentioned in the job description?
+   - What technologies or systems are mentioned as being used by the company?
+
+2. **Create domain-specific projects:**
+   - If the job is at a **sports company** that does analytics/player tracking → Projects should be sports-related (e.g., "Player Performance Analytics Dashboard", "Game Statistics API")
+   - If the job is at a **healthcare company** that manages patient data → Projects should be healthcare-related (e.g., "Patient Data Management System", "Medical Records API")
+   - If the job is at a **fintech company** that does payments → Projects should be finance/payment-related (e.g., "Payment Processing System", "Transaction Analytics Dashboard")
+   - If the job is at an **e-commerce company** → Projects should be e-commerce-related (e.g., "Product Recommendation Engine", "Order Management System")
+
+3. **Projects must demonstrate understanding of the job's context:**
+   - The project title, description, and features should clearly show it's designed for the specific industry/domain
+   - The project should solve problems similar to what the company faces
+   - The project should use technologies relevant to the company's tech stack (within skill constraints)
+   - The project should be something that would impress THIS SPECIFIC COMPANY, not just any company
+
+**Examples of good tailoring:**
+- Job: "Sports Analytics Platform Developer" → Project: "Real-time Sports Statistics Dashboard" ✅
+- Job: "Healthcare Data Engineer" → Project: "Patient Health Records Management System" ✅
+- Job: "Fintech Backend Developer" → Project: "Secure Payment Transaction API" ✅
+
+**Examples of BAD tailoring (too generic):**
+- Job: "Sports Analytics Platform Developer" → Project: "Generic Web Dashboard" ❌
+- Job: "Healthcare Data Engineer" → Project: "Todo List App" ❌
+- Job: "Fintech Backend Developer" → Project: "Blog API" ❌
+
+**REMEMBER:** Both Project 1 and Project 2 must be tailored to the job description's domain, even though they have different skill constraints.
+"""
+    
     return f"""
 You are an expert career mentor and AI educator in 2025.
 Recommend **exactly two project ideas** for the candidate below.
@@ -417,127 +315,225 @@ The most impactful and relevant project must appear **first** in the output.
 - Make them realistic (20–60 hours total), portfolio-ready, and interview-worthy.
 - Use the candidate's current skills while stretching them slightly.
 - Ensure the first project is the highest impact and strongest match for the job description.
-- **CRITICALLY IMPORTANT:** Projects MUST align with and use the same technologies/skills as the recommended courses (see course section below).
+- **CRITICALLY IMPORTANT:** Projects MUST be tailored to the job description's specific domain, industry, and company type (see detailed instructions below).
 
-**Job Description:**
-{job_text}
+{job_text_block}
 
-**Candidate Résumé Skills:**
-{json.dumps(resume_skills, indent=2, ensure_ascii=False)}
+{job_tailoring_block}
 
-{available_skills_block if available_skills_flat else ""}{gaps_block}{primary_skill_block}{course_block}{paid_course_block}
+{available_skills_block}
+
+{paid_course_skills_block}
 
 **Strict Output Format (JSON only):**
 {schema_json}
 
 **Guidelines:**
-- Output must have exactly one main key (the core track, e.g., "MLOps (Marketing)").
+- Output must have exactly one main key (the core track, e.g., "MLOps (Marketing)" or "Sports Analytics Platform").
 - Under that, output exactly 2 projects (most important first).
 - Each project must include all listed fields.
 - Projects should highlight creativity, relevance, and measurable deliverables (GitHub repo, dashboard, API, etc.).
+- **BOTH PROJECTS MUST BE TAILORED TO THE JOB DESCRIPTION:**
+  - Analyze the job description to identify the industry, domain, company type, and specific problems they solve.
+  - Create projects that are directly relevant to that domain (e.g., sports projects for sports companies, healthcare projects for healthcare companies).
+  - The project title, description, and features should clearly demonstrate understanding of the job's context.
+  - Generic projects that could apply to any company are NOT acceptable - they must be domain-specific.
 - **Project 1 - STRICT RESTRICTIONS (Build with Current Skills ONLY):**
   - MUST ONLY use skills from the "Available Skills" list - NO EXCEPTIONS.
-  - MUST NOT include ANY missing skills, technologies, or frameworks that are not in the candidate's resume.
-  - Must align with the job description and recommended courses, but ONLY using technologies the candidate already knows.
-  - If a recommended course teaches a skill the candidate doesn't have, DO NOT include that skill in Project 1.
+  - MUST NOT include ANY skills, technologies, or frameworks that are not in the candidate's resume.
   - This project should be something the candidate can build immediately without learning new technologies.
-  - Be creative within these constraints - show what's possible with their current skillset.
+  - **MUST be tailored to the job description's domain/industry** (e.g., if it's a sports company, make it sports-related).
+  - Be creative within these constraints - show what's possible with their current skillset while staying relevant to the job.
 - **Project 2 - Learning Project (STRICT RESTRICTIONS - Resume Skills + Paid Course Skills ONLY):**
   - **CRITICAL RESTRICTION:** Project 2 can ONLY use skills from TWO sources:
     1. Skills the candidate already has (from resume - see "Available Skills" section)
-    2. Skills from the PAID COURSE recommendations (see "Paid Course Skills" section)
+    2. Skills from the PAID COURSE (see "Paid Course Skills" section)
   - **DO NOT include ANY skills, technologies, or frameworks that are NOT in the "ALLOWED Skills for Project 2" list.**
-  - The project MUST use the EXACT same technologies and skills taught in the paid course(s).
+  - The project MUST use the EXACT same technologies and skills taught in the paid course.
   - The project should be designed so that after taking the paid course, the candidate can immediately build this project using ONLY what they know + what they learned from the paid course.
-  - MUST focus on and prominently feature the PRIMARY LEARNING SKILL FROM COURSE listed above (if it's in the paid course skills).
-  - The primary skill must be:
-    - Listed FIRST in "skills_demonstrated" (if it's in the allowed skills list)
-    - Included in "tech_stack" (preferably at the front)
-    - Central to the project's description and key features
-    - The main learning objective of this project
   - The tech_stack MUST ONLY include technologies from the "ALLOWED Skills for Project 2" list - nothing else.
   - The project description should reference how it applies concepts from the paid course.
+  - **MUST be tailored to the job description's domain/industry** (e.g., if it's a sports company, make it sports-related, even when using paid course skills).
   - **Remember: Only use skills from resume + paid course. Do not add extra technologies or skills.**
 
-**IMPORTANT - New Required Fields:**
-- **tech_stack**: A detailed list of the complete technology stack for the project. Include frontend, backend, database, deployment tools, etc. Format as ["Frontend: React", "Backend: FastAPI", "Database: PostgreSQL", etc.].
+**IMPORTANT - Required Fields (with brevity limits):**
+- **description**: Maximum 2-3 sentences. Use technical, precise language. Focus on architecture, implementation approach, and technical objectives. Avoid casual or overly simple explanations.
+- **tech_stack**: Maximum 6 items. Format as ["React", "FastAPI", "PostgreSQL", etc.]. List only the core technologies using their official names.
   - **Project 1:** tech_stack MUST only include technologies from the "Available Skills" list.
   - **Project 2:** tech_stack MUST ONLY include technologies from the "ALLOWED Skills for Project 2" list (resume skills + paid course skills). DO NOT add any technologies that are not in this list.
-- **project_outline**: A brief 2-3 sentence overview of the project structure, approach, and high-level architecture.
-- **implementation_phases**: A list of 3-6 implementation phases, each with:
-  - **phase**: The phase name (e.g., "Phase 1: Setup and Planning")
-  - **details**: Detailed breakdown of what to do in this phase, including specific tasks, technologies to use, and deliverables. Be specific and actionable.
+- **implementation_phases**: Exactly 3 phases, each with:
+  - **phase**: The phase name using technical terminology (e.g., "Phase 1: Infrastructure Setup and Environment Configuration")
+  - **outline**: A detailed, step-by-step outline that is easy to follow. For each step, clearly state:
+    1. What to do (specific action)
+    2. Which skill/technology to use (explicitly name the skill from tech_stack)
+    3. When to use it (in what context or order)
+    4. How to use it (brief implementation guidance)
+    Format as clear, numbered steps. Example: "Step 1: Set up the project structure using [React] by running 'npx create-react-app'. Step 2: Configure the API client using [FastAPI] to create endpoints. Step 3: Connect to the database using [PostgreSQL] by installing psycopg2 and creating connection strings."
+    Make it easy for students to follow - each step should be actionable and clearly indicate which skill from the tech_stack is being applied.
+
+**CRITICAL - Language Requirements:**
+- Use technical, professional terminology throughout (e.g., "implement RESTful API endpoints" not "make an API", "configure container orchestration" not "set up Docker")
+- Reference specific technologies, frameworks, and tools by their official names
+- Describe implementation details using industry-standard terminology
+- Keep all text concise. Do NOT write long paragraphs.
 
 Return only valid JSON.
 """.strip()
 
-# =============== Main ===============
+
+# =============== Main Recommendation Function ===============
+def recommend_projects_from_skills(
+    resume_skills_json: dict,
+    paid_course_skills: list[str] | None,
+    job_description_text: str | None,
+    role_label: str,
+) -> dict:
+    """
+    Generate project recommendations using only JSON skills (no raw resume text).
+    
+    Project 1: Uses only candidate's existing skills from resume_skills_json.
+    Project 2: Uses candidate's existing skills + skills from paid course.
+    
+    Args:
+        resume_skills_json: Resume skills JSON with structure {"skills": {bucket: [skills]}}
+        paid_course_skills: List of skills taught by the paid course (from skills_covered field)
+        job_description_text: Job description text (optional, for context only)
+        role_label: Role label for context
+    
+    Returns:
+        Dictionary with project recommendations: {"projects": {...}}
+    """
+    load_dotenv()
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    
+    # Get resume skills (now a flat list, no buckets)
+    resume_skills_list = resume_skills_json.get("skills", []) or []
+    if not isinstance(resume_skills_list, list):
+        resume_skills_list = []
+    available_skills_flat = sorted(set(resume_skills_list))
+    
+    # Build prompt using only flattened skills lists
+    prompt = build_prompt_from_skills(
+        job_text=job_description_text,
+        available_skills_flat=available_skills_flat,
+        paid_course_skills=paid_course_skills,
+        role_label=role_label
+    )
+    
+    # Call OpenAI once
+    try:
+        response = client.chat.completions.create(
+            model="gpt-5.1",
+            messages=[{"role": "user", "content": prompt}],
+            response_format={"type": "json_object"},
+            temperature=0.3  # Lower temperature for more technical, precise language
+        )
+    except Exception as e:
+        error_msg = str(e)
+        if "quota" in error_msg.lower() or "429" in error_msg or "insufficient_quota" in error_msg:
+            raise Exception(f"OpenAI API quota exceeded. Please check your billing and plan. Error: {error_msg}")
+        else:
+            raise Exception(f"Error calling OpenAI API for project recommendations: {error_msg}")
+    
+    raw = response.choices[0].message.content
+    data = json.loads(raw)
+    
+    # Use enforce_top_schema with:
+    # - required_gap_skills=None (no gap filtering)
+    # - primary_gap_skill=None (no primary skill enforcement)
+    # - resume_skills=flat list converted to dict format for enforcement (for Project 1 filtering)
+    # - paid_course_skills=set(paid_course_skills or []) (for Project 2 filtering)
+    # Convert flat list to dict format for enforce_top_schema (it still expects bucket structure for filtering)
+    # Since we don't know which bucket each skill belongs to, put all skills in FrameworksLibraries bucket
+    # (this is just for filtering, the actual bucket doesn't matter for enforcement)
+    resume_skills_for_enforcement = {"FrameworksLibraries": available_skills_flat}
+    cleaned = enforce_top_schema(
+        data,
+        required_gap_skills=None,
+        primary_gap_skill=None,
+        resume_skills=resume_skills_for_enforcement,
+        paid_course_skills=set(paid_course_skills or []) if paid_course_skills else None
+    )
+    
+    return cleaned
+
+
+# =============== Public function for generate_report.py orchestrator ===============
+def get_project_recommendations(
+    resume_skills_json: dict,
+    job_description_text: str,
+    course_recommendations: Optional[dict],
+    role_label: str = "Target Role"
+) -> dict:
+    """
+    Get project recommendations based on resume skills and paid course skills.
+    
+    This is a thin wrapper that extracts paid_course_skills from course_recommendations
+    and calls recommend_projects_from_skills().
+    
+    Args:
+        resume_skills_json: Resume skills JSON with structure {"skills": [list]}
+        job_description_text: Raw job description text (for context)
+        course_recommendations: Course recommendations dict (from get_course_recommendations_with_fallback)
+        role_label: Role label for context
+    
+    Returns:
+        Dictionary with project recommendations: {"projects": {...}}
+    """
+    # Extract paid_course_skills from first paid course
+    paid_course_skills = None
+    if course_recommendations:
+        paid_courses = course_recommendations.get("paid_courses", [])
+        if paid_courses:
+            first_paid = paid_courses[0]
+            paid_course_skills = first_paid.get("skills_covered", []) or []
+            print(f"Debug: Extracted {len(paid_course_skills)} skills from first paid course: {paid_course_skills[:5]}...")
+    
+    # Call recommend_projects_from_skills
+    project_recommendations = recommend_projects_from_skills(
+        resume_skills_json=resume_skills_json,
+        paid_course_skills=paid_course_skills,
+        job_description_text=job_description_text,
+        role_label=role_label,
+    )
+    
+    return project_recommendations
+
+
+# =============== CLI Main ===============
 def main():
     parser = argparse.ArgumentParser(description="Recommend 2 distinct but related project ideas ordered by importance.")
     parser.add_argument("--job_txt", required=True, help="Path to job_description.txt")
     parser.add_argument("--resume_skills", required=True, help="Path to resume_*_skills.json")
-    parser.add_argument("--job_skills", default=None, help="Optional path to job_description_*_skills.json for required gaps enforcement")
-    parser.add_argument("--primary_gap", default=None, help="Primary gap skill to focus on (same as course recommendations)")
     parser.add_argument("--courses", default=None, help="Optional path to course recommendations JSON file")
     parser.add_argument("--role_hint", default="JobTrack", help="Short label for the role (e.g., 'MLOps Engineer')")
     parser.add_argument("--outdir", default="recommendations_out", help="Output directory")
     args = parser.parse_args()
 
-    load_dotenv()
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
+    # Load files
     job_text = load_text(args.job_txt)
     resume_json = load_json(args.resume_skills)
-    resume_skills = get_resume_skills(resume_json)
-    job_required = load_json(args.job_skills).get("required", {}).get("skills", {}) if args.job_skills else None
-    gaps_flat = compute_missing_required(resume_skills, get_job_required_skills(load_json(args.job_skills)) if args.job_skills else {b: [] for b in BUCKETS}) if args.job_skills else []
     
-    # Load course recommendations if provided
-    course_recommendations = None
-    paid_course_skills_set = set()
+    # Extract paid course skills if courses file provided
+    paid_course_skills = None
     if args.courses:
         try:
             course_recommendations = load_json(args.courses)
-            # Extract paid course skills for enforcement
             paid_courses = course_recommendations.get("paid_courses", [])
-            for course in paid_courses[:3]:  # Top 3 paid courses
-                skills_covered = course.get("skills_covered", [])
-                paid_course_skills_set.update(skills_covered)
+            if paid_courses:
+                paid_course_skills = paid_courses[0].get("skills_covered", []) or []
         except Exception as e:
             print(f"⚠️ Warning: Could not load course recommendations from {args.courses}: {e}")
             print("Continuing without course recommendations...")
-
-    attempts = 0
-    cleaned = {}
-    primary_gap = args.primary_gap
-    while attempts < 3:
-        prompt = build_prompt(job_text, resume_skills, gaps=gaps_flat, primary_gap_skill=primary_gap, course_recommendations=course_recommendations)
-        try:
-            response = client.chat.completions.create(
-                model="gpt-5.1",
-                messages=[{"role": "user", "content": prompt}],
-                response_format={"type": "json_object"}
-            )
-        except Exception as e:
-            error_msg = str(e)
-            if "quota" in error_msg.lower() or "429" in error_msg or "insufficient_quota" in error_msg:
-                raise Exception(f"OpenAI API quota exceeded. Please check your billing and plan. Error: {error_msg}")
-            else:
-                raise Exception(f"Error calling OpenAI API for project recommendations: {error_msg}")
-
-        raw = response.choices[0].message.content
-        try:
-            data = json.loads(raw)
-        except json.JSONDecodeError:
-            print("⚠️ JSON decoding failed. Raw response:")
-            print(raw)
-            attempts += 1
-            continue
-
-        cleaned = enforce_top_schema(data, required_gap_skills=gaps_flat, primary_gap_skill=primary_gap, resume_skills=resume_skills, paid_course_skills=paid_course_skills_set if paid_course_skills_set else None)
-        if cleaned:
-            break
-        attempts += 1
+    
+    # Use the new function instead of making a separate GPT call
+    cleaned = recommend_projects_from_skills(
+        resume_skills_json=resume_json,
+        paid_course_skills=paid_course_skills,
+        job_description_text=job_text,
+        role_label=args.role_hint
+    )
+    
     if not cleaned:
         print("⚠️ No valid projects returned. Try refining the job description.")
         return

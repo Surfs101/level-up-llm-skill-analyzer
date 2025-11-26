@@ -1087,43 +1087,27 @@ HTML_TEMPLATE = """
                                         <span class="project-badge ${badgeClass}">${badgeText}</span>
                                         <div class="content-card project-card ${cardClass}">
                                             <h4>${project.title || 'Untitled Project'}</h4>
-                                            <div class="detail"><strong>Difficulty:</strong> ${project.difficulty || 'N/A'}</div>
-                                            <div class="detail"><strong>Estimated Time:</strong> ${project.estimated_time || 'N/A'}</div>
                                             ${project.description ? `<div class="description"><strong>Description:</strong><br>${project.description}</div>` : ''}
                                             ${project.tech_stack && project.tech_stack.length > 0 ? 
                                                 `<div class="detail"><strong>Tech Stack:</strong> <ul><li>${project.tech_stack.join('</li><li>')}</li></ul></div>` : ''}
-                                            ${project.key_features && project.key_features.length > 0 ? 
-                                                `<div class="detail"><strong>Key Features:</strong> <ul><li>${project.key_features.join('</li><li>')}</li></ul></div>` : ''}
-                                            ${project.skills_demonstrated && project.skills_demonstrated.length > 0 ? 
-                                                `<div class="detail"><strong>Skills Demonstrated:</strong> <ul><li>${project.skills_demonstrated.join('</li><li>')}</li></ul></div>` : ''}
                                             ${project.technologies && project.technologies.length > 0 ? 
                                                 `<div class="detail"><strong>Technologies:</strong> <ul><li>${project.technologies.join('</li><li>')}</li></ul></div>` : ''}
-                                            ${project.project_outline ? 
+                                            ${project.implementation_phases && project.implementation_phases.length > 0 ? 
                                                 `<div class="detail">
-                                                    <strong>Project Outline:</strong> 
-                                                    <span id="${projectId}-outline" style="cursor: pointer; color: var(--accent-primary); text-decoration: underline;" onclick="toggleProjectPhases('${projectId}')">
-                                                        ${project.project_outline}
-                                                    </span>
-                                                    <div id="${projectId}-phases" style="display: none; margin-top: 12px; padding: 12px; background: var(--bg-secondary); border-radius: 6px; border-left: 3px solid var(--accent-primary);">
-                                                        <strong style="display: block; margin-bottom: 8px;">Implementation Phases:</strong>
-                                                        ${project.implementation_phases && project.implementation_phases.length > 0 ? 
-                                                            project.implementation_phases.map((phase, phaseIdx) => {
-                                                                const phaseName = typeof phase === 'object' ? phase.phase : phase;
-                                                                const phaseDetails = typeof phase === 'object' ? phase.details : '';
-                                                                return `
-                                                                    <div style="margin-bottom: 12px;">
-                                                                        <strong style="color: var(--accent-primary);">${phaseName || `Phase ${phaseIdx + 1}`}</strong>
-                                                                        ${phaseDetails ? `<div style="margin-top: 4px; margin-left: 16px; color: var(--text-secondary);">${phaseDetails}</div>` : ''}
-                                                                    </div>
-                                                                `;
-                                                            }).join('') : 
-                                                            '<div style="color: var(--text-secondary);">No implementation phases available.</div>'
-                                                        }
+                                                    <strong>Implementation Phases:</strong>
+                                                    <div style="margin-top: 12px;">
+                                                        ${project.implementation_phases.map((phase, phaseIdx) => {
+                                                            const phaseName = typeof phase === 'object' ? phase.phase : phase;
+                                                            const phaseOutline = typeof phase === 'object' ? (phase.outline || phase.details || '') : '';
+                                                            return `
+                                                                <div style="margin-bottom: 16px; padding: 12px; background: var(--bg-secondary); border-radius: 6px; border-left: 3px solid var(--accent-primary);">
+                                                                    <strong style="color: var(--accent-primary); display: block; margin-bottom: 6px;">${phaseName || `Phase ${phaseIdx + 1}`}</strong>
+                                                                    ${phaseOutline ? `<div style="color: var(--text-secondary); line-height: 1.6;">${phaseOutline}</div>` : ''}
+                                                                </div>
+                                                            `;
+                                                        }).join('')}
                                                     </div>
                                                 </div>` : ''}
-                                            ${project.portfolio_impact ? `<div class="detail"><strong>Portfolio Impact:</strong> ${project.portfolio_impact}</div>` : ''}
-                                            ${project.bonus_challenges && project.bonus_challenges.length > 0 ? 
-                                                `<div class="detail"><strong>Bonus Challenges:</strong> <ul><li>${project.bonus_challenges.join('</li><li>')}</li></ul></div>` : ''}
                                         </div>
                                     </div>
                                 `;
@@ -1372,7 +1356,7 @@ async def analyze(
 
 async def cover_letter_with_progress(resume: UploadFile, job_text: str, template: Optional[UploadFile]):
     """
-    Generate cover letter with progress updates.
+    Generate cover letter with progress updates using single LLM call approach.
     Yields progress messages and final result.
     """
     temp_resume_path = None
@@ -1387,7 +1371,7 @@ async def cover_letter_with_progress(resume: UploadFile, job_text: str, template
             yield f"data: {json.dumps({'type': 'error', 'message': 'Job description is required'})}\n\n"
             return
         
-        # Progress: Processing PDF
+        # Progress: Processing PDF resume
         yield f"data: {json.dumps({'type': 'progress', 'message': 'Processing PDF resume...'})}\n\n"
         await asyncio.sleep(0.1)
         
@@ -1429,19 +1413,11 @@ async def cover_letter_with_progress(resume: UploadFile, job_text: str, template
                 yield f"data: {json.dumps({'type': 'error', 'message': error_msg})}\n\n"
                 template_text = None
         
-        # Progress updates for cover letter generation
-        steps = [
-            'Extracting personal information from resume...',
-            'Extracting company information from job description...',
-            'Extracting skills and projects...',
-            'Drafting cover letter content...'
-        ]
+        # Progress: Generating cover letter (single LLM call)
+        yield f"data: {json.dumps({'type': 'progress', 'message': 'Analyzing resume and job description, generating cover letter...'})}\n\n"
+        await asyncio.sleep(0.1)
         
-        for step in steps:
-            yield f"data: {json.dumps({'type': 'progress', 'message': step})}\n\n"
-            await asyncio.sleep(0.2)
-        
-        # Generate cover letter
+        # Generate cover letter using single LLM call
         loop = asyncio.get_event_loop()
         result = await loop.run_in_executor(
             None,

@@ -1354,8 +1354,6 @@
                         html += '<span class="project-badge ' + badgeClass + '">' + badgeText + '</span>';
                         html += '<div class="course-card project-card-item ' + cardClass + '">';
                         html += '<h4>' + escapeHtml(project.title || 'Untitled Project') + '</h4>';
-                        html += '<div class="project-detail"><strong>Difficulty:</strong> ' + escapeHtml(project.difficulty || 'N/A') + '</div>';
-                        html += '<div class="project-detail"><strong>Estimated Time:</strong> ' + escapeHtml(project.estimated_time || 'N/A') + '</div>';
                         
                         if (project.description) {
                             html += '<div class="project-description"><strong>Description:</strong><br>' + escapeHtml(project.description) + '</div>';
@@ -1369,60 +1367,29 @@
                             html += '</ul></div>';
                         }
                         
-                        if (project.key_features && project.key_features.length > 0) {
-                            html += '<div class="project-detail"><strong>Key Features:</strong><ul>';
-                            project.key_features.forEach(feature => {
-                                html += '<li>' + escapeHtml(feature) + '</li>';
-                            });
-                            html += '</ul></div>';
-                        }
-                        
-                        if (project.skills_demonstrated && project.skills_demonstrated.length > 0) {
-                            html += '<div class="project-detail"><strong>Skills Demonstrated:</strong> ' + project.skills_demonstrated.map(s => escapeHtml(s)).join(', ') + '</div>';
-                        }
                         
                         if (project.technologies && project.technologies.length > 0) {
                             html += '<div class="project-detail"><strong>Technologies:</strong> ' + project.technologies.map(t => escapeHtml(t)).join(', ') + '</div>';
                         }
                         
-                        if (project.project_outline) {
+                        if (project.implementation_phases && project.implementation_phases.length > 0) {
                             html += '<div class="project-detail">';
-                            html += '<strong>Project Outline:</strong> ';
-                            html += '<span id="' + projectId + '-outline" style="cursor: pointer; color: var(--accent-primary); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 4px; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor=\'var(--bg-secondary)\'" onmouseout="this.style.backgroundColor=\'transparent\'" onclick="toggleProjectPhases(\'' + projectId + '\')">';
-                            html += '<span id="' + projectId + '-arrow" style="display: inline-block; transition: transform 0.3s; font-size: 0.9em;">▶</span>';
-                            html += '<span>' + escapeHtml(project.project_outline) + '</span>';
-                            html += '</span>';
-                            html += '<div id="' + projectId + '-phases" style="display: none; margin-top: 12px; padding: 12px; background: var(--bg-secondary); border-radius: 6px; border-left: 3px solid var(--accent-primary);">';
-                            html += '<strong style="display: block; margin-bottom: 8px;">Implementation Phases:</strong>';
-                            if (project.implementation_phases && project.implementation_phases.length > 0) {
-                                project.implementation_phases.forEach((phase, phaseIdx) => {
-                                    const phaseName = typeof phase === 'object' ? phase.phase : phase;
-                                    const phaseDetails = typeof phase === 'object' ? phase.details : '';
-                                    html += '<div style="margin-bottom: 12px;">';
-                                    html += '<strong style="color: var(--accent-primary);">' + escapeHtml(phaseName || 'Phase ' + (phaseIdx + 1)) + '</strong>';
-                                    if (phaseDetails) {
-                                        html += '<div style="margin-top: 4px; margin-left: 16px; color: var(--text-secondary);">' + escapeHtml(phaseDetails) + '</div>';
-                                    }
-                                    html += '</div>';
-                                });
-                            } else {
-                                html += '<div style="color: var(--text-secondary);">No implementation phases available.</div>';
-                            }
-                            html += '</div>';
-                            html += '</div>';
-                        }
-                        
-                        if (project.portfolio_impact) {
-                            html += '<div class="project-detail"><strong>Portfolio Impact:</strong> ' + escapeHtml(project.portfolio_impact) + '</div>';
-                        }
-                        
-                        if (project.bonus_challenges && project.bonus_challenges.length > 0) {
-                            html += '<div class="project-detail"><strong>Bonus Challenges:</strong><ul>';
-                            project.bonus_challenges.forEach(challenge => {
-                                html += '<li>' + escapeHtml(challenge) + '</li>';
+                            html += '<strong>Implementation Phases:</strong>';
+                            html += '<div style="margin-top: 12px;">';
+                            project.implementation_phases.forEach((phase, phaseIdx) => {
+                                const phaseName = typeof phase === 'object' ? phase.phase : phase;
+                                const phaseOutline = typeof phase === 'object' ? (phase.outline || phase.details || '') : '';
+                                html += '<div style="margin-bottom: 16px; padding: 12px; background: var(--bg-secondary); border-radius: 6px; border-left: 3px solid var(--accent-primary);">';
+                                html += '<strong style="color: var(--accent-primary); display: block; margin-bottom: 6px;">' + escapeHtml(phaseName || 'Phase ' + (phaseIdx + 1)) + '</strong>';
+                                if (phaseOutline) {
+                                    html += '<div style="color: var(--text-secondary); line-height: 1.6;">' + escapeHtml(phaseOutline) + '</div>';
+                                }
+                                html += '</div>';
                             });
-                            html += '</ul></div>';
+                            html += '</div>';
+                            html += '</div>';
                         }
+                        
                         
                         html += '</div>';
                         html += '</div>';

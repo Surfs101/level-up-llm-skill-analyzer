@@ -7,47 +7,19 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 # Shared normalization
-from skill_normalization import (
-    BUCKETS,
-    canonicalize_skills_by_bucket,
-    canonicalize_skill_name,
-)
+from skill_normalization import canonicalize_skill_name
 
 # Load environment variables
 load_dotenv()
 
 
-def ensure_resume_schema(skills_block: Dict) -> Dict:
-    """
-    Ensure the 'skills' block has all 3 buckets:
-    ProgrammingLanguages, FrameworksLibraries, ToolsPlatforms.
-    """
-    out = {}
-    skills = skills_block or {}
-    for b in BUCKETS:
-        v = skills.get(b, [])
-        out[b] = v if isinstance(v, list) else []
-    return out
-
-
 def extract_resume_skills_from_text(resume_text: str) -> dict:
     """
-    Extract ALL learnable skills from a resume using OpenAI, similar to
-    extract_job_skills_from_text but with a single 'skills' block and NO
-    required/preferred split.
-
+    Extract ALL learnable skills from a resume using OpenAI.
+    
     Returns:
         {
-          "skills": {
-            "ProgrammingLanguages": [...],
-            "FrameworksLibraries": [...],
-            "ToolsPlatforms": [...]
-          },
-          "courses": [
-            "Machine Learning",
-            "Deep Learning",
-            ...
-          ]
+          "skills": ["Python", "Java", "Machine Learning", "Data Science", "AWS", "React", ...]
         }
     """
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -118,38 +90,53 @@ CRITICAL – Extract skills from ALL résumé sections:
    - If the resume uses abbreviations like "LLM", "ML", "DL", "NLP", "CV", "RAG", "RL", "SL", "UL",
      extract them as their full normalized forms using the rules above.
 
-ALSO extract COURSES and CERTIFICATIONS:
+IMPORTANT - Extract skills from coursework:
+- If a course title contains a skill/domain (e.g., "Machine Learning", "Deep Learning", "Data Science"), extract that skill and put it in the "skills" list.
+- Do NOT include course titles as separate items - only extract the learnable skills/domains from them.
+- Examples:
+  - "Machine Learning by Andrew Ng" → Extract "Machine Learning" as a skill
+  - "Deep Learning Specialization" → Extract "Deep Learning" as a skill
+  - "Python for Data Science" → Extract "Python" and "Data Science" as skills
+  - "AWS Certified Solutions Architect" → Extract "AWS" as a skill
 
-- Courses from sections like "Relevant Coursework", "Courses", "Coursework", "Academic Courses", etc.
-  Examples: "Machine Learning", "Deep Learning", "Data Science", "Computer Vision", "Software Engineering".
-- Online courses:
-  e.g., "Machine Learning by Andrew Ng", "Deep Learning Specialization", "Python for Data Science".
-- Certifications from sections like "Certifications", "Licenses & Certifications".
-  e.g., "AWS Certified Solutions Architect", "Google Cloud Professional", "Microsoft Azure Certified".
-- Training programs or bootcamps.
+4. Coursework sections:
+   - Extract skills from "Relevant Coursework", "Courses", "Coursework", "Academic Courses", etc.
+   - Extract skills from course titles (e.g., "Machine Learning" from "Machine Learning by Andrew Ng")
+   - Extract skills from certifications (e.g., "AWS" from "AWS Certified Solutions Architect")
 
-Classify skills into:
-- ProgrammingLanguages: specific programming languages.
-- FrameworksLibraries: frameworks, libraries, and domain expertise fields (Machine Learning, Deep Learning, Artificial Intelligence, Large Language Models, NLP, Computer Vision, Data Science, RAG, Agentic AI, MLOps, etc.).
-- ToolsPlatforms: tools, platforms, cloud providers, databases, analytics tools, DevOps tools, etc.
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY a JSON object with a single key 'skills' which is a list of unique skills.
+- Do NOT return buckets. Do NOT return courses separately.
+- All skills (languages, frameworks, tools, platforms, domains, and skills from coursework) go into ONE flat list.
 
 Output must be STRICT JSON only in this format:
 {{
-  "skills": {{
-    "ProgrammingLanguages": ["Python", "SQL"],
-    "FrameworksLibraries": ["React", "scikit-learn", "Machine Learning", "Deep Learning"],
-    "ToolsPlatforms": ["Git", "Docker"]
-  }},
-  "courses": [
+  "skills": [
+    "Python",
+    "Java",
+    "C++",
     "Machine Learning",
-    "Deep Learning",
     "Data Science",
+    "Deep Learning",
     "Computer Vision",
-    "Software Engineering",
-    "Machine Learning by Andrew Ng",
-    "Deep Learning Specialization",
-    "AWS Certified Solutions Architect",
-    "Google Cloud Professional"
+    "AWS",
+    "Docker",
+    "React",
+    "MongoDB",
+    "TensorFlow",
+    "PyTorch",
+    "scikit-learn",
+    "pandas",
+    "NumPy",
+    "Git",
+    "Kubernetes",
+    "PostgreSQL",
+    "Natural Language Processing",
+    "Large Language Models",
+    "Retrieval-Augmented Generation",
+    "Agentic AI",
+    "MLOps",
+    ...
   ]
 }}
 
@@ -171,15 +158,26 @@ Resume:
     raw = response.choices[0].message.content
     try:
         llm_data = json.loads(raw)
-        # Ensure schema and canonicalize
-        skills_raw = llm_data.get("skills", {}) or {}
-        skills_block = ensure_resume_schema(skills_raw)
-        skills_canon = canonicalize_skills_by_bucket(skills_block)
-        courses = llm_data.get("courses", []) or []
-
+        raw_skills = llm_data.get("skills", []) or []
+        
+        from skill_normalization import canonicalize_skill_name
+        
+        skills = []
+        seen = set()
+        for s in raw_skills:
+            if not isinstance(s, str):
+                continue
+            name = s.strip()
+            if not name:
+                continue
+            canon = canonicalize_skill_name(name)
+            key = canon.lower()
+            if key not in seen:
+                seen.add(key)
+                skills.append(canon)
+        
         return {
-            "skills": skills_canon,
-            "courses": courses,
+            "skills": skills
         }
     except json.JSONDecodeError:
         print("⚠️ JSON decoding failed, raw response:", file=sys.stderr)

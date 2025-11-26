@@ -8,11 +8,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 # Import shared normalization
-from skill_normalization import (
-    BUCKETS,
-    canonicalize_skills_by_bucket,
-    canonicalize_skill_name,
-)
+from skill_normalization import canonicalize_skill_name
 
 # Load environment variables
 load_dotenv()
@@ -29,20 +25,6 @@ def has_preferred_cues(text: str) -> bool:
     return bool(PREFERRED_CUES_PATTERN.search(text or ""))
 
 
-def ensure_schema(d):
-    """Ensure required/preferred blocks exist and contain all buckets (3 buckets only)."""
-    out = {"required": {}, "preferred": {}}
-    for side in ["required", "preferred"]:
-        block = d.get(side, {}) or {}
-        skills = block.get("skills", block)
-        clean = {}
-        for b in BUCKETS:
-            v = skills.get(b, [])
-            clean[b] = v if isinstance(v, list) else []
-        out[side] = {"skills": clean}
-    return out
-
-
 def extract_job_skills_from_text(job_description_text: str) -> dict:
     """
     Extract required/preferred skills from job description using OpenAI.
@@ -50,13 +32,12 @@ def extract_job_skills_from_text(job_description_text: str) -> dict:
     
     The LLM is the single source of truth for:
     - Which skills are required vs preferred
-    - How skills are bucketed (ProgrammingLanguages, FrameworksLibraries, ToolsPlatforms)
     
     Args:
         job_description_text: Raw text content from job description
     
     Returns:
-        Dictionary with structure: {"required": {"skills": {...}}, "preferred": {"skills": {...}}, "is_grad_student_job": bool}
+        Dictionary with structure: {"required": {"skills": [...]}, "preferred": {"skills": [...]}, "is_grad_student_job": bool}
     """
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     
@@ -116,14 +97,7 @@ CRITICAL - DO NOT EXTRACT:
    - Apply this normalization consistently
 
 5. Include domain expertise fields like "Machine Learning", "Deep Learning", "Data Science", "AI", "Agentic AI", "RAG", "Retrieval-Augmented Generation", "Computer Vision", "NLP" if they appear anywhere in the job description - these are learnable fields.
-6. Classify domain expertise fields into "FrameworksLibraries" bucket.
-7. DO NOT extract methodologies, processes, or operational practices - only extract concrete technologies and learnable fields.
-
-Classify skills into:
-- ProgrammingLanguages: Specific programming languages
-- FrameworksLibraries: Frameworks, libraries, and domain expertise fields
-  (Machine Learning, Deep Learning, Artificial Intelligence, Large Language Models, NLP, Computer Vision, Data Science, MLOps, LLMOps, RAG, Agentic AI, etc.)
-- ToolsPlatforms: Tools, platforms, cloud providers, databases, analytics tools, DevOps tools, etc.
+6. DO NOT extract methodologies, processes, or operational practices - only extract concrete technologies and learnable fields.
 
 REQUIRED SKILLS (must-have for being seriously considered):
 - Core technologies or tools used in day-to-day work for this job
@@ -142,8 +116,8 @@ CRITICAL CLASSIFICATION RULES:
 - If the job description does NOT explicitly distinguish preferred/nice-to-have skills
   using words like "preferred", "nice to have", "nice-to-have", "good to have",
   "bonus", "plus", or "would be a plus", then you MUST put ALL extracted skills
-  into "required" and leave ALL "preferred" buckets empty.
-- Respect the JSON schema with required.skills and preferred.skills, each broken down into the three buckets: ProgrammingLanguages, FrameworksLibraries, ToolsPlatforms.
+  into "required" and leave "preferred.skills" as an empty list.
+- Output ONLY valid JSON in the exact shape specified below (flat lists, no buckets).
 
 CRITICAL: Determine if this job requires a graduate degree (Master's or PhD).
 
@@ -165,21 +139,25 @@ IMPORTANT: Be thorough in checking the entire job description for graduate degre
 
 Output must be STRICT JSON only in this format:
 {{
-  "is_grad_student_job": false,
   "required": {{
-    "skills": {{
-      "ProgrammingLanguages": ["Python", "SQL"],
-      "FrameworksLibraries": ["React", "scikit-learn", "Machine Learning"],
-      "ToolsPlatforms": ["Git", "Docker"]
-    }}
+    "skills": [
+      "Python",
+      "Machine Learning",
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      ...
+    ]
   }},
   "preferred": {{
-    "skills": {{
-      "ProgrammingLanguages": ["Java"],
-      "FrameworksLibraries": ["TensorFlow"],
-      "ToolsPlatforms": ["Kubernetes"]
-    }}
-  }}
+    "skills": [
+      "TensorFlow",
+      "PyTorch",
+      "Kubernetes",
+      ...
+    ]
+  }},
+  "is_grad_student_job": false
 }}
 
 Job Description:
@@ -206,63 +184,49 @@ Job Description:
     try:
         llm_data = json.loads(raw)
         
-        # Extract data from LLM response (LLM is the single source of truth)
-        required_skills = llm_data.get("required", {}).get("skills", {}) or {}
-        preferred_skills = llm_data.get("preferred", {}).get("skills", {}) or {}
-        is_grad_student_job = llm_data.get("is_grad_student_job", False)
+        raw_req = (llm_data.get("required") or {}).get("skills", []) or []
+        raw_pref = (llm_data.get("preferred") or {}).get("skills", []) or []
         
-        # Canonicalize both required and preferred skills
-        required_skills = canonicalize_skills_by_bucket(required_skills)
-        preferred_skills = canonicalize_skills_by_bucket(preferred_skills)
+        from skill_normalization import canonicalize_skill_name
         
-        # Build output structure
-        data = {
+        def canonicalize_list(skills_list):
+            out = []
+            seen = set()
+            for s in skills_list or []:
+                if not isinstance(s, str):
+                    continue
+                name = s.strip()
+                if not name:
+                    continue
+                canon = canonicalize_skill_name(name)
+                key = canon.lower()
+                if key not in seen:
+                    seen.add(key)
+                    out.append(canon)
+            return out
+        
+        required_skills = canonicalize_list(raw_req)
+        preferred_skills = canonicalize_list(raw_pref)
+        is_grad_student_job = bool(llm_data.get("is_grad_student_job", False))
+        
+        # Keep preferred merging logic but operate on flat lists
+        if not has_preferred_cues(job_description_text):
+            existing = {s.lower() for s in required_skills}
+            for s in preferred_skills:
+                if s.lower() not in existing:
+                    required_skills.append(s)
+                    existing.add(s.lower())
+            preferred_skills = []
+        
+        # Deduplication: remove preferred skills that are in required
+        required_lower = {s.lower() for s in required_skills}
+        preferred_skills = [s for s in preferred_skills if s.lower() not in required_lower]
+        
+        return {
             "required": {"skills": required_skills},
             "preferred": {"skills": preferred_skills},
             "is_grad_student_job": is_grad_student_job
         }
-        
-        # Ensure schema exists (all buckets present)
-        data = ensure_schema(data)
-        data["is_grad_student_job"] = is_grad_student_job
-
-        # If the JD never explicitly mentions preferred / nice-to-have cues,
-        # treat ALL extracted skills as required and clear preferred.
-        if not has_preferred_cues(job_description_text):
-            for bucket in BUCKETS:
-                req_list = data["required"]["skills"].get(bucket, []) or []
-                pref_list = data["preferred"]["skills"].get(bucket, []) or []
-
-                # Merge preferred into required, avoiding duplicates (case-insensitive)
-                existing = {str(s).lower().strip() for s in req_list if s}
-                merged = req_list[:]
-
-                for s in pref_list:
-                    if s and str(s).lower().strip() not in existing:
-                        merged.append(s)
-                        existing.add(str(s).lower().strip())
-
-                data["required"]["skills"][bucket] = merged
-                data["preferred"]["skills"][bucket] = []
-
-        # Deduplication: Remove any skills from preferred that are already in required
-        # Build set of all required skills (lowercased, across all buckets)
-        required_flat = set()
-        for bucket in BUCKETS:
-            for s in data["required"]["skills"].get(bucket, []):
-                if s:
-                    required_flat.add(str(s).lower().strip())
-        
-        # Filter preferred skills to remove duplicates
-        for bucket in BUCKETS:
-            preferred_list = data["preferred"]["skills"].get(bucket, [])
-            filtered = [
-                s for s in preferred_list
-                if s and str(s).lower().strip() not in required_flat
-            ]
-            data["preferred"]["skills"][bucket] = filtered
-        
-        return data
     except json.JSONDecodeError:
         print("⚠️ JSON decoding failed, raw response:", file=sys.stderr)
         print(raw, file=sys.stderr)

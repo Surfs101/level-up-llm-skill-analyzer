@@ -4,29 +4,16 @@
 
 import os
 import json
-import argparse
-from pathlib import Path
 from typing import List, Dict, Any, Optional
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from collections import defaultdict
 from openai import OpenAI
 
-# Import shared normalization
-from skill_normalization import BUCKETS
-
 # Load environment variables
 load_dotenv()
 
 PLATFORM_WHITELIST = {"DeepLearning.AI", "Udemy", "Coursera"}
-# Course recommendations should ignore soft skills entirely
-TARGET_BUCKETS = ["ProgrammingLanguages", "FrameworksLibraries", "ToolsPlatforms"]
-# Importance weights per bucket (higher → more important for gap closure)
-BUCKET_WEIGHTS = {
-    "ToolsPlatforms": 1.0,
-    "FrameworksLibraries": 0.9,
-    "ProgrammingLanguages": 0.8,
-}
 
 # MongoDB connection settings
 # Support both old (MONGODB_URI) and new (MONGO_URI) environment variable names for compatibility
@@ -54,44 +41,6 @@ def get_db():
 
 
 # ---------- utils ----------
-def load_json(p: str):
-    with open(p, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def get_resume_skills(resume_json: dict):
-    skills = resume_json.get("skills", {})
-    return {b: set(skills.get(b, [])) for b in TARGET_BUCKETS}
-
-
-def get_job_required_skills(job_json: dict):
-    required = job_json.get("required", {}).get("skills", {})
-    return {b: set(required.get(b, [])) for b in TARGET_BUCKETS}
-
-
-def get_job_preferred_skills(job_json: dict):
-    preferred = job_json.get("preferred", {}).get("skills", {})
-    return {b: set(preferred.get(b, [])) for b in TARGET_BUCKETS}
-
-
-def compute_gaps(have: dict, need: dict):
-    return {b: sorted(list(need[b] - have[b])) for b in TARGET_BUCKETS}
-
-
-def _rank_missing_skills(gaps: dict) -> list:
-    """Rank missing skills by bucket importance and alphabetical as tiebreaker."""
-    scored = []
-    for b in TARGET_BUCKETS:
-        for s in gaps.get(b, []) or []:
-            scored.append((-(BUCKET_WEIGHTS.get(b, 0.5)), s.lower(), s))
-    scored.sort()
-    return [orig for _, __, orig in scored]
-
-
-def gaps_empty(gaps: dict):
-    return all(len(v) == 0 for v in gaps.values())
-
-
 def normalize_price(price_value) -> str:
     """Normalize price to string format."""
     if price_value is None or price_value == "":
@@ -627,23 +576,6 @@ def get_course_recommendations(
     }
 
 
-def compute_coverage(target_set, free_courses, paid_courses):
-    coverage = {s: [] for s in target_set}
-    def add_course(course):
-        # Safely extract title, converting to string
-        title_raw = course.get("title") or ""
-        title = str(title_raw).strip() if title_raw is not None else ""
-        for s in course.get("skills_covered", []):
-            if s in coverage and title and title not in coverage[s]:
-                coverage[s].append(title)
-    for c in free_courses: add_course(c)
-    for c in paid_courses: add_course(c)
-    covered = {s for s, lst in coverage.items() if lst}
-    uncovered = sorted(list(set(target_set) - covered))
-    pct = round(100 * len(covered) / max(1, len(target_set)))
-    return coverage, uncovered, pct
-
-
 # ---------- main recommendation function ----------
 def recommend_courses_from_gaps(
     missing_skills_data: dict,
@@ -663,7 +595,7 @@ def recommend_courses_from_gaps(
     
     Args:
         missing_skills_data: Dictionary containing:
-            - "gaps": {"required": {bucket: [skills]}, "preferred": {bucket: [skills]}}
+            - "gaps": {"required": [skills], "preferred": [skills]}  # Flat lists, no buckets
             - "skill_weights": {"required": {skill: final_weight}, "preferred": {skill: final_weight}}
         role: Target role name (currently informational only)
         require_free: If True, only return free courses
@@ -671,7 +603,7 @@ def recommend_courses_from_gaps(
         max_free: Maximum free courses to return (default 1 for compatibility)
         max_paid: Maximum paid courses to return (default 1 for compatibility)
         ranked_skills: Optional priority-ranked list of missing skills (from match_scores). 
-                      If provided, this will be used instead of flattening gaps, preserving priority order.
+                      If provided, this will be used instead of gaps, preserving priority order.
     
     Returns:
         Dictionary with course recommendations
@@ -680,24 +612,20 @@ def recommend_courses_from_gaps(
     skill_weights_dict = missing_skills_data.get("skill_weights", {})
     
     # Use required gaps first, fall back to preferred if no required gaps
-    gaps_to_use = gaps.get("required", {})
+    gaps_to_use = gaps.get("required", [])
     skill_weights_to_use = skill_weights_dict.get("required", {})
     
-    if not any(gaps_to_use.values()):  # Check if any required gaps exist
-        gaps_to_use = gaps.get("preferred", {})
+    if not gaps_to_use:  # Check if any required gaps exist
+        gaps_to_use = gaps.get("preferred", [])
         skill_weights_to_use = skill_weights_dict.get("preferred", {})
     
-    # Use priority-ranked skills if provided, otherwise flatten gaps (fallback)
+    # Use priority-ranked skills if provided, otherwise use gaps directly (already flat lists)
     if ranked_skills:
         # Use the priority-ordered skills directly (preserves LLM ranking)
         target_skills = ranked_skills
     else:
-        # Fallback: Flatten gaps to a list of skills (loses priority order, but maintains compatibility)
-        target_skills = []
-        for bucket in TARGET_BUCKETS:
-            for skill in gaps_to_use.get(bucket, []):
-                if skill not in target_skills:
-                    target_skills.append(skill)
+        # Fallback: Use gaps directly (already a flat list)
+        target_skills = gaps_to_use if isinstance(gaps_to_use, list) else []
     
     # If no skills, return empty (no gaps to close)
     if not target_skills:
@@ -786,126 +714,124 @@ def recommend_courses_for_job_skills(
     return recommendations
 
 
-# ---------- output functions (kept for compatibility) ----------
-def dict_to_md_table(d: dict):
-    if not d:
-        return "_None_"
-    lines = ["| Key | Value |", "|---|---|"]
-    for k, v in d.items():
-        if isinstance(v, list):
-            v_str = ", ".join(v) if v else "-"
-        elif isinstance(v, dict):
-            inner = ", ".join(f"{ik}:{len(iv) if isinstance(iv, list) else str(iv)}" for ik, iv in v.items())
-            v_str = inner or "-"
-        else:
-            v_str = str(v)
-        lines.append(f"| {k} | {v_str} |")
-    return "\n".join(lines)
-
-
-def write_outputs(role: str, gaps: dict, data: dict, outdir: Path):
-    outdir.mkdir(parents=True, exist_ok=True)
-    role_slug = role.lower().replace(" ", "_")
-    json_path = outdir / f"recommendations_{role_slug}.json"
-    md_path = outdir / f"recommendations_{role_slug}.md"
-
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
-
-    md = []
-    md.append(f"# {role} – Course Recommendations (1 Free, 1 Paid)\n")
-    md.append("## Required Skill Gaps (by bucket)\n")
-    md.append(dict_to_md_table(gaps))
-
-    md.append("\n\n## Free Course\n")
-    if data.get("free_courses"):
-        c = data["free_courses"][0]
-        md.extend([
-            f"- **Title:** {c['title']}",
-            f"- **Platform:** {c['platform']}",
-            f"- **Rating:** {c.get('rating', 'N/A')}",
-            f"- **Skills Covered:** {', '.join(c.get('skills_covered', [])) or '-'}",
-            f"- **Additional Skills:** {', '.join(c.get('additional_skills', [])) or '-'}",
-            f"- **Duration:** {c['duration']}",
-            f"- **Difficulty:** {c['difficulty']}",
-            f"- **Cost:** {c['cost']}",
-            f"- **Link:** {c['link'] or '—'}",
-            f"- **Why Efficient:** {c['why_efficient']}",
-            f"{c['description']}",
-        ])
+# ---------- Public function for generate_report.py orchestrator ----------
+def get_course_recommendations_with_fallback(
+    missing_skills_data: dict,
+    job_skills_json: dict,
+    role: str = "Target Role",
+    match_scores: dict = None
+) -> dict:
+    """
+    Get course recommendations with fallback logic.
+    
+    Primary: Recommend courses based on missing skills (gaps) - uses flat skill lists.
+    Fallback: If no courses found, recommend based on job skills. The fallback gracefully
+    handles both flat skill lists and old bucketed dict structures (any bucket names).
+    
+    Args:
+        missing_skills_data: Dictionary containing gaps and skill_weights from score_match.
+            Gaps are flat lists: {"required": [skills], "preferred": [skills]}
+        job_skills_json: Job skills JSON (for fallback). Can have flat lists or bucketed dicts.
+        role: Target role name
+        match_scores: Full match_scores dict (for accessing pre-ranked missing skills)
+    
+    Returns:
+        Dictionary with course recommendations: {
+            "free_courses": [...],
+            "paid_courses": [...],
+            "skill_coverage": {...},
+            "uncovered_skills": [...],
+            "coverage_percentage": ...
+        }
+    """
+    gaps = missing_skills_data.get("gaps", {})
+    skill_weights_dict = missing_skills_data.get("skill_weights", {})
+    
+    # Use required gaps first, fall back to preferred if no required gaps
+    gaps_to_use = gaps.get("required", [])
+    skill_weights_to_use = skill_weights_dict.get("required", {})
+    
+    if not gaps_to_use:
+        gaps_to_use = gaps.get("preferred", [])
+        skill_weights_to_use = skill_weights_dict.get("preferred", {})
+    
+    # Use pre-ranked missing skills from match_scores (already ranked by priority)
+    if match_scores:
+        missing_required = match_scores.get("missing_skills", {}).get("required", [])
+        missing_preferred = match_scores.get("missing_skills", {}).get("preferred", [])
+        ranked_skills = missing_required if gaps.get("required", []) else missing_preferred
     else:
-        md.append("_None_")
-
-    md.append("\n\n## Paid Course\n")
-    if data.get("paid_courses"):
-        c = data["paid_courses"][0]
-        md.extend([
-            f"- **Title:** {c['title']}",
-            f"- **Platform:** {c['platform']}",
-            f"- **Rating:** {c.get('rating', 'N/A')}",
-            f"- **Skills Covered:** {', '.join(c.get('skills_covered', [])) or '-'}",
-            f"- **Additional Skills:** {', '.join(c.get('additional_skills', [])) or '-'}",
-            f"- **Duration:** {c['duration']}",
-            f"- **Difficulty:** {c['difficulty']}",
-            f"- **Cost:** {c['cost']}",
-            f"- **Link:** {c['link'] or '—'}",
-            f"- **Why Efficient:** {c['why_efficient']}",
-            f"{c['description']}",
-        ])
-    else:
-        md.append("_None_")
-
-    md.append("\n\n## Skill Coverage Map\n")
-    md.append(dict_to_md_table(data.get("skill_coverage", {})))
-
-    md.append("\n\n## Uncovered Skills\n")
-    if data.get("uncovered_skills"):
-        md.append(", ".join(data["uncovered_skills"]))
-    else:
-        md.append("_All target skills covered_")
-
-    md.append(f"\n\n## Coverage Percentage\n**{data.get('coverage_percentage', 0)}%**\n")
-
-    with open(md_path, "w", encoding="utf-8") as f:
-        f.write("\n".join(md))
-
-    print(f"✅ Saved JSON → {json_path}")
-    print(f"✅ Saved Markdown → {md_path}")
-
-
-# ---------- main ----------
-def main():
-    parser = argparse.ArgumentParser(description="Course recommender using MongoDB")
-    parser.add_argument("--resume", required=True, help="Path to resume_*_skills.json")
-    parser.add_argument("--job", required=True, help="Path to job_description_*_skills.json")
-    parser.add_argument("--role", required=True, help='Target role (e.g., "MLOps Engineer")')
-    parser.add_argument("--outdir", default="recommendations_out", help="Output directory")
-    parser.add_argument("--max-free", type=int, default=5, help="Maximum free courses to return")
-    parser.add_argument("--max-paid", type=int, default=5, help="Maximum paid courses to return")
-    args = parser.parse_args()
-
-    load_dotenv()
-
-    resume_json = load_json(args.resume)
-    job_json = load_json(args.job)
-
-    # Get recommendations
+        # Fallback: rank by weights (shouldn't happen if match_scores is passed)
+        ranked_skills = sorted(gaps_to_use, key=lambda s: skill_weights_to_use.get(s, 0.5), reverse=True)
+    
+    # First: try based on missing skills (gaps) - get 1 paid course initially
+    # Pass ranked_skills to preserve priority order for course recommendations
     recommendations = recommend_courses_from_gaps(
-        resume_json=resume_json,
-        job_json=job_json,
-        role=args.role,
-        max_free=args.max_free,
-        max_paid=args.max_paid
+        missing_skills_data=missing_skills_data,
+        role=role,
+        require_free=False,
+        require_paid=False,
+        max_free=1,
+        max_paid=1,
+        ranked_skills=ranked_skills  # Pass priority-ranked skills to preserve order
     )
 
-    # Compute gaps for output
-    have = get_resume_skills(resume_json)
-    need = get_job_required_skills(job_json)
-    gaps = compute_gaps(have, need)
+    free_courses = recommendations.get("free_courses") or []
+    paid_courses = recommendations.get("paid_courses") or []
+    
+    # If we found at least one course, return the recommendations
+    if free_courses or paid_courses:
+        print(f"Debug: Returning recommendations with {len(free_courses)} free and {len(paid_courses)} paid courses")
+        return recommendations
 
-    write_outputs(args.role, gaps, recommendations, Path(args.outdir))
+    # Second: FALLBACK – recommend based on job/domain skills
+    job_required_skills_raw = (job_skills_json.get("required", {}) or {}).get("skills", []) or []
+    job_preferred_skills_raw = (job_skills_json.get("preferred", {}) or {}).get("skills", []) or []
+    
+    # Build flat list of job skills (handle both bucketed dicts and flat lists)
+    job_skill_list = []
+    seen = set()
+    
+    # Helper to flatten skills (handles both dict with buckets and flat list)
+    def flatten_skills(skills_input):
+        # Case 1: already a flat list of skills
+        if isinstance(skills_input, list):
+            return skills_input
+        
+        # Case 2: dict of buckets -> lists of skills (any bucket names)
+        if isinstance(skills_input, dict):
+            flattened = []
+            for bucket_skills in skills_input.values():
+                if isinstance(bucket_skills, list):
+                    flattened.extend(bucket_skills)
+            return flattened
+        
+        # Fallback: unknown type
+        return []
+    
+    # Flatten required and preferred skills
+    required_flat = flatten_skills(job_required_skills_raw)
+    preferred_flat = flatten_skills(job_preferred_skills_raw)
+    
+    # Combine into single flat list of unique skills
+    for skill in required_flat + preferred_flat:
+        if not skill:
+            continue
+        key = str(skill).strip().lower()
+        if key and key not in seen:
+            job_skill_list.append(str(skill).strip())
+            seen.add(key)
 
+    # If there are no job skills to fall back on, return empty as-is
+    if not job_skill_list:
+        return recommendations
 
-if __name__ == "__main__":
+    fallback_recommendations = recommend_courses_for_job_skills(
+        job_skills=job_skill_list,
+        require_free=False,
+        require_paid=False,
+        max_free=1,
+        max_paid=1,
+    )
 
-    main()
+    return fallback_recommendations
