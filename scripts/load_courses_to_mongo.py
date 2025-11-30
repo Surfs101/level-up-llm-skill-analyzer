@@ -9,10 +9,9 @@ MONGO_URI = os.getenv("MONGO_URI")
 DB_NAME = os.getenv("MONGO_DB_NAME", "aijs_capstone")
 
 # Separate collections for each course type
-FREE_UDEMY_COLLECTION = "free_udemy_courses"
 PAID_UDEMY_COLLECTION = "paid_udemy_courses"
-FREE_COURSERA_COLLECTION = "free_coursera_courses"
 PAID_COURSERA_COLLECTION = "paid_coursera_courses"
+FREE_YOUTUBE_COLLECTION = "free_youtube_courses"
 
 
 def load_csv_to_mongo(csv_path, collection_name, db, clear_first=True):
@@ -63,45 +62,22 @@ def main():
     db = client[DB_NAME]
     print(f"Connected to database: {DB_NAME}")
 
-    # Load all course files into separate collections
-    # 1) Free Udemy courses
-    load_csv_to_mongo("data/free_udemy_courses.csv", FREE_UDEMY_COLLECTION, db, clear_first=True)
+    # Load course files into separate collections
+    # Note: Other course types (Udemy, Coursera) are already loaded, so skipping them
     
-    # 2) Paid Udemy courses
-    load_csv_to_mongo("data/paid_udemy.csv", PAID_UDEMY_COLLECTION, db, clear_first=True)
-    
-    # 3) Free Coursera courses (use chunks if large)
+    # Load Free YouTube courses
     try:
-        # Try to check file size first
-        file_size = os.path.getsize("data/free_coursera_Courses.csv")
-        if file_size > 10 * 1024 * 1024:  # If larger than 10MB, use chunks
-            load_large_csv_in_chunks("data/free_coursera_Courses.csv", FREE_COURSERA_COLLECTION, db, clear_first=True)
-        else:
-            load_csv_to_mongo("data/free_coursera_Courses.csv", FREE_COURSERA_COLLECTION, db, clear_first=True)
+        load_csv_to_mongo("data/free_youtube.csv", FREE_YOUTUBE_COLLECTION, db, clear_first=True)
     except Exception as e:
-        print(f"Warning loading free Coursera: {e}")
-        load_csv_to_mongo("data/free_coursera_Courses.csv", FREE_COURSERA_COLLECTION, db, clear_first=True)
-    
-    # 4) Paid Coursera courses (use chunks if large)
-    try:
-        file_size = os.path.getsize("data/paid_coursera.csv")
-        if file_size > 10 * 1024 * 1024:  # If larger than 10MB, use chunks
-            load_large_csv_in_chunks("data/paid_coursera.csv", PAID_COURSERA_COLLECTION, db, clear_first=True)
-        else:
-            load_csv_to_mongo("data/paid_coursera.csv", PAID_COURSERA_COLLECTION, db, clear_first=True)
-    except Exception as e:
-        print(f"Warning loading paid Coursera: {e}")
-        # Try chunks as fallback
-        load_large_csv_in_chunks("data/paid_coursera.csv", PAID_COURSERA_COLLECTION, db, clear_first=True)
+        print(f"Warning loading free YouTube: {e}")
     
     # Print summary
     print("\n" + "="*60)
-    print("📊 Loading Summary")
+    print("📊 Database Summary")
     print("="*60)
-    print(f"Free Udemy courses: {db[FREE_UDEMY_COLLECTION].count_documents({}):,}")
     print(f"Paid Udemy courses: {db[PAID_UDEMY_COLLECTION].count_documents({}):,}")
-    print(f"Free Coursera courses: {db[FREE_COURSERA_COLLECTION].count_documents({}):,}")
     print(f"Paid Coursera courses: {db[PAID_COURSERA_COLLECTION].count_documents({}):,}")
+    print(f"Free YouTube courses: {db[FREE_YOUTUBE_COLLECTION].count_documents({}):,}")
     print("="*60)
 
 

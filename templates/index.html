@@ -1169,6 +1169,99 @@
             }
         }
         
+        // Helper function to limit description to 5 lines for free courses
+        function limitDescriptionToLines(text, maxLines, isFree) {
+            if (!text || !isFree) return text;
+            
+            const lines = text.split('\n');
+            
+            // If it's a single long line without breaks, limit by character count (~400 chars = ~5 lines)
+            if (lines.length === 1 && text.length > 400) {
+                let limited = text.substring(0, 400);
+                // Try to cut at last word boundary
+                const lastSpace = limited.lastIndexOf(' ');
+                if (lastSpace > 350) {
+                    limited = limited.substring(0, lastSpace);
+                }
+                return limited + '...';
+            }
+            
+            // If there are actual line breaks, limit to maxLines
+            if (lines.length > maxLines) {
+                return lines.slice(0, maxLines).join('\n') + '...';
+            }
+            
+            return text;
+        }
+        
+        // Helper function to parse steps from phase outline
+        function parsePhaseSteps(outline) {
+            if (!outline) return [];
+            
+            // Try to split by "Step X:" pattern (case insensitive, with optional spacing)
+            const stepPattern = /Step\s+\d+\s*:/gi;
+            const steps = [];
+            let lastIndex = 0;
+            let match;
+            
+            // Find all Step X: matches
+            const regex = new RegExp(stepPattern.source, 'gi');
+            const matches = [];
+            while ((match = regex.exec(outline)) !== null) {
+                matches.push({
+                    index: match.index,
+                    text: match[0]
+                });
+            }
+            
+            if (matches.length > 0) {
+                // Split by Step X: patterns
+                for (let i = 0; i < matches.length; i++) {
+                    const currentMatch = matches[i];
+                    const nextMatch = matches[i + 1];
+                    
+                    // Get text from current match to next match (or end)
+                    const startIndex = currentMatch.index;
+                    const endIndex = nextMatch ? nextMatch.index : outline.length;
+                    
+                    // Include the step label and its content
+                    const stepContent = outline.substring(startIndex, endIndex).trim();
+                    if (stepContent) {
+                        steps.push(stepContent);
+                    }
+                }
+                
+                if (steps.length > 0) {
+                    return steps;
+                }
+            }
+            
+            // Try numbered list pattern (1. 2. 3. etc.) at start of line
+            const numberedPattern = /(?:^|\n)\s*\d+\.\s+/gm;
+            const numberedMatches = [];
+            while ((match = numberedPattern.exec(outline)) !== null) {
+                numberedMatches.push(match.index);
+            }
+            
+            if (numberedMatches.length > 1) {
+                const numberedSteps = [];
+                for (let i = 0; i < numberedMatches.length; i++) {
+                    const startIndex = numberedMatches[i];
+                    const endIndex = numberedMatches[i + 1] || outline.length;
+                    const stepContent = outline.substring(startIndex, endIndex).trim();
+                    if (stepContent) {
+                        numberedSteps.push(stepContent);
+                    }
+                }
+                if (numberedSteps.length > 0) {
+                    return numberedSteps;
+                }
+            }
+            
+            // If no clear step pattern, return as single step
+            return [outline];
+        }
+        
         // Function to render skill analyzer results
         function renderSkillAnalyzerResults(data) {
             let html = '';
@@ -1302,7 +1395,9 @@
                     html += '<div class="project-detail"><strong>Cost:</strong> ' + escapeHtml(course.cost || (course.label === 'Free Course' ? 'Free' : 'N/A')) + '</div>';
                     
                     if (course.description) {
-                        html += '<div class="project-description"><strong>Description:</strong><br>' + escapeHtml(course.description) + '</div>';
+                        const isFreeCourse = course.label === 'Free Course' || course.cost === 'Free';
+                        const limitedDescription = limitDescriptionToLines(course.description, 5, isFreeCourse);
+                        html += '<div class="project-description"><strong>Description:</strong><br>' + escapeHtml(limitedDescription) + '</div>';
                     }
                     
                     if (course.skills_covered && course.skills_covered.length > 0) {
@@ -1373,8 +1468,16 @@
                         }
                         
                         if (project.implementation_phases && project.implementation_phases.length > 0) {
+                            const phasesId = 'implementation-phases-' + projectId;
                             html += '<div class="project-detail">';
-                            html += '<strong>Implementation Phases:</strong>';
+                            html += '<div class="skills-header collapsed" id="' + phasesId + '-header" onclick="toggleSkillsSection(\'' + phasesId + '\')">';
+                            html += '<div style="display: flex; align-items: center; gap: 10px;">';
+                            html += '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"></path><path d="M14 2V8H20"></path><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H9H8"></path></svg>';
+                            html += '<div><div class="skills-header-title">Implementation Phases</div></div>';
+                            html += '</div>';
+                            html += '<div class="arrow-icon" style="color: var(--accent-primary);">►</div>';
+                            html += '</div>';
+                            html += '<div id="' + phasesId + '" class="section-content collapsed">';
                             html += '<div style="margin-top: 12px;">';
                             project.implementation_phases.forEach((phase, phaseIdx) => {
                                 const phaseName = typeof phase === 'object' ? phase.phase : phase;
@@ -1382,10 +1485,23 @@
                                 html += '<div style="margin-bottom: 16px; padding: 12px; background: var(--bg-secondary); border-radius: 6px; border-left: 3px solid var(--accent-primary);">';
                                 html += '<strong style="color: var(--accent-primary); display: block; margin-bottom: 6px;">' + escapeHtml(phaseName || 'Phase ' + (phaseIdx + 1)) + '</strong>';
                                 if (phaseOutline) {
-                                    html += '<div style="color: var(--text-secondary); line-height: 1.6;">' + escapeHtml(phaseOutline) + '</div>';
+                                    // Parse steps and display each on a separate line
+                                    const steps = parsePhaseSteps(phaseOutline);
+                                    html += '<div style="color: var(--text-secondary); line-height: 1.6;">';
+                                    steps.forEach((step, stepIdx) => {
+                                        if (steps.length > 1) {
+                                            // Display each step on a separate line with proper formatting
+                                            html += '<div style="margin-bottom: 8px; padding-left: 8px;">' + escapeHtml(step.trim()) + '</div>';
+                                        } else {
+                                            // Single step, display normally
+                                            html += escapeHtml(step.trim());
+                                        }
+                                    });
+                                    html += '</div>';
                                 }
                                 html += '</div>';
                             });
+                            html += '</div>';
                             html += '</div>';
                             html += '</div>';
                         }

@@ -13,7 +13,7 @@ from openai import OpenAI
 # Load environment variables
 load_dotenv()
 
-PLATFORM_WHITELIST = {"DeepLearning.AI", "Udemy", "Coursera"}
+PLATFORM_WHITELIST = {"DeepLearning.AI", "Udemy", "Coursera", "YouTube"}
 
 # MongoDB connection settings
 # Support both old (MONGODB_URI) and new (MONGO_URI) environment variable names for compatibility
@@ -22,10 +22,9 @@ MONGODB_URI = os.getenv("MONGO_URI") or os.getenv("MONGODB_URI", "mongodb://loca
 # Default to "aijs_capstone" to match the loading script, but fallback to "courses_db" for backward compatibility
 DB_NAME = os.getenv("MONGO_DB_NAME", "aijs_capstone")
 # Separate collections for each course type
-FREE_UDEMY_COLLECTION = "free_udemy_courses"
 PAID_UDEMY_COLLECTION = "paid_udemy_courses"
-FREE_COURSERA_COLLECTION = "free_coursera_courses"
 PAID_COURSERA_COLLECTION = "paid_coursera_courses"
+FREE_YOUTUBE_COLLECTION = "free_youtube_courses"
 
 
 # ---------- MongoDB Connection ----------
@@ -79,7 +78,14 @@ def normalize_duration(duration_value, platform: str) -> str:
     if duration_value is None:
         return "N/A"
     if isinstance(duration_value, (int, float)):
-        if platform == "Udemy":
+        if platform == "YouTube":
+            # YouTube has duration in minutes, convert to hours
+            hours = duration_value / 60
+            if hours >= 1:
+                return f"{hours:.1f} hours" if hours != int(hours) else f"{int(hours)} hour{'s' if hours > 1 else ''}"
+            else:
+                return f"{int(duration_value)} minute{'s' if duration_value > 1 else ''}"
+        elif platform == "Udemy":
             return f"{duration_value} hours"
         else:
             return f"{duration_value} weeks"
@@ -260,7 +266,7 @@ Make sure to:
 
 def fetch_all_courses_from_mongo(skills: List[str], min_courses: int = 50) -> List[Dict]:
     """
-    Fetch ALL courses (free + paid, Udemy + Coursera) from MongoDB.
+    Fetch ALL courses (paid Udemy + paid Coursera + free YouTube) from MongoDB.
     Returns raw course documents without LLM matching.
     
     Args:
@@ -277,6 +283,7 @@ def fetch_all_courses_from_mongo(skills: List[str], min_courses: int = 50) -> Li
         return all_courses
     
     # Build search query for skills (search in title and description)
+    # YouTube uses "title" and "description", Udemy/Coursera use various field names
     skill_keywords = [skill.lower() for skill in skills[:10]]  # Limit to top 10 skills
     search_query = {
         "$or": [
@@ -287,25 +294,31 @@ def fetch_all_courses_from_mongo(skills: List[str], min_courses: int = 50) -> Li
         ]
     }
     
-    courses_per_collection = max(15, min_courses // 4)  # Distribute across 4 collections
+    courses_per_collection = max(15, min_courses // 3)  # Distribute across 3 collections
     
     # Fetch from all collections
     collections = [
-        (FREE_UDEMY_COLLECTION, "Udemy", "Free"),
         (PAID_UDEMY_COLLECTION, "Udemy", "Paid"),
-        (FREE_COURSERA_COLLECTION, "Coursera", "Free"),
         (PAID_COURSERA_COLLECTION, "Coursera", "Paid"),
+        (FREE_YOUTUBE_COLLECTION, "YouTube", "Free"),
     ]
     
     for collection_name, platform, cost_type in collections:
         try:
             # Fetch courses related to skills
-            courses = list(db[collection_name].find(search_query).sort("rating", -1).limit(courses_per_collection))
-            
-            # If not enough, fetch more general courses
-            if len(courses) < courses_per_collection:
-                additional = list(db[collection_name].find({}).sort("rating", -1).limit(courses_per_collection - len(courses)))
-                courses.extend(additional)
+            # YouTube doesn't have rating field, so handle sorting differently
+            if platform == "YouTube":
+                courses = list(db[collection_name].find(search_query).limit(courses_per_collection))
+                # If not enough, fetch more general courses
+                if len(courses) < courses_per_collection:
+                    additional = list(db[collection_name].find({}).limit(courses_per_collection - len(courses)))
+                    courses.extend(additional)
+            else:
+                courses = list(db[collection_name].find(search_query).sort("rating", -1).limit(courses_per_collection))
+                # If not enough, fetch more general courses
+                if len(courses) < courses_per_collection:
+                    additional = list(db[collection_name].find({}).sort("rating", -1).limit(courses_per_collection - len(courses)))
+                    courses.extend(additional)
             
             # Add platform and cost metadata
             for course in courses:
@@ -327,7 +340,7 @@ def fetch_all_courses_from_mongo(skills: List[str], min_courses: int = 50) -> Li
         if not title or title.lower() == "nan":
             continue
         
-        # For Coursera, deduplicate; for Udemy, keep all
+        # For Coursera, deduplicate; for Udemy and YouTube, keep all
         if course["_platform"] == "Coursera":
             if title not in course_dict:
                 course_dict[title] = course
@@ -338,7 +351,7 @@ def fetch_all_courses_from_mongo(skills: List[str], min_courses: int = 50) -> Li
                 if new_rating > existing_rating:
                     course_dict[title] = course
         else:
-            # For Udemy, add directly (no deduplication needed)
+            # For Udemy and YouTube, add directly (no deduplication needed)
             if title not in course_dict:
                 course_dict[title] = course
     
@@ -383,8 +396,9 @@ def format_course_for_output(course: Dict, platform: str) -> Dict:
     )
     
     # Extract duration from various possible field names
-    duration_raw = (course.get("content_duration") or course.get("duration") or
-                   course.get("Duration") or course.get("Content Duration"))
+    # YouTube uses "duration_minutes", others use various field names
+    duration_raw = (course.get("duration_minutes") or course.get("content_duration") or 
+                   course.get("duration") or course.get("Duration") or course.get("Content Duration"))
     duration = normalize_duration(duration_raw, platform)
     
     # Extract level/difficulty from various possible field names
