@@ -1,0 +1,5 @@
+Senior Backend Engineer with 6 years building services in Python.
+Built APIs with FastAPI and Django; data in postgres and redis.
+Containerized with Docker and ran them on k8s. CI/CD via GitHub Actions.
+Strong on microservices and distributed systems. Mentored two juniors
+and ran sprint planning with stakeholders.

@@ -1,0 +1,65 @@
+Ahmed Ali
+DATA SCIENTIST | MACHINE LEARNING | ANALYTICS
+(929) 786-6553 | ahmedkali841@gmail.com | New York, NY | GitHub | LinkedIn | Portfolio
+Queens College, City University of New York (CUNY), Flushing, NY
+Bachelor of Science in Computer Science
+Relevant Coursework:
+Graduation: Dec 2025
+Data Science, Machine Learning, Probability & Mathematical Statistics, Database Systems, Algorithms
+SKILLS
+Languages: Python, SQL, Java, JavaScript, TypeScript, C++
+ML & Statistics: Scikit-learn, XGBoost, LightGBM, PyTorch, Prophet, SMOTE, SHAP, MLflow, statsmodels, NumPy, pandas, SciPy
+MLOps & Deployment: FastAPI, Docker, Docker Compose, Prometheus, Grafana, GitHub Actions, Hugging Face Spaces
+Data Infrastructure: PostgreSQL, Streamlit, Plotly, Tableau, Power BI, Looker Studio, testcontainers
+SELECTED PROJECTS
+Credit Card Fraud Detection
+Jan 2026 – Mar 2026
+Python, Pandas, Scikit-learn, XGBoost, LightGBM, SMOTE, SHAP, MLflow, FastAPI, Streamlit, Hugging Face Spaces  |  GitHub | Live
+• Constructed a live, end-to-end ML pipeline catching fraud across 284,807 transactions without blocking real customers.
+• Compared 6 models and tuned XGBoost to 0.9779 AUC-ROC, the strongest of the set.
+• Calibrated the alert threshold to flag just 8 false alarms across 56,864 real transactions at 90.7% precision.
+• Applied SMOTE to the training data only, correcting the severe 0.17% fraud imbalance without leaking test data.
+• Served a plain-English SHAP explanation with each prediction, showing the top 5 drivers behind every fraud flag.
+DemandIQ: Retail Demand Forecasting
+Mar 2026 – May 2026
+Python, Pandas, NumPy, statsmodels, Scikit-learn, XGBoost, PyTorch, Prophet, SARIMA, MLflow, Streamlit, Plotly  |  GitHub | Live
+• Built a demand-forecasting system across 500 store-item series to help retailers right-size inventory.
+• Benchmarked 5 forecasting models (Prophet, SARIMA, XGBoost, LSTM) and cut forecast error 18.7% below baseline.
+• Implemented step-by-step forecasting that predicts one day at a time, mirroring how the model runs in production.
+• Engineered 16 time-series features (holidays, weekly lags, rolling averages) designed to avoid peeking at future data.
+• Projected $655K in annual inventory savings by running forecast gains through an overstock/stockout cost model.
+MLOps Support-Ticket Classifier
+Dec 2025 – Jan 2026
+Python, Scikit-learn, MLflow, FastAPI, Docker, Docker Compose, Prometheus, Grafana, GitHub Actions, Streamlit  |  GitHub | Live
+• Productionized a ticket-routing system that replaces slow manual triage, sorting into 5 categories at 82.5% accuracy.
+• Launched the model as a web API serving up to 100 tickets per request, each with a confidence score.
+• Wired an automatic gate that promotes a challenger only when it beats the live model’s 0.82 F1.
+• Instrumented the service with Prometheus and Grafana, tracking speed, errors, and drift every 15 seconds.
+• Containerized 4 services (API, MLflow, Prometheus, Grafana) into one Docker stack run with a single command.
+Hospital Patient-Experience Analytics
+Apr 2026 – Jun 2026
+Python, SQL, PostgreSQL, psycopg, tenacity, gspread, pytest, testcontainers, Looker Studio  |  GitHub
+• Designed a pipeline that turns 398K raw CMS API records into clear hospital rankings.
+• Streamed a 325K-row survey file into a PostgreSQL database in just 28 seconds.
+• Modeled a 0–100 patient-experience score from 8 survey areas, skipping hospitals with too little data.
+• Verified the score against official CMS star ratings and found they closely agree (r ≈ 0.52).
+• Embedded 17 automated tests that spin up a real database to prove the pipeline stays reliable.
+EXPERIENCE
+Sports Media Inc. | Remote
+Data Science Intern
+Jul 2024 – Sep 2024
+• Deployed a TF-IDF + XGBoost sentiment model on 14K+ social comments, surfacing Super Bowl engagement trends.
+• Ran EDA on MLB and NFL surveys, automating reporting to cut turnaround 30% across 20 decks.
+• Standardized GA4 tracking and KPI reporting, saving 15 hours/week and improving tagging compliance 25%.
+CUNY Tech Prep | New York, NY
+Jul 2025 – Present
+Data Science Fellow
+• Selected for a competitive data science fellowship (<100 accepted across 11 CUNY senior colleges).
+• Trained weekly in EDA, feature engineering, statistical modeling, visualization, and machine learning workflows.
+• Authored the SkillBridge.AI capstone for resume-job fit, skill-gap detection, and course recommendations.
+DoorDash | Long Island City, NY
+Operations Associate
+• QA-tested internal dispatch tools daily, preventing 15–20% of order issues before dispatch.
+Apr 2023 – Jul 2025
+• Reproduced bugs during daily operations and reported instantly, cutting issue turnaround time 30%.
+• Escalated bugs via Jira and Slack with severity tags, boosting triage response 60%

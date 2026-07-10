@@ -1,0 +1,113 @@
+Senior Software Engineer, AI Solutions- job post
+Uncommon Schools
+2.8
+2.8 out of 5 stars
+New York, NY•Hybrid work
+$120,700 - $142,000 a year - Full-time
+Responded to 75% or more applications in the past 30 days, typically within 1 day.
+Job details
+Here’s how the job details align with your profile.
+Pay
+
+$120,700 - $142,000 a year
+Job type
+
+Full-time
+Shift and schedule
+
+On call
+&nbsp;
+Benefits
+Pulled from the full job description
+
+403(b) matching
+403(b)
+Health insurance
+Paid time off
+Vision insurance
+Health savings account
+Dental insurance
+&nbsp;
+Full job description
+Company Description
+
+Uncommon Schools is a nonprofit network of high-performing public charter schools dedicated to providing an exceptional K-12 education in economically disadvantaged communities. Operating in Boston, Camden, New York City, Newark, and Rochester, we are committed to closing the college completion gap and preparing every student for college and beyond. Our students consistently exceed national benchmarks, reflecting our dedication to their success. We invest deeply in our educators, offering weekly coaching, feedback, and professional development to ensure excellence in teaching and leadership. Join us to work hard, do good, and make a lasting difference!
+
+
+Job Description
+
+Are you passionate about building AI systems that solve real operational challenges within the education sector? We're looking for a Senior Software Engineer to lead the vision setting for and deployment of AI solutions across Uncommon Schools—from intelligent agents that automate workflows to secure integrations with our core systems. In this role, you'll translate business needs into scalable AI infrastructure, mentor developers across functions, and help shape how our organization leverages generative AI. Your work will directly impact how thousands of educators and administrators work each day.
+
+Duties & Responsibilities
+
+Solution Vision & Architecture
+
+Gather requirements from stakeholders across Uncommon and translate business challenges into comprehensive technical specifications for end-to-end AI systems
+Design and architect AI solutions including data flows, model selection, and integration patterns that balance innovation with reliability
+Partner with business process owners, product managers, and system managers to align AI capabilities with user needs and organizational goals
+Development & Deployment
+
+Rapidly prototype and build Proofs of Concept and Minimum Viable Products using Large Language Models, Retrieval-Augmented Generation (RAG) pipelines, and AI agent frameworks
+Architect and deploy production-grade AI agents that automate complex workflows while ensuring scalability, observability, and continuous performance monitoring
+Build secure API integrations and data pipelines that allow AI systems to safely interact with core Uncommon databases without errors or data hallucination
+Infrastructure & Enablement
+
+Establish reusable AI stack templates and low-code tools that empower non-technical team members to develop solutions independently
+Maintain comprehensive documentation of AI environments, tools, and data flows to ensure organizational clarity and consistency
+Work with Data & IT product managers to determine implementation pathways and data architecture across systems
+Governance & Continuous Improvement
+
+Develop and maintain a library of "Prompt Blueprints" and best practices for AI implementation across the organization
+Ensure 100% compliance with security audits regarding personally identifiable information handling within AI systems
+Coach and support adjacent teams on AI development methodologies and emerging best practices
+
+Qualifications
+
+Required
+
+Bachelor's degree in Computer Science, Data Science, Engineering, or equivalent professional experience
+7+ years of professional software development experience
+5+ years of hands-on experience building integrations using APIs between applications
+5+ years working with source control and continuous integration tools (such as GitLab)
+Proficiency coding or scripting in at least one programming language (Python, SQL, JavaScript/TypeScript, or Node.js)
+Experience with frequent, incremental code testing and deployment practices
+Strong understanding of automation tools and SDLC methodologies
+Preferred
+
+Master's degree in Computer Science, Data Science, or related field
+Hands-on experience with AI frameworks such as LangChain, LlamaIndex, TensorFlow, or PyTorch
+Expertise deploying solutions on cloud platforms (AWS Bedrock/SageMaker or Google Cloud Vertex AI)
+Experience working with modern data tooling (e.g., dbt, Airflow) or similar frameworks for data transformation and workflow orchestration is a plus
+Experience designing and optimizing prompts for generative AI models
+Track record mentoring or coaching other developers on technical practices
+
+Additional Information
+
+Compensation
+
+Our people are what make us Uncommon. We offer competitive compensation and comprehensive benefits that support the personal health, wellness, and finances of our staff and their families. Our compensation philosophy values equity & fairness and attracting & retaining top talent.
+
+The full compensation range for this role is $120,700-$142,000. Typically, new hires who fully meet all qualifications listed in the job description will start at $124,300. Starting compensation below this reflects candidates with less experience or qualifications. Offers near the top end of the range are reserved for candidates who significantly exceed the qualifications, bringing extensive experience and specialized expertise beyond what is listed.
+
+Compensation determinations consider relevant professional experience and tenure with Uncommon Schools. Additionally, because we value internal growth and tenure, current staff members are not subject to salary caps within this range.
+
+Benefit Highlights
+
+19 days of paid time off
+3 weeks of paid Winter and Summer org-wide holidays
+Comprehensive Health, Dental, and Vision insurance plans
+403(b) retirement savings program + employer match
+Paid leave of absence options (parental, medical, disability, etc.)
+Mental health and counseling support + wellness benefits
+Pre-tax flexible spending, dependent care, and health saving accounts
+A detailed list of all benefits is located HERE
+Work Environment
+
+Location and Schedule: Uncommon is an in-person organization, with a commitment of at least three days each week at our Central Office in downtown Manhattan (100 Church Street).
+On-call availability: You'll be on-call for data infrastructure emergencies
+Potential after-hours work: Data migrations, emergency pipeline fixes, and critical infrastructure maintenance may occasionally require work outside standard business hours
+Travel: Minimal travel, including quarterly school visits and routine local travel within the region
+Physical requirements: Minimal physical demands; role primarily involves sitting at a desk for extended periods
+At Uncommon, we believe that a supportive and welcoming environment helps our students, staff, and community thrive. We are dedicated to building a team that brings a wide range of perspectives and experiences, reflective of the communities we serve-with over 70% of our staff identifying as people of color. Our organization values respect and open dialogue on important topics that shape our school culture.
+
+As an equal opportunity employer, Uncommon provides equal employment opportunities to all employees and applicants for employment and prohibits discrimination and harassment of any type without regard to race, color, religion, age, sex, national origin, disability status, genetics, protected veteran status, sexual orientation, gender identity or expression, or any other characteristic protected by federal, state or local laws. We also ensure that individuals with disabilities receive all privileges and benefits associated with employment and are provided reasonable accommodations for the interview process and to perform core job functions. If you would like to request an accommodation, please email recruitment@uncommonschools.org.

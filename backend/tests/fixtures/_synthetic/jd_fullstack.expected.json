@@ -1,0 +1,14 @@
+{
+  "skill_ids": [
+    "aws",
+    "backend-development",
+    "express",
+    "frontend-development",
+    "graphql",
+    "node-js",
+    "postgresql",
+    "restful-api",
+    "test-driven-development",
+    "vue-js"
+  ]
+}

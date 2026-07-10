@@ -1,19 +1,19 @@
-# 🚀 skillbridge.AI
+# 🌉 SkillBridge 2.0
 
 <div align="center">
 
-**Your AI-Powered Career Companion**
+**Your AI-Powered Career Companion — from résumé to a concrete, buildable plan**
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online-brightgreen)](https://level-up-llm-skill-analyzer.onrender.com/)
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
-[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
-[![OpenAI](https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white)](https://openai.com/)
-[🌐 Live Website](https://level-up-llm-skill-analyzer.onrender.com/)
+[![Python](https://img.shields.io/badge/Python-3.12-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-green.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-pgvector-4169E1?logo=postgresql&logoColor=white)](https://github.com/pgvector/pgvector)
+[![Redis](https://img.shields.io/badge/Redis-Arq%20worker-DC382D?logo=redis&logoColor=white)](https://redis.io/)
+[![OpenAI](https://img.shields.io/badge/OpenAI-gpt--4o%20%2B%20embeddings-412991?logo=openai&logoColor=white)](https://openai.com/)
 
 </div>
 
@@ -22,45 +22,38 @@
 ## 📋 Table of Contents
 
 - [Overview](#overview)
-- [Demo](#demo)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [System Architecture](#system-architecture)
-- [Usage](#usage)
-- [API Documentation](#api-documentation)
+- [Getting Started](#getting-started)
+- [Configuration](#configuration)
+- [API Reference](#api-reference)
 - [Project Structure](#project-structure)
+- [Deployment](#deployment)
 - [Authors](#authors)
 
 ---
 
 ## 🎯 Overview <a id="overview"></a>
 
-**skillbridge.AI** is an intelligent career development platform that helps students and job seekers identify skill gaps between their résumé and target job positions. Using advanced Large Language Models (LLMs), the platform provides personalized course recommendations, hands-on project ideas, and AI-generated cover letters to help bridge these gaps and land dream internships or new grad positions.
+**SkillBridge 2.0** is an AI-powered career platform that turns a résumé and a
+target job description into a concrete plan to close the gap. It identifies the
+skills you're missing, retrieves the courses that teach them using semantic
+(RAG) search, and generates two portfolio projects that *prove* those skills to
+recruiters. Separately, it surfaces live job postings ranked by how well they
+match your skill set.
+
+This is a full rewrite of the original project: a **Next.js** front end and a
+**FastAPI + async worker** back end, backed by **Postgres/pgvector**, **Redis**,
+and object storage — designed around two cleanly separated pipelines.
 
 ### Key Objectives
 
-- **Skill Gap Analysis**: Automatically identify missing skills required for target positions
-- **Personalized Learning**: Recommend relevant courses from Udemy and Coursera
-- **Project-Based Learning**: Generate actionable project ideas to build missing skills
-- **Cover Letter Generation**: Create tailored cover letters using AI
-
----
-
-## 🎥 Demo <a id="demo"></a>
-
-<div align="center">
-
-### Watch the Demo Video
-
-<a href="https://youtu.be/728sAVC96EI">
-  <img src="https://img.youtube.com/vi/728sAVC96EI/maxresdefault.jpg" alt="skillbridge.AI Demo Video" style="width:100%;max-width:800px;border-radius:8px;">
-</a>
-
-<p><a href="https://youtu.be/728sAVC96EI">▶️ Watch on YouTube</a></p>
-
-**Or visit the live application**: [https://level-up-llm-skill-analyzer.onrender.com/](https://level-up-llm-skill-analyzer.onrender.com/)
-
-</div>
+- **Skill Gap Analysis** — extract and compare skills from résumé vs. job description
+- **RAG Course Recommendations** — semantic retrieval over an embedded course corpus
+- **Portfolio Project Generation** — two LLM-generated projects that build the missing skills
+- **Live Job Matching** — real job postings ranked per user by skill overlap
+- **One Source of Truth** — every skill is normalized through a single canonical taxonomy
 
 ---
 
@@ -68,460 +61,260 @@
 
 ### 🔍 Skill Gap Analyzer
 
-- **Automated Skill Extraction**: Extracts skills from both résumé and job descriptions using LLM
-- **Intelligent Matching**: Compares required vs. available skills with weighted scoring
-- **Visual Analytics**: Displays match percentages, coverage statistics, and gap analysis
-- **Skill Categorization**: Organizes skills into Programming Languages, Frameworks/Libraries, Tools/Platforms, and Soft Skills
+- **LLM Skill Extraction** — pulls skills from both the résumé (PDF/DOCX) and the job description
+- **Canonical Matching** — every skill is normalized through one taxonomy (`data/taxonomy/skills.json`), so "JS", "JavaScript", and "ECMAScript" collapse to one skill
+- **Weighted Scoring** — required vs. preferred coverage with an overall match score
+- **Skill Categorization** — languages, frameworks/libraries, tools/platforms, and concepts
 
-### 📚 Course Recommendations
+### 📚 RAG Course Recommendations
 
-- **Multi-Platform Support**: Searches across Udemy and Coursera databases
-- **Free & Paid Options**: Provides both free and paid course recommendations
-- **Skill-Based Matching**: Matches courses to missing skills with deep search algorithms
-- **Detailed Course Info**: Includes duration, difficulty, ratings, costs, and direct links
+- **Semantic Retrieval** — a course corpus embedded with `text-embedding-3-small` and searched via **pgvector** cosine similarity
+- **Priority-Weighted Ranking** — courses are ranked by how directly they cover your *missing* skills
+- **Top-2 Selection** — a focused, actionable shortlist instead of an overwhelming list
 
-### 🛠️ Project Recommendations
+### 🛠️ Portfolio Project Generation
 
-- **Two-Track Approach**:
-  - **Project 1**: Build with your current skills (immediate portfolio projects)
-  - **Project 2**: Learn missing skills (projects that help you grow)
-- **Comprehensive Details**: Includes tech stack, implementation phases, key features, and portfolio impact
-- **Actionable Outlines**: Step-by-step project breakdowns with specific deliverables
+- **Two LLM-Generated Projects** — each designed to demonstrate the skills you're missing
+- **Buildable Detail** — tech stack, key features, and a phased implementation outline
+- **Saved Plans** — every analysis is persisted and revisitable from your dashboard
 
-### ✍️ AI Cover Letter Generator
+### 💼 Live Job Matching
 
-- **Personalized Content**: Generates job-specific cover letters using your résumé
-- **Template Support**: Accepts custom templates (.txt, .docx, .pdf)
-- **Professional Formatting**: Creates ready-to-use cover letters
-- **One-Click Copy**: Easy copy-to-clipboard functionality
-- **Real-time Progress**: Live progress updates during generation
+- **Greenhouse Job Boards** — refreshed automatically every 6 hours by a background worker
+- **Per-User Ranking** — postings ordered by skill overlap with your profile
+- **Recency Filtering** — stale postings are purged so the feed stays current
 
-### ⚡ Performance Features
+### 🔐 Auth & Platform
 
-- **Request Caching**: Intelligent request deduplication to prevent duplicate processing (60-second TTL)
-- **Streaming Responses**: Server-Sent Events (SSE) for real-time progress updates
-- **Graduate Student Detection**: Automatically detects if a job requires graduate-level education
-- **Multi-format Support**: Handles PDF, DOCX, and TXT files for templates
+- **Google OAuth** — passwordless sign-in, server-side sessions in Redis
+- **Guest Runs** — try an analysis before signing in, with IP-based rate limiting
+- **Async Processing** — long analyses run on an **Arq** worker; the UI polls run status
+- **Observability** — Sentry error tracking and Logfire structured tracing built in
 
 ---
 
 ## 🛠️ Tech Stack <a id="tech-stack"></a>
 
-### Frontend Technologies
+### Frontend
 
-- **HTML5** - Markup language for structuring web pages
-- **CSS3** - Styling and modern design with custom responsive layouts
-- **JavaScript (Vanilla JS)** - Client-side scripting for interactive UI
-- **Jinja2** - Server-side templating engine for dynamic HTML generation
-- **Server-Sent Events (SSE)** - Real-time streaming updates for progress tracking
+- **Next.js 14** (App Router) — marketing, auth, and app routes
+- **React 18** + **TypeScript** — typed, component-driven UI
+- **Tailwind CSS** — utility-first styling, custom responsive layouts
+- **Motion** — animation; **lucide-react** — icons
 
-### Backend Technologies
+### Backend
 
-- **Python 3.8+** - Primary programming language
-- **FastAPI** - Modern, fast web framework for building APIs
-- **Uvicorn** - ASGI server for running FastAPI applications
-- **python-multipart** - File upload handling
+- **Python 3.12** + **FastAPI** — async API server
+- **Arq** — Redis-backed task queue for the analysis jobs and the 6-hour jobs cron
+- **SQLAlchemy 2.0 (async)** + **Alembic** — ORM and versioned migrations
+- **Pydantic v2** / **pydantic-settings** — schemas and typed configuration
+- **httpx** (HTTP/2) — Greenhouse API client
 
-### AI & Machine Learning
+### AI & Data
 
-- **OpenAI API** - GPT models for:
-  - Skill extraction from résumés and job descriptions
-  - Course and project recommendations
-  - AI-powered cover letter generation
-- **OpenAI Python SDK** - Official Python client for OpenAI API
+- **OpenAI** — `text-embedding-3-small` (embeddings) + `gpt-4o` (project generation)
+- **PostgreSQL + pgvector** — relational store *and* vector similarity search
+- **Redis** — task queue, session store, guest-run state, rate-limit counters
+- **Cloudflare R2** (S3-compatible, via **boto3**) — stores extracted résumé text
+- **pypdf** + **python-docx** — résumé/document parsing
 
-### Database
+### Infrastructure
 
-- **MongoDB** - NoSQL database for storing course data
-- **PyMongo** - MongoDB Python driver
-- **MongoDB Atlas** - Cloud database hosting
-
-### Document Processing
-
-- **PDF Processing**:
-  - **PyMuPDF (fitz)** - Fast and efficient PDF parsing
-  - **PyPDF2** - PDF text extraction
-  - **pdfminer.six** - Advanced PDF parsing and text extraction
-- **OCR (Optical Character Recognition)**:
-  - **pytesseract** - Text extraction from scanned documents
-  - **Pillow (PIL)** - Image processing for OCR
-- **Word Documents**:
-  - **python-docx** - Microsoft Word (.docx) file processing
-
-### Data Processing & Utilities
-
-- **pandas** - Data manipulation and analysis for course data
-- **chardet** - Character encoding detection
-- **argparse** - Command-line argument parsing
-
-### Development & Deployment
-
-- **python-dotenv** - Environment variable management
-- **Git & GitHub** - Version control and code repository
-- **Render** - Cloud hosting platform for deployment
-
-### Additional Features
-
-- **Request Deduplication** - In-memory caching to prevent duplicate processing
-- **Progress Callbacks** - Real-time progress tracking during long-running operations
-- **Error Handling** - Comprehensive error handling with detailed error messages
-- **File Validation** - Automatic file type validation and error reporting
+- **Docker** + **docker-compose** — local Postgres + Redis
+- **Railway** — backend web + worker services; **Vercel** — frontend
+- **GitHub Actions** — CI (lint, type-check, tests)
 
 ---
 
 ## 🏗️ System Architecture <a id="system-architecture"></a>
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                        Frontend (Web UI)                     │
-│              HTML/CSS/JavaScript + Jinja2 Templates         │
-└──────────────────────────┬──────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    FastAPI Backend Server                    │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
-│  │   Resume     │  │  Job Skills  │  │   Scoring    │      │
-│  │  Extraction  │  │  Extraction  │  │   Engine    │      │
-│  └──────────────┘  └──────────────┘  └──────────────┘      │
-│                                                               │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
-│  │   Course     │  │   Project    │  │   Cover      │      │
-│  │ Recommender  │  │ Recommender  │  │   Letter     │      │
-│  └──────────────┘  └──────────────┘  └──────────────┘      │
-└───────────┬───────────────────┬───────────────────┬────────┘
-            │                   │                   │
-            ▼                   ▼                   ▼
-    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-    │   OpenAI     │    │   MongoDB    │    │   PDF Parser │
-    │     API      │    │   Database   │    │   Libraries  │
-    └──────────────┘    └──────────────┘    └──────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                     Frontend — Next.js 14                      │
+│        Marketing · Auth (Google) · Dashboard · Analyze         │
+└───────────────────────────────┬──────────────────────────────┘
+                                 │  HTTPS (credentialed / CORS)
+                                 ▼
+┌──────────────────────────────────────────────────────────────┐
+│                    FastAPI API  (web service)                  │
+│   /auth  ·  /analyze  ·  /runs  ·  /dashboard  ·  /jobs        │
+│   /plans ·  /me       ·  /healthz                              │
+└───────┬───────────────────────────────────────┬──────────────┘
+        │ enqueue job                            │ read/write
+        ▼                                        ▼
+┌───────────────────┐                  ┌──────────────────────┐
+│   Arq Worker      │                  │  Postgres + pgvector │
+│  Pipeline 1 (jobs)│◄────────────────►│  data + embeddings   │
+│  Pipeline 2 (cron)│                  └──────────────────────┘
+└───┬───────────┬───┘
+    │           │
+    ▼           ▼
+┌─────────┐ ┌─────────┐   ┌───────────┐   ┌──────────────┐
+│ OpenAI  │ │  Redis  │   │Cloudflare │   │  Greenhouse  │
+│ LLM+emb │ │ queue   │   │ R2 (files)│   │  job boards  │
+└─────────┘ └─────────┘   └───────────┘   └──────────────┘
 ```
 
-### Data Flow
+### Data Flow — Analysis Pipeline
 
 ```
-┌─────────────────────┐
-│   Resume Text       │
-└─────────────────────┘
-         │
-         ▼
-┌─────────────────────┐
-│         │
-│   Extract Skills    │
-└─────────────────────┘
-         │
-         ▼
-         │
-         └─────────────────┐
-                           │
-┌─────────────────────┐    │
-│   Job Text          │    │
-└─────────────────────┘    │
-         │                 │
-         ▼                 │
-┌─────────────────────┐    │
-│                     │    │
-│   Extract Skills    │    │
-└─────────────────────┘    │
-         │                 │
-         ▼                 │    
-         │                 │
-         └────────┬────────┘
-                  │
-                  ▼
-         ┌─────────────────────┐
-         │                     │
-         │   Match & Score     │
-         └─────────────────────┘
-                  │
-                  ▼
-         ┌─────────────────────┐
-         │ match_scores        │
-         └─────────────────────┘
-                  │
-         ┌────────┴────────┐
-         │                 │
-         ▼                 │
-┌─────────────────────┐    │
-│                     │    │
-│   Recommend         │    │
-│   Courses           │    │
-└─────────────────────┘    │
-         │                 │
-         ▼                 │   
-         │                 │
-         └────────┬────────┘
-                  │
-                  ▼
-         ┌─────────────────────┐
-         │                     │
-         │   Recommend         │
-         │   Projects          │
-         └─────────────────────┘
-                  │
-                  │
-                  ▼
-         ┌─────────────────────┐
-         │ final_report         │
-         └─────────────────────┘
+  Résumé (PDF/DOCX)        Job Description
+        │                        │
+        ▼                        ▼
+   Extract & normalize skills (LLM → canonical taxonomy)
+        │                        │
+        └───────────┬────────────┘
+                    ▼
+            Skill diff + weighted match score
+                    ▼
+         RAG course retrieval (pgvector)  →  priority-weighted top-2
+                    ▼
+         LLM generates 2 portfolio projects (gpt-4o)
+                    ▼
+              Saved plan  →  Dashboard
 ```
 
-1. **Input**: User uploads PDF résumé and pastes job description
-2. **Parsing**: PDF text extraction using multiple parsing methods
-3. **Skill Extraction**: LLM extracts and categorizes skills from both documents
-4. **Comparison**: Skills are compared to identify gaps
-5. **Scoring**: Match scores calculated (overall, required, preferred)
-6. **Recommendations**: 
-   - Courses fetched from MongoDB based on missing skills
-   - Projects generated using LLM
-7. **Output**: Comprehensive report with all recommendations
+1. **Input** — user uploads a résumé and pastes a job description
+2. **Parse** — text extracted from PDF/DOCX and stored in R2
+3. **Extract** — LLM pulls skills from both, normalized to the canonical taxonomy
+4. **Diff & Score** — required/preferred coverage and an overall match score
+5. **Retrieve** — missing skills drive a pgvector search over the course corpus
+6. **Generate** — two portfolio projects are produced for the gap
+7. **Persist** — the full plan is saved and shown on the dashboard
+
+### Jobs Pipeline
+
+A background cron refreshes Greenhouse boards every 6 hours, extracts and
+normalizes each posting's skills, upserts them, purges stale rows, and serves a
+per-user ranked feed at `/jobs`.
 
 ---
 
-## 🚀 Usage <a id="usage"></a>
+## 🚀 Getting Started <a id="getting-started"></a>
 
-### Web Interface
+**Prerequisites:** [Docker](https://docs.docker.com/get-docker/),
+[uv](https://docs.astral.sh/uv/), and [Node.js 18+](https://nodejs.org/).
 
-Visit the [live application](https://level-up-llm-skill-analyzer.onrender.com/) and:
-
-1. **Skill Gap Analyzer Tab**:
-   - Upload your PDF résumé
-   - Paste the job description
-   - Click "Analyze Match"
-   - Watch real-time progress updates as the system processes your request
-   - View comprehensive skill gap analysis with:
-     - Overall match score and coverage statistics
-     - Required and preferred skills breakdown
-     - Course recommendations (free and paid options)
-     - Project recommendations (build with current skills vs. learn missing skills)
-     - Graduate student job detection warnings
-
-2. **Cover Letter Generator Tab**:
-   - Upload your PDF résumé
-   - Paste the job description
-   - Optionally upload a cover letter template (.txt, .docx, or .pdf)
-   - Click "Generate Cover Letter"
-   - Watch real-time progress updates during generation
-   - Copy the generated cover letter with one click
-
-### API Endpoints
-
-#### Homepage
-
-**GET** `/`
-- Returns the main web interface with tabs for Skill Gap Analyzer and Cover Letter Generator
-
-#### Skill Gap Analysis
-
-**POST** `/analyze` (SSE Streaming)
-- **Content-Type**: `multipart/form-data`
-- **Parameters**:
-  - `resume` (file, required): PDF resume file
-  - `job_text` (string, required): Job description text
-- **Response**: Server-Sent Events stream with progress updates and final JSON result
-- **Features**: Request caching, real-time progress tracking
+### 1. Backend
 
 ```bash
-curl -X POST "https://level-up-llm-skill-analyzer.onrender.com/analyze" \
-  -F "resume=@your_resume.pdf" \
-  -F "job_text=Your job description here"
+cd backend
+uv sync                                 # install Python deps into .venv
+cp .env.example .env                    # fill in real values (see Configuration)
+docker compose up -d                    # start Postgres + Redis locally
+uv run alembic upgrade head             # apply database migrations
+uv run uvicorn app.main:app --reload    # serve the API on http://localhost:8000
 ```
 
-#### Cover Letter Generation
-
-**POST** `/cover-letter` (SSE Streaming)
-- **Content-Type**: `multipart/form-data`
-- **Parameters**:
-  - `resume` (file, required): PDF resume file
-  - `job_text` (string, required): Job description text
-  - `template` (file, optional): Cover letter template (.txt, .docx, or .pdf)
-- **Response**: Server-Sent Events stream with progress updates and final cover letter
+In a second terminal, start the worker (analysis jobs + the 6-hour jobs cron):
 
 ```bash
-curl -X POST "https://level-up-llm-skill-analyzer.onrender.com/cover-letter" \
-  -F "resume=@your_resume.pdf" \
-  -F "job_text=Your job description here" \
-  -F "template=@template.txt"  # Optional
+cd backend
+uv run arq app.workers.settings.WorkerSettings
 ```
 
-#### Health Check
+Health check: `curl http://localhost:8000/healthz` → `{"status":"ok"}`
 
-**GET** `/health`
-- Returns service health status
-- **Response**: `{"status": "healthy", "service": "Resume-Job Match Analyzer"}`
+### 2. Frontend
+
+```bash
+cd frontend
+npm install
+cp .env.local.example .env.local        # NEXT_PUBLIC_API_URL defaults to :8000
+npm run dev                             # serve the app on http://localhost:3000
+```
+
+Open **http://localhost:3000**.
 
 ---
 
-## 📚 API Documentation <a id="api-documentation"></a>
+## ⚙️ Configuration <a id="configuration"></a>
 
-### Response Format
+Both apps are configured via env files — only the `.example` templates are
+committed; real secrets never are.
 
-#### Skill Gap Analysis Response (SSE Stream)
+- **`backend/.env`** — Postgres/Redis URLs, `OPENAI_API_KEY`, Cloudflare R2
+  credentials, Google OAuth client ID/secret, `SESSION_SECRET`, and cookie/CORS
+  settings. Every variable is documented inline in
+  [`backend/.env.example`](backend/.env.example).
+- **`frontend/.env.local`** — `NEXT_PUBLIC_API_URL`, the backend's base URL.
 
-The `/analyze` endpoint returns Server-Sent Events (SSE) with the following message types:
+---
 
-**Progress Messages:**
-```json
-{
-  "type": "progress",
-  "message": "Extracting skills from resume..."
-}
-```
+## 📚 API Reference <a id="api-reference"></a>
 
-**Complete Response:**
-```json
-{
-  "type": "complete",
-  "data": {
-    "overall_score": {
-      "weighted_score": 75.5,
-      "total_skills": 20,
-      "matched_skills": 15
-    },
-    "required_skills": {
-      "total_count": 10,
-      "covered_count": 8,
-      "match_score": 80.0,
-      "covered_skills": ["Python", "FastAPI", "MongoDB"],
-      "missing_skills": ["Docker", "Kubernetes"]
-    },
-    "preferred_skills": {
-      "total_count": 10,
-      "covered_count": 7,
-      "match_score": 70.0,
-      "covered_skills": ["React", "TypeScript"],
-      "missing_skills": ["AWS", "GraphQL", "Redis"]
-    },
-    "course_recommendations": {
-      "free_courses": [
-        {
-          "title": "Course Title",
-          "platform": "Udemy",
-          "duration": "10 hours",
-          "difficulty": "Intermediate",
-          "cost": "Free",
-          "link": "https://...",
-          "skills_covered": ["Python", "FastAPI"],
-          "description": "...",
-          "why_efficient": "..."
-        }
-      ],
-      "paid_courses": [
-        {
-          "title": "Course Title",
-          "platform": "Coursera",
-          "duration": "20 hours",
-          "difficulty": "Advanced",
-          "cost": "$49.99",
-          "link": "https://...",
-          "skills_covered": ["Docker", "Kubernetes"],
-          "description": "...",
-          "why_efficient": "..."
-        }
-      ],
-      "skill_coverage": {...},
-      "coverage_percentage": 75
-    },
-    "project_recommendations": {
-      "Track Name": [
-        {
-          "title": "Project Name",
-          "description": "...",
-          "difficulty": "Intermediate",
-          "estimated_time": "2-3 weeks",
-          "tech_stack": ["Python", "FastAPI", "MongoDB"],
-          "key_features": ["Feature 1", "Feature 2"],
-          "skills_demonstrated": ["Skill 1", "Skill 2"],
-          "technologies": ["Tech 1", "Tech 2"],
-          "project_outline": "High-level overview",
-          "implementation_phases": [
-            {
-              "phase": "Phase 1: Setup",
-              "details": "Detailed steps..."
-            }
-          ],
-          "portfolio_impact": "...",
-          "bonus_challenges": ["Challenge 1", "Challenge 2"]
-        }
-      ]
-    },
-    "is_grad_student_job": false
-  }
-}
-```
+Interactive docs are auto-generated by FastAPI at **`/docs`** (Swagger UI) and
+**`/redoc`** when the server is running.
 
-**Error Response:**
-```json
-{
-  "type": "error",
-  "message": "Error description here"
-}
-```
-
-#### Cover Letter Response (SSE Stream)
-
-The `/cover-letter` endpoint returns Server-Sent Events (SSE) with similar structure:
-
-**Progress Messages:**
-```json
-{
-  "type": "progress",
-  "message": "Extracting personal information from resume..."
-}
-```
-
-**Complete Response:**
-```json
-{
-  "type": "complete",
-  "data": {
-    "cover_letter": "Generated cover letter text here..."
-  }
-}
-```
-
-### Interactive API Documentation
-
-FastAPI automatically generates interactive API documentation:
-- **Swagger UI**: Available at `/docs` when running locally
-- **ReDoc**: Available at `/redoc` when running locally
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `GET` | `/healthz` · `/readyz` | Liveness / readiness checks |
+| `GET` | `/auth/google/login` | Start Google OAuth sign-in |
+| `GET` | `/auth/google/callback` | OAuth callback |
+| `POST` | `/auth/google/logout` | End the session |
+| `GET` | `/me` | Current authenticated user |
+| `POST` | `/analyze` | Submit a résumé + job description → enqueue an analysis run |
+| `GET` | `/runs/{run_id}` | Poll the status/result of an analysis run |
+| `GET` · `PATCH` | `/dashboard` | Read / update the user's dashboard profile |
+| `GET` | `/plans` · `/plans/{plan_id}` | List / fetch saved plans |
+| `GET` | `/jobs` | Per-user ranked job feed |
 
 ---
 
 ## 📁 Project Structure <a id="project-structure"></a>
 
 ```
-level-up-llm-skill-analyzer/
-├── app_fastapi.py              # Main FastAPI application with SSE streaming
-├── extract_skills.py            # Résumé skill extraction using LLM
-├── extract_job_skills.py        # Job description skill extraction using LLM
-├── score_skills_match.py        # Skill matching and scoring engine
-├── recommend_courses.py         # Course recommendation engine (MongoDB integration)
-├── recommend_projects.py        # Project recommendation generator using LLM
-├── generate_report.py           # Report generation orchestrator
-├── generate_cover_letter.py     # AI-powered cover letter generator
-├── pdf_resume_parser.py         # Multi-method PDF text extraction (PyMuPDF, PyPDF2, pdfminer)
-├── skill_normalization.py      # Skill normalization and canonicalization
-├── check_setup.py               # Setup verification script
-├── requirements.txt             # Python dependencies
-├── README.md                    # Project documentation
-├── CTP_template.txt            # Cover letter template example
-├── scripts/
-│   └── load_courses_to_mongo.py # Script to load course data into MongoDB
-└── templates/
-    ├── index.html               # Main UI template with tabs
-    ├── skill_analyzer.html      # Skill analysis form template
-    └── cover_letter.html        # Cover letter form template
+SkillBridge-2.0/
+├── backend/
+│   ├── app/
+│   │   ├── api/                 # FastAPI routers (analyze, auth, dashboard, jobs, plans, health)
+│   │   ├── auth/                # Google OAuth + sessions
+│   │   ├── pipeline_one/        # Analysis pipeline (ingest → extract → gap → retrieve → generate → persist)
+│   │   ├── pipeline_two/        # Jobs pipeline (fetch → filter → extract → upsert → purge)
+│   │   ├── rag/                 # Embedding + pgvector retrieval
+│   │   ├── llm/                 # OpenAI clients (embeddings, gpt-4o)
+│   │   ├── nlp/                 # Skill extraction + canonical normalization
+│   │   ├── greenhouse/          # Greenhouse job-board client
+│   │   ├── models/              # SQLAlchemy models
+│   │   ├── schemas/             # Pydantic schemas
+│   │   ├── workers/             # Arq worker + cron settings
+│   │   ├── storage/             # Cloudflare R2 (boto3)
+│   │   └── main.py              # App entrypoint
+│   ├── alembic/                 # Database migrations
+│   ├── data/taxonomy/           # Canonical skills.json (single source of truth)
+│   ├── Dockerfile · docker-compose.yml
+│   ├── railway.toml · railway.worker.toml
+│   └── pyproject.toml
+├── frontend/
+│   └── app/                     # Next.js App Router: (marketing) · (auth) · (app)
+├── skills_tax/                  # Skill taxonomy source data & tooling
+└── JD-Resumes_examples/         # Sample job descriptions and résumés
 ```
+
+---
+
+## ☁️ Deployment <a id="deployment"></a>
+
+- **Backend → Railway** — two services (`web` + `worker`) built from one
+  `backend/Dockerfile`, plus managed Postgres (with `pgvector`), Redis, and a
+  Cloudflare R2 bucket. Config-as-code lives in `backend/railway.toml` and
+  `backend/railway.worker.toml`; the full env contract and go-live runbook are in
+  `backend/docs/deploy.md`.
+- **Frontend → Vercel** — set `NEXT_PUBLIC_API_URL` to the deployed backend URL.
+  For cross-origin cookies, the backend needs `COOKIE_SECURE=true`,
+  `COOKIE_SAMESITE=none`, and `FRONTEND_ORIGIN` set to the Vercel URL.
+
+> **Note:** deploying the repo builds the app, but a running instance also needs
+> its secrets set in the platform dashboards and Postgres/Redis/R2 provisioned —
+> see `backend/docs/deploy.md`.
 
 ---
 
 ## 👥 Authors <a id="authors"></a>
 
-- **Ahmed Ali** - [GitHub](https://github.com/AhmedKamal-41)
-- **Surjo Barua** - [GitHub](https://github.com/Surfs101)
-- **Jiayu Ouyang** - [GitHub](https://github.com/3ouyang3)
+- **Ahmed Ali** — [GitHub](https://github.com/AhmedKamal-41)
+- **Surjo Barua** — [GitHub](https://github.com/Surfs101)
+- **Jiayu Ouyang** — [GitHub](https://github.com/3ouyang3)
 - **Ibnan Hasan**
 
 ---
@@ -530,6 +323,6 @@ level-up-llm-skill-analyzer/
 
 **Made with ❤️ for students and job seekers**
 
-[⭐ Star this repo](https://github.com/AhmedKamal-41/level-up-llm-skill-analyzer) | [🌐 Live Demo](https://level-up-llm-skill-analyzer.onrender.com/)
+[⭐ Star this repo](https://github.com/AhmedKamal-41/SkillBridge-2.0)
 
 </div>

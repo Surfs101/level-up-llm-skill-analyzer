@@ -1,0 +1,45 @@
+# CI for the SkillBridge backend.
+#
+# Monorepo note: GitHub Actions only runs workflows found in the REPO ROOT
+# .github/workflows/. This file lives under backend/.github/workflows/ to match
+# the design doc's layout, so it will not auto-run until it is also placed at the
+# repo root. The steps below assume the repo root is the checkout directory and
+# cd into backend/ via the working-directory default.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+defaults:
+  run:
+    working-directory: backend
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Format check
+        run: uv run ruff format --check .
+
+      - name: Type-check
+        run: uv run mypy app/
+
+      - name: Run tests
+        run: uv run pytest

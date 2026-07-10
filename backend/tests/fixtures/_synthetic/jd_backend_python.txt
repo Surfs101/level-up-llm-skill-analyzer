@@ -1,0 +1,4 @@
+We are hiring a Backend Engineer. You will build and operate services in
+Python using FastAPI. Our data layer is postgres with redis for caching.
+Everything runs in Docker on Kubernetes with CI/CD through GitHub Actions.
+Experience with microservices required. Bonus: Go.

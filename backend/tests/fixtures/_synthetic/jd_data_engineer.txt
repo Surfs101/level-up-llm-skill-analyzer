@@ -1,0 +1,3 @@
+Data Engineer. Build ETL with Apache Spark and stream with Apache Kafka.
+Warehouse is Snowflake. Strong SQL and Python. You will own data
+engineering standards across the org.

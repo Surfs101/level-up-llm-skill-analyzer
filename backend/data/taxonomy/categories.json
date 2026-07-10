@@ -1,0 +1,10 @@
+{
+  "language":  {"priority_rank": 1, "description": "Programming languages — learn first; bottleneck for everything else."},
+  "framework": {"priority_rank": 2, "description": "Major frameworks built on a language."},
+  "library":   {"priority_rank": 3, "description": "Libraries called from code."},
+  "database":  {"priority_rank": 3, "description": "Data stores and query engines."},
+  "cloud":     {"priority_rank": 3, "description": "Cloud services and platforms."},
+  "devops":    {"priority_rank": 3, "description": "Build, deploy, CI tooling."},
+  "tool":      {"priority_rank": 3, "description": "Standalone applications."},
+  "technique": {"priority_rank": 4, "description": "Concepts, methodologies, paradigms."}
+}

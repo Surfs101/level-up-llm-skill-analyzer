@@ -1,0 +1,83 @@
+IT Quality Assurance Analyst- job post
+Public Health Solutions
+3.7
+3.7 out of 5 stars
+Long Island City, NY 11101
+$104,030 a year - Full-time
+Job details
+Here’s how the job details align with your profile.
+Pay
+
+$104,030 a year
+Job type
+
+Full-time
+&nbsp;
+Benefits
+Pulled from the full job description
+
+403(b) matching
+403(b)
+Health insurance
+Paid time off
+Vision insurance
+Dental insurance
+Flexible spending account
+&nbsp;
+Full job description
+Company Overview:
+
+With an annual budget of $2.3 billion and more than 7,000 employees throughout the five boroughs, the New York City Department of Health and Mental Hygiene (NYC DOHMH) is one of the largest public health agencies in the world, serving 8 million New Yorkers from diverse ethnic and cultural backgrounds. We're tackling a broad range of public health issues with innovative policies and programs and getting exceptional results, but our work is never finished. The breadth of our innovative programs provides the widest range of choices for every member of our team.
+
+With grant funds from the Centers for Disease Control and Prevention (CDC), DOHMH is undertaking a new initiative that will meet critical infrastructure needs and make possible strategic investments that will have lasting effects on public health. Investments and improvements through this initiative will help modernize DOHMH’s foundational capabilities and data infrastructure, enabling it to partner in complex health and health care environments and, in turn, support better public health outcomes, including COVID-19. This initiative supports larger efforts to rebalance investments in public health and more equitably serve communities and populations.
+
+Program Description:
+
+The agency is embarking on a data modernization initiative to accelerate its data strategy. During the COVID-19 pandemic, data was the life blood of the agency’s response to making informed data-driven decisions and policies that directly impacts the lives of New Yorkers. These included operational data in our vaccination campaign at the Vaccine Hubs, distribution strategy throughout the city’s vaccine infrastructure, as well as health equity data breaking down lab tests, positive cases, hospitalizations, deaths, and vaccination rates by age, place, and race. With grant funding support from the Centers for Disease Control (CDC), DOHMH is embarking on a data modernization initiative to move from siloed and brittle public health data systems to connected, resilient, adaptable, and sustainable systems. This initiative is not just about technology, but also about putting the right people, processes, and policies in place.
+
+NYC DOHMH’s modernization strategy focuses on key areas in data collection, storage, processing (including transformation, standardization, matching, deduplication), data integration and exchange, data analysis and data reporting and visualization
+
+The DMI initiative will allow DOHMH to build up foundational technology capabilities within the Division of Information Technology. This includes increasing capacity, knowledge, and experience with Azure cloud technologies within the broader NYC cloud and cybersecurity infrastructure and all within the context of public health.
+
+Summary of Position:
+
+We are seeking a detail-oriented IT Quality Assurance (QA) Analyst to join our Information Technology team. The successful candidate will be responsible for ensuring the quality and integrity of software products through rigorous testing, documentation, and collaboration with developers and stakeholders. This role focuses on identifying defects early in the development lifecycle to ensure a seamless end-user experience.
+
+Job Duties:
+
+Test Planning: Develop and execute comprehensive test plans, test cases, and scripts based on business requirements and technical specifications.
+Execution: Perform manual and automated testing, including functional, regression, integration, and user acceptance testing (UAT).
+Defect Management: Identify, document, and track software defects to resolution using standard bug-tracking tools.
+Collaboration: Work closely with Developers, Project Managers, and Business Analysts to resolve issues and clarify requirements.
+Quality Standards: Ensure all IT projects meet departmental standards and performance benchmarks before deployment.
+Reporting: Provide detailed status reports on testing progress, results, and overall product quality.
+Qualifications and Requirements:
+
+Technical Proficiency: Experience with automated testing tools (e.g., Selenium, Jira) and SQL for backend data verification.
+Analytical Thinking: Strong problem-solving skills with the ability to identify edge cases and potential system failures.
+Communication: Excellent written and verbal communication skills for drafting technical reports and collaborating with cross-functional teams.
+Experience: A minimum of 4 years of experience in software quality assurance or a related IT field.
+Benefits:
+
+Hybrid Work Schedule.
+Generous Paid Time Off and Holidays.
+An attractive and comprehensive benefits package including Medical, Dental and Vision.
+Flexible Spending Accounts and Commuter Benefits.
+Company Paid Life Insurance and Disability Coverage.
+403 (b) + employer matching and discretionary company contributions.
+College Savings Plan. • Ongoing training and continuous opportunities for professional growth and development.
+Additional Information:
+
+This is a temporary grant-funded position ending in November 2027.
+This individual must reside in the tri-state area (NY, NJ, CT) by their confirmed start date.
+Preference may be given to individuals residing in New York City (5 boroughs) or surrounding New York State counties.
+This individual will be expected to work non-business hours during emergencies.
+At PHS, we place immense value on diversity within our teams, understanding that varied backgrounds and experiences significantly enhance our community and propel us toward our goals. If you find you don’t have experience in all the areas listed above, we still encourage you to apply and share your background and experiences in your application. We are eager to discover how your unique perspective can bring positive transformations to our team and help advance our mission of creating healthier, more equitable communities.
+
+We look forward to learning more about you!
+
+PHS is proud to be an equal opportunity employer and encourages applications from women, people of color, persons with disabilities, LGBTQIA+ individuals, and veterans.
+
+
+Monday-Friday
+35 Hours Per Week

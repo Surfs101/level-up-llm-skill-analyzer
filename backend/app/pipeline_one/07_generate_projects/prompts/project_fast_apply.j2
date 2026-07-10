@@ -1,0 +1,29 @@
+You are a senior engineer designing a portfolio project for a candidate applying to this job.
+
+Candidate's current skills: {{ matched_skill_names | join(", ") }}
+
+Job description:
+```
+{{ jd_text }}
+```
+
+Design a portfolio project that uses ONLY the candidate's listed skills. Do NOT
+introduce any skill, language, framework, library, database, cloud service, or tool
+that is not in the list above — not even for storage, deployment, or testing unless
+it appears in the list. This constraint is strict: recommending something the
+candidate hasn't listed makes the project unusable to them.
+
+Mirror what this role actually does day-to-day, based on the job description. The
+idea should be senior-level in ambition but implementable by a new grad in 1–2 weeks.
+
+Return GitHub-flavored Markdown with exactly these sections, in this order:
+
+- Project Title
+- One-Line Pitch
+- Why This Fits the Role
+- Tech Stack
+- Phase 1
+- Phase 2
+- Phase 3
+- README Outline
+- How to Demo in an Interview

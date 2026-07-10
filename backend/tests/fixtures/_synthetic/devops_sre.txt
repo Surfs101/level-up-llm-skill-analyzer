@@ -1,0 +1,4 @@
+Site Reliability Engineer. I live in Docker and Kubernetes.
+Infrastructure as code with Terraform; pipelines on GitLab CI/CD and
+Jenkins. Monitoring with Prometheus and Grafana. Config management with
+Ansible. Scripting in Bash and Python.

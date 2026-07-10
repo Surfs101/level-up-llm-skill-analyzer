@@ -1,0 +1,12 @@
+# Railway config for the WORKER service (the Arq worker: Pipeline 1 jobs + the 6-hour
+# jobs cron). Same repo + Dockerfile as the web service; only the start command differs.
+# No healthcheck (not an HTTP server) and no preDeployCommand (the web service runs the
+# migrations, once). See docs/deploy.md.
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "arq app.workers.settings.WorkerSettings"
+restartPolicyType = "ON_FAILURE"

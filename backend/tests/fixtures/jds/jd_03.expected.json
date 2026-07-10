@@ -1,0 +1,18 @@
+{
+  "skill_ids": [
+    "c",
+    "cpp",
+    "csharp",
+    "data-analysis",
+    "data-visualization",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "machine-learning",
+    "python",
+    "react",
+    "swift",
+    "typescript"
+  ]
+}

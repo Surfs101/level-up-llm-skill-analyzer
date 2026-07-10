@@ -1,0 +1,123 @@
+{
+  "scanned_files": 10,
+  "total_matches": 166,
+  "matches_by_category": {
+    "cloud": 18,
+    "database": 6,
+    "devops": 13,
+    "framework": 12,
+    "language": 41,
+    "library": 4,
+    "technique": 50,
+    "tool": 22
+  },
+  "candidate_gaps": [
+    {
+      "token": "NY",
+      "occurrences": 6,
+      "files": [
+        "jd_01.txt",
+        "jd_05.txt",
+        "jd_06.txt",
+        "jd_07.txt",
+        "jd_09.txt",
+        "jd_10.txt"
+      ]
+    },
+    {
+      "token": "e.g",
+      "occurrences": 5,
+      "files": [
+        "jd_02.txt",
+        "jd_06.txt",
+        "jd_07.txt",
+        "jd_09.txt",
+        "jd_10.txt"
+      ]
+    },
+    {
+      "token": "NJ",
+      "occurrences": 4,
+      "files": [
+        "jd_02.txt",
+        "jd_04.txt",
+        "jd_08.txt",
+        "jd_10.txt"
+      ]
+    },
+    {
+      "token": "NYC",
+      "occurrences": 3,
+      "files": [
+        "jd_01.txt",
+        "jd_06.txt",
+        "jd_10.txt"
+      ]
+    },
+    {
+      "token": "US",
+      "occurrences": 3,
+      "files": [
+        "jd_03.txt",
+        "jd_04.txt",
+        "jd_09.txt"
+      ]
+    },
+    {
+      "token": "DataAnnotation",
+      "occurrences": 2,
+      "files": [
+        "jd_03.txt",
+        "jd_09.txt"
+      ]
+    },
+    {
+      "token": "IT",
+      "occurrences": 2,
+      "files": [
+        "jd_07.txt",
+        "jd_10.txt"
+      ]
+    },
+    {
+      "token": "PayPal",
+      "occurrences": 2,
+      "files": [
+        "jd_03.txt",
+        "jd_09.txt"
+      ]
+    },
+    {
+      "token": "PhD",
+      "occurrences": 2,
+      "files": [
+        "jd_02.txt",
+        "jd_09.txt"
+      ]
+    },
+    {
+      "token": "SDLC",
+      "occurrences": 2,
+      "files": [
+        "jd_07.txt",
+        "jd_08.txt"
+      ]
+    },
+    {
+      "token": "UK",
+      "occurrences": 2,
+      "files": [
+        "jd_03.txt",
+        "jd_09.txt"
+      ]
+    },
+    {
+      "token": "USD",
+      "occurrences": 2,
+      "files": [
+        "jd_03.txt",
+        "jd_09.txt"
+      ]
+    }
+  ]
+}

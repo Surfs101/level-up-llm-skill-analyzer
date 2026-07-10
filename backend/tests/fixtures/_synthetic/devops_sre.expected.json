@@ -1,0 +1,15 @@
+{
+  "skill_ids": [
+    "ansible",
+    "bash",
+    "docker",
+    "gitlab-ci-cd",
+    "grafana",
+    "jenkins",
+    "kubernetes",
+    "monitoring",
+    "prometheus",
+    "python",
+    "terraform"
+  ]
+}

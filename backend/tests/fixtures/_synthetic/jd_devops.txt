@@ -1,0 +1,3 @@
+DevOps Engineer. Own our infrastructure: Terraform, Kubernetes, Docker.
+Build pipelines with GitHub Actions. Monitoring on Prometheus and Grafana.
+Strong Bash and Python scripting. AWS experience essential.

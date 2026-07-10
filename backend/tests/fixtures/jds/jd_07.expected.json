@@ -1,0 +1,29 @@
+{
+  "skill_ids": [
+    "agentic-ai",
+    "apache-airflow",
+    "aws",
+    "ci-cd",
+    "data-engineering",
+    "data-science",
+    "dbt",
+    "generative-ai",
+    "gitlab",
+    "google-cloud",
+    "javascript",
+    "langchain",
+    "large-language-models",
+    "llamaindex",
+    "monitoring",
+    "node-js",
+    "observability",
+    "prompt-engineering",
+    "python",
+    "pytorch",
+    "rag",
+    "sql",
+    "tensorflow",
+    "typescript",
+    "vertex-ai"
+  ]
+}

@@ -1,0 +1,3 @@
+Cloud Engineer. Hands-on AWS and Google Cloud. Infrastructure as code
+with Terraform. Containers on Kubernetes. Event streaming with Kafka.
+Coding in Go or Python.

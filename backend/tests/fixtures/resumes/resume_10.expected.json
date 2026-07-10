@@ -1,0 +1,22 @@
+{
+  "skill_ids": [
+    "a-b-testing",
+    "atlassian-jira",
+    "css",
+    "figma",
+    "github",
+    "google-analytics",
+    "html",
+    "java",
+    "javascript",
+    "machine-learning",
+    "mysql",
+    "notion",
+    "postgresql",
+    "python",
+    "react",
+    "selenium",
+    "sql",
+    "trello"
+  ]
+}

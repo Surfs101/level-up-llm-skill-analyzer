@@ -1,0 +1,66 @@
+Ahmed Ali
+(929) 786-6553 | ahmedkali841@gmail.com | New York, NY | GitHub | LinkedIn | Portfolio
+Data analyst and CS graduate who turns messy data into clear, stakeholder-ready insights. Built SQL/Python pipelines, BI dashboards,
+and reporting tools across city operations, fraud detection, and security risk analytics. Recent projects include an NYC 311 dashboard
+ranking 30+ agencies by complaint backlog, a Power BI risk dashboard demonstrating potential $50K+/year savings versus comparable
+commercial tools, and a fraud-flagging system with audit-ready explanations. Strong in SQL, Excel, Power BI, Tableau, and
+communicating findings to non-technical stakeholders.
+EDUCATION
+Queens College, City University of New York (CUNY), Flushing, NY
+Relevant Coursework:
+Bachelor of Science in Computer Science, Dec 2025
+Data Science, Machine Learning, Database Systems, Probability & Mathematical Statistics, Design & Analysis of Algorithms
+SKILLS
+Analytics & Reporting: data cleaning, EDA, ad hoc analysis, KPI design, cohort analysis, segmentation, A/B testing, hypothesis testing,
+stakeholder communication
+SQL & Databases: SQL, PostgreSQL, MySQL, CTEs, window functions, joins, JSONB, data modeling
+Python: Pandas, NumPy, SciPy, scikit-learn, SQLAlchemy, Plotly, Streamlit
+BI & Visualization: Power BI, Tableau, Excel, PivotTables, XLOOKUP, INDEX-MATCH, GA4
+Pipelines & Tools: ETL, REST APIs, GitHub Actions, Docker, pytest, Git
+ML & Statistics: XGBoost, LightGBM, SHAP, MLflow, threshold tuning, Monte Carlo simulation
+PROJECTS
+NYC 311 Operations Analytics Dashboard
+Python, PostgreSQL, SQLAlchemy, Pandas, Streamlit, Plotly, Socrata API  |  GitHub  |  Live
+Jan 2026 – Mar 2026
+• Built an analytics dashboard ranking 30+ NYC agencies by complaint resolution time, backlog severity, and service request trends.
+• Automated monthly refreshes of up to 200K NYC 311 service requests from the Socrata API into PostgreSQL.
+• Modeled a 5-table raw / core / marts schema to support faster dashboard queries and cleaner KPI reporting.
+• Identified chronic backlog hidden by healthy median resolution times by ranking agencies on p90 resolution time.
+• Delivered a 5-page Streamlit dashboard with maps, KPI scorecards, agency filters, and self-serve reporting views.
+Credit Card Fraud Detection System
+Jan 2026
+Python, scikit-learn, XGBoost, LightGBM, imbalanced-learn, SHAP, MLflow, FastAPI, GitHub Actions, pytest  |  GitHub  |  Live
+• Analyzed 284K credit card transactions with 1-in-577 fraud imbalance, flagging 79.6% of fraud cases at 90.7% precision.
+• Compared 6 models using precision and recall instead of accuracy to avoid misleading results on rare-event fraud data.
+• Tuned the decision threshold to keep false alerts below 10%, balancing analyst workload with fraud detection coverage.
+• Engineered transaction-time and amount-based features, with round-dollar transactions emerging as a top fraud signal.
+• Deployed a dashboard explaining each fraud flag with SHAP contributors for analyst review and auditability.
+Security Risk Analytics Pipeline: ETL & Power BI Dashboard
+Nov 2025 – Apr 2026
+Python, PostgreSQL, SQLAlchemy, psycopg2, Pandas, REST APIs, Power BI, GitHub Actions, pytest  |  GitHub
+• Constructed a daily ETL pipeline scoring 300K+ vulnerabilities from NVD, CISA KEV, and EPSS into a 6-table PostgreSQL schema.
+• Designed a composite risk score weighting exploit probability 5x more than severity to prioritize vulnerabilities most likely to be
+exploited.
+• Developed a 5-page Power BI dashboard with product-level risk rollups, weekly trends, and non-technical stakeholder views.
+• Found that KEV-listed CVEs made up only 2% of records but drove 40%+ of high-priority alerts, focusing review on highest-risk
+threats.
+• Estimated potential $50K+/year savings compared with comparable commercial vulnerability management tools.
+RELEVANT EXPERIENCE
+Sports Media Inc. | Remote
+Data Science Intern
+• Profiled 14K+ social comments by sentiment to track Super Bowl engagement trends.
+Jul 2024 – Sep 2024
+• Automated MLB and NFL survey analysis, cutting reporting time 30% and producing 20 stakeholder decks.
+• Standardized GA4 tracking and KPI reporting, saving 15 hours/week and lifting tagging compliance 25%.
+CUNY Tech Prep | New York, NY
+Jul 2025 – Present
+Data Science Fellow
+• Selected as one of fewer than 100 fellows across 11 CUNY senior colleges in a competitive fellowship.
+• Constructed an ML resume-job fit platform with weighted scoring: 50% exact, 30% fuzzy, 20% cosine similarity.
+SUPPORTING EXPERIENCE
+DoorDash | Long Island City, NY
+Operations Associate
+Apr 2023 – Jul 2025
+• Reviewed end-of-sweep dispatch dashboards daily, monitoring fulfillment and error KPIs across live operations.
+• QA-tested dispatch tooling pre-deployment, catching 15-20% of order issues before live operations.
+• Reproduced live-ops issues across tracking, sorting, and order flow with clear repro steps, cutting turnaround 30%

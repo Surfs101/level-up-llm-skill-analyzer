@@ -1,0 +1,7609 @@
+[
+  {
+    "canonical_name": ".NET",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": ".NET Framework",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": ".NET MAUI",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "1C Enterprise",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "4D",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ab Initio",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ABAP",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ABAP CDS",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ActionScript",
+    "category": "language",
+    "aliases": [
+      "actionscript 3",
+      "actionscript3",
+      "as3"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ada",
+    "category": "language",
+    "aliases": [
+      "ada2005",
+      "ada95"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Adobe Acrobat",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Adobe After Effects",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Adobe Audition",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Adobe Creative Cloud",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Adobe Illustrator",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Adobe InDesign",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Adobe Photoshop",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Adobe Premiere Pro",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Agda",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Agentic AI",
+    "category": "tool",
+    "aliases": [
+      "ai agents"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AGS Script",
+    "category": "language",
+    "aliases": [
+      "ags"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AIDL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Aiken",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Airtable",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AJAX",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Alembic",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ALGOL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Alloy",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Alpine Abuild",
+    "category": "language",
+    "aliases": [
+      "abuild",
+      "apkbuild"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Alteryx",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Amazon Kinesis",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Amazon Redshift",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AMPL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Android Studio",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AngelScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Angular",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ansible",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Answer Set Programming",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ant Design",
+    "category": "library",
+    "aliases": [
+      "antd"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Anthropic",
+    "category": "tool",
+    "aliases": [
+      "anthropic api"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ANTLR",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Airflow",
+    "category": "tool",
+    "aliases": [
+      "airflow"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Ant",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Beam",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Flink",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Flume",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Hadoop",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache HBase",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Hive",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache HTTP Server",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Iceberg",
+    "category": "database",
+    "aliases": [
+      "iceberg"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Kafka",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Pig",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Solr",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Spark",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Struts",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Subversion SVN",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apache Tomcat",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apex",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "APL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apollo Guidance Computer",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apple iOS",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apple macOS",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Apple Safari",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AppleScript",
+    "category": "language",
+    "aliases": [
+      "apples",
+      "osascript"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Arc",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ArgoCD",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Asana",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ASL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ASP.NET",
+    "category": "framework",
+    "aliases": [
+      "aspx",
+      "aspx-vb"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ASP.NET Core",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AspectJ",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Assembly",
+    "category": "language",
+    "aliases": [
+      "asm",
+      "nasm"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Astro",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Asymptote",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Atlassian Bamboo",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Atlassian Bitbucket",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Atlassian Confluence",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Atlassian JIRA",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ATS",
+    "category": "language",
+    "aliases": [
+      "ats2"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Augeas",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Auth0",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AutoGen",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AutoHotkey",
+    "category": "language",
+    "aliases": [
+      "ahk"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AutoIt",
+    "category": "language",
+    "aliases": [
+      "au3",
+      "autoit3",
+      "autoitscript"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Awk",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS Amplify",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS API Gateway",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS App Runner",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS Athena",
+    "category": "cloud",
+    "aliases": [
+      "athena"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS CloudWatch",
+    "category": "cloud",
+    "aliases": [
+      "cloudwatch"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS ECS",
+    "category": "cloud",
+    "aliases": [
+      "ecs"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS EKS",
+    "category": "cloud",
+    "aliases": [
+      "eks"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS EventBridge",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS Fargate",
+    "category": "cloud",
+    "aliases": [
+      "fargate"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS Glue",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS IAM",
+    "category": "cloud",
+    "aliases": [
+      "iam"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS Lambda",
+    "category": "cloud",
+    "aliases": [
+      "lambda"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS RDS",
+    "category": "cloud",
+    "aliases": [
+      "rds"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS S3",
+    "category": "cloud",
+    "aliases": [
+      "s3"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS SNS",
+    "category": "cloud",
+    "aliases": [
+      "sns"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS SQS",
+    "category": "cloud",
+    "aliases": [
+      "sqs"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "AWS Step Functions",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Azure Container Apps",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Azure DevOps",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Azure Functions",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Azure OpenAI",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "B (Formal Method)",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "B4X",
+    "category": "language",
+    "aliases": [
+      "basic for android"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Backbone.js",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ballerina",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Bash",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "BASIC",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Batchfile",
+    "category": "language",
+    "aliases": [
+      "bat",
+      "batch",
+      "dosbatch",
+      "winbatch"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Beef",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Befunge",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Berry",
+    "category": "language",
+    "aliases": [
+      "be"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "BibTeX Style",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Bicep",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "BigQuery",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Bison",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "BitBake",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Bitbucket Pipelines",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Blazor",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Blink",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "BlitzBasic",
+    "category": "language",
+    "aliases": [
+      "b3d",
+      "blitz3d",
+      "blitzplus",
+      "bplus"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "BlitzMax",
+    "category": "language",
+    "aliases": [
+      "bmax"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Bluespec",
+    "category": "language",
+    "aliases": [
+      "bluespec bsv",
+      "bsv"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Bluespec BH",
+    "category": "language",
+    "aliases": [
+      "bh",
+      "bluespec classic"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Bokeh",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Boo",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Boogie",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Bootstrap",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "BQN",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Brainfuck",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "BrighterScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Brightscript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Bruno",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Bun",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "C#",
+    "category": "language",
+    "aliases": [
+      "cake",
+      "cakescript",
+      "csharp"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "C++",
+    "category": "language",
+    "aliases": [
+      "cpp"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "C2hs Haskell",
+    "category": "language",
+    "aliases": [
+      "c2hs"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "C3",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cadence",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cairo",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cairo Zero",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CameLIGO",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cangjie",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Canva",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CAP CDS",
+    "category": "language",
+    "aliases": [
+      "cds"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cap'n Proto",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Carbon",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cargo",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CartoCSS",
+    "category": "language",
+    "aliases": [
+      "carto"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cassandra",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CatBoost",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ceylon",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Chakra UI",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Chapel",
+    "category": "language",
+    "aliases": [
+      "chpl"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Charity",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Chef",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Chroma",
+    "category": "database",
+    "aliases": [
+      "chromadb"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ChucK",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CircleCI",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Circom",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cirru",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Clarion",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Clarity",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Classic ASP",
+    "category": "language",
+    "aliases": [
+      "asp"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Claude",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Clean",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ClearML",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Clerk",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Click",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ClickHouse",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ClickUp",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CLIPS",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Clojure",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cloud Functions",
+    "category": "cloud",
+    "aliases": [
+      "gcp cloud functions"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cloud Run",
+    "category": "cloud",
+    "aliases": [
+      "gcp cloud run"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cloudflare",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cloudflare D1",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cloudflare KV",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cloudflare Pages",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cloudflare R2",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cloudflare Workers",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Clue",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CMake",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cobol",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CockroachDB",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CodeIgniter",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CodeQL",
+    "category": "language",
+    "aliases": [
+      "ql"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CoffeeScript",
+    "category": "language",
+    "aliases": [
+      "coffee",
+      "coffee-script"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cohere",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ColdFusion",
+    "category": "language",
+    "aliases": [
+      "cfm",
+      "cfml",
+      "coldfusion html"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ColdFusion CFC",
+    "category": "language",
+    "aliases": [
+      "cfc"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Comet",
+    "category": "tool",
+    "aliases": [
+      "comet ml"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Common Lisp",
+    "category": "language",
+    "aliases": [
+      "lisp"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Common Workflow Language",
+    "category": "language",
+    "aliases": [
+      "cwl"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Component Pascal",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Composer",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cool",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cosmos DB",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Couchbase",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CQL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CrewAI",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Crossplane",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Crystal",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Csound",
+    "category": "language",
+    "aliases": [
+      "csound-orc"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Csound Document",
+    "category": "language",
+    "aliases": [
+      "csound-csd"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Csound Score",
+    "category": "language",
+    "aliases": [
+      "csound-sco"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CSS",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cuda",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CUE",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Curry",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cursor",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "CWeb",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cycript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cypher",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cypress",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Cython",
+    "category": "language",
+    "aliases": [
+      "pyrex"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Dafny",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Dagster",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Dart",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Daslang",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Databricks",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Datadog",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "DataGrip",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "DataWeave",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "dbt",
+    "category": "tool",
+    "aliases": [
+      "data build tool"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Delphi",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Delta Lake",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "DenizenScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Deno",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Desmos",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Dhall",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "DIGITAL Command Language",
+    "category": "language",
+    "aliases": [
+      "dcl"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "DigitalOcean",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Django",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "DM",
+    "category": "language",
+    "aliases": [
+      "byond"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Docker",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Dockerfile",
+    "category": "language",
+    "aliases": [
+      "containerfile"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Dogescript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Drizzle",
+    "category": "library",
+    "aliases": [
+      "drizzle orm"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Dropbox",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Drupal",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "DSPy",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "DTrace",
+    "category": "language",
+    "aliases": [
+      "dtrace-script"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "DuckDB",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Dune",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Dylan",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "DynamoDB",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Earthly",
+    "category": "language",
+    "aliases": [
+      "earthfile"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "eC",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ECL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Eclipse",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Eclipse IDE",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Eclipse Jersey",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "EdgeQL",
+    "category": "language",
+    "aliases": [
+      "esdl"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Eiffel",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Elastic",
+    "category": "tool",
+    "aliases": [
+      "elk",
+      "elk stack"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Elasticsearch",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Electron",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Elixir",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Elm",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Elvish",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Elvish Transcript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Elysia",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Emacs",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Emacs Lisp",
+    "category": "language",
+    "aliases": [
+      "cask",
+      "eask",
+      "elisp",
+      "emacs"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "EmberScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Epicor Vantage ERP",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "EQ",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Erlang",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "esbuild",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Estuary",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Euphoria",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Evernote",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Express",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ext JS",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "F#",
+    "category": "language",
+    "aliases": [
+      "fsharp"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "F*",
+    "category": "language",
+    "aliases": [
+      "fstar"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Factor",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "FAISS",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Fancy",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Fantom",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "FastAPI",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Fastify",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Faust",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Fennel",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Figma",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Filebench WML",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Filterscript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Firestore",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "FIRRTL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "fish",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Fivetran",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Flask",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Flix",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Fluent",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Flutter",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "FLUX",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Fly.io",
+    "category": "cloud",
+    "aliases": [
+      "fly"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Forth",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Fortran",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Fortran Free Form",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Framer Motion",
+    "category": "library",
+    "aliases": [
+      "framer-motion",
+      "motion"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "FreeBASIC",
+    "category": "language",
+    "aliases": [
+      "fb"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "FreeMarker",
+    "category": "language",
+    "aliases": [
+      "ftl"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Frege",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Futhark",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "G-code",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Game Maker Language",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GAML",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GAMS",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GAP",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Gatsby",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GCC Machine Description",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GDB",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GDScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GDShader",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Gemini",
+    "category": "tool",
+    "aliases": [
+      "google gemini"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Genero 4gl",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Genie",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Genshi",
+    "category": "language",
+    "aliases": [
+      "xml+genshi",
+      "xml+kid"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Gentoo Ebuild",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Gentoo Eclass",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Gherkin",
+    "category": "language",
+    "aliases": [
+      "cucumber"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Git",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GitHub",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GitHub Actions",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GitLab",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GitLab CI/CD",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GKE",
+    "category": "cloud",
+    "aliases": [
+      "google kubernetes engine"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Gleam",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Glimmer JS",
+    "category": "language",
+    "aliases": [
+      "gjs"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Glimmer TS",
+    "category": "language",
+    "aliases": [
+      "gts"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GLSL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Glyph",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GNU Image Manipulation Program GIMP",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Gnuplot",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Go",
+    "category": "language",
+    "aliases": [
+      "golang"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Golo",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Ads",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Analytics",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Android",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Classroom",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Cloud",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Docs",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Drive",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Earth Pro",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Gmail",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Meet",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Sheets",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Sites",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Slides",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Google Workspace",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Gosu",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GPT-4",
+    "category": "tool",
+    "aliases": [
+      "gpt4",
+      "gpt-4o",
+      "gpt-4-turbo"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Grace",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Gradio",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Gradle",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Grafana",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Grammatical Framework",
+    "category": "language",
+    "aliases": [
+      "gf"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GraphQL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GraphQL Federation",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Groovy",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Groovy Server Pages",
+    "category": "language",
+    "aliases": [
+      "gsp",
+      "java server page"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Groq",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "gRPC",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "GSC",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Hack",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Harbour",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Hare",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Haskell",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Haxe",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Haystack",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "HCL",
+    "category": "language",
+    "aliases": [
+      "hashicorp configuration language",
+      "opentofu",
+      "terraform"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Headless UI",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Helm",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Heroku",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Hibernate ORM",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "HIP",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "HiveQL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "HLSL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "HolyC",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Honeycomb",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Hono",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "hoon",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "HTML",
+    "category": "language",
+    "aliases": [
+      "xhtml"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "htmx",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Hugging Face",
+    "category": "tool",
+    "aliases": [
+      "huggingface",
+      "hf"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Hugging Face Transformers",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Hurl",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Hy",
+    "category": "language",
+    "aliases": [
+      "hylang"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "HyPhy",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "IBM DB2",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "IBM InfoSphere DataStage",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "IBM WebSphere",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "IDL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Idris",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "IGOR Pro",
+    "category": "language",
+    "aliases": [
+      "igor",
+      "igorpro"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ImageJ Macro",
+    "category": "language",
+    "aliases": [
+      "ijm"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Imba",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "InfluxDB",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Inform 7",
+    "category": "language",
+    "aliases": [
+      "i7",
+      "inform7"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Informatica",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ink",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Inno Setup",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Insomnia",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Instructor",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "IntelliJ IDEA",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Intrado SchoolMessenger",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Intuit QuickBooks",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Io",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ioke",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ionic",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Isabelle",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Isabelle ROOT",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ISPC",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Istio",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Jac",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Jai",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Janet",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Jasmin",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Java",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Java Server Pages",
+    "category": "language",
+    "aliases": [
+      "jsp"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Java Template Engine",
+    "category": "language",
+    "aliases": [
+      "jte"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "JavaScript",
+    "category": "language",
+    "aliases": [
+      "js",
+      "node"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "JavaScript+ERB",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "JAX",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "JCL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Jenkins",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Jenkins CI",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Jest",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "JetBrains MPS",
+    "category": "language",
+    "aliases": [
+      "mps"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "JetBrains Rider",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "JFlex",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Jison",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Jison Lex",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Jolie",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Jotai",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "jq",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "jQuery",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "JSON",
+    "category": "language",
+    "aliases": [
+      "geojson",
+      "jsonl",
+      "sarif",
+      "topojson"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "JSONiq",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Jsonnet",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Julia",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Julia REPL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "JUnit",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Jupyter Notebook",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Just",
+    "category": "language",
+    "aliases": [
+      "justfile"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "JWT",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "k6",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Kaitai Struct",
+    "category": "language",
+    "aliases": [
+      "ksy"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "KakouneScript",
+    "category": "language",
+    "aliases": [
+      "kak",
+      "kakscript"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "KCL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Keras",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "KerboScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "KFramework",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Kibana",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Koa",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Koka",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "KoLmafia ASH",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "KornShell",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Kotlin",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "KRL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Kubernetes",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "kustomize",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LabVIEW",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Lambdapi",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LangChain",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LangGraph",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Langium",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LangSmith",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Laravel",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Lasso",
+    "category": "language",
+    "aliases": [
+      "lassoscript"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Lean",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Lean 4",
+    "category": "language",
+    "aliases": [
+      "lean4"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Leo",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Less",
+    "category": "language",
+    "aliases": [
+      "less-css"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Lex",
+    "category": "language",
+    "aliases": [
+      "flex"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LFE",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LightGBM",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LigoLANG",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LilyPond",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Limbo",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Linear",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Linear Programming",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Linker Script",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Linkerd",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Linux",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Liquidsoap",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Lisp",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Lit",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Literate Agda",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Literate CoffeeScript",
+    "category": "language",
+    "aliases": [
+      "litcoffee"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Literate Haskell",
+    "category": "language",
+    "aliases": [
+      "lhaskell",
+      "lhs"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LiveCode Script",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LiveScript",
+    "category": "language",
+    "aliases": [
+      "live-script",
+      "ls"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Llama",
+    "category": "tool",
+    "aliases": [
+      "llama 2",
+      "llama 3",
+      "meta llama"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LlamaIndex",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LLVM",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Logos",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Logstash",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Logtalk",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Loki",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LOLCODE",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LookML",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Loom",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LoomScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "LSL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Lua",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Luau",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "M4",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "M4Sugar",
+    "category": "language",
+    "aliases": [
+      "autoconf"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Macaulay2",
+    "category": "language",
+    "aliases": [
+      "m2"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Make",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Makefile",
+    "category": "language",
+    "aliases": [
+      "bsdmake",
+      "make",
+      "mf"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Mako",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Mantine",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MariaDB",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Markdown",
+    "category": "language",
+    "aliases": [
+      "md",
+      "pandoc"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Material UI",
+    "category": "library",
+    "aliases": [
+      "mui",
+      "material-ui"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Mathematical Programming System",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MATLAB",
+    "category": "language",
+    "aliases": [
+      "octave"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Matplotlib",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Maven",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Max",
+    "category": "language",
+    "aliases": [
+      "max/msp",
+      "maxmsp"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "mcfunction",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MDX",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Memcached",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Mercury",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Meson",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Metal",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MeTTa",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Access",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Active Directory",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft ASP.NET Core MVC",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Azure",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Dynamics",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Excel",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Exchange",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Internet Information Services (IIS)",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Office",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft OneNote",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft operating",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Outlook",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Power BI",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft PowerPoint",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Project",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Publisher",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft SharePoint",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft SQL Server",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft SQL Server Integration Services SSIS",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft SQL Server Reporting Services SSRS",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Teams",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Visio",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Windows",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Windows Server",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Microsoft Word",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MicroStrategy",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Milvus",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MiniD",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MiniZinc",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Mint",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Mirah",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "mIRC Script",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Mistral",
+    "category": "tool",
+    "aliases": [
+      "mistral ai"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MLflow",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MLIR",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Mocha",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Model Context Protocol",
+    "category": "tool",
+    "aliases": [
+      "mcp"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Modelica",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Modula-2",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Modula-3",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Module Management System",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Mojo",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MongoDB",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Monkey",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Monkey C",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Moocode",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MoonBit",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MoonScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Motoko",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Motorola 68K Assembly",
+    "category": "language",
+    "aliases": [
+      "m68k"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Move",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Mozilla Firefox",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MQL4",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MQL5",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MUF",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "mupad",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Myghty",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "MySQL",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Nagios",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Nasal",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "NASL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "National Instruments LabVIEW",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "NCL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Nearley",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Nemerle",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Neo4j",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Neon",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Neovim",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Neptune",
+    "category": "tool",
+    "aliases": [
+      "neptune ai"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "nesC",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "NestJS",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Netlify",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "NetLinx",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "NetLinx+ERB",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "NetLogo",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "New Relic",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "NewLisp",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Next.js",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Nextflow",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Nickel",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Nim",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Nit",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Nix",
+    "category": "language",
+    "aliases": [
+      "nixos"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "NLTK",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "NMODL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Node.js",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Noir",
+    "category": "language",
+    "aliases": [
+      "nargo"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "NoSQL",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Notepad++",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Notion",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "npm",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "NSIS",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Nu",
+    "category": "language",
+    "aliases": [
+      "nush"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "NumPy",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Nushell",
+    "category": "language",
+    "aliases": [
+      "nu-script",
+      "nushell-script"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Nuxt.js",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "NWScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Nx",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OAuth 2.0",
+    "category": "tool",
+    "aliases": [
+      "oauth",
+      "oauth2"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Oberon",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Objective-C",
+    "category": "language",
+    "aliases": [
+      "obj-c",
+      "objc",
+      "objectivec"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Objective-C++",
+    "category": "language",
+    "aliases": [
+      "obj-c++",
+      "objc++",
+      "objectivec++"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Objective-J",
+    "category": "language",
+    "aliases": [
+      "obj-j",
+      "objectivej",
+      "objj"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ObjectScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OCaml",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Odin",
+    "category": "language",
+    "aliases": [
+      "odin-lang",
+      "odinlang"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Okta",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ollama",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Omgrofl",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OMNeT++ MSG",
+    "category": "language",
+    "aliases": [
+      "omnetpp-msg"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OMNeT++ NED",
+    "category": "language",
+    "aliases": [
+      "omnetpp-ned"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ooc",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Opa",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Opal",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Open Policy Agent",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OpenAI",
+    "category": "tool",
+    "aliases": [
+      "openai api"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OpenAI ChatGPT",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OpenCL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OpenCV",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OpenEdge ABL",
+    "category": "language",
+    "aliases": [
+      "abl",
+      "openedge",
+      "progress"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OpenID Connect",
+    "category": "tool",
+    "aliases": [
+      "oidc"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OpenQASM",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OpenRC runscript",
+    "category": "language",
+    "aliases": [
+      "openrc"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OpenSCAD",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OpenTelemetry",
+    "category": "tool",
+    "aliases": [
+      "otel"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Oracle",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Oracle Cloud",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Oracle Database",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Oracle JDBC",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Oracle Solaris",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Oracle SQL Developer",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "OverpassQL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ox",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Oxygene",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Oz",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "P4",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pact",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PagerDuty",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pan",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pandas",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Papyrus",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Parcel",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Parrot",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Parrot Assembly",
+    "category": "language",
+    "aliases": [
+      "pasm"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Parrot Internal Representation",
+    "category": "language",
+    "aliases": [
+      "pir"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pascal",
+    "category": "language",
+    "aliases": [
+      "delphi",
+      "objectpascal"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pawn",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PDDL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PEG.js",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pep8",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Perl",
+    "category": "language",
+    "aliases": [
+      "cperl"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Perplexity",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "pgvector",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Phoenix",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PHP",
+    "category": "language",
+    "aliases": [
+      "inc"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PhpStorm",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PicoLisp",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PigLatin",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pike",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pinecone",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pinia",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "pip",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pkl",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PlanetScale",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Playwright",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Plotly",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PLpgSQL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PLSQL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "pnpm",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PogoScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Polar",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Polars",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pony",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Portugol",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PostgreSQL",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Postman",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "POV-Ray SDL",
+    "category": "language",
+    "aliases": [
+      "pov-ray",
+      "povray"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PowerBuilder",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PowerShell",
+    "category": "language",
+    "aliases": [
+      "posh",
+      "pwsh"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Praat",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Prefect",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Prisma",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Processing",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Procfile",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Prolog",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Promela",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Prometheus",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Propeller Spin",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pub/Sub",
+    "category": "cloud",
+    "aliases": [
+      "gcp pubsub",
+      "google pubsub"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pulumi",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Puppet",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Puppeteer",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PureBasic",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PureScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PyCharm",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pydantic",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pydantic AI",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Pyret",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "pytest",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Python",
+    "category": "language",
+    "aliases": [
+      "py",
+      "py3",
+      "python3",
+      "rusthon"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Python console",
+    "category": "language",
+    "aliases": [
+      "pycon"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "PyTorch",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Q#",
+    "category": "language",
+    "aliases": [
+      "qsharp"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Qdrant",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Qlik Tech QlikView",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "QMake",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "QML",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Qt",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Qt Script",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Quake",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "QuakeC",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Quest Erwin Data Modeler",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "QuickBASIC",
+    "category": "language",
+    "aliases": [
+      "classic qbasic",
+      "classic quickbasic",
+      "qb",
+      "qb64",
+      "qbasic"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Qwik",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Racket",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Radix UI",
+    "category": "library",
+    "aliases": [
+      "radix"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "RAG",
+    "category": "tool",
+    "aliases": [
+      "retrieval-augmented generation",
+      "retrieval augmented generation"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ragel",
+    "category": "language",
+    "aliases": [
+      "ragel-rb",
+      "ragel-ruby"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Railway",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Raku",
+    "category": "language",
+    "aliases": [
+      "perl-6",
+      "perl6"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Rascal",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "RAScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "React",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "React Hook Form",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "React Native",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "React Router",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "REALbasic",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Reason",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ReasonLIGO",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Rebol",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Red",
+    "category": "language",
+    "aliases": [
+      "red/system"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Red Hat Enterprise Linux",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Red Hat OpenShift",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Red Hat WildFly",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Redcode",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Redis",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Redux",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Redux Toolkit",
+    "category": "library",
+    "aliases": [
+      "rtk"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Remix",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ren'Py",
+    "category": "language",
+    "aliases": [
+      "renpy"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Render",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "RenderScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Replicate",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ReScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Resend",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "RESTful API",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "REXX",
+    "category": "language",
+    "aliases": [
+      "arexx"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Rez",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ring",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "RobotFramework",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Roc",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Rocq Prover",
+    "category": "language",
+    "aliases": [
+      "coq",
+      "rocq"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Rollup",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Rouge",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "RouterOS Script",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "RPC",
+    "category": "language",
+    "aliases": [
+      "oncrpc",
+      "rpcgen",
+      "xdr"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "RPGLE",
+    "category": "language",
+    "aliases": [
+      "ile rpg",
+      "sqlrpgle"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "RStudio",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ruby",
+    "category": "language",
+    "aliases": [
+      "jruby",
+      "macruby",
+      "rake",
+      "rb",
+      "rbx"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ruby on Rails",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Rust",
+    "category": "language",
+    "aliases": [
+      "rs"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Sail",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Salesforce",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SaltStack",
+    "category": "language",
+    "aliases": [
+      "salt",
+      "saltstate"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SAS",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SAS JMP",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Sass",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Scala",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Scenic",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Scheme",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Scikit-Learn",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Scilab",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SciPy",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SCSS",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Seaborn",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "sed",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Selenium",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Self",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Semantic Kernel",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SendGrid",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Sentry",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Sequelize",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Server-Sent Events",
+    "category": "tool",
+    "aliases": [
+      "sse"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ServiceNow",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "shadcn/ui",
+    "category": "library",
+    "aliases": [
+      "shadcn"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ShaderLab",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Shell",
+    "category": "language",
+    "aliases": [
+      "bash",
+      "envrc",
+      "sh",
+      "shell-script",
+      "zsh"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Shell script",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ShellSession",
+    "category": "language",
+    "aliases": [
+      "bash session",
+      "console"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Shen",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Sieve",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Simulation program with integrated circuit emphasis SPICE",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Singularity",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Skaffold",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Slack",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Slang",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Slash",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Slice",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Smali",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Smalltalk",
+    "category": "language",
+    "aliases": [
+      "squeak"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Smarty",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Smithy",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SmPL",
+    "category": "language",
+    "aliases": [
+      "coccinelle"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SMT",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Snakemake",
+    "category": "language",
+    "aliases": [
+      "snakefile"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Snort",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Snowflake",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SolarWinds",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Solid.js",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Solidity",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SolidStart",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SourcePawn",
+    "category": "language",
+    "aliases": [
+      "sourcemod"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "spaCy",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Splunk",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Spring",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Spring Boot",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Spring Framework",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SQF",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SQL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SQLAlchemy",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SQLite",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SQLPL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Squirrel",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Stan",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Standard ML",
+    "category": "language",
+    "aliases": [
+      "sml"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Starlark",
+    "category": "language",
+    "aliases": [
+      "bazel",
+      "bzl"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Stata",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "StataCorp Stata",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "STATISTICA",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Statsmodels",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Storybook",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Strapi",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Streamlit",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Stripe",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Sublime Text",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Supabase",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SuperCollider",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SurrealQL",
+    "category": "language",
+    "aliases": [
+      "surql"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Svelte",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SvelteKit",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Sway",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SWC",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Swift",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SWIG",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Symfony",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "SystemVerilog",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Tableau",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Tact",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Tailwind CSS",
+    "category": "framework",
+    "aliases": [
+      "tailwind",
+      "tailwindcss"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Talon",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TanStack Query",
+    "category": "library",
+    "aliases": [
+      "react query",
+      "react-query"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TanStack Router",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TanStack Table",
+    "category": "library",
+    "aliases": [
+      "react table"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Tauri",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Tcl",
+    "category": "language",
+    "aliases": [
+      "sdc",
+      "xdc"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Tcsh",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Teal",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TeamCity",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Tenable Nessus",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TensorFlow",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Teradata Database",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Terra",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Terraform",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Testing Library",
+    "category": "library",
+    "aliases": [
+      "react testing library",
+      "rtl"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TeX",
+    "category": "language",
+    "aliases": [
+      "latex"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Thrift",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TI Program",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TL-Verilog",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TLA",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Together AI",
+    "category": "tool",
+    "aliases": [
+      "together"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Toit",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TOML",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Transact-SQL",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Travis CI",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Tree-sitter Query",
+    "category": "language",
+    "aliases": [
+      "tsq"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Trello",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "tRPC",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TSQL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TSX",
+    "category": "language",
+    "aliases": [
+      "typescriptreact"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Turbopack",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Turborepo",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Turing",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Turso",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Twilio",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TXL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TypeORM",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TypeScript",
+    "category": "language",
+    "aliases": [
+      "ts"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "TypeSpec",
+    "category": "language",
+    "aliases": [
+      "tsp"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Typst",
+    "category": "language",
+    "aliases": [
+      "typ"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Ubuntu",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Unified modeling language UML",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Unified Parallel C",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "UNIX",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Unix Assembly",
+    "category": "language",
+    "aliases": [
+      "gas",
+      "gnu asm",
+      "unix asm"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "UNIX Shell",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Uno",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "UnrealScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Untyped Plutus Core",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Upstash",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "UrWeb",
+    "category": "language",
+    "aliases": [
+      "ur",
+      "ur/web"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Vagrant",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Vala",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "VBA",
+    "category": "language",
+    "aliases": [
+      "visual basic for applications"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "VBScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "VCL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Vercel",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Verilog",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Vertex AI",
+    "category": "cloud",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "VHDL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Vim",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Vim Script",
+    "category": "language",
+    "aliases": [
+      "nvim",
+      "vim",
+      "viml",
+      "vimscript"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Visual Basic",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Visual Basic .NET",
+    "category": "language",
+    "aliases": [
+      "vb .net",
+      "vb.net",
+      "vbnet",
+      "visual basic"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Visual Basic 6.0",
+    "category": "language",
+    "aliases": [
+      "classic visual basic",
+      "vb 6",
+      "vb6",
+      "visual basic 6",
+      "visual basic classic"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Visual Studio",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Vite",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Vitest",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "vLLM",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "VMware",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Volt",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "VS Code",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Vue Router",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Vue.js",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Vuex",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Vyper",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "WDL",
+    "category": "language",
+    "aliases": [
+      "workflow description language"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Weaviate",
+    "category": "database",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "WebAssembly",
+    "category": "language",
+    "aliases": [
+      "wasm",
+      "wast"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "WebIDL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Webpack",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "WebSockets",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "WebStorm",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Weights & Biases",
+    "category": "tool",
+    "aliases": [
+      "wandb",
+      "weights and biases"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "WGSL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Whiley",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Wireshark",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "wisp",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Witcher Script",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Wolfram Language",
+    "category": "language",
+    "aliases": [
+      "mathematica",
+      "mma",
+      "wl",
+      "wolfram",
+      "wolfram lang"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Wollok",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "WordPress",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Workday",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "WorkOS",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Wren",
+    "category": "language",
+    "aliases": [
+      "wrenlang"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "X10",
+    "category": "language",
+    "aliases": [
+      "xten"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Xamarin",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "xBase",
+    "category": "language",
+    "aliases": [
+      "advpl",
+      "clipper",
+      "foxpro"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "XC",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Xcode",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "XGBoost",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Xmake",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "XML",
+    "category": "language",
+    "aliases": [
+      "rss",
+      "wsdl",
+      "xsd"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Xojo",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Xonsh",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "XProc",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "XQuery",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "XS",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "XSLT",
+    "category": "language",
+    "aliases": [
+      "xsl"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Xtend",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Yacc",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "YAML",
+    "category": "language",
+    "aliases": [
+      "yml"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "YARA",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Yarn",
+    "category": "devops",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Yii",
+    "category": "framework",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Yul",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ZAP",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Zed",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Zeek",
+    "category": "language",
+    "aliases": [
+      "bro"
+    ],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ZenScript",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Zephir",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Zig",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "ZIL",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Zimpl",
+    "category": "language",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Zod",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Zoom",
+    "category": "tool",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  },
+  {
+    "canonical_name": "Zustand",
+    "category": "library",
+    "aliases": [],
+    "is_bundle": false,
+    "bundle_expands_to": null
+  }
+]

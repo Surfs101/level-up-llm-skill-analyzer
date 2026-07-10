@@ -1,0 +1,16 @@
+{
+  "skill_ids": [
+    "backend-development",
+    "caching",
+    "ci-cd",
+    "docker",
+    "fastapi",
+    "github-actions",
+    "go",
+    "kubernetes",
+    "microservices",
+    "postgresql",
+    "python",
+    "redis"
+  ]
+}

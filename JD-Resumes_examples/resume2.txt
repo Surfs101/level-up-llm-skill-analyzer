@@ -1,0 +1,65 @@
+Ahmed Ali 
+(929) 786-6553 | ahmedkali841@gmail.com | New York, NY | GitHub | LinkedIn | Website 
+Queens College, City University of New York (CUNY), Flushing, NY 
+Bachelor of Science in Computer Science 
+Relevant Coursework: 
+Graduation date: Dec 2025 
+Data Science, Machine Learning, Deep Learning, Database Systems, Cloud Computing, Software Engineering, Algorithms. 
+SKILLS 
+Languages: Python, SQL, Java, JavaScript, TypeScript, Bash, C++ 
+Databases: PostgreSQL, Redis, MongoDB, ChromaDB (vector store), SQLite 
+Data Engineering: Pandas, NumPy, SQLAlchemy 2, Alembic migrations, bulk loading, idempotent rebuilds, orchestration (GitHub 
+Actions cron), monitoring & alerts, data quality checks, REST/FastAPI, retry/backoff, SSE streaming 
+Cloud & DevOps: Docker, Docker Compose, AWS Lambda, AWS S3, Vercel, GitHub Actions CI/CD, Git, pytest 
+Analytics & ML: Scikit-learn, XGBoost, LightGBM, PyTorch, SHAP, MLflow, sentence-transformers, RAG, spaCy, RapidFuzz 
+SELECTED PROJECTS 
+Vulnerability Management Data Pipeline  
+Python, PostgreSQL, SQLAlchemy, psycopg2, Pandas, GitHub Actions, Power BI, pytest  |  GitHub 
+Jan 2026 – Mar 2026 
+• Built a daily ETL ingesting vulnerability data from 3 public APIs and triggering risk-prioritized CVE alerts. 
+• Bulk-loaded 309K+ records into PostgreSQL with chunked batch inserts, cutting EPSS ingest from 1 hour to 2 minutes. 
+• Modeled a 6-table PostgreSQL schema with 4 Alembic migrations and a daily-keyed unique index for idempotent reruns. 
+• Orchestrated a 6-step pipeline on GitHub Actions cron with threshold-based alerts, secret validation, and 14-day log retention. 
+• Authored a composite risk score weighting CVSS, KEV, and EPSS, backed by 26 pytest tests and end-to-end data quality checks. 
+SkillBridge.AI: Resume-to-Job Match Platform 
+Sep 2025 – Present 
+Python, TypeScript, FastAPI, React, PostgreSQL, SQLAlchemy, Alembic, Redis, ChromaDB, OpenAI, Docker, async/SSE, RAG  |  GitHub | Live 
+• Led a team of 4 building a multi-store data platform (PostgreSQL + Redis + ChromaDB) for resume-to-job matching. 
+• Architected a 7-stage async pipeline orchestrating ingest, transform, scoring, and persistence with SSE progress streaming. 
+• Designed a 6-table PostgreSQL schema with JSON payloads, 4 Alembic migrations, and idempotent async writes. 
+• Ingested 5K+ courses from HuggingFace and Kaggle (deduped, normalized) into a ChromaDB vector store. 
+• Scraped 2,000+ ATS listings from Greenhouse/Lever with retry/backoff, schema normalization, and TTL caching. 
+MoneyMap.AI: Financial Data Platform 
+Feb 2026 – Apr 2026 
+Python, FastAPI, Pandas, NumPy, Financial APIs, SciPy, statsmodels, MLflow, Plotly, Streamlit  |  GitHub | Live 
+• Launched a financial data pipeline ingesting transactions and macro indicators to forecast and rank portfolio allocations. 
+• Pulled 10+ macro indicators from 4 APIs (FRED, BLS, Treasury, Alpha Vantage) with retry/backoff and regime classification. 
+• Simulated 12-month cash flows with 10K Monte Carlo paths across base, upside, and downside scenarios. 
+• Computed VaR, CVaR, Sharpe, beta, and max drawdown; stress-tested portfolios against 5 historical crises. 
+ConvLens: CNN Inspection Platform 
+Jan 2026 – Apr 2026 
+Python, TypeScript, FastAPI, Next.js, PyTorch, NumPy, Pillow, AWS Lambda + S3, Docker, Mangum, GitHub Actions, pytest  |  GitHub | Live 
+• Productionized a CNN inference service serving outputs and Grad-CAM heatmaps via a queue-based async job pipeline. 
+• Engineered an async job orchestration layer with background workers and 5-stage progress tracking from queued to done. 
+• Memoized results via SHA-256 image hashing (100-item LRU cache) and kept 3 PyTorch models warm in memory. 
+• Abstracted storage behind one interface, supporting both local-filesystem and AWS Lambda + S3 deployments. 
+EXPERIENCE 
+Sports Media Inc. | Remote 
+Data Science Intern 
+Jul 2024 – Sep 2024 
+• Deployed a TF-IDF + XGBoost sentiment pipeline on 14K+ social comments, revealing Super Bowl engagement trends. 
+• Automated MLB/NFL survey ingestion and reporting, cutting time 30% while producing 20 sales-ready audience decks. 
+• Standardized GA4 tracking and KPI reporting, saving 15 hrs/week and lifting tagging compliance 25%. 
+CUNY Tech Prep | New York, NY 
+Jul 2025 – Present 
+Data Science Fellow 
+• Selected for a competitive data fellowship (<100 accepted across 11 CUNY senior colleges). 
+• Trained weekly in EDA, feature engineering, statistical modeling, visualization, and ML workflows. 
+• Delivered SkillBridge AI as capstone, a resume-to-job match platform on PostgreSQL, Redis, and ChromaDB. 
+SUPPORTING EXPERIENCE 
+DoorDash | Long Island City, NY 
+Operations Associate 
+• QA-tested internal dispatch tools, preventing 15–20% of order issues before dispatch. 
+• Reproduced bugs during daily ops, reducing issue turnaround time by 30%. 
+Apr 2023 – Jul 2025 
+• Escalated bugs via Jira and Slack with severity tags, boosting triage response efficiency 60%.

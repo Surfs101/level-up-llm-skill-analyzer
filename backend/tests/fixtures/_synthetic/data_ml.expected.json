@@ -1,0 +1,15 @@
+{
+  "skill_ids": [
+    "computer-vision",
+    "deep-learning",
+    "machine-learning",
+    "natural-language-processing",
+    "numpy",
+    "pandas",
+    "python",
+    "pytorch",
+    "rag",
+    "scikit-learn",
+    "tensorflow"
+  ]
+}

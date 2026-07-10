@@ -1,0 +1,60 @@
+Artificial Intelligent LLM Research & Development Co-Op / Intern- job post
+Pereless Systems
+Red Bank, NJ 07701
+Full-time
+Profile insights
+Here’s how the job qualifications align with your profile.
+Skills
+
+Data preprocessing
+
+Natural language processing
+
+Machine learning libraries
++ show more
+
+Do you have experience in Data preprocessing?
+&nbsp;
+Job details
+Here’s how the job details align with your profile.
+Job type
+
+Full-time
+&nbsp;
+Full job description
+Job Description:
+
+At Pereless Systems, we are the leading recruiting cloud platform since 2000, we are at the forefront of AI and machine learning innovation, driving solutions that impact the future. Our team is dedicated to creating cutting-edge technologies that enhance human capabilities and streamline processes. We are currently seeking a passionate and skilled AI LLM Co-op/Intern to join our dynamic team. This role is an exciting opportunity to train and tune existing open-source models with resume content and provide summary and prediction for future applicants.
+
+Why Join Us?
+
+Pereless Systems offers a dynamic and supportive work environment where innovation and initiative are celebrated. As part of our team, you'll have the opportunity to work on groundbreaking projects and make substantial contributions to the field of AI. We provide comprehensive mentorship, professional development opportunities, and a network of industry experts to ensure your co-op/internship experience is exceptionally rewarding.
+
+As an AI LLM Co-op/Intern, you will work closely with our AI research and development team to contribute to the enhancement of our AI systems. Your primary focus will be on the training and tuning of existing open-source language model frameworks, specifically targeting the optimization of resume content processing. You will also assist in developing models that can provide insightful summaries and predictions regarding future job applicants, aiding in our recruitment processes.
+
+Key Responsibilities:
+
+Collaborate with AI experts to understand and contribute to the development pipeline of language models.
+Train and fine-tune open-source AI models using large datasets, particularly resume content.
+Evaluate model performance and apply iterative improvements.
+Develop and implement algorithms capable of generating summaries and predictive analyses of job applicants.
+Document and report findings, insights, and methodologies throughout the development process.
+Stay updated with the latest trends and advancements in AI and machine learning.
+
+Experience and Skills:
+Legally authorized to work permanently in the U.S. and not require sponsorship for employment visa status now or in the future (e.g. H1-B status)
+Actively enrolled in an accredited university through the duration of co-op assignment pursuing a Bachelor's, Master's or PhD degree
+Ability to commit to 6-month duration - 40 hours per week (Monday - Friday) for the length of the assignment (June 17, 2024 - December 13, 2024)
+Minimum cumulative 3.0 GPA
+Currently enrolled in or recently graduated from a degree in Computer Science, Artificial Intelligence, Data Science, or related field.
+Strong foundation in AI principles, machine learning, and natural language processing (NLP).
+Experience with Python programming and libraries such as TensorFlow, PyTorch, or similar.
+Familiarity with open-source language models and frameworks.
+Ability to handle large datasets and perform data cleaning and preprocessing.
+Strong analytical and problem-solving skills.
+Excellent communication and collaboration abilities.
+Preferred Qualifications:
+
+Prior experience or projects involving natural language processing or machine learning.
+Experience with cloud computing platforms (e.g., AWS, Google Cloud, Azure).
+Contributions to open-source projects or publications in relevant fields.

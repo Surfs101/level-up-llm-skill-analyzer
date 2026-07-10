@@ -1,0 +1,4 @@
+Machine Learning Engineer. Day to day is Python with pandas, numpy and
+scikit-learn. Trained deep learning models in PyTorch and some TensorFlow.
+Did a lot of NLP and a bit of computer vision. Built a RAG pipeline for a
+support chatbot. Strong communicator who enjoys mentoring.

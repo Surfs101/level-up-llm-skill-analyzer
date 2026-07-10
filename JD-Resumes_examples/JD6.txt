@@ -1,0 +1,75 @@
+Senior Software Engineer- job post
+Disney Entertainment and ESPN Product & Technology
+New York, NY 10013
+$148,700 - $199,400 a year
+Job details
+Here’s how the job details align with your profile.
+Pay
+
+$148,700 - $199,400 a year
+&nbsp;
+Full job description
+Disney Entertainment and ESPN Product & Technology
+
+Technology is at the heart of Disney’s past, present, and future. Disney Entertainment and ESPN Product & Technology is a global organization of engineers, product developers, designers, technologists, data scientists, and more – all working to build and advance the technological backbone for Disney’s media business globally.
+
+The team marries technology with creativity to build world-class products, enhance storytelling, and drive velocity, innovation, and scalability for our businesses. We are Storytellers and Innovators. Creators and Builders. Entertainers and Engineers. We work with every part of The Walt Disney Company’s media portfolio to advance the technological foundation and consumer media touch points serving millions of people around the world.
+
+Here are a few reasons why we think you’d love working here:
+
+Building the future of Disney’s media: Our Technologists are designing and building the products and platforms that will power our media, advertising, and distribution businesses for years to come.
+
+Reach, Scale & Impact: More than ever, Disney’s technology and products serve as a signature doorway for fans' connections with the company’s brands and stories. Disney+. Hulu. ESPN. ABC. ABC News…and many more. These products and brands – and the unmatched stories, storytellers, and events they carry – matter to millions of people globally.
+
+Innovation: We develop and implement groundbreaking products and techniques that shape industry norms, and solve complex and distinctive technical problems.
+
+Commerce, Data & Identity provides the core product management functions for areas crucial to Disney’s media businesses. These include initiatives and products that power digital commerce, identity, and growth, as well as those that reach uniquely across The Walt Disney Company enterprise, such as messaging and privacy, among others. Additionally, it is responsible for the data engineering, science, and products for Disney Entertainment & ESPN, along with their interconnection with other parts of The Walt Disney Company.
+
+The Subscriptions team is looking to expand our team in the NYC office. We are a dynamic team of engineers that support all your Disney, ESPN and Hulu subscriptions at scale! We solve problems at internet-scale that only a handful of teams ever reach.
+
+We are seeking a highly skilled and motivated Senior Software Engineer to join our dynamic engineering team. In this role, you will be responsible for designing, developing, and deploying scalable and efficient software solutions using Functional Programming Style Scala and other backend languages. You will work with cutting-edge technologies in cloud computing, containerization, distributed systems, and observability. The ideal candidate should have a strong background in full-stack development, modern DevOps practices, and experience working with cloud-native technologies such as AWS and Kubernetes.
+
+Responsibilities
+
+Development: Design, develop, and maintain scalable, secure, and efficient software applications using Scala and other backend languages.
+
+Cloud Infrastructure: Utilize AWS services (CFN, EC2, Lambda, S3, Dynamo, etc.) to deploy and manage applications in the cloud.
+
+Containerization & Orchestration: Implement containerized solutions using Docker, deploy and manage services on Kubernetes.
+
+Distributed Systems: Design and build distributed systems that are fault-tolerant, highly available, and scalable. Understand concepts such as event-driven architecture, microservices, and data consistency.
+
+Observability & Monitoring: Implement and maintain observability best practices, including tagging, metrics, and logging to provide comprehensive visibility into system performance. Use tools like Datadog to monitor the health and performance of applications in real-time.
+
+Collaboration: Work closely with cross-functional teams including product managers, UI/UX designers, and DevOps engineers to define requirements, design systems, and deliver features.
+
+Code Quality & Best Practices: Write clean, maintainable, and testable code while following best practices for software development. Perform code reviews and provide mentorship to junior engineers on and offshore.
+
+Problem-Solving & Innovation: Tackle complex technical challenges and continuously seek opportunities to improve system performance, scalability, and reliability.AI Best Practices: Follow team’s best practices regarding the safe use of LLMs and suggest improvements as appropriate.
+
+Basic Qualifications
+
+Degree in Computer Science, Electrical Computer Engineering or similar field.
+
+5+ years of experience in software development, with a focus on Functional Programming Scala stacks.
+
+Hands-on experience with AWS cloud services and Kubernetes for container orchestration.
+
+Strong understanding of RESTful APIs, Microservices Architecture, and Event-Driven Architecture.
+
+Strong problem-solving skills, attention to detail, and the ability to work in a collaborative, fast-paced environment.
+
+Experience with Scala using ZIO, Cats, Cats Effect , Modern Java, Kotlin, AWS, Cloudformation, Terraform or similar technologies; experience in Istio and Spinnaker; experience with full software development lifecycle experience - including maintenance after release; experience in Agile software development practices and version control systems (e.g., Git, Jira).
+
+Preferred Qualifications
+
+Solid understanding of distributed systems and how to design and scale them.
+
+Proficiency with CI/CD pipelines and modern development tools.
+
+Experience in building observability solutions using tools like Datadog, including tagging, metrics, and logging.
+
+#DISNEYTECH
+
+
+The hiring range for this position in New York, NY is $148,700 to $199,400 per year. The base pay actually offered will take into account internal equity and also may vary depending on the candidate’s geographic region, job-related knowledge, skills, and experience among other factors. A bonus and/or long-term incentive units may be provided as part of the compensation package, in addition to the full range of medical, financial, and/or other benefits, dependent on the level and position offered.

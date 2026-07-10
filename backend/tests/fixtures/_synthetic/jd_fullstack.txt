@@ -1,0 +1,3 @@
+Full-Stack Engineer. Node.js and Express on the backend, Vue.js on the
+frontend. Postgres database. REST and GraphQL APIs. Deployed to AWS.
+We practice test-driven development and continuous delivery.

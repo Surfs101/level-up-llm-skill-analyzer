@@ -1,0 +1,32 @@
+{
+  "skill_ids": [
+    "agile",
+    "atlassian-jira",
+    "aws",
+    "aws-lambda",
+    "aws-s3",
+    "ci-cd",
+    "cloud-computing",
+    "containerization",
+    "datadog",
+    "devops",
+    "distributed-systems",
+    "docker",
+    "dynamodb",
+    "event-driven-architecture",
+    "functional-programming",
+    "git",
+    "istio",
+    "java",
+    "kotlin",
+    "kubernetes",
+    "large-language-models",
+    "logging",
+    "microservices",
+    "monitoring",
+    "observability",
+    "restful-api",
+    "scala",
+    "terraform"
+  ]
+}

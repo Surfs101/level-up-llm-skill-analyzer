@@ -1,0 +1,31 @@
+# Keep the image lean and secret-free. Only app/, data/, alembic/, and the lockfiles
+# are COPYed in the Dockerfile — this also stops build context bloat.
+
+# Offline-only tooling — never in the live image (§7).
+scrapers/
+
+# Tests and their fixtures.
+tests/
+
+# Docs and runbooks.
+docs/
+*.md
+
+# Secrets and local env.
+.env
+.env.*
+
+# Python / tooling caches and the local virtualenv.
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local infra + VCS.
+docker-compose.yml
+.git/
+.gitignore
+.pre-commit-config.yaml
+.python-version

@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Default theme: dark navy. Light mode is opt-in via .light on <html>. */
+  --bg: #171F3D;
+  --bg-secondary: #1E284D;
+  --bg-elevated: #25305A;
+  --bg-elevated-hi: #2C3868;
+  --text: #F8FAFC;
+  --text-muted: #CBD5E1;
+  --text-subtle: #94A3B8;
+  --border: #2A3A5F;
+  --border-strong: #3D4F7A;
+
+  /* Primary CTA / links — blue. The "interactive action" color. */
+  --accent: #3B82F6;
+  --accent-hover: #2563EB;
+  --accent-glow: rgba(59, 130, 246, 0.22);
+  --accent-glow-soft: rgba(59, 130, 246, 0.12);
+  --on-accent: #FFFFFF;
+
+  /* Analytics / scores / recommendations — cyan + softer blue. */
+  --score: #22D3EE;
+  --score-soft: #60A5FA;
+  --score-bg: rgba(34, 211, 238, 0.10);
+  --score-border: rgba(34, 211, 238, 0.32);
+  --score-glow: rgba(34, 211, 238, 0.18);
+  --score-glow-soft: rgba(34, 211, 238, 0.10);
+
+  /* Premium / paid — neutral white. (Purple removed per design pass.) */
+  --premium: #F8FAFC;
+  --premium-bg: rgba(248, 250, 252, 0.10);
+  --premium-border: rgba(248, 250, 252, 0.28);
+  --premium-glow: rgba(248, 250, 252, 0.12);
+
+  /* Decorative — muted blue. Used at low opacity for bridge illustration. */
+  --decor: #2563EB;
+
+  /* Status — matched (green / success), missing (red / gap), warning (amber / medium). */
+  --matched-bg: rgba(16, 185, 129, 0.15);
+  --matched-text: #34D399;
+  --matched-border: rgba(16, 185, 129, 0.35);
+  --matched-glow: rgba(16, 185, 129, 0.10);
+
+  --missing-bg: rgba(248, 113, 113, 0.15);
+  --missing-text: #FCA5A5;
+  --missing-border: rgba(248, 113, 113, 0.35);
+  --missing-glow: rgba(248, 113, 113, 0.10);
+
+  --warning-bg: rgba(245, 158, 11, 0.12);
+  --warning-text: #FBBF24;
+  --warning-border: rgba(245, 158, 11, 0.32);
+
+  --critical-bg: rgba(248, 113, 113, 0.12);
+  --critical-text: #F87171;
+  --critical-border: rgba(248, 113, 113, 0.32);
+
+  --warning: #F59E0B;
+
+  /* Derived accent tints (CTA blue) for panels and glows */
+  --accent-tint-4: color-mix(in srgb, var(--accent) 4%, transparent);
+  --accent-tint-12: color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-border-15: color-mix(in srgb, var(--accent) 22%, transparent);
+  --accent-radial-65: color-mix(in srgb, var(--accent) 55%, transparent);
+  --accent-radial-55: color-mix(in srgb, var(--accent) 45%, transparent);
+  --accent-radial-40: color-mix(in srgb, var(--accent) 32%, transparent);
+
+  /* Compatibility aliases (legacy --plan now maps to neutral white) */
+  --accent-2: var(--score);
+  --accent-purple: var(--premium);
+  --plan: var(--premium);
+  --plan-glow: var(--premium-glow);
+  --plan-glow-soft: rgba(248, 250, 252, 0.08);
+}
+
+html.light {
+  --bg: #fafaf7;
+  --bg-secondary: #f4f2ec;
+  --bg-elevated: #ffffff;
+  --text: #1a1a18;
+  --text-muted: #6b6964;
+  --text-subtle: #9c9a95;
+  --border: rgba(26, 26, 24, 0.1);
+  --border-strong: rgba(26, 26, 24, 0.18);
+
+  --accent: #7c3aed;
+  --accent-hover: #6d28d9;
+  --accent-glow: rgba(124, 58, 237, 0.3);
+  --accent-glow-soft: rgba(124, 58, 237, 0.15);
+  --on-accent: #ffffff;
+
+  --matched-bg: rgba(34, 197, 94, 0.12);
+  --matched-text: #15803D;
+  --matched-border: rgba(21, 128, 61, 0.25);
+  --matched-glow: rgba(21, 128, 61, 0.10);
+
+  --missing-bg: rgba(220, 38, 38, 0.10);
+  --missing-text: #B91C1C;
+  --missing-border: rgba(220, 38, 38, 0.28);
+  --missing-glow: rgba(220, 38, 38, 0.10);
+
+  --premium: #1a1a18;
+  --premium-bg: rgba(26, 26, 24, 0.06);
+  --premium-border: rgba(26, 26, 24, 0.18);
+  --premium-glow: rgba(26, 26, 24, 0.10);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  html.light {
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--accent) 25%, transparent);
+    color: var(--text);
+  }
+}
+
+@layer components {
+  /* Shared purple icon box on How it works + Plan strip */
+  .landing-icon-tile {
+    display: inline-grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border-radius: 10px;
+    background-color: var(--accent-tint-12);
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+    box-shadow:
+      0 0 16px color-mix(in srgb, var(--accent) 18%, transparent),
+      inset 0 0 8px color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+}
+
+@layer utilities {
+  /* Subtle dotted texture so large dark areas don't look flat.
+     Applied via .noise on <body>; ~1.2% alpha — invisible at first glance. */
+  .noise {
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 0.012) 1px,
+      transparent 1px
+    );
+    background-size: 3px 3px;
+    background-attachment: fixed;
+  }
+}
+
+@keyframes hero-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}

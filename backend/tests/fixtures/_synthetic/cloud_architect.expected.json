@@ -1,0 +1,12 @@
+{
+  "skill_ids": [
+    "apache-kafka",
+    "aws",
+    "go",
+    "google-cloud",
+    "kubernetes",
+    "microsoft-azure",
+    "python",
+    "terraform"
+  ]
+}

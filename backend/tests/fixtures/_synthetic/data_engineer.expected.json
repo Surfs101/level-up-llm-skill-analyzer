@@ -1,0 +1,12 @@
+{
+  "skill_ids": [
+    "apache-kafka",
+    "apache-spark",
+    "bigquery",
+    "data-engineering",
+    "etl",
+    "python",
+    "snowflake",
+    "sql"
+  ]
+}

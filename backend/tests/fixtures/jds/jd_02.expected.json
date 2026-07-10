@@ -1,0 +1,16 @@
+{
+  "skill_ids": [
+    "aws",
+    "cloud-computing",
+    "data-science",
+    "fine-tuning",
+    "google-cloud",
+    "large-language-models",
+    "machine-learning",
+    "microsoft-azure",
+    "natural-language-processing",
+    "python",
+    "pytorch",
+    "tensorflow"
+  ]
+}

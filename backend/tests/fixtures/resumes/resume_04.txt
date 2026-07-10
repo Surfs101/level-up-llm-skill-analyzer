@@ -1,0 +1,68 @@
+Ahmed Ali
+GTM Engineer  |  Full-Stack Engineer  |  AI Systems Engineer
+(929) 786-6553  |  ahmedkali841@gmail.com  |  New York, NY  |  GitHub  |  LinkedIn  |  Portfolio
+AI/GTM engineer who builds systems that make revenue teams move faster. Built GTMFlow AI, a platform that scores leads, drafts AI
+outreach, tracks adoption and ROI, and routes approved workflows through Slack. Led a 4-engineer team building a live AI platform
+that delivers resume-to-job analysis in under 30 seconds. Strong in Python, TypeScript, APIs, webhooks, LLM systems, and turning
+manual workflows into measurable wins.
+EDUCATION
+Queens College, City University of New York (CUNY), Flushing, NY
+Bachelor of Science in Computer Science
+Relevant Coursework:
+Graduation date: Dec 2025
+Software Engineering, Database Systems, Cloud Computing, Machine Learning, Internet & Web Technologies
+SKILLS
+Languages: Python, TypeScript, JavaScript, SQL, Java, C++
+Backend & APIs: FastAPI, Node.js, Express, REST APIs, webhooks, OAuth2, SSE streaming, async pipelines
+AI / LLM: OpenAI GPT-4o, RAG, prompt engineering, JSON-mode output, model orchestration, LLM evaluation
+GTM / RevOps Automation: lead scoring, approval routing, Slack alerts, AI outreach drafts, ROI dashboards, workflow automation
+Databases & Pipelines: PostgreSQL, Redis, ChromaDB (vector), MongoDB, ETL pipelines, GitHub Actions, Slack webhooks
+Frontend: React, Next.js (App Router), Tailwind CSS, TanStack Query
+Cloud & Dev Tools: AWS (Lambda, S3), Docker, Railway, Vercel, Git, pytest, Cursor, Claude Code
+EXPERIENCE
+DoorDash  |  Long Island City, NY
+Operations Associate
+• QA-tested internal dispatch tools during live operations, preventing 15-20% of order issues before dispatch.
+• Coordinated bug resolution across operations, support, and engineering teams, cutting issue turnaround 30%.
+Apr 2023 – Jun 2025
+• Standardized a severity-tagged triage workflow prioritizing critical incidents, boosting cross-team response 60%.
+• Triaged reproducible bugs via Jira and Slack with structured repro steps for fast engineering handoff.
+• Investigated live order disputes in internal CRM and ticketing tools, resolving customer issues same-shift.
+CUNY Tech Prep  |  New York, NY
+ML/AI Fellow
+• Selected for a competitive applied ML fellowship (<100 from 11 CUNY colleges); built SkillBridge.AI capstone.
+Jul 2025 – Jun 2026
+• Tuned RAG pipelines spanning embedding generation, vector search, reranking, and retrieval-quality evaluation.
+• Drove Agile, Git-based delivery with code review, TDD, and CI/CD across full-stack ML deliverables.
+SELECTED PROJECTS
+GTMFlow AI: Lead Scoring & AI Outreach Automation
+Python, FastAPI, OpenAI GPT-4o, PostgreSQL, Slack, Next.js, TypeScript, Tailwind CSS, pytest  |  GitHub  |  Live
+Apr 2026 – Present
+• Prototyped a revenue-team workflow spanning lead ingestion, AI scoring, human approval, Slack alerts, and ROI tracking.
+• Architected a deterministic 100-point lead-scoring engine across 7 categories with explainable, rule-based reasoning.
+• Engineered a dual-mode AI layer drafting company summaries and outreach with guardrails blocking hallucinated facts.
+• Tracked adoption and ROI via an 18-field metrics dashboard, validated by 121 pytest tests over the workflow.
+• Embedded a human approve/reject gate before any send, capturing each decision as an auditable event.
+SkillBridge.AI: Resume Intelligence Platform
+Sep 2025 – Present
+Python, FastAPI, OpenAI GPT-4o, ChromaDB, PostgreSQL, Redis, Greenhouse API, React, TypeScript, pytest  |  GitHub  |  Live
+• Led a 4-engineer team shipping a live LLM platform delivering streaming resume-to-job analysis in under 30s.
+• Extracted skills from resumes and JDs via an NLP matcher over a 900+ skill taxonomy returning canonical IDs.
+• Constructed a RAG pipeline over 5,000+ embeddings, reranking 200 candidates to top 2 by coverage.
+• Matched users to 2,000+ Greenhouse postings by skillset, cached at a 6-hour TTL on Redis.
+• Hardened LLM outputs with backend filters catching ~30% of responses violating tech-stack constraints.
+Security Risk Intelligence Pipeline
+Python, PostgreSQL, SQLAlchemy, Pandas, GitHub Actions, Power BI, pytest  |  GitHub
+• Designed a vulnerability intelligence service integrating 3 public APIs to score and alert on CVEs daily.
+• Pulled and normalized 309K+ records into PostgreSQL, cutting ingest from 1 hour to 2 minutes.
+• Computed a composite risk score weighting CVSS, KEV, and EPSS, replacing $50K+/year commercial tooling.
+• Surfaced KEV-listed CVEs via Power BI dashboards, refocusing analysts on the 5% driving most risk.
+• Scheduled idempotent daily runs on GitHub Actions cron, safe to rerun via a daily-keyed unique index.
+ShipCheck: Repository Quality Analyzer
+Next.js, React, TypeScript, FastAPI, Python, PostgreSQL, networkx, GitHub API, Playwright, k6  |  GitHub  |  Live
+• Crafted a static-analysis service scoring GitHub repos across 6 weighted categories without running user code.
+• Modeled weighted scores combining severity, confidence, and scope across 9 pluggable analyzers.
+• Launched a versioned REST API with a 10/min rate limit, retry/backoff, and a demo-mode fixture fallback.
+Jan 2026 – Apr 2026
+Jan 2026 – Apr 2026
+• Mapped a networkx import graph surfacing cycles, god-modules, and orphan files for refactor targets

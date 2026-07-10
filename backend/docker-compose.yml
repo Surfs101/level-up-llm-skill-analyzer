@@ -1,0 +1,61 @@
+# Local development only. Production uses Railway-managed Postgres and Redis.
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: skillbridge
+      POSTGRES_PASSWORD: skillbridge
+      POSTGRES_DB: skillbridge
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U skillbridge"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Local, S3-compatible stand-in for Cloudflare R2. Holds extracted resume .txt files
+  # exactly as R2 does in production. Point the app at it with R2_ENDPOINT_URL and the
+  # credentials below (see .env.example). Console: http://localhost:9001.
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"  # S3 API
+      - "9001:9001"  # web console
+    volumes:
+      - miniodata:/data
+
+  # One-shot: wait for MinIO, create the resumes bucket, then exit. Makes first-run
+  # setup zero-touch — no manual bucket creation. Idempotent (--ignore-existing).
+  minio-setup:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      until mc alias set local http://minio:9000 minioadmin minioadmin; do
+        echo 'waiting for minio...'; sleep 1;
+      done &&
+      mc mb --ignore-existing local/skillbridge-resumes &&
+      echo 'MinIO bucket ready: skillbridge-resumes'
+      "
+
+volumes:
+  pgdata:
+  miniodata:

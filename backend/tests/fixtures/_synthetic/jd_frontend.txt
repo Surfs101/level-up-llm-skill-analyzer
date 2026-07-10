@@ -1,0 +1,3 @@
+Frontend Engineer wanted. Strong React and TypeScript required.
+We use Next.js and Tailwind CSS. You should be comfortable with modern
+JavaScript tooling. Nice to have: experience with GraphQL APIs.

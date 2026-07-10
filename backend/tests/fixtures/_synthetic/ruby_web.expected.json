@@ -1,0 +1,12 @@
+{
+  "skill_ids": [
+    "caching",
+    "ci-cd",
+    "frontend-development",
+    "postgresql",
+    "react",
+    "redis",
+    "ruby-on-rails",
+    "typescript"
+  ]
+}

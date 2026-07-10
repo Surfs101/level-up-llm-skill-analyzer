@@ -1,0 +1,3 @@
+Web Developer. Ruby on Rails for years, with PostgreSQL and Redis.
+Sprinkled React.js and TypeScript on the frontend. Background jobs and
+caching. CI/CD pipelines kept green. Wrote a lot of RSpec tests.

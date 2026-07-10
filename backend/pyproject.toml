@@ -1,0 +1,105 @@
+[project]
+name = "skillbridge-backend"
+version = "0.1.0"
+description = "SkillBridge backend — a FastAPI service plus one Arq worker wrapping the analysis and jobs pipelines."
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "gunicorn",
+    "sqlalchemy[asyncio]>=2.0",
+    "asyncpg",
+    "pgvector",
+    "alembic",
+    "pydantic>=2",
+    "pydantic-settings",
+    "authlib",
+    "itsdangerous",  # required by Starlette's SessionMiddleware (signed OAuth-state cookie)
+    "httpx[http2]",  # http2 extra pulls h2 — the Greenhouse client fetches over HTTP/2
+    "tenacity",
+    "arq",
+    "redis",
+    "flashtext",
+    "openai",
+    "jinja2",
+    "python-multipart",
+    "pypdf",
+    "python-docx",
+    "python-magic",
+    "boto3",
+    "slowapi",
+    "sentry-sdk[fastapi]",
+    "logfire[fastapi,sqlalchemy,httpx]",  # extras pull the OTel instrumentations we use
+]
+
+[dependency-groups]
+dev = [
+    "ruff",
+    "mypy",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "freezegun",
+    "fakeredis",
+    "moto[s3]",  # in-process S3 mock for the R2 client tests (no live bucket in CI)
+    "pre-commit",
+]
+
+# This is an application, not an installable library — don't try to build the root.
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RET"]
+
+# FastAPI's dependency-injection markers are meant to be called in argument
+# defaults — that's the framework's idiom, not the bug B008 warns about.
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = [
+    "fastapi.Depends",
+    "fastapi.Query",
+    "fastapi.Path",
+    "fastapi.Body",
+    "fastapi.Header",
+    "fastapi.Cookie",
+    "fastapi.Form",
+    "fastapi.File",
+]
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+exclude = [
+    "scripts/",
+    "scrapers/",
+    "tests/",
+    # Pipeline step dirs use digit-prefixed names (01_ingest, 02_extract_text, …)
+    # loaded via importlib by string. They are not valid Python package names, so
+    # mypy cannot resolve them. See section 7 "Import note" in the design doc.
+    "app/pipeline_(one|two)/[0-9]",
+]
+
+# Strict type-checking applies to the app package only. scripts/, scrapers/, and
+# tests/ stay lenient (they are excluded above; the live service must be strict).
+[[tool.mypy.overrides]]
+module = "app.*"
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+disallow_untyped_calls = true
+disallow_any_generics = true
+disallow_subclassing_any = true
+check_untyped_defs = true
+warn_return_any = true
+warn_unused_ignores = true
+no_implicit_reexport = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

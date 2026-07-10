@@ -1,0 +1,21 @@
+# Railway config for the WEB service (the FastAPI API).
+#
+# Railway config-as-code is per-service, so the worker has its own file
+# (railway.worker.toml). In the Railway project, create TWO services from this repo
+# (root directory = backend/), both building this Dockerfile:
+#   - web    → uses this file
+#   - worker → set its config path to railway.worker.toml
+# See docs/deploy.md for the full runbook.
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+healthcheckPath = "/healthz"
+healthcheckTimeout = 30
+# Runs once before the new release goes live — the WEB service owns migrations so they
+# run exactly once per deploy (the worker does not repeat them).
+preDeployCommand = "alembic upgrade head"
+restartPolicyType = "ON_FAILURE"

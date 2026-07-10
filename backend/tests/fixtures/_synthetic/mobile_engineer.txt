@@ -1,0 +1,3 @@
+Mobile Engineer. Native iOS in Swift, Android in Kotlin, plus a couple of
+cross-platform apps in React Native. Backend talked to a Java Spring Boot
+service. Data synced to a postgres backend. Worked closely with designers.

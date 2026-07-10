@@ -1,0 +1,4 @@
+Cloud Architect. Deep on AWS, also Microsoft Azure and Google Cloud.
+Designed event-driven systems on Kafka. Everything as Terraform modules.
+Containers on Kubernetes. Languages: Go and Python. Led architecture
+reviews and mentored the platform team.

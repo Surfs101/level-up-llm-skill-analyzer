@@ -1,0 +1,13 @@
+{
+  "skill_ids": [
+    "apple-ios",
+    "backend-development",
+    "google-android",
+    "java",
+    "kotlin",
+    "postgresql",
+    "react-native",
+    "spring-boot",
+    "swift"
+  ]
+}

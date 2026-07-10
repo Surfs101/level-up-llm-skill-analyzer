@@ -1,0 +1,59 @@
+Ahmed Ali 
+(929) 786-6553 | ahmedkali841@gmail.com | New York, NY | Github | Linkedin| Website 
+Queens College, City University of New York (CUNY), Flushing, NY 
+Bachelor of Science in Computer Science 
+Expected Dec 2025 
+Relevant Coursework:  Data Science, Machine Learning, Deep Learning, Computer Vision, Software Engineering, Database 
+Systems, Internet & Web Technologies, Cloud Computing, Design and Analysis of Algorithms. 
+SKILLS 
+Programming Languages: Python, Java, C++, JavaScript, TypeScript, SQL, MATLAB 
+Data Science & Machine Learning: Pandas, NumPy, Scikit-learn, TensorFlow, PyTorch, Matplotlib, Seaborn, NLTK, OpenAI APIs 
+Web Development: React, Node.js, Flask, Tailwind CSS, HTML, CSS 
+Databases: MongoDB, MySQL 
+Tools & Platforms: Git, GitHub, Docker, AWS, Google Cloud, Linux, Figma, Google Maps API 
+PROJECTS 
+AI Powered Resume & Skill Analyzer | Python, FastAPI, OpenAI API, LLM, MongoDB | Live Demo GitHub Sep 2025 – Dec2025 
+● Led a team of 4 to build an AI-powered resume and job-description analyzer processing 5,000+ documents to compute 
+skill-match scores, detect skill gaps, and generate personalized learning-path recommendations. 
+● Built a PDF/OCR pipeline using PyMuPDF, PyPDF2, and Tesseract achieving 98%+ accuracy and reducing cleanup by 60%. 
+● Used OpenAI LLMs for skill extraction, matching, and cover-letter generation, reducing review time by ~75%. 
+● Designed a low-latency FastAPI RESTful backend with MongoDB and an HTML/CSS/JS frontend, managing 10,000+ 
+records and delivering analysis in <150 ms. 
+MLOps Support Ticket Classifier |Python, FastAPI, MLflow, Docker, Scikit-learn | GitHub 
+Nov 2025 - Dec 2025 
+● Built an end-to-end MLOps pipeline using TF-IDF + Logistic Regression to classify 5 ticket types with 93% accuracy. 
+● Implemented MLflow tracking and model registry, logging 20+ runs with metrics, parameters, and artifacts. 
+● Built and containerized a FastAPI inference service with Docker, delivering sub-200 ms predictions across environments. 
+● Designed a modular CI/CD training workflow using GitHub Actions, automating retraining and boosting experimentation 
+efficiency by 40%. 
+Spam Email Classifier | Python, NLP, Scikit-learn, XGBoost, Matplotlib, Seaborn | GitHub 
+July 2025 
+● Built a spam-email classifier with a team of 3 using Python and Scikit-learn, reaching 98% accuracy on 5,500 emails. 
+● Developed an NLP + TF-IDF preprocessing pipeline that improved model performance by ~12% over baseline. 
+● Addressed class imbalance with class weighting and SMOTE, increasing minority-class recall by 22%. 
+● Visualized model results using Matplotlib/Seaborn, producing ROC curves and confusion matrices with AUC 0.99. 
+EXPERIENCE 
+CUNY Tech Prep | New York, NY 
+Data Science Fellow 
+Jul 2025 – Present 
+● Selected for a competitive fellowship focused on advanced data science and full-stack development using Python, React, 
+Node.js, SQL, and modern ML workflows. 
+● Applied Python, Jupyter, Pandas, and NumPy to perform exploratory data analysis, feature engineering, and Statistical 
+Analysis, leveraging Scikit-learn and SQL for end-to-end machine learning projects. 
+● Built and deployed applications using React, Node.js, PostgreSQL, and Express while following industry standards like 
+MVC, Git version control, CI/CD, Agile/Scrum, and test-driven development. 
+● Completed multiple real-world projects emphasizing data pipelines, Data Visualization, machine learning 
+experimentation, and deployment best practices 
+Headstarter | Remote 
+Software Engineering Fellow  
+Jun 2024 – Aug 2024 
+● Completed a 3-month competitive fellowship focused on AI-driven full-stack development.  
+● Engineered and launched 5+ web apps using React, Node.js, and Firebase in agile team environments. 
+● Collaborated with cross-functional teams in Agile sprints, contributing to frontend, backend, and deployment tasks. 
+DashMart by DoorDash | Long Island City, NY 
+Operations Associate      
+Apr 2023 – Apr 2025 
+● Streamlined parcel logistics with cross-functional teams, increasing fulfillment speed by 20% within the first 3 months. 
+● Reported app bugs and delivered actionable feedback to the tech team, improving overall user experience. 
+● Optimized sorting and tracking workflows using internal tools, reducing order-handling errors. 
+● Championed a Jira/Slack bug-triage process prioritizing key issues, reducing severe incidents by 10% in one quarter.

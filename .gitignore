@@ -1,32 +1,26 @@
-# === Python ===
+# Caches and build output (regenerated — never committed)
+node_modules
+.next
+out
+.venv
+.DS_Store
+*.tsbuildinfo
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-*.sqlite3
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
 
-# === Virtual environments ===
+# Local dev service logs written by scripts/dev.sh
+backend/.dev-logs/
+
+# Real secrets — never commit (would have to be rotated if exposed).
+# Ignore env files anywhere in the tree; the committed *.example templates are kept.
 .env
-.venv/
-env/
-venv/
+.env.*
+!.env.example
+!.env.local.example
 
-# === Jupyter notebooks checkpoints ===
-.ipynb_checkpoints/
-
-# === Environment and config files ===
-*.env
-.env.local
-config.json
-secrets.json
-
-# === OS / IDE files ===
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-
-# === Logs and cache ===
-*.log
-.cache/
-logs/
+# Personal, machine-local tooling config (not shared)
+.claude/settings.local.json
+.claude/*.tmp.*

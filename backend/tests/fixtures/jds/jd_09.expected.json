@@ -1,0 +1,14 @@
+{
+  "skill_ids": [
+    "a-b-testing",
+    "aws",
+    "classification",
+    "data-science",
+    "google-cloud",
+    "machine-learning",
+    "predictive-modeling",
+    "regression",
+    "statistical-analysis",
+    "time-series-analysis"
+  ]
+}

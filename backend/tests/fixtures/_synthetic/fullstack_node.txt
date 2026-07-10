@@ -1,0 +1,4 @@
+Full-Stack Developer. Backend in Node.js and Express, frontend in Vue.js.
+Wrote APIs in both REST and GraphQL. Databases: MongoDB and MySQL.
+Deployed on AWS, some work on Vercel. Used golang for one high-throughput
+service. Practiced test-driven development.

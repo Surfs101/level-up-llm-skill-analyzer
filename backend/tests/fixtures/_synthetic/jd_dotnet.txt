@@ -1,0 +1,3 @@
+Senior .NET Engineer. Expert C# required, some C++ helpful. SQL and
+postgres. Containerize with Docker. Build microservices and deploy to
+Microsoft Azure.

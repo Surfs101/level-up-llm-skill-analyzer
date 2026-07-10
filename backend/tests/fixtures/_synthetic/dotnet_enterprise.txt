@@ -1,0 +1,3 @@
+Software Engineer in a .NET shop. C# all day, some legacy C++.
+SQL Server and a bit of postgres. Containerized with Docker and shipped
+through Azure DevOps. Built microservices behind a REST api.

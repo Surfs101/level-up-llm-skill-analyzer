@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtualenv / uv
+.venv/
+
+# Environment
+.env
+
+# Tool caches
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+
+# Logs / scratch
+logs/
+*.bak
+
+# Scraper raw data — saved HTML input, generated JSON output, page cache.
+# The parser/loader code is committed; the scraped data is not source.
+scrapers/input/
+scrapers/output/
+scrapers/.cache/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

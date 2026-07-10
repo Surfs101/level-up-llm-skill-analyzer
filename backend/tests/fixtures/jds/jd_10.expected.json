@@ -1,0 +1,12 @@
+{
+  "skill_ids": [
+    "atlassian-jira",
+    "data-analysis",
+    "data-visualization",
+    "etl",
+    "integration-testing",
+    "microsoft-azure",
+    "selenium",
+    "sql"
+  ]
+}

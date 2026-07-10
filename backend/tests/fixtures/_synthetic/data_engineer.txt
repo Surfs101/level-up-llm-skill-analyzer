@@ -1,0 +1,4 @@
+Data Engineer. Built ETL pipelines moving terabytes daily.
+Heavy Apache Spark and Apache Kafka user; warehouse in Snowflake and
+BigQuery. Orchestration and SQL everywhere. Python for glue code.
+Focused on data engineering best practices and reliability.

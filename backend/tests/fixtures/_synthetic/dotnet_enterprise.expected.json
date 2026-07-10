@@ -1,0 +1,13 @@
+{
+  "skill_ids": [
+    "azure-devops",
+    "cpp",
+    "csharp",
+    "docker",
+    "dotnet",
+    "microservices",
+    "microsoft-sql-server",
+    "postgresql",
+    "restful-api"
+  ]
+}

@@ -1,0 +1,30 @@
+You are a senior engineer designing a portfolio project for a candidate applying to this job.
+
+Candidate's current skills: {{ matched_skill_names | join(", ") }}
+Skills the candidate is now learning from a recommended course: {{ course_a_covered_names | join(", ") }}
+
+Job description:
+```
+{{ jd_text }}
+```
+
+Design a portfolio project that requires BOTH sets together — the candidate's current
+skills AND the course skills. The project must genuinely exercise the course skills,
+so that building it proves the candidate has internalized the course content. Do NOT
+introduce any skill outside these two lists: use only the current skills and the
+course skills, nothing else.
+
+Mirror what this role actually does day-to-day, based on the job description. The
+idea should be senior-level in ambition but implementable by a new grad in 1–2 weeks.
+
+Return GitHub-flavored Markdown with exactly these sections, in this order:
+
+- Project Title
+- One-Line Pitch
+- Why This Fits the Role
+- Tech Stack
+- Phase 1
+- Phase 2
+- Phase 3
+- README Outline
+- How to Demo in an Interview

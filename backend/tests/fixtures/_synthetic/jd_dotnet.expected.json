@@ -1,0 +1,12 @@
+{
+  "skill_ids": [
+    "cpp",
+    "csharp",
+    "docker",
+    "dotnet",
+    "microservices",
+    "microsoft-azure",
+    "postgresql",
+    "sql"
+  ]
+}

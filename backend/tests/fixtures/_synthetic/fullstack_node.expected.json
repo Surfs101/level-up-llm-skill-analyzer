@@ -1,0 +1,17 @@
+{
+  "skill_ids": [
+    "aws",
+    "backend-development",
+    "express",
+    "frontend-development",
+    "go",
+    "graphql",
+    "mongodb",
+    "mysql",
+    "node-js",
+    "restful-api",
+    "test-driven-development",
+    "vercel",
+    "vue-js"
+  ]
+}

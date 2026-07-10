@@ -1,0 +1,6552 @@
+{
+  "dotnet": {
+    "canonical": ".NET",
+    "accepted": [
+      "dot net"
+    ],
+    "rejected": [
+      {
+        "alias": "dotnet",
+        "reason": "equals its own id or canonical_name"
+      },
+      {
+        "alias": ".net",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "dotnet-framework": {
+    "canonical": ".NET Framework",
+    "accepted": [
+      "dot net framework",
+      "dotnet framework"
+    ],
+    "rejected": [
+      {
+        "alias": ".net framework",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "dotnet-maui": {
+    "canonical": ".NET MAUI",
+    "accepted": [
+      "dot net maui",
+      "dotnet maui"
+    ],
+    "rejected": [
+      {
+        "alias": ".net maui",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "1c-enterprise": {
+    "canonical": "1C Enterprise",
+    "accepted": [
+      "1c"
+    ],
+    "rejected": [
+      {
+        "alias": "1c enterprise",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "4d": {
+    "canonical": "4D",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "4d",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "ab-initio": {
+    "canonical": "Ab Initio",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "ab initio",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "abap": {
+    "canonical": "ABAP",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "abap",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "abap-cds": {
+    "canonical": "ABAP CDS",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "abap cds",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "adobe-acrobat": {
+    "canonical": "Adobe Acrobat",
+    "accepted": [
+      "acrobat"
+    ],
+    "rejected": []
+  },
+  "adobe-after-effects": {
+    "canonical": "Adobe After Effects",
+    "accepted": [
+      "after effects",
+      "ae"
+    ],
+    "rejected": []
+  },
+  "adobe-audition": {
+    "canonical": "Adobe Audition",
+    "accepted": [
+      "audition"
+    ],
+    "rejected": []
+  },
+  "adobe-creative-cloud": {
+    "canonical": "Adobe Creative Cloud",
+    "accepted": [
+      "creative cloud",
+      "cc"
+    ],
+    "rejected": []
+  },
+  "adobe-illustrator": {
+    "canonical": "Adobe Illustrator",
+    "accepted": [
+      "illustrator",
+      "ai"
+    ],
+    "rejected": []
+  },
+  "adobe-indesign": {
+    "canonical": "Adobe InDesign",
+    "accepted": [
+      "indesign"
+    ],
+    "rejected": []
+  },
+  "adobe-photoshop": {
+    "canonical": "Adobe Photoshop",
+    "accepted": [
+      "photoshop",
+      "ps"
+    ],
+    "rejected": []
+  },
+  "adobe-premiere-pro": {
+    "canonical": "Adobe Premiere Pro",
+    "accepted": [
+      "premiere pro",
+      "premiere"
+    ],
+    "rejected": []
+  },
+  "agda": {
+    "canonical": "Agda",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "agda",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "agentic-ai": {
+    "canonical": "Agentic AI",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "agentic ai",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "ags-script": {
+    "canonical": "AGS Script",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "ags script",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "aidl": {
+    "canonical": "AIDL",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "aidl",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "aiken": {
+    "canonical": "Aiken",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "aiken",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "airtable": {
+    "canonical": "Airtable",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "airtable",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "ajax": {
+    "canonical": "AJAX",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "ajax",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "alembic": {
+    "canonical": "Alembic",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "alembic",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "algol": {
+    "canonical": "ALGOL",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "algol",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "alloy": {
+    "canonical": "Alloy",
+    "accepted": [],
+    "rejected": []
+  },
+  "alteryx": {
+    "canonical": "Alteryx",
+    "accepted": [
+      "alteryx designer",
+      "alteryx server",
+      "alteryx analytics"
+    ],
+    "rejected": []
+  },
+  "amazon-kinesis": {
+    "canonical": "Amazon Kinesis",
+    "accepted": [
+      "kinesis",
+      "amazon kinesis data streams",
+      "kinesis data firehose"
+    ],
+    "rejected": []
+  },
+  "amazon-redshift": {
+    "canonical": "Amazon Redshift",
+    "accepted": [
+      "redshift",
+      "amazon redshift data warehouse"
+    ],
+    "rejected": []
+  },
+  "ampl": {
+    "canonical": "AMPL",
+    "accepted": [
+      "ampl language"
+    ],
+    "rejected": []
+  },
+  "android-studio": {
+    "canonical": "Android Studio",
+    "accepted": [
+      "android studio ide",
+      "android dev",
+      "android development"
+    ],
+    "rejected": []
+  },
+  "angelscript": {
+    "canonical": "AngelScript",
+    "accepted": [
+      "angel script"
+    ],
+    "rejected": []
+  },
+  "angular": {
+    "canonical": "Angular",
+    "accepted": [
+      "angularjs",
+      "angular 2",
+      "angular 4",
+      "ng"
+    ],
+    "rejected": []
+  },
+  "ansible": {
+    "canonical": "Ansible",
+    "accepted": [
+      "ansible playbook",
+      "ansible tower",
+      "ansible automation"
+    ],
+    "rejected": []
+  },
+  "answer-set-programming": {
+    "canonical": "Answer Set Programming",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "asp",
+        "reason": "equals an existing alias of another entry"
+      }
+    ]
+  },
+  "ant-design": {
+    "canonical": "Ant Design",
+    "accepted": [],
+    "rejected": []
+  },
+  "antlr": {
+    "canonical": "ANTLR",
+    "accepted": [
+      "antlr4"
+    ],
+    "rejected": []
+  },
+  "apache-airflow": {
+    "canonical": "Apache Airflow",
+    "accepted": [],
+    "rejected": []
+  },
+  "apache-ant": {
+    "canonical": "Apache Ant",
+    "accepted": [
+      "ant"
+    ],
+    "rejected": []
+  },
+  "apache-beam": {
+    "canonical": "Apache Beam",
+    "accepted": [
+      "beam"
+    ],
+    "rejected": []
+  },
+  "apache-flink": {
+    "canonical": "Apache Flink",
+    "accepted": [
+      "flink"
+    ],
+    "rejected": []
+  },
+  "apache-flume": {
+    "canonical": "Apache Flume",
+    "accepted": [
+      "flume"
+    ],
+    "rejected": []
+  },
+  "apache-hadoop": {
+    "canonical": "Apache Hadoop",
+    "accepted": [
+      "hadoop"
+    ],
+    "rejected": []
+  },
+  "apache-hbase": {
+    "canonical": "Apache HBase",
+    "accepted": [
+      "hbase"
+    ],
+    "rejected": []
+  },
+  "apache-hive": {
+    "canonical": "Apache Hive",
+    "accepted": [
+      "hive"
+    ],
+    "rejected": []
+  },
+  "apache-http-server": {
+    "canonical": "Apache HTTP Server",
+    "accepted": [
+      "httpd",
+      "apache server"
+    ],
+    "rejected": []
+  },
+  "apache-iceberg": {
+    "canonical": "Apache Iceberg",
+    "accepted": [],
+    "rejected": []
+  },
+  "apache-kafka": {
+    "canonical": "Apache Kafka",
+    "accepted": [
+      "kafka"
+    ],
+    "rejected": []
+  },
+  "apache-pig": {
+    "canonical": "Apache Pig",
+    "accepted": [
+      "pig"
+    ],
+    "rejected": []
+  },
+  "apache-solr": {
+    "canonical": "Apache Solr",
+    "accepted": [
+      "solr"
+    ],
+    "rejected": []
+  },
+  "apache-spark": {
+    "canonical": "Apache Spark",
+    "accepted": [
+      "spark",
+      "spark framework"
+    ],
+    "rejected": [
+      {
+        "alias": "apache spark",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "apache-struts": {
+    "canonical": "Apache Struts",
+    "accepted": [
+      "struts"
+    ],
+    "rejected": [
+      {
+        "alias": "apache struts",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "apache-subversion-svn": {
+    "canonical": "Apache Subversion SVN",
+    "accepted": [
+      "svn",
+      "subversion",
+      "apache subversion"
+    ],
+    "rejected": []
+  },
+  "apache-tomcat": {
+    "canonical": "Apache Tomcat",
+    "accepted": [
+      "tomcat"
+    ],
+    "rejected": [
+      {
+        "alias": "apache tomcat",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "apex": {
+    "canonical": "Apex",
+    "accepted": [
+      "apex language"
+    ],
+    "rejected": []
+  },
+  "apollo-guidance-computer": {
+    "canonical": "Apollo Guidance Computer",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "apollo guidance computer",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "apple-ios": {
+    "canonical": "Apple iOS",
+    "accepted": [
+      "ios"
+    ],
+    "rejected": [
+      {
+        "alias": "apple ios",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "apple-macos": {
+    "canonical": "Apple macOS",
+    "accepted": [
+      "macos"
+    ],
+    "rejected": [
+      {
+        "alias": "apple macos",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "apple-safari": {
+    "canonical": "Apple Safari",
+    "accepted": [
+      "safari"
+    ],
+    "rejected": [
+      {
+        "alias": "apple safari",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "argocd": {
+    "canonical": "ArgoCD",
+    "accepted": [
+      "argo cd",
+      "argo"
+    ],
+    "rejected": []
+  },
+  "asana": {
+    "canonical": "Asana",
+    "accepted": [
+      "asana tool"
+    ],
+    "rejected": []
+  },
+  "asp-net-core": {
+    "canonical": "ASP.NET Core",
+    "accepted": [
+      "aspnet core",
+      "asp net core"
+    ],
+    "rejected": []
+  },
+  "aspectj": {
+    "canonical": "AspectJ",
+    "accepted": [
+      "aspect j",
+      "aspectj language"
+    ],
+    "rejected": []
+  },
+  "astro": {
+    "canonical": "Astro",
+    "accepted": [
+      "astro framework"
+    ],
+    "rejected": []
+  },
+  "asymptote": {
+    "canonical": "Asymptote",
+    "accepted": [
+      "asymptote language"
+    ],
+    "rejected": []
+  },
+  "atlassian-bamboo": {
+    "canonical": "Atlassian Bamboo",
+    "accepted": [
+      "bamboo"
+    ],
+    "rejected": [
+      {
+        "alias": "atlassian bamboo",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "atlassian-bitbucket": {
+    "canonical": "Atlassian Bitbucket",
+    "accepted": [
+      "bitbucket"
+    ],
+    "rejected": [
+      {
+        "alias": "atlassian bitbucket",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "atlassian-confluence": {
+    "canonical": "Atlassian Confluence",
+    "accepted": [
+      "confluence"
+    ],
+    "rejected": [
+      {
+        "alias": "atlassian confluence",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "atlassian-jira": {
+    "canonical": "Atlassian JIRA",
+    "accepted": [
+      "jira"
+    ],
+    "rejected": [
+      {
+        "alias": "atlassian jira",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "augeas": {
+    "canonical": "Augeas",
+    "accepted": [
+      "augeas language"
+    ],
+    "rejected": []
+  },
+  "auth0": {
+    "canonical": "Auth0",
+    "accepted": [
+      "auth 0",
+      "auth0 tool"
+    ],
+    "rejected": []
+  },
+  "autogen": {
+    "canonical": "AutoGen",
+    "accepted": [
+      "autogen library"
+    ],
+    "rejected": []
+  },
+  "aws": {
+    "canonical": "AWS",
+    "accepted": [
+      "amazon web services",
+      "aws cloud"
+    ],
+    "rejected": []
+  },
+  "aws-amplify": {
+    "canonical": "AWS Amplify",
+    "accepted": [
+      "amplify"
+    ],
+    "rejected": [
+      {
+        "alias": "aws amplify",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "aws-api-gateway": {
+    "canonical": "AWS API Gateway",
+    "accepted": [
+      "api gateway"
+    ],
+    "rejected": [
+      {
+        "alias": "aws api gateway",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "aws-app-runner": {
+    "canonical": "AWS App Runner",
+    "accepted": [],
+    "rejected": []
+  },
+  "aws-athena": {
+    "canonical": "AWS Athena",
+    "accepted": [],
+    "rejected": []
+  },
+  "aws-cloudwatch": {
+    "canonical": "AWS CloudWatch",
+    "accepted": [],
+    "rejected": []
+  },
+  "aws-ecs": {
+    "canonical": "AWS ECS",
+    "accepted": [],
+    "rejected": []
+  },
+  "aws-eks": {
+    "canonical": "AWS EKS",
+    "accepted": [],
+    "rejected": []
+  },
+  "aws-eventbridge": {
+    "canonical": "AWS EventBridge",
+    "accepted": [
+      "eventbridge"
+    ],
+    "rejected": []
+  },
+  "aws-fargate": {
+    "canonical": "AWS Fargate",
+    "accepted": [],
+    "rejected": []
+  },
+  "aws-glue": {
+    "canonical": "AWS Glue",
+    "accepted": [
+      "glue"
+    ],
+    "rejected": []
+  },
+  "aws-iam": {
+    "canonical": "AWS IAM",
+    "accepted": [],
+    "rejected": []
+  },
+  "aws-lambda": {
+    "canonical": "AWS Lambda",
+    "accepted": [],
+    "rejected": []
+  },
+  "aws-rds": {
+    "canonical": "AWS RDS",
+    "accepted": [],
+    "rejected": []
+  },
+  "aws-s3": {
+    "canonical": "AWS S3",
+    "accepted": [],
+    "rejected": []
+  },
+  "aws-sns": {
+    "canonical": "AWS SNS",
+    "accepted": [],
+    "rejected": []
+  },
+  "aws-sqs": {
+    "canonical": "AWS SQS",
+    "accepted": [],
+    "rejected": []
+  },
+  "aws-step-functions": {
+    "canonical": "AWS Step Functions",
+    "accepted": [
+      "step functions"
+    ],
+    "rejected": []
+  },
+  "azure-container-apps": {
+    "canonical": "Azure Container Apps",
+    "accepted": [
+      "container apps"
+    ],
+    "rejected": []
+  },
+  "azure-devops": {
+    "canonical": "Azure DevOps",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "devops",
+        "reason": "equals an id of another entry"
+      }
+    ]
+  },
+  "azure-functions": {
+    "canonical": "Azure Functions",
+    "accepted": [
+      "functions"
+    ],
+    "rejected": []
+  },
+  "azure-openai": {
+    "canonical": "Azure OpenAI",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "openai",
+        "reason": "equals an id of another entry"
+      }
+    ]
+  },
+  "b-formal-method": {
+    "canonical": "B (Formal Method)",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "b",
+        "reason": "too short (<2 chars)"
+      }
+    ]
+  },
+  "backbone-js": {
+    "canonical": "Backbone.js",
+    "accepted": [
+      "backbone"
+    ],
+    "rejected": []
+  },
+  "ballerina": {
+    "canonical": "Ballerina",
+    "accepted": [],
+    "rejected": []
+  },
+  "bash": {
+    "canonical": "Bash",
+    "accepted": [],
+    "rejected": []
+  },
+  "basic": {
+    "canonical": "BASIC",
+    "accepted": [],
+    "rejected": []
+  },
+  "beef": {
+    "canonical": "Beef",
+    "accepted": [],
+    "rejected": []
+  },
+  "befunge": {
+    "canonical": "Befunge",
+    "accepted": [],
+    "rejected": []
+  },
+  "bibtex-style": {
+    "canonical": "BibTeX Style",
+    "accepted": [],
+    "rejected": []
+  },
+  "bicep": {
+    "canonical": "Bicep",
+    "accepted": [],
+    "rejected": []
+  },
+  "bigquery": {
+    "canonical": "BigQuery",
+    "accepted": [
+      "big query",
+      "big-query"
+    ],
+    "rejected": []
+  },
+  "bison": {
+    "canonical": "Bison",
+    "accepted": [],
+    "rejected": []
+  },
+  "bitbake": {
+    "canonical": "BitBake",
+    "accepted": [],
+    "rejected": []
+  },
+  "bitbucket-pipelines": {
+    "canonical": "Bitbucket Pipelines",
+    "accepted": [
+      "bitbucket pipeline"
+    ],
+    "rejected": [
+      {
+        "alias": "bitbucket-pipelines",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "blazor": {
+    "canonical": "Blazor",
+    "accepted": [],
+    "rejected": []
+  },
+  "blink": {
+    "canonical": "Blink",
+    "accepted": [],
+    "rejected": []
+  },
+  "bokeh": {
+    "canonical": "Bokeh",
+    "accepted": [],
+    "rejected": []
+  },
+  "boogie": {
+    "canonical": "Boogie",
+    "accepted": [],
+    "rejected": []
+  },
+  "bootstrap": {
+    "canonical": "Bootstrap",
+    "accepted": [
+      "boot strap"
+    ],
+    "rejected": []
+  },
+  "brainfuck": {
+    "canonical": "Brainfuck",
+    "accepted": [],
+    "rejected": []
+  },
+  "brighterscript": {
+    "canonical": "BrighterScript",
+    "accepted": [],
+    "rejected": []
+  },
+  "brightscript": {
+    "canonical": "Brightscript",
+    "accepted": [],
+    "rejected": []
+  },
+  "bruno": {
+    "canonical": "Bruno",
+    "accepted": [],
+    "rejected": []
+  },
+  "bun": {
+    "canonical": "Bun",
+    "accepted": [],
+    "rejected": []
+  },
+  "cpp": {
+    "canonical": "C++",
+    "accepted": [
+      "c plus plus"
+    ],
+    "rejected": [
+      {
+        "alias": "c++",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "c2hs-haskell": {
+    "canonical": "C2hs Haskell",
+    "accepted": [],
+    "rejected": []
+  },
+  "c3": {
+    "canonical": "C3",
+    "accepted": [],
+    "rejected": []
+  },
+  "cadence": {
+    "canonical": "Cadence",
+    "accepted": [],
+    "rejected": []
+  },
+  "cairo": {
+    "canonical": "Cairo",
+    "accepted": [],
+    "rejected": []
+  },
+  "cairo-zero": {
+    "canonical": "Cairo Zero",
+    "accepted": [],
+    "rejected": []
+  },
+  "cameligo": {
+    "canonical": "CameLIGO",
+    "accepted": [],
+    "rejected": []
+  },
+  "cangjie": {
+    "canonical": "Cangjie",
+    "accepted": [],
+    "rejected": []
+  },
+  "canva": {
+    "canonical": "Canva",
+    "accepted": [],
+    "rejected": []
+  },
+  "cap-cds": {
+    "canonical": "CAP CDS",
+    "accepted": [],
+    "rejected": []
+  },
+  "cap-n-proto": {
+    "canonical": "Cap'n Proto",
+    "accepted": [],
+    "rejected": []
+  },
+  "carbon": {
+    "canonical": "Carbon",
+    "accepted": [],
+    "rejected": []
+  },
+  "cargo": {
+    "canonical": "Cargo",
+    "accepted": [],
+    "rejected": []
+  },
+  "cassandra": {
+    "canonical": "Cassandra",
+    "accepted": [],
+    "rejected": []
+  },
+  "catboost": {
+    "canonical": "CatBoost",
+    "accepted": [],
+    "rejected": []
+  },
+  "ceylon": {
+    "canonical": "Ceylon",
+    "accepted": [],
+    "rejected": []
+  },
+  "chakra-ui": {
+    "canonical": "Chakra UI",
+    "accepted": [
+      "chakra"
+    ],
+    "rejected": [
+      {
+        "alias": "chakra ui",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "charity": {
+    "canonical": "Charity",
+    "accepted": [],
+    "rejected": []
+  },
+  "chef": {
+    "canonical": "Chef",
+    "accepted": [
+      "chef infra"
+    ],
+    "rejected": [
+      {
+        "alias": "chef",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "chuck": {
+    "canonical": "ChucK",
+    "accepted": [],
+    "rejected": []
+  },
+  "circleci": {
+    "canonical": "CircleCI",
+    "accepted": [
+      "circle ci"
+    ],
+    "rejected": [
+      {
+        "alias": "circleci",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "circom": {
+    "canonical": "Circom",
+    "accepted": [],
+    "rejected": []
+  },
+  "cirru": {
+    "canonical": "Cirru",
+    "accepted": [],
+    "rejected": []
+  },
+  "clarion": {
+    "canonical": "Clarion",
+    "accepted": [],
+    "rejected": []
+  },
+  "clarity": {
+    "canonical": "Clarity",
+    "accepted": [],
+    "rejected": []
+  },
+  "classic-asp": {
+    "canonical": "Classic ASP",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "classic asp",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "claude": {
+    "canonical": "Claude",
+    "accepted": [],
+    "rejected": []
+  },
+  "clean": {
+    "canonical": "Clean",
+    "accepted": [],
+    "rejected": []
+  },
+  "clearml": {
+    "canonical": "ClearML",
+    "accepted": [],
+    "rejected": []
+  },
+  "clerk": {
+    "canonical": "Clerk",
+    "accepted": [],
+    "rejected": []
+  },
+  "click": {
+    "canonical": "Click",
+    "accepted": [],
+    "rejected": []
+  },
+  "clickhouse": {
+    "canonical": "ClickHouse",
+    "accepted": [
+      "click house"
+    ],
+    "rejected": [
+      {
+        "alias": "clickhouse",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "clickup": {
+    "canonical": "ClickUp",
+    "accepted": [],
+    "rejected": []
+  },
+  "clips": {
+    "canonical": "CLIPS",
+    "accepted": [],
+    "rejected": []
+  },
+  "clojure": {
+    "canonical": "Clojure",
+    "accepted": [
+      "clj",
+      "clojure.lang"
+    ],
+    "rejected": []
+  },
+  "cloud-functions": {
+    "canonical": "Cloud Functions",
+    "accepted": [
+      "gcp functions",
+      "google cloud functions"
+    ],
+    "rejected": []
+  },
+  "cloud-run": {
+    "canonical": "Cloud Run",
+    "accepted": [
+      "gcp run",
+      "google cloud run"
+    ],
+    "rejected": []
+  },
+  "cloudflare": {
+    "canonical": "Cloudflare",
+    "accepted": [
+      "cf",
+      "cloud flare"
+    ],
+    "rejected": []
+  },
+  "cloudflare-d1": {
+    "canonical": "Cloudflare D1",
+    "accepted": [
+      "cf d1",
+      "cloudflare database"
+    ],
+    "rejected": []
+  },
+  "cloudflare-kv": {
+    "canonical": "Cloudflare KV",
+    "accepted": [
+      "cf kv",
+      "cloudflare key value"
+    ],
+    "rejected": []
+  },
+  "cloudflare-pages": {
+    "canonical": "Cloudflare Pages",
+    "accepted": [
+      "cf pages",
+      "cloudflare static site"
+    ],
+    "rejected": []
+  },
+  "cloudflare-r2": {
+    "canonical": "Cloudflare R2",
+    "accepted": [
+      "cf r2",
+      "cloudflare object storage"
+    ],
+    "rejected": []
+  },
+  "cloudflare-workers": {
+    "canonical": "Cloudflare Workers",
+    "accepted": [
+      "cf workers",
+      "cloudflare serverless"
+    ],
+    "rejected": []
+  },
+  "clue": {
+    "canonical": "Clue",
+    "accepted": [],
+    "rejected": []
+  },
+  "cmake": {
+    "canonical": "CMake",
+    "accepted": [
+      "cmk"
+    ],
+    "rejected": []
+  },
+  "cobol": {
+    "canonical": "Cobol",
+    "accepted": [
+      "cobol-85",
+      "cobol 2002"
+    ],
+    "rejected": []
+  },
+  "cockroachdb": {
+    "canonical": "CockroachDB",
+    "accepted": [
+      "crdb",
+      "cockroach db"
+    ],
+    "rejected": []
+  },
+  "codeigniter": {
+    "canonical": "CodeIgniter",
+    "accepted": [
+      "ci",
+      "code igniter"
+    ],
+    "rejected": []
+  },
+  "cohere": {
+    "canonical": "Cohere",
+    "accepted": [],
+    "rejected": []
+  },
+  "coldfusion-cfc": {
+    "canonical": "ColdFusion CFC",
+    "accepted": [
+      "cold fusion cfc"
+    ],
+    "rejected": []
+  },
+  "common-lisp": {
+    "canonical": "Common Lisp",
+    "accepted": [
+      "cl",
+      "common lisp dialect"
+    ],
+    "rejected": []
+  },
+  "common-workflow-language": {
+    "canonical": "Common Workflow Language",
+    "accepted": [
+      "common workflow"
+    ],
+    "rejected": []
+  },
+  "component-pascal": {
+    "canonical": "Component Pascal",
+    "accepted": [],
+    "rejected": []
+  },
+  "composer": {
+    "canonical": "Composer",
+    "accepted": [
+      "php composer",
+      "composer.json"
+    ],
+    "rejected": []
+  },
+  "cool": {
+    "canonical": "Cool",
+    "accepted": [],
+    "rejected": []
+  },
+  "cosmos-db": {
+    "canonical": "Cosmos DB",
+    "accepted": [
+      "cosmos database",
+      "azure cosmos db"
+    ],
+    "rejected": []
+  },
+  "couchbase": {
+    "canonical": "Couchbase",
+    "accepted": [
+      "cb",
+      "couch base"
+    ],
+    "rejected": []
+  },
+  "crewai": {
+    "canonical": "CrewAI",
+    "accepted": [],
+    "rejected": []
+  },
+  "crossplane": {
+    "canonical": "Crossplane",
+    "accepted": [],
+    "rejected": []
+  },
+  "crystal": {
+    "canonical": "Crystal",
+    "accepted": [],
+    "rejected": []
+  },
+  "csound-document": {
+    "canonical": "Csound Document",
+    "accepted": [],
+    "rejected": []
+  },
+  "csound-score": {
+    "canonical": "Csound Score",
+    "accepted": [],
+    "rejected": []
+  },
+  "cuda": {
+    "canonical": "Cuda",
+    "accepted": [
+      "cudnn",
+      "cuda toolkit"
+    ],
+    "rejected": []
+  },
+  "curry": {
+    "canonical": "Curry",
+    "accepted": [],
+    "rejected": []
+  },
+  "cursor": {
+    "canonical": "Cursor",
+    "accepted": [],
+    "rejected": []
+  },
+  "cweb": {
+    "canonical": "CWeb",
+    "accepted": [],
+    "rejected": []
+  },
+  "cycript": {
+    "canonical": "Cycript",
+    "accepted": [],
+    "rejected": []
+  },
+  "cypher": {
+    "canonical": "Cypher",
+    "accepted": [
+      "cypher query language"
+    ],
+    "rejected": []
+  },
+  "cypress": {
+    "canonical": "Cypress",
+    "accepted": [
+      "cypress.io",
+      "cypress testing"
+    ],
+    "rejected": []
+  },
+  "dafny": {
+    "canonical": "Dafny",
+    "accepted": [],
+    "rejected": []
+  },
+  "dagster": {
+    "canonical": "Dagster",
+    "accepted": [],
+    "rejected": []
+  },
+  "dart": {
+    "canonical": "Dart",
+    "accepted": [
+      "dartlang",
+      "dart programming"
+    ],
+    "rejected": []
+  },
+  "daslang": {
+    "canonical": "Daslang",
+    "accepted": [],
+    "rejected": []
+  },
+  "databricks": {
+    "canonical": "Databricks",
+    "accepted": [
+      "databricks sql",
+      "databricks runtime"
+    ],
+    "rejected": []
+  },
+  "datadog": {
+    "canonical": "Datadog",
+    "accepted": [
+      "datadog monitoring"
+    ],
+    "rejected": []
+  },
+  "datagrip": {
+    "canonical": "DataGrip",
+    "accepted": [],
+    "rejected": []
+  },
+  "dataweave": {
+    "canonical": "DataWeave",
+    "accepted": [],
+    "rejected": []
+  },
+  "delphi": {
+    "canonical": "Delphi",
+    "accepted": [],
+    "rejected": []
+  },
+  "delta-lake": {
+    "canonical": "Delta Lake",
+    "accepted": [
+      "delta lake format"
+    ],
+    "rejected": []
+  },
+  "denizenscript": {
+    "canonical": "DenizenScript",
+    "accepted": [],
+    "rejected": []
+  },
+  "deno": {
+    "canonical": "Deno",
+    "accepted": [],
+    "rejected": []
+  },
+  "desmos": {
+    "canonical": "Desmos",
+    "accepted": [],
+    "rejected": []
+  },
+  "dhall": {
+    "canonical": "Dhall",
+    "accepted": [],
+    "rejected": []
+  },
+  "digital-command-language": {
+    "canonical": "DIGITAL Command Language",
+    "accepted": [],
+    "rejected": []
+  },
+  "digitalocean": {
+    "canonical": "DigitalOcean",
+    "accepted": [
+      "do",
+      "docean"
+    ],
+    "rejected": []
+  },
+  "django": {
+    "canonical": "Django",
+    "accepted": [
+      "dj",
+      "djang",
+      "djanjo"
+    ],
+    "rejected": []
+  },
+  "docker": {
+    "canonical": "Docker",
+    "accepted": [
+      "dock",
+      "dockr"
+    ],
+    "rejected": []
+  },
+  "dogescript": {
+    "canonical": "Dogescript",
+    "accepted": [],
+    "rejected": []
+  },
+  "dropbox": {
+    "canonical": "Dropbox",
+    "accepted": [
+      "dbx"
+    ],
+    "rejected": []
+  },
+  "drupal": {
+    "canonical": "Drupal",
+    "accepted": [
+      "drup",
+      "drupall"
+    ],
+    "rejected": []
+  },
+  "dspy": {
+    "canonical": "DSPy",
+    "accepted": [
+      "dsp"
+    ],
+    "rejected": []
+  },
+  "duckdb": {
+    "canonical": "DuckDB",
+    "accepted": [],
+    "rejected": []
+  },
+  "dune": {
+    "canonical": "Dune",
+    "accepted": [],
+    "rejected": []
+  },
+  "dylan": {
+    "canonical": "Dylan",
+    "accepted": [],
+    "rejected": []
+  },
+  "dynamodb": {
+    "canonical": "DynamoDB",
+    "accepted": [
+      "dynamo"
+    ],
+    "rejected": []
+  },
+  "eclipse": {
+    "canonical": "Eclipse",
+    "accepted": [],
+    "rejected": []
+  },
+  "eclipse-jersey": {
+    "canonical": "Eclipse Jersey",
+    "accepted": [
+      "jersey"
+    ],
+    "rejected": []
+  },
+  "eiffel": {
+    "canonical": "Eiffel",
+    "accepted": [],
+    "rejected": []
+  },
+  "elasticsearch": {
+    "canonical": "Elasticsearch",
+    "accepted": [
+      "es"
+    ],
+    "rejected": [
+      {
+        "alias": "elastic",
+        "reason": "equals an id of another entry"
+      }
+    ]
+  },
+  "electron": {
+    "canonical": "Electron",
+    "accepted": [
+      "electron.js"
+    ],
+    "rejected": []
+  },
+  "elixir": {
+    "canonical": "Elixir",
+    "accepted": [],
+    "rejected": []
+  },
+  "elvish": {
+    "canonical": "Elvish",
+    "accepted": [],
+    "rejected": []
+  },
+  "elvish-transcript": {
+    "canonical": "Elvish Transcript",
+    "accepted": [],
+    "rejected": []
+  },
+  "elysia": {
+    "canonical": "Elysia",
+    "accepted": [],
+    "rejected": []
+  },
+  "emacs": {
+    "canonical": "Emacs",
+    "accepted": [],
+    "rejected": []
+  },
+  "emberscript": {
+    "canonical": "EmberScript",
+    "accepted": [
+      "ember"
+    ],
+    "rejected": []
+  },
+  "epicor-vantage-erp": {
+    "canonical": "Epicor Vantage ERP",
+    "accepted": [
+      "epicor"
+    ],
+    "rejected": []
+  },
+  "erlang": {
+    "canonical": "Erlang",
+    "accepted": [],
+    "rejected": []
+  },
+  "esbuild": {
+    "canonical": "esbuild",
+    "accepted": [],
+    "rejected": []
+  },
+  "estuary": {
+    "canonical": "Estuary",
+    "accepted": [],
+    "rejected": []
+  },
+  "euphoria": {
+    "canonical": "Euphoria",
+    "accepted": [],
+    "rejected": []
+  },
+  "evernote": {
+    "canonical": "Evernote",
+    "accepted": [],
+    "rejected": []
+  },
+  "express": {
+    "canonical": "Express",
+    "accepted": [
+      "express.js",
+      "express framework"
+    ],
+    "rejected": []
+  },
+  "ext-js": {
+    "canonical": "Ext JS",
+    "accepted": [
+      "extjs"
+    ],
+    "rejected": [
+      {
+        "alias": "ext js",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "fsharp": {
+    "canonical": "F#",
+    "accepted": [
+      "f sharp"
+    ],
+    "rejected": [
+      {
+        "alias": "f#",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "fstar": {
+    "canonical": "F*",
+    "accepted": [
+      "f star"
+    ],
+    "rejected": []
+  },
+  "factor": {
+    "canonical": "Factor",
+    "accepted": [],
+    "rejected": []
+  },
+  "faiss": {
+    "canonical": "FAISS",
+    "accepted": [
+      "faiss library"
+    ],
+    "rejected": []
+  },
+  "fancy": {
+    "canonical": "Fancy",
+    "accepted": [],
+    "rejected": []
+  },
+  "fantom": {
+    "canonical": "Fantom",
+    "accepted": [],
+    "rejected": []
+  },
+  "fastapi": {
+    "canonical": "FastAPI",
+    "accepted": [
+      "fast api"
+    ],
+    "rejected": []
+  },
+  "fastify": {
+    "canonical": "Fastify",
+    "accepted": [
+      "fastify framework"
+    ],
+    "rejected": []
+  },
+  "faust": {
+    "canonical": "Faust",
+    "accepted": [],
+    "rejected": []
+  },
+  "fennel": {
+    "canonical": "Fennel",
+    "accepted": [],
+    "rejected": []
+  },
+  "figma": {
+    "canonical": "Figma",
+    "accepted": [],
+    "rejected": []
+  },
+  "filebench-wml": {
+    "canonical": "Filebench WML",
+    "accepted": [],
+    "rejected": []
+  },
+  "filterscript": {
+    "canonical": "Filterscript",
+    "accepted": [],
+    "rejected": []
+  },
+  "firestore": {
+    "canonical": "Firestore",
+    "accepted": [],
+    "rejected": []
+  },
+  "firrtl": {
+    "canonical": "FIRRTL",
+    "accepted": [],
+    "rejected": []
+  },
+  "fish": {
+    "canonical": "fish",
+    "accepted": [],
+    "rejected": []
+  },
+  "fivetran": {
+    "canonical": "Fivetran",
+    "accepted": [],
+    "rejected": []
+  },
+  "flask": {
+    "canonical": "Flask",
+    "accepted": [
+      "flask framework"
+    ],
+    "rejected": []
+  },
+  "flix": {
+    "canonical": "Flix",
+    "accepted": [],
+    "rejected": []
+  },
+  "fluent": {
+    "canonical": "Fluent",
+    "accepted": [],
+    "rejected": []
+  },
+  "flutter": {
+    "canonical": "Flutter",
+    "accepted": [
+      "flutter.dev"
+    ],
+    "rejected": [
+      {
+        "alias": "flutter",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "flux": {
+    "canonical": "FLUX",
+    "accepted": [
+      "flux architecture"
+    ],
+    "rejected": [
+      {
+        "alias": "flux",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "fly-io": {
+    "canonical": "Fly.io",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "fly.io",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "forth": {
+    "canonical": "Forth",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "forth",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "fortran": {
+    "canonical": "Fortran",
+    "accepted": [
+      "fortran 77",
+      "fortran 90",
+      "fortran 95"
+    ],
+    "rejected": [
+      {
+        "alias": "fortran",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "fortran-free-form": {
+    "canonical": "Fortran Free Form",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "fortran free form",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "framer-motion": {
+    "canonical": "Framer Motion",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "framer motion",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "frege": {
+    "canonical": "Frege",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "frege",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "futhark": {
+    "canonical": "Futhark",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "futhark",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "g-code": {
+    "canonical": "G-code",
+    "accepted": [
+      "g code",
+      "gcode"
+    ],
+    "rejected": []
+  },
+  "game-maker-language": {
+    "canonical": "Game Maker Language",
+    "accepted": [
+      "gml"
+    ],
+    "rejected": [
+      {
+        "alias": "game maker language",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "gaml": {
+    "canonical": "GAML",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "gaml",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "gams": {
+    "canonical": "GAMS",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "gams",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "gatsby": {
+    "canonical": "Gatsby",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "gatsby",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "gcc-machine-description": {
+    "canonical": "GCC Machine Description",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "gcc machine description",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "gdscript": {
+    "canonical": "GDScript",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "gdscript",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "gdshader": {
+    "canonical": "GDShader",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "gdshader",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "genero-4gl": {
+    "canonical": "Genero 4gl",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "genero 4gl",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "genie": {
+    "canonical": "Genie",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "genie",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "gentoo-ebuild": {
+    "canonical": "Gentoo Ebuild",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "gentoo ebuild",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "gentoo-eclass": {
+    "canonical": "Gentoo Eclass",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "gentoo eclass",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "git": {
+    "canonical": "Git",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "git",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "github": {
+    "canonical": "GitHub",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "github",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "github-actions": {
+    "canonical": "GitHub Actions",
+    "accepted": [
+      "gha"
+    ],
+    "rejected": [
+      {
+        "alias": "github actions",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "gitlab": {
+    "canonical": "GitLab",
+    "accepted": [
+      "git lab",
+      "gitlab ci",
+      "gitlab devops",
+      "gitlab ci cd",
+      "gitlab runner"
+    ],
+    "rejected": []
+  },
+  "gitlab-ci-cd": {
+    "canonical": "GitLab CI/CD",
+    "accepted": [
+      "gitlab cd",
+      "gitlab continuous integration",
+      "gitlab continuous delivery",
+      "gitlab pipelines"
+    ],
+    "rejected": [
+      {
+        "alias": "gitlab ci",
+        "reason": "duplicate of an alias generated earlier this run"
+      }
+    ]
+  },
+  "gleam": {
+    "canonical": "Gleam",
+    "accepted": [
+      "gleam language",
+      "gleam programming",
+      "gleam lang",
+      "gleam code",
+      "gleam syntax"
+    ],
+    "rejected": []
+  },
+  "glimmer-js": {
+    "canonical": "Glimmer JS",
+    "accepted": [
+      "glimmer javascript",
+      "glimmer framework",
+      "glimmer web",
+      "glimmer app"
+    ],
+    "rejected": [
+      {
+        "alias": "glimmer js",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "glimmer-ts": {
+    "canonical": "Glimmer TS",
+    "accepted": [
+      "glimmer typescript",
+      "glimmer language"
+    ],
+    "rejected": [
+      {
+        "alias": "glimmer ts",
+        "reason": "equals its own id or canonical_name"
+      },
+      {
+        "alias": "glimmer framework",
+        "reason": "duplicate of an alias generated earlier this run"
+      },
+      {
+        "alias": "glimmer app",
+        "reason": "duplicate of an alias generated earlier this run"
+      }
+    ]
+  },
+  "glsl": {
+    "canonical": "GLSL",
+    "accepted": [
+      "glsl language",
+      "glsl shader",
+      "glsl programming",
+      "glsl code",
+      "glsl syntax"
+    ],
+    "rejected": []
+  },
+  "glyph": {
+    "canonical": "Glyph",
+    "accepted": [
+      "glyph language",
+      "glyph programming",
+      "glyph code",
+      "glyph syntax",
+      "glyph framework"
+    ],
+    "rejected": []
+  },
+  "gnu-image-manipulation-program-gimp": {
+    "canonical": "GNU Image Manipulation Program GIMP",
+    "accepted": [
+      "gimp",
+      "gnu gimp",
+      "gimp tool",
+      "gimp image editor",
+      "gimp software"
+    ],
+    "rejected": []
+  },
+  "gnuplot": {
+    "canonical": "Gnuplot",
+    "accepted": [
+      "gnu plot",
+      "gnuplot language",
+      "gnuplot graphing",
+      "gnuplot tool",
+      "gnuplot software"
+    ],
+    "rejected": []
+  },
+  "golo": {
+    "canonical": "Golo",
+    "accepted": [
+      "golo language",
+      "golo programming",
+      "golo code",
+      "golo syntax",
+      "golo framework"
+    ],
+    "rejected": []
+  },
+  "google-ads": {
+    "canonical": "Google Ads",
+    "accepted": [
+      "google adwords",
+      "google advertising",
+      "google ads tool",
+      "google ads platform",
+      "google ads manager"
+    ],
+    "rejected": []
+  },
+  "google-analytics": {
+    "canonical": "Google Analytics",
+    "accepted": [
+      "google analytics tool",
+      "google analytics platform",
+      "google analytics service",
+      "google analytics dashboard",
+      "google analytics tracking"
+    ],
+    "rejected": []
+  },
+  "google-android": {
+    "canonical": "Google Android",
+    "accepted": [
+      "google android os",
+      "android",
+      "google mobile",
+      "android platform",
+      "google android development"
+    ],
+    "rejected": []
+  },
+  "google-classroom": {
+    "canonical": "Google Classroom",
+    "accepted": [
+      "google classroom tool",
+      "google classroom platform",
+      "google classroom app",
+      "google classroom service",
+      "google classroom software"
+    ],
+    "rejected": []
+  },
+  "google-cloud": {
+    "canonical": "Google Cloud",
+    "accepted": [
+      "google cloud platform",
+      "gcp",
+      "google cloud services",
+      "google cloud computing",
+      "google cloud storage"
+    ],
+    "rejected": []
+  },
+  "google-docs": {
+    "canonical": "Google Docs",
+    "accepted": [
+      "google docs tool",
+      "google docs editor",
+      "google docs platform",
+      "google docs software",
+      "google docs application"
+    ],
+    "rejected": []
+  },
+  "google-drive": {
+    "canonical": "Google Drive",
+    "accepted": [
+      "google drive tool",
+      "google drive storage",
+      "google drive platform",
+      "google drive app",
+      "google drive service"
+    ],
+    "rejected": []
+  },
+  "google-earth-pro": {
+    "canonical": "Google Earth Pro",
+    "accepted": [
+      "google earth",
+      "google earth tool",
+      "google earth pro software",
+      "google earth pro app",
+      "google earth pro platform"
+    ],
+    "rejected": []
+  },
+  "google-gmail": {
+    "canonical": "Google Gmail",
+    "accepted": [
+      "gmail",
+      "google mail",
+      "google email",
+      "gmail service",
+      "gmail app"
+    ],
+    "rejected": []
+  },
+  "google-meet": {
+    "canonical": "Google Meet",
+    "accepted": [
+      "google meet tool",
+      "google meet app",
+      "google meet platform",
+      "google meet service",
+      "google meet video conferencing"
+    ],
+    "rejected": []
+  },
+  "google-sheets": {
+    "canonical": "Google Sheets",
+    "accepted": [
+      "google sheets tool",
+      "google sheets app",
+      "google sheets platform",
+      "google sheets software",
+      "google sheets spreadsheet"
+    ],
+    "rejected": []
+  },
+  "google-sites": {
+    "canonical": "Google Sites",
+    "accepted": [
+      "google sites tool",
+      "google sites platform",
+      "google sites app",
+      "google sites website",
+      "google sites service"
+    ],
+    "rejected": []
+  },
+  "google-slides": {
+    "canonical": "Google Slides",
+    "accepted": [
+      "google slides tool",
+      "google slides app",
+      "google slides platform",
+      "google slides presentation",
+      "google slides software"
+    ],
+    "rejected": []
+  },
+  "google-workspace": {
+    "canonical": "Google Workspace",
+    "accepted": [
+      "google workspace tool",
+      "google workspace platform",
+      "google workspace apps",
+      "google workspace services",
+      "google workspace suite"
+    ],
+    "rejected": []
+  },
+  "gosu": {
+    "canonical": "Gosu",
+    "accepted": [
+      "gosu language",
+      "gosu programming",
+      "gosu code",
+      "gosu syntax",
+      "gosu framework"
+    ],
+    "rejected": []
+  },
+  "grace": {
+    "canonical": "Grace",
+    "accepted": [],
+    "rejected": []
+  },
+  "gradio": {
+    "canonical": "Gradio",
+    "accepted": [],
+    "rejected": []
+  },
+  "gradle": {
+    "canonical": "Gradle",
+    "accepted": [
+      "gradle build",
+      "gradle wrapper",
+      "gradle task",
+      "gradle plugin",
+      "gradle script"
+    ],
+    "rejected": []
+  },
+  "grafana": {
+    "canonical": "Grafana",
+    "accepted": [
+      "grafana dashboard",
+      "grafana alert",
+      "grafana plugin",
+      "grafana cloud",
+      "grafana metrics"
+    ],
+    "rejected": []
+  },
+  "grammatical-framework": {
+    "canonical": "Grammatical Framework",
+    "accepted": [],
+    "rejected": []
+  },
+  "graphql": {
+    "canonical": "GraphQL",
+    "accepted": [
+      "graphql api",
+      "graphql query",
+      "graphql schema",
+      "graphql server",
+      "graphql endpoint"
+    ],
+    "rejected": []
+  },
+  "graphql-federation": {
+    "canonical": "GraphQL Federation",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "graphql federation",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "groovy": {
+    "canonical": "Groovy",
+    "accepted": [
+      "groovy script",
+      "groovy language",
+      "groovy framework",
+      "groovy gdk",
+      "groovy builder"
+    ],
+    "rejected": []
+  },
+  "groq": {
+    "canonical": "Groq",
+    "accepted": [],
+    "rejected": []
+  },
+  "grpc": {
+    "canonical": "gRPC",
+    "accepted": [
+      "grpc api",
+      "grpc service",
+      "grpc client",
+      "grpc protocol",
+      "grpc streaming"
+    ],
+    "rejected": []
+  },
+  "hack": {
+    "canonical": "Hack",
+    "accepted": [],
+    "rejected": []
+  },
+  "harbour": {
+    "canonical": "Harbour",
+    "accepted": [],
+    "rejected": []
+  },
+  "hare": {
+    "canonical": "Hare",
+    "accepted": [],
+    "rejected": []
+  },
+  "haskell": {
+    "canonical": "Haskell",
+    "accepted": [
+      "haskell language",
+      "haskell ghc",
+      "haskell stack",
+      "haskell cabal",
+      "haskell framework"
+    ],
+    "rejected": []
+  },
+  "haxe": {
+    "canonical": "Haxe",
+    "accepted": [],
+    "rejected": []
+  },
+  "haystack": {
+    "canonical": "Haystack",
+    "accepted": [],
+    "rejected": []
+  },
+  "headless-ui": {
+    "canonical": "Headless UI",
+    "accepted": [],
+    "rejected": []
+  },
+  "helm": {
+    "canonical": "Helm",
+    "accepted": [
+      "helm chart",
+      "helm install",
+      "helm repo",
+      "helm upgrade",
+      "helm package"
+    ],
+    "rejected": []
+  },
+  "heroku": {
+    "canonical": "Heroku",
+    "accepted": [
+      "heroku app",
+      "heroku cli",
+      "heroku deployment",
+      "heroku pipeline",
+      "heroku addons"
+    ],
+    "rejected": []
+  },
+  "hibernate-orm": {
+    "canonical": "Hibernate ORM",
+    "accepted": [
+      "hibernate",
+      "hibernate jpa",
+      "hibernate entity",
+      "hibernate session",
+      "hibernate criteria"
+    ],
+    "rejected": []
+  },
+  "hiveql": {
+    "canonical": "HiveQL",
+    "accepted": [],
+    "rejected": []
+  },
+  "hlsl": {
+    "canonical": "HLSL",
+    "accepted": [],
+    "rejected": []
+  },
+  "holyc": {
+    "canonical": "HolyC",
+    "accepted": [],
+    "rejected": []
+  },
+  "honeycomb": {
+    "canonical": "Honeycomb",
+    "accepted": [],
+    "rejected": []
+  },
+  "hono": {
+    "canonical": "Hono",
+    "accepted": [],
+    "rejected": []
+  },
+  "hoon": {
+    "canonical": "hoon",
+    "accepted": [],
+    "rejected": []
+  },
+  "htmx": {
+    "canonical": "htmx",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "htmx",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "hugging-face-transformers": {
+    "canonical": "Hugging Face Transformers",
+    "accepted": [
+      "transformers",
+      "hf transformers"
+    ],
+    "rejected": [
+      {
+        "alias": "huggingface",
+        "reason": "equals an existing alias of another entry"
+      }
+    ]
+  },
+  "hurl": {
+    "canonical": "Hurl",
+    "accepted": [],
+    "rejected": []
+  },
+  "hyphy": {
+    "canonical": "HyPhy",
+    "accepted": [],
+    "rejected": []
+  },
+  "ibm-db2": {
+    "canonical": "IBM DB2",
+    "accepted": [
+      "db2",
+      "ibm db 2"
+    ],
+    "rejected": []
+  },
+  "ibm-infosphere-datastage": {
+    "canonical": "IBM InfoSphere DataStage",
+    "accepted": [
+      "datastage",
+      "infosphere datastage"
+    ],
+    "rejected": []
+  },
+  "ibm-websphere": {
+    "canonical": "IBM WebSphere",
+    "accepted": [
+      "websphere"
+    ],
+    "rejected": [
+      {
+        "alias": "ibm websphere",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "idris": {
+    "canonical": "Idris",
+    "accepted": [],
+    "rejected": []
+  },
+  "imagej-macro": {
+    "canonical": "ImageJ Macro",
+    "accepted": [
+      "imagej"
+    ],
+    "rejected": [
+      {
+        "alias": "imagej macro",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "imba": {
+    "canonical": "Imba",
+    "accepted": [],
+    "rejected": []
+  },
+  "influxdb": {
+    "canonical": "InfluxDB",
+    "accepted": [
+      "influx",
+      "influx db"
+    ],
+    "rejected": []
+  },
+  "informatica": {
+    "canonical": "Informatica",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "informatica",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "inno-setup": {
+    "canonical": "Inno Setup",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "inno setup",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "insomnia": {
+    "canonical": "Insomnia",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "insomnia",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "instructor": {
+    "canonical": "Instructor",
+    "accepted": [],
+    "rejected": []
+  },
+  "intellij-idea": {
+    "canonical": "IntelliJ IDEA",
+    "accepted": [
+      "intellij",
+      "idea"
+    ],
+    "rejected": []
+  },
+  "intrado-schoolmessenger": {
+    "canonical": "Intrado SchoolMessenger",
+    "accepted": [
+      "schoolmessenger",
+      "intrado school messenger"
+    ],
+    "rejected": []
+  },
+  "intuit-quickbooks": {
+    "canonical": "Intuit QuickBooks",
+    "accepted": [
+      "quickbooks",
+      "intuit quick books"
+    ],
+    "rejected": []
+  },
+  "ioke": {
+    "canonical": "Ioke",
+    "accepted": [],
+    "rejected": []
+  },
+  "ionic": {
+    "canonical": "Ionic",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "ionic",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "isabelle": {
+    "canonical": "Isabelle",
+    "accepted": [],
+    "rejected": []
+  },
+  "isabelle-root": {
+    "canonical": "Isabelle ROOT",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "isabelle root",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "ispc": {
+    "canonical": "ISPC",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "ispc",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "istio": {
+    "canonical": "Istio",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "istio",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "janet": {
+    "canonical": "Janet",
+    "accepted": [],
+    "rejected": []
+  },
+  "jasmin": {
+    "canonical": "Jasmin",
+    "accepted": [],
+    "rejected": []
+  },
+  "java": {
+    "canonical": "Java",
+    "accepted": [
+      "javac",
+      "jre",
+      "jdk",
+      "javaee",
+      "javap"
+    ],
+    "rejected": []
+  },
+  "java-server-pages": {
+    "canonical": "Java Server Pages",
+    "accepted": [
+      "jsp pages",
+      "java pages",
+      "server pages"
+    ],
+    "rejected": [
+      {
+        "alias": "java server pages",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "java-template-engine": {
+    "canonical": "Java Template Engine",
+    "accepted": [
+      "template engine",
+      "java template",
+      "template",
+      "java templating"
+    ],
+    "rejected": [
+      {
+        "alias": "jsp",
+        "reason": "equals an existing alias of another entry"
+      }
+    ]
+  },
+  "javascript-erb": {
+    "canonical": "JavaScript+ERB",
+    "accepted": [
+      "js erb",
+      "javascript erb",
+      "erb",
+      "js+erb",
+      "js erb template"
+    ],
+    "rejected": []
+  },
+  "jax": {
+    "canonical": "JAX",
+    "accepted": [
+      "jax-rs",
+      "jaxb",
+      "jax-ws",
+      "jax api",
+      "jax library"
+    ],
+    "rejected": []
+  },
+  "jenkins": {
+    "canonical": "Jenkins",
+    "accepted": [
+      "jenkins ci",
+      "jenkins pipeline",
+      "jenkins job",
+      "jenkins server",
+      "jenkins automation"
+    ],
+    "rejected": []
+  },
+  "jest": {
+    "canonical": "Jest",
+    "accepted": [
+      "jest testing",
+      "jest framework",
+      "jest js",
+      "jest library",
+      "jest test"
+    ],
+    "rejected": []
+  },
+  "jetbrains-mps": {
+    "canonical": "JetBrains MPS",
+    "accepted": [
+      "jetbrains meta programming system",
+      "mps language",
+      "mps tool"
+    ],
+    "rejected": [
+      {
+        "alias": "jetbrains mps",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "jetbrains-rider": {
+    "canonical": "JetBrains Rider",
+    "accepted": [
+      "rider",
+      "rider ide",
+      "rider tool",
+      "rider environment"
+    ],
+    "rejected": [
+      {
+        "alias": "jetbrains rider",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "jflex": {
+    "canonical": "JFlex",
+    "accepted": [
+      "jflex lexer",
+      "jflex parser",
+      "jflex tool",
+      "jflex library",
+      "jflex generator"
+    ],
+    "rejected": []
+  },
+  "jison": {
+    "canonical": "Jison",
+    "accepted": [
+      "jison parser",
+      "jison library",
+      "jison tool",
+      "jison generator",
+      "jison grammar"
+    ],
+    "rejected": []
+  },
+  "jison-lex": {
+    "canonical": "Jison Lex",
+    "accepted": [
+      "jison-lex tool",
+      "jison-lex parser",
+      "jison-lex library",
+      "jison-lex generator"
+    ],
+    "rejected": [
+      {
+        "alias": "jison lex",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "jolie": {
+    "canonical": "Jolie",
+    "accepted": [
+      "jolie language",
+      "jolie tool",
+      "jolie framework",
+      "jolie service",
+      "jolie api"
+    ],
+    "rejected": []
+  },
+  "jotai": {
+    "canonical": "Jotai",
+    "accepted": [
+      "jotai state",
+      "jotai library",
+      "jotai react",
+      "jotai hook",
+      "jotai store"
+    ],
+    "rejected": []
+  },
+  "jquery": {
+    "canonical": "jQuery",
+    "accepted": [
+      "jquery library",
+      "jquery js",
+      "jquery plugin",
+      "jquery framework"
+    ],
+    "rejected": [
+      {
+        "alias": "jq",
+        "reason": "equals an id of another entry"
+      }
+    ]
+  },
+  "jsoniq": {
+    "canonical": "JSONiq",
+    "accepted": [
+      "jsoniq language",
+      "jsoniq query",
+      "jsoniq tool",
+      "jsoniq library",
+      "jsoniq syntax"
+    ],
+    "rejected": []
+  },
+  "jsonnet": {
+    "canonical": "Jsonnet",
+    "accepted": [
+      "jsonnet language",
+      "jsonnet tool",
+      "jsonnet library",
+      "jsonnet config",
+      "jsonnet format"
+    ],
+    "rejected": []
+  },
+  "julia": {
+    "canonical": "Julia",
+    "accepted": [
+      "julia language",
+      "julia programming",
+      "julia script",
+      "julia tool",
+      "julia environment"
+    ],
+    "rejected": []
+  },
+  "julia-repl": {
+    "canonical": "Julia REPL",
+    "accepted": [
+      "julia interactive",
+      "julia shell",
+      "julia console",
+      "julia prompt"
+    ],
+    "rejected": [
+      {
+        "alias": "julia repl",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "junit": {
+    "canonical": "JUnit",
+    "accepted": [
+      "junit testing",
+      "junit framework",
+      "junit library",
+      "junit test",
+      "junit tool"
+    ],
+    "rejected": []
+  },
+  "jupyter-notebook": {
+    "canonical": "Jupyter Notebook",
+    "accepted": [
+      "jupyter",
+      "jupyter lab",
+      "jupyter environment",
+      "jupyter tool"
+    ],
+    "rejected": [
+      {
+        "alias": "jupyter notebook",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "jwt": {
+    "canonical": "JWT",
+    "accepted": [
+      "json web token",
+      "jwt token",
+      "jwt auth",
+      "jwt library",
+      "jwt security"
+    ],
+    "rejected": []
+  },
+  "k6": {
+    "canonical": "k6",
+    "accepted": [
+      "k6 load testing",
+      "k6 performance",
+      "k6 tool",
+      "k6 script",
+      "k6 framework"
+    ],
+    "rejected": []
+  },
+  "kaitai-struct": {
+    "canonical": "Kaitai Struct",
+    "accepted": [],
+    "rejected": []
+  },
+  "keras": {
+    "canonical": "Keras",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "keras",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "kerboscript": {
+    "canonical": "KerboScript",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "kerboscript",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "kframework": {
+    "canonical": "KFramework",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "kframework",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "kibana": {
+    "canonical": "Kibana",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "kibana",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "koa": {
+    "canonical": "Koa",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "koa",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "koka": {
+    "canonical": "Koka",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "koka",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "kolmafia-ash": {
+    "canonical": "KoLmafia ASH",
+    "accepted": [
+      "kolmafia",
+      "ash"
+    ],
+    "rejected": []
+  },
+  "kornshell": {
+    "canonical": "KornShell",
+    "accepted": [
+      "korn shell"
+    ],
+    "rejected": [
+      {
+        "alias": "kornshell",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "kotlin": {
+    "canonical": "Kotlin",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "kotlin",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "kubernetes": {
+    "canonical": "Kubernetes",
+    "accepted": [
+      "k8s"
+    ],
+    "rejected": []
+  },
+  "kustomize": {
+    "canonical": "kustomize",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "kustomize",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "labview": {
+    "canonical": "LabVIEW",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "labview",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "lambdapi": {
+    "canonical": "Lambdapi",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "lambdapi",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "langchain": {
+    "canonical": "LangChain",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "langchain",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "langgraph": {
+    "canonical": "LangGraph",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "langgraph",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "langium": {
+    "canonical": "Langium",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "langium",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "langsmith": {
+    "canonical": "LangSmith",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "langsmith",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "laravel": {
+    "canonical": "Laravel",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "laravel",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "lean": {
+    "canonical": "Lean",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "lean",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "lean-4": {
+    "canonical": "Lean 4",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "lean 4",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "lightgbm": {
+    "canonical": "LightGBM",
+    "accepted": [
+      "light gbm"
+    ],
+    "rejected": []
+  },
+  "ligolang": {
+    "canonical": "LigoLANG",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "ligolang",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "lilypond": {
+    "canonical": "LilyPond",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "lilypond",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "limbo": {
+    "canonical": "Limbo",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "limbo",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "linear": {
+    "canonical": "Linear",
+    "accepted": [],
+    "rejected": []
+  },
+  "linear-programming": {
+    "canonical": "Linear Programming",
+    "accepted": [
+      "lp"
+    ],
+    "rejected": []
+  },
+  "linker-script": {
+    "canonical": "Linker Script",
+    "accepted": [],
+    "rejected": []
+  },
+  "linkerd": {
+    "canonical": "Linkerd",
+    "accepted": [
+      "linkerd2"
+    ],
+    "rejected": []
+  },
+  "linux": {
+    "canonical": "Linux",
+    "accepted": [
+      "gnu/linux",
+      "linux os",
+      "linux kernel"
+    ],
+    "rejected": []
+  },
+  "liquidsoap": {
+    "canonical": "Liquidsoap",
+    "accepted": [],
+    "rejected": []
+  },
+  "lisp": {
+    "canonical": "Lisp",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "common lisp",
+        "reason": "equals a canonical_name"
+      },
+      {
+        "alias": "cl",
+        "reason": "duplicate of an alias generated earlier this run"
+      }
+    ]
+  },
+  "lit": {
+    "canonical": "Lit",
+    "accepted": [],
+    "rejected": []
+  },
+  "literate-agda": {
+    "canonical": "Literate Agda",
+    "accepted": [],
+    "rejected": []
+  },
+  "literate-coffeescript": {
+    "canonical": "Literate CoffeeScript",
+    "accepted": [],
+    "rejected": []
+  },
+  "livecode-script": {
+    "canonical": "LiveCode Script",
+    "accepted": [],
+    "rejected": []
+  },
+  "llamaindex": {
+    "canonical": "LlamaIndex",
+    "accepted": [],
+    "rejected": []
+  },
+  "llvm": {
+    "canonical": "LLVM",
+    "accepted": [
+      "low level virtual machine"
+    ],
+    "rejected": []
+  },
+  "logos": {
+    "canonical": "Logos",
+    "accepted": [],
+    "rejected": []
+  },
+  "logstash": {
+    "canonical": "Logstash",
+    "accepted": [
+      "elastic logstash"
+    ],
+    "rejected": []
+  },
+  "logtalk": {
+    "canonical": "Logtalk",
+    "accepted": [],
+    "rejected": []
+  },
+  "loki": {
+    "canonical": "Loki",
+    "accepted": [],
+    "rejected": []
+  },
+  "lolcode": {
+    "canonical": "LOLCODE",
+    "accepted": [],
+    "rejected": []
+  },
+  "lookml": {
+    "canonical": "LookML",
+    "accepted": [],
+    "rejected": []
+  },
+  "loom": {
+    "canonical": "Loom",
+    "accepted": [],
+    "rejected": []
+  },
+  "loomscript": {
+    "canonical": "LoomScript",
+    "accepted": [],
+    "rejected": []
+  },
+  "luau": {
+    "canonical": "Luau",
+    "accepted": [],
+    "rejected": []
+  },
+  "m4": {
+    "canonical": "M4",
+    "accepted": [],
+    "rejected": []
+  },
+  "make": {
+    "canonical": "Make",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "makefile",
+        "reason": "equals an id of another entry"
+      }
+    ]
+  },
+  "mako": {
+    "canonical": "Mako",
+    "accepted": [],
+    "rejected": []
+  },
+  "mantine": {
+    "canonical": "Mantine",
+    "accepted": [],
+    "rejected": []
+  },
+  "mariadb": {
+    "canonical": "MariaDB",
+    "accepted": [
+      "maria db",
+      "maria-db"
+    ],
+    "rejected": []
+  },
+  "material-ui": {
+    "canonical": "Material UI",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "material ui",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "mathematical-programming-system": {
+    "canonical": "Mathematical Programming System",
+    "accepted": [],
+    "rejected": []
+  },
+  "matlab": {
+    "canonical": "MATLAB",
+    "accepted": [
+      "mat lab"
+    ],
+    "rejected": []
+  },
+  "matplotlib": {
+    "canonical": "Matplotlib",
+    "accepted": [
+      "mpl"
+    ],
+    "rejected": []
+  },
+  "maven": {
+    "canonical": "Maven",
+    "accepted": [
+      "mvn"
+    ],
+    "rejected": []
+  },
+  "mcfunction": {
+    "canonical": "mcfunction",
+    "accepted": [],
+    "rejected": []
+  },
+  "memcached": {
+    "canonical": "Memcached",
+    "accepted": [
+      "memcache"
+    ],
+    "rejected": []
+  },
+  "mercury": {
+    "canonical": "Mercury",
+    "accepted": [],
+    "rejected": []
+  },
+  "meson": {
+    "canonical": "Meson",
+    "accepted": [],
+    "rejected": []
+  },
+  "metal": {
+    "canonical": "Metal",
+    "accepted": [],
+    "rejected": []
+  },
+  "metta": {
+    "canonical": "MeTTa",
+    "accepted": [],
+    "rejected": []
+  },
+  "microsoft-access": {
+    "canonical": "Microsoft Access",
+    "accepted": [
+      "access"
+    ],
+    "rejected": []
+  },
+  "microsoft-active-directory": {
+    "canonical": "Microsoft Active Directory",
+    "accepted": [
+      "ad"
+    ],
+    "rejected": []
+  },
+  "microsoft-asp-net-core-mvc": {
+    "canonical": "Microsoft ASP.NET Core MVC",
+    "accepted": [
+      "asp net core mvc",
+      "aspnet core mvc"
+    ],
+    "rejected": []
+  },
+  "microsoft-azure": {
+    "canonical": "Microsoft Azure",
+    "accepted": [
+      "azure"
+    ],
+    "rejected": []
+  },
+  "microsoft-dynamics": {
+    "canonical": "Microsoft Dynamics",
+    "accepted": [
+      "dynamics"
+    ],
+    "rejected": []
+  },
+  "microsoft-excel": {
+    "canonical": "Microsoft Excel",
+    "accepted": [
+      "excel"
+    ],
+    "rejected": []
+  },
+  "microsoft-exchange": {
+    "canonical": "Microsoft Exchange",
+    "accepted": [
+      "exchange"
+    ],
+    "rejected": []
+  },
+  "microsoft-internet-information-services-iis": {
+    "canonical": "Microsoft Internet Information Services (IIS)",
+    "accepted": [
+      "iis"
+    ],
+    "rejected": []
+  },
+  "microsoft-office": {
+    "canonical": "Microsoft Office",
+    "accepted": [
+      "office"
+    ],
+    "rejected": []
+  },
+  "microsoft-onenote": {
+    "canonical": "Microsoft OneNote",
+    "accepted": [
+      "onenote"
+    ],
+    "rejected": []
+  },
+  "microsoft-operating": {
+    "canonical": "Microsoft operating",
+    "accepted": [],
+    "rejected": []
+  },
+  "microsoft-outlook": {
+    "canonical": "Microsoft Outlook",
+    "accepted": [
+      "outlook"
+    ],
+    "rejected": []
+  },
+  "microsoft-power-bi": {
+    "canonical": "Microsoft Power BI",
+    "accepted": [
+      "power bi",
+      "ms power bi",
+      "microsoft bi"
+    ],
+    "rejected": []
+  },
+  "microsoft-powerpoint": {
+    "canonical": "Microsoft PowerPoint",
+    "accepted": [
+      "powerpoint",
+      "ms powerpoint",
+      "microsoft ppt"
+    ],
+    "rejected": []
+  },
+  "microsoft-project": {
+    "canonical": "Microsoft Project",
+    "accepted": [
+      "ms project",
+      "microsoft project management",
+      "project management"
+    ],
+    "rejected": []
+  },
+  "microsoft-publisher": {
+    "canonical": "Microsoft Publisher",
+    "accepted": [
+      "ms publisher",
+      "microsoft pub"
+    ],
+    "rejected": []
+  },
+  "microsoft-sharepoint": {
+    "canonical": "Microsoft SharePoint",
+    "accepted": [
+      "sharepoint",
+      "ms sharepoint"
+    ],
+    "rejected": []
+  },
+  "microsoft-sql-server": {
+    "canonical": "Microsoft SQL Server",
+    "accepted": [
+      "sql server",
+      "ms sql server",
+      "mssql"
+    ],
+    "rejected": []
+  },
+  "microsoft-sql-server-integration-services-ssis": {
+    "canonical": "Microsoft SQL Server Integration Services SSIS",
+    "accepted": [
+      "ssis",
+      "sql server integration services"
+    ],
+    "rejected": []
+  },
+  "microsoft-sql-server-reporting-services-ssrs": {
+    "canonical": "Microsoft SQL Server Reporting Services SSRS",
+    "accepted": [
+      "ssrs",
+      "sql server reporting services"
+    ],
+    "rejected": []
+  },
+  "microsoft-teams": {
+    "canonical": "Microsoft Teams",
+    "accepted": [
+      "teams",
+      "ms teams"
+    ],
+    "rejected": []
+  },
+  "microsoft-visio": {
+    "canonical": "Microsoft Visio",
+    "accepted": [
+      "visio",
+      "ms visio"
+    ],
+    "rejected": []
+  },
+  "microsoft-windows": {
+    "canonical": "Microsoft Windows",
+    "accepted": [
+      "windows",
+      "ms windows"
+    ],
+    "rejected": []
+  },
+  "microsoft-windows-server": {
+    "canonical": "Microsoft Windows Server",
+    "accepted": [
+      "windows server",
+      "ms windows server"
+    ],
+    "rejected": []
+  },
+  "microsoft-word": {
+    "canonical": "Microsoft Word",
+    "accepted": [
+      "word",
+      "ms word"
+    ],
+    "rejected": []
+  },
+  "microstrategy": {
+    "canonical": "MicroStrategy",
+    "accepted": [
+      "micro strategy",
+      "ms microstrategy"
+    ],
+    "rejected": []
+  },
+  "milvus": {
+    "canonical": "Milvus",
+    "accepted": [
+      "milvus db",
+      "milvus database"
+    ],
+    "rejected": []
+  },
+  "minid": {
+    "canonical": "MiniD",
+    "accepted": [
+      "mini d"
+    ],
+    "rejected": []
+  },
+  "minizinc": {
+    "canonical": "MiniZinc",
+    "accepted": [
+      "mini zinc"
+    ],
+    "rejected": []
+  },
+  "mint": {
+    "canonical": "Mint",
+    "accepted": [
+      "mint language"
+    ],
+    "rejected": []
+  },
+  "mirah": {
+    "canonical": "Mirah",
+    "accepted": [
+      "mirah language"
+    ],
+    "rejected": []
+  },
+  "mirc-script": {
+    "canonical": "mIRC Script",
+    "accepted": [
+      "mirc",
+      "mirc scripting"
+    ],
+    "rejected": []
+  },
+  "mlflow": {
+    "canonical": "MLflow",
+    "accepted": [
+      "ml flow",
+      "mlflow tool"
+    ],
+    "rejected": []
+  },
+  "mlir": {
+    "canonical": "MLIR",
+    "accepted": [
+      "ml ir"
+    ],
+    "rejected": []
+  },
+  "mocha": {
+    "canonical": "Mocha",
+    "accepted": [
+      "mocha js",
+      "mocha testing"
+    ],
+    "rejected": []
+  },
+  "model-context-protocol": {
+    "canonical": "Model Context Protocol",
+    "accepted": [
+      "model context"
+    ],
+    "rejected": [
+      {
+        "alias": "model context protocol",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "modelica": {
+    "canonical": "Modelica",
+    "accepted": [
+      "model ica"
+    ],
+    "rejected": []
+  },
+  "modula-2": {
+    "canonical": "Modula-2",
+    "accepted": [],
+    "rejected": []
+  },
+  "modula-3": {
+    "canonical": "Modula-3",
+    "accepted": [],
+    "rejected": []
+  },
+  "module-management-system": {
+    "canonical": "Module Management System",
+    "accepted": [],
+    "rejected": []
+  },
+  "mojo": {
+    "canonical": "Mojo",
+    "accepted": [],
+    "rejected": []
+  },
+  "mongodb": {
+    "canonical": "MongoDB",
+    "accepted": [
+      "mongo",
+      "mongo db",
+      "mangodb"
+    ],
+    "rejected": []
+  },
+  "monkey": {
+    "canonical": "Monkey",
+    "accepted": [],
+    "rejected": []
+  },
+  "monkey-c": {
+    "canonical": "Monkey C",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "monkey c",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "moocode": {
+    "canonical": "Moocode",
+    "accepted": [],
+    "rejected": []
+  },
+  "moonbit": {
+    "canonical": "MoonBit",
+    "accepted": [],
+    "rejected": []
+  },
+  "moonscript": {
+    "canonical": "MoonScript",
+    "accepted": [],
+    "rejected": []
+  },
+  "motoko": {
+    "canonical": "Motoko",
+    "accepted": [],
+    "rejected": []
+  },
+  "motorola-68k-assembly": {
+    "canonical": "Motorola 68K Assembly",
+    "accepted": [
+      "motorola 68k",
+      "68k assembly"
+    ],
+    "rejected": []
+  },
+  "move": {
+    "canonical": "Move",
+    "accepted": [],
+    "rejected": []
+  },
+  "mozilla-firefox": {
+    "canonical": "Mozilla Firefox",
+    "accepted": [
+      "firefox"
+    ],
+    "rejected": []
+  },
+  "mql4": {
+    "canonical": "MQL4",
+    "accepted": [
+      "mql 4"
+    ],
+    "rejected": []
+  },
+  "mql5": {
+    "canonical": "MQL5",
+    "accepted": [
+      "mql 5"
+    ],
+    "rejected": []
+  },
+  "mupad": {
+    "canonical": "mupad",
+    "accepted": [],
+    "rejected": []
+  },
+  "myghty": {
+    "canonical": "Myghty",
+    "accepted": [],
+    "rejected": []
+  },
+  "mysql": {
+    "canonical": "MySQL",
+    "accepted": [
+      "my sql",
+      "mysq l"
+    ],
+    "rejected": []
+  },
+  "nagios": {
+    "canonical": "Nagios",
+    "accepted": [],
+    "rejected": []
+  },
+  "nasal": {
+    "canonical": "Nasal",
+    "accepted": [],
+    "rejected": []
+  },
+  "nasl": {
+    "canonical": "NASL",
+    "accepted": [],
+    "rejected": []
+  },
+  "national-instruments-labview": {
+    "canonical": "National Instruments LabVIEW",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "labview",
+        "reason": "equals an id of another entry"
+      }
+    ]
+  },
+  "nearley": {
+    "canonical": "Nearley",
+    "accepted": [],
+    "rejected": []
+  },
+  "nemerle": {
+    "canonical": "Nemerle",
+    "accepted": [],
+    "rejected": []
+  },
+  "neo4j": {
+    "canonical": "Neo4j",
+    "accepted": [
+      "graph database",
+      "nosql database"
+    ],
+    "rejected": [
+      {
+        "alias": "neo4j",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "neon": {
+    "canonical": "Neon",
+    "accepted": [],
+    "rejected": []
+  },
+  "neovim": {
+    "canonical": "Neovim",
+    "accepted": [
+      "neovim editor"
+    ],
+    "rejected": [
+      {
+        "alias": "nvim",
+        "reason": "equals an existing alias of another entry"
+      }
+    ]
+  },
+  "nesc": {
+    "canonical": "nesC",
+    "accepted": [],
+    "rejected": []
+  },
+  "nestjs": {
+    "canonical": "NestJS",
+    "accepted": [
+      "nest",
+      "nestjs framework"
+    ],
+    "rejected": []
+  },
+  "netlify": {
+    "canonical": "Netlify",
+    "accepted": [
+      "netlify cms",
+      "netlify hosting"
+    ],
+    "rejected": []
+  },
+  "netlinx": {
+    "canonical": "NetLinx",
+    "accepted": [],
+    "rejected": []
+  },
+  "netlinx-erb": {
+    "canonical": "NetLinx+ERB",
+    "accepted": [],
+    "rejected": []
+  },
+  "netlogo": {
+    "canonical": "NetLogo",
+    "accepted": [],
+    "rejected": []
+  },
+  "new-relic": {
+    "canonical": "New Relic",
+    "accepted": [
+      "newrelic"
+    ],
+    "rejected": []
+  },
+  "newlisp": {
+    "canonical": "NewLisp",
+    "accepted": [],
+    "rejected": []
+  },
+  "next-js": {
+    "canonical": "Next.js",
+    "accepted": [
+      "nextjs",
+      "next js"
+    ],
+    "rejected": []
+  },
+  "nextflow": {
+    "canonical": "Nextflow",
+    "accepted": [],
+    "rejected": []
+  },
+  "nickel": {
+    "canonical": "Nickel",
+    "accepted": [],
+    "rejected": []
+  },
+  "nltk": {
+    "canonical": "NLTK",
+    "accepted": [
+      "nltk library",
+      "natural language toolkit"
+    ],
+    "rejected": []
+  },
+  "nmodl": {
+    "canonical": "NMODL",
+    "accepted": [],
+    "rejected": []
+  },
+  "node-js": {
+    "canonical": "Node.js",
+    "accepted": [
+      "nodejs",
+      "node js"
+    ],
+    "rejected": []
+  },
+  "nosql": {
+    "canonical": "NoSQL",
+    "accepted": [
+      "non-relational database"
+    ],
+    "rejected": [
+      {
+        "alias": "nosql database",
+        "reason": "duplicate of an alias generated earlier this run"
+      }
+    ]
+  },
+  "notepad": {
+    "canonical": "Notepad++",
+    "accepted": [
+      "notepad plus plus"
+    ],
+    "rejected": [
+      {
+        "alias": "notepad++",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "notion": {
+    "canonical": "Notion",
+    "accepted": [],
+    "rejected": []
+  },
+  "npm": {
+    "canonical": "npm",
+    "accepted": [
+      "node package manager"
+    ],
+    "rejected": []
+  },
+  "nsis": {
+    "canonical": "NSIS",
+    "accepted": [],
+    "rejected": []
+  },
+  "numpy": {
+    "canonical": "NumPy",
+    "accepted": [
+      "numpy library"
+    ],
+    "rejected": []
+  },
+  "nuxt-js": {
+    "canonical": "Nuxt.js",
+    "accepted": [
+      "nuxtjs",
+      "nuxt js"
+    ],
+    "rejected": []
+  },
+  "nwscript": {
+    "canonical": "NWScript",
+    "accepted": [],
+    "rejected": []
+  },
+  "nx": {
+    "canonical": "Nx",
+    "accepted": [
+      "nx.dev",
+      "nx.js",
+      "nx-cli",
+      "nx-tools"
+    ],
+    "rejected": [
+      {
+        "alias": "nx",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "oberon": {
+    "canonical": "Oberon",
+    "accepted": [
+      "oberon-2",
+      "oberon-07",
+      "oberon language",
+      "oberon programming",
+      "oberon compiler"
+    ],
+    "rejected": []
+  },
+  "objectscript": {
+    "canonical": "ObjectScript",
+    "accepted": [
+      "object script",
+      "objectscript language",
+      "objectscript programming",
+      "objectscript db",
+      "objectscript framework"
+    ],
+    "rejected": []
+  },
+  "ocaml": {
+    "canonical": "OCaml",
+    "accepted": [
+      "ocaml programming",
+      "ocaml language",
+      "ocaml compiler",
+      "ocaml bytecode",
+      "ocaml native"
+    ],
+    "rejected": []
+  },
+  "okta": {
+    "canonical": "Okta",
+    "accepted": [
+      "okta identity",
+      "okta api",
+      "okta authentication",
+      "okta oauth",
+      "okta sso"
+    ],
+    "rejected": []
+  },
+  "ollama": {
+    "canonical": "Ollama",
+    "accepted": [
+      "ollama cli",
+      "ollama tool",
+      "ollama api",
+      "ollama model",
+      "ollama service"
+    ],
+    "rejected": []
+  },
+  "omgrofl": {
+    "canonical": "Omgrofl",
+    "accepted": [
+      "omgrofl language",
+      "omgrofl programming",
+      "omgrofl script",
+      "omgrofl interpreter",
+      "omgrofl compiler"
+    ],
+    "rejected": []
+  },
+  "omnet-msg": {
+    "canonical": "OMNeT++ MSG",
+    "accepted": [
+      "omnet msg",
+      "omnet message",
+      "omnet messaging",
+      "omnet++ messaging"
+    ],
+    "rejected": [
+      {
+        "alias": "omnet++ msg",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "omnet-ned": {
+    "canonical": "OMNeT++ NED",
+    "accepted": [
+      "omnet ned",
+      "omnet network description",
+      "omnet++ network",
+      "omnet ned file"
+    ],
+    "rejected": [
+      {
+        "alias": "omnet++ ned",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "opal": {
+    "canonical": "Opal",
+    "accepted": [
+      "opal language",
+      "opal programming",
+      "opal framework",
+      "opal compiler",
+      "opal tool"
+    ],
+    "rejected": []
+  },
+  "open-policy-agent": {
+    "canonical": "Open Policy Agent",
+    "accepted": [
+      "open policy",
+      "policy agent",
+      "opa tool"
+    ],
+    "rejected": [
+      {
+        "alias": "opa",
+        "reason": "equals an id of another entry"
+      },
+      {
+        "alias": "open policy agent",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "openai-chatgpt": {
+    "canonical": "OpenAI ChatGPT",
+    "accepted": [
+      "chatgpt",
+      "openai gpt",
+      "gpt-3",
+      "gpt model",
+      "openai chatbot"
+    ],
+    "rejected": []
+  },
+  "opencl": {
+    "canonical": "OpenCL",
+    "accepted": [
+      "open cl",
+      "opencl programming",
+      "opencl api",
+      "opencl framework",
+      "opencl kernel"
+    ],
+    "rejected": []
+  },
+  "opencv": {
+    "canonical": "OpenCV",
+    "accepted": [
+      "opencv library",
+      "opencv framework",
+      "opencv image processing",
+      "opencv computer vision",
+      "opencv-python"
+    ],
+    "rejected": []
+  },
+  "openid-connect": {
+    "canonical": "OpenID Connect",
+    "accepted": [
+      "openid",
+      "openid authentication",
+      "openid protocol"
+    ],
+    "rejected": [
+      {
+        "alias": "openid connect",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "openqasm": {
+    "canonical": "OpenQASM",
+    "accepted": [
+      "open qasm",
+      "openqasm language",
+      "openqasm programming",
+      "openqasm code",
+      "openqasm script"
+    ],
+    "rejected": []
+  },
+  "openrc-runscript": {
+    "canonical": "OpenRC runscript",
+    "accepted": [
+      "openrc script",
+      "openrc service",
+      "openrc command",
+      "openrc configuration"
+    ],
+    "rejected": [
+      {
+        "alias": "openrc runscript",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "openscad": {
+    "canonical": "OpenSCAD",
+    "accepted": [
+      "openscad language",
+      "openscad script",
+      "openscad modeling",
+      "openscad tool",
+      "openscad design"
+    ],
+    "rejected": []
+  },
+  "oracle": {
+    "canonical": "Oracle",
+    "accepted": [
+      "oracle db",
+      "oracle tool",
+      "oracle software",
+      "oracle platform",
+      "oracle solutions"
+    ],
+    "rejected": []
+  },
+  "oracle-cloud": {
+    "canonical": "Oracle Cloud",
+    "accepted": [
+      "oracle cloud infrastructure",
+      "oracle cloud services",
+      "oracle cloud platform",
+      "oracle cloud applications",
+      "oracle cloud solutions"
+    ],
+    "rejected": []
+  },
+  "oracle-database": {
+    "canonical": "Oracle Database",
+    "accepted": [
+      "oracle database server",
+      "oracle rdbms",
+      "oracle sql",
+      "oracle database management"
+    ],
+    "rejected": [
+      {
+        "alias": "oracle db",
+        "reason": "duplicate of an alias generated earlier this run"
+      }
+    ]
+  },
+  "oracle-jdbc": {
+    "canonical": "Oracle JDBC",
+    "accepted": [
+      "jdbc oracle",
+      "oracle jdbc driver",
+      "oracle jdbc connection",
+      "oracle jdbc api",
+      "oracle jdbc library"
+    ],
+    "rejected": []
+  },
+  "oracle-solaris": {
+    "canonical": "Oracle Solaris",
+    "accepted": [
+      "solaris",
+      "oracle solaris os",
+      "solaris operating system",
+      "solaris server",
+      "solaris platform"
+    ],
+    "rejected": []
+  },
+  "oracle-sql-developer": {
+    "canonical": "Oracle SQL Developer",
+    "accepted": [
+      "sql developer",
+      "oracle sql dev",
+      "sql developer tool",
+      "oracle sql developer client",
+      "sql developer application"
+    ],
+    "rejected": []
+  },
+  "overpassql": {
+    "canonical": "OverpassQL",
+    "accepted": [
+      "overpass ql",
+      "overpass query language",
+      "overpass api",
+      "overpass queries",
+      "overpass data"
+    ],
+    "rejected": []
+  },
+  "oxygene": {
+    "canonical": "Oxygene",
+    "accepted": [],
+    "rejected": []
+  },
+  "p4": {
+    "canonical": "P4",
+    "accepted": [],
+    "rejected": []
+  },
+  "pact": {
+    "canonical": "Pact",
+    "accepted": [],
+    "rejected": []
+  },
+  "pagerduty": {
+    "canonical": "PagerDuty",
+    "accepted": [
+      "pager duty",
+      "pagerduty.com"
+    ],
+    "rejected": []
+  },
+  "pandas": {
+    "canonical": "Pandas",
+    "accepted": [
+      "pd",
+      "pandas.pydata",
+      "pandas dataframe"
+    ],
+    "rejected": []
+  },
+  "papyrus": {
+    "canonical": "Papyrus",
+    "accepted": [],
+    "rejected": []
+  },
+  "parcel": {
+    "canonical": "Parcel",
+    "accepted": [],
+    "rejected": []
+  },
+  "parrot": {
+    "canonical": "Parrot",
+    "accepted": [],
+    "rejected": []
+  },
+  "parrot-assembly": {
+    "canonical": "Parrot Assembly",
+    "accepted": [],
+    "rejected": []
+  },
+  "parrot-internal-representation": {
+    "canonical": "Parrot Internal Representation",
+    "accepted": [],
+    "rejected": []
+  },
+  "pawn": {
+    "canonical": "Pawn",
+    "accepted": [],
+    "rejected": []
+  },
+  "pddl": {
+    "canonical": "PDDL",
+    "accepted": [],
+    "rejected": []
+  },
+  "peg-js": {
+    "canonical": "PEG.js",
+    "accepted": [
+      "pegjs",
+      "peg js"
+    ],
+    "rejected": []
+  },
+  "pep8": {
+    "canonical": "Pep8",
+    "accepted": [
+      "pep 8"
+    ],
+    "rejected": []
+  },
+  "perplexity": {
+    "canonical": "Perplexity",
+    "accepted": [],
+    "rejected": []
+  },
+  "pgvector": {
+    "canonical": "pgvector",
+    "accepted": [],
+    "rejected": []
+  },
+  "phoenix": {
+    "canonical": "Phoenix",
+    "accepted": [],
+    "rejected": []
+  },
+  "phpstorm": {
+    "canonical": "PhpStorm",
+    "accepted": [
+      "php storm",
+      "phpstorm ide"
+    ],
+    "rejected": []
+  },
+  "picolisp": {
+    "canonical": "PicoLisp",
+    "accepted": [],
+    "rejected": []
+  },
+  "piglatin": {
+    "canonical": "PigLatin",
+    "accepted": [],
+    "rejected": []
+  },
+  "pike": {
+    "canonical": "Pike",
+    "accepted": [],
+    "rejected": []
+  },
+  "pinecone": {
+    "canonical": "Pinecone",
+    "accepted": [],
+    "rejected": []
+  },
+  "pinia": {
+    "canonical": "Pinia",
+    "accepted": [],
+    "rejected": []
+  },
+  "pip": {
+    "canonical": "pip",
+    "accepted": [
+      "pip install"
+    ],
+    "rejected": []
+  },
+  "planetscale": {
+    "canonical": "PlanetScale",
+    "accepted": [],
+    "rejected": []
+  },
+  "playwright": {
+    "canonical": "Playwright",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "playwright",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "plotly": {
+    "canonical": "Plotly",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "plotly",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "plpgsql": {
+    "canonical": "PLpgSQL",
+    "accepted": [
+      "pl/pgsql"
+    ],
+    "rejected": [
+      {
+        "alias": "plpgsql",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "plsql": {
+    "canonical": "PLSQL",
+    "accepted": [
+      "pl/sql"
+    ],
+    "rejected": [
+      {
+        "alias": "plsql",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "pnpm": {
+    "canonical": "pnpm",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "pnpm",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "pogoscript": {
+    "canonical": "PogoScript",
+    "accepted": [
+      "pogo script"
+    ],
+    "rejected": [
+      {
+        "alias": "pogoscript",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "polar": {
+    "canonical": "Polar",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "polar",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "polars": {
+    "canonical": "Polars",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "polars",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "pony": {
+    "canonical": "Pony",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "pony",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "portugol": {
+    "canonical": "Portugol",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "portugol",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "postgresql": {
+    "canonical": "PostgreSQL",
+    "accepted": [
+      "postgres",
+      "pgsql",
+      "postgre sql"
+    ],
+    "rejected": []
+  },
+  "postman": {
+    "canonical": "Postman",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "postman",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "powerbuilder": {
+    "canonical": "PowerBuilder",
+    "accepted": [
+      "power builder"
+    ],
+    "rejected": [
+      {
+        "alias": "powerbuilder",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "praat": {
+    "canonical": "Praat",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "praat",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "prefect": {
+    "canonical": "Prefect",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "prefect",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "prisma": {
+    "canonical": "Prisma",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "prisma",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "processing": {
+    "canonical": "Processing",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "processing",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "procfile": {
+    "canonical": "Procfile",
+    "accepted": [
+      "proc file"
+    ],
+    "rejected": [
+      {
+        "alias": "procfile",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "prolog": {
+    "canonical": "Prolog",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "prolog",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "promela": {
+    "canonical": "Promela",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "promela",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "prometheus": {
+    "canonical": "Prometheus",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "prometheus",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "propeller-spin": {
+    "canonical": "Propeller Spin",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "propeller spin",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "pulumi": {
+    "canonical": "Pulumi",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "pulumi",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "puppet": {
+    "canonical": "Puppet",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "puppet",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "puppeteer": {
+    "canonical": "Puppeteer",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "puppeteer",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "purebasic": {
+    "canonical": "PureBasic",
+    "accepted": [],
+    "rejected": []
+  },
+  "purescript": {
+    "canonical": "PureScript",
+    "accepted": [],
+    "rejected": []
+  },
+  "pycharm": {
+    "canonical": "PyCharm",
+    "accepted": [
+      "py charm",
+      "pycharm ide"
+    ],
+    "rejected": []
+  },
+  "pydantic": {
+    "canonical": "Pydantic",
+    "accepted": [
+      "pydantic library",
+      "pydantic framework"
+    ],
+    "rejected": []
+  },
+  "pydantic-ai": {
+    "canonical": "Pydantic AI",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "pydantic ai",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "pyret": {
+    "canonical": "Pyret",
+    "accepted": [],
+    "rejected": []
+  },
+  "pytest": {
+    "canonical": "pytest",
+    "accepted": [
+      "py test",
+      "py.test"
+    ],
+    "rejected": []
+  },
+  "python-console": {
+    "canonical": "Python console",
+    "accepted": [
+      "python shell",
+      "python interactive"
+    ],
+    "rejected": []
+  },
+  "pytorch": {
+    "canonical": "PyTorch",
+    "accepted": [
+      "torch",
+      "pytorch framework"
+    ],
+    "rejected": []
+  },
+  "qsharp": {
+    "canonical": "Q#",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "q#",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "qdrant": {
+    "canonical": "Qdrant",
+    "accepted": [],
+    "rejected": []
+  },
+  "qlik-tech-qlikview": {
+    "canonical": "Qlik Tech QlikView",
+    "accepted": [
+      "qlikview"
+    ],
+    "rejected": []
+  },
+  "qmake": {
+    "canonical": "QMake",
+    "accepted": [],
+    "rejected": []
+  },
+  "qt": {
+    "canonical": "Qt",
+    "accepted": [
+      "qt framework"
+    ],
+    "rejected": []
+  },
+  "qt-script": {
+    "canonical": "Qt Script",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "qt script",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "quake": {
+    "canonical": "Quake",
+    "accepted": [],
+    "rejected": []
+  },
+  "quakec": {
+    "canonical": "QuakeC",
+    "accepted": [],
+    "rejected": []
+  },
+  "quest-erwin-data-modeler": {
+    "canonical": "Quest Erwin Data Modeler",
+    "accepted": [
+      "erwin",
+      "quest erwin"
+    ],
+    "rejected": []
+  },
+  "qwik": {
+    "canonical": "Qwik",
+    "accepted": [],
+    "rejected": []
+  },
+  "racket": {
+    "canonical": "Racket",
+    "accepted": [],
+    "rejected": []
+  },
+  "radix-ui": {
+    "canonical": "Radix UI",
+    "accepted": [
+      "radix ui library"
+    ],
+    "rejected": []
+  },
+  "railway": {
+    "canonical": "Railway",
+    "accepted": [],
+    "rejected": []
+  },
+  "rascal": {
+    "canonical": "Rascal",
+    "accepted": [],
+    "rejected": []
+  },
+  "rascript": {
+    "canonical": "RAScript",
+    "accepted": [],
+    "rejected": []
+  },
+  "react": {
+    "canonical": "React",
+    "accepted": [
+      "react.js",
+      "reactjs",
+      "react framework"
+    ],
+    "rejected": []
+  },
+  "react-hook-form": {
+    "canonical": "React Hook Form",
+    "accepted": [
+      "rhf"
+    ],
+    "rejected": [
+      {
+        "alias": "react-hook-form",
+        "reason": "equals its own id or canonical_name"
+      },
+      {
+        "alias": "react hook form",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "react-native": {
+    "canonical": "React Native",
+    "accepted": [
+      "rn"
+    ],
+    "rejected": [
+      {
+        "alias": "react-native",
+        "reason": "equals its own id or canonical_name"
+      },
+      {
+        "alias": "react native",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "react-router": {
+    "canonical": "React Router",
+    "accepted": [
+      "rr"
+    ],
+    "rejected": [
+      {
+        "alias": "react-router",
+        "reason": "equals its own id or canonical_name"
+      },
+      {
+        "alias": "react router",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "realbasic": {
+    "canonical": "REALbasic",
+    "accepted": [
+      "real basic"
+    ],
+    "rejected": [
+      {
+        "alias": "realbasic",
+        "reason": "equals its own id or canonical_name"
+      },
+      {
+        "alias": "rb",
+        "reason": "equals an existing alias of another entry"
+      }
+    ]
+  },
+  "reason": {
+    "canonical": "Reason",
+    "accepted": [
+      "reasonml",
+      "reason ml"
+    ],
+    "rejected": [
+      {
+        "alias": "reason",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "reasonligo": {
+    "canonical": "ReasonLIGO",
+    "accepted": [
+      "reason ligo"
+    ],
+    "rejected": [
+      {
+        "alias": "reasonligo",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "rebol": {
+    "canonical": "Rebol",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "rebol",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "red-hat-enterprise-linux": {
+    "canonical": "Red Hat Enterprise Linux",
+    "accepted": [
+      "rhel"
+    ],
+    "rejected": [
+      {
+        "alias": "red hat enterprise linux",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "red-hat-openshift": {
+    "canonical": "Red Hat OpenShift",
+    "accepted": [
+      "openshift"
+    ],
+    "rejected": [
+      {
+        "alias": "red hat openshift",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "red-hat-wildfly": {
+    "canonical": "Red Hat WildFly",
+    "accepted": [
+      "wildfly"
+    ],
+    "rejected": [
+      {
+        "alias": "red hat wildfly",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "redcode": {
+    "canonical": "Redcode",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "redcode",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "redis": {
+    "canonical": "Redis",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "redis",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "redux": {
+    "canonical": "Redux",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "redux",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "redux-toolkit": {
+    "canonical": "Redux Toolkit",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "redux toolkit",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "remix": {
+    "canonical": "Remix",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "remix",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "render": {
+    "canonical": "Render",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "render",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "renderscript": {
+    "canonical": "RenderScript",
+    "accepted": [
+      "render script"
+    ],
+    "rejected": [
+      {
+        "alias": "renderscript",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "replicate": {
+    "canonical": "Replicate",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "replicate",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "rescript": {
+    "canonical": "ReScript",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "rescript",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "resend": {
+    "canonical": "Resend",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "resend",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "restful-api": {
+    "canonical": "RESTful API",
+    "accepted": [
+      "rest api"
+    ],
+    "rejected": [
+      {
+        "alias": "restful api",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "ring": {
+    "canonical": "Ring",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "ring",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "robotframework": {
+    "canonical": "RobotFramework",
+    "accepted": [
+      "robot framework"
+    ],
+    "rejected": [
+      {
+        "alias": "robotframework",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "rollup": {
+    "canonical": "Rollup",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "rollup",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "rouge": {
+    "canonical": "Rouge",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "rouge",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "routeros-script": {
+    "canonical": "RouterOS Script",
+    "accepted": [],
+    "rejected": []
+  },
+  "rstudio": {
+    "canonical": "RStudio",
+    "accepted": [
+      "r studio",
+      "r-studio"
+    ],
+    "rejected": [
+      {
+        "alias": "rstudio",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "ruby-on-rails": {
+    "canonical": "Ruby on Rails",
+    "accepted": [
+      "rails",
+      "ror"
+    ],
+    "rejected": [
+      {
+        "alias": "ruby on rails",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "sail": {
+    "canonical": "Sail",
+    "accepted": [],
+    "rejected": []
+  },
+  "salesforce": {
+    "canonical": "Salesforce",
+    "accepted": [
+      "sf",
+      "sales force",
+      "salesforce.com"
+    ],
+    "rejected": []
+  },
+  "sas-jmp": {
+    "canonical": "SAS JMP",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "sas jmp",
+        "reason": "equals its own id or canonical_name"
+      },
+      {
+        "alias": "sas-jmp",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "sass": {
+    "canonical": "Sass",
+    "accepted": [
+      "sassy css"
+    ],
+    "rejected": [
+      {
+        "alias": "sass",
+        "reason": "equals its own id or canonical_name"
+      },
+      {
+        "alias": "scss",
+        "reason": "equals an id of another entry"
+      }
+    ]
+  },
+  "scala": {
+    "canonical": "Scala",
+    "accepted": [
+      "scalaz",
+      "scala.js"
+    ],
+    "rejected": [
+      {
+        "alias": "scala",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "scenic": {
+    "canonical": "Scenic",
+    "accepted": [],
+    "rejected": []
+  },
+  "scheme": {
+    "canonical": "Scheme",
+    "accepted": [
+      "scheme lang"
+    ],
+    "rejected": [
+      {
+        "alias": "scheme",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "scikit-learn": {
+    "canonical": "Scikit-Learn",
+    "accepted": [
+      "sklearn",
+      "scikit learn"
+    ],
+    "rejected": [
+      {
+        "alias": "scikit-learn",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "scilab": {
+    "canonical": "Scilab",
+    "accepted": [
+      "scilab language"
+    ],
+    "rejected": [
+      {
+        "alias": "scilab",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "scipy": {
+    "canonical": "SciPy",
+    "accepted": [
+      "scientific python"
+    ],
+    "rejected": [
+      {
+        "alias": "scipy",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "scss": {
+    "canonical": "SCSS",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "scss",
+        "reason": "equals its own id or canonical_name"
+      },
+      {
+        "alias": "sassy css",
+        "reason": "duplicate of an alias generated earlier this run"
+      }
+    ]
+  },
+  "seaborn": {
+    "canonical": "Seaborn",
+    "accepted": [
+      "seaborn library"
+    ],
+    "rejected": [
+      {
+        "alias": "seaborn",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "selenium": {
+    "canonical": "Selenium",
+    "accepted": [
+      "selenium webdriver"
+    ],
+    "rejected": [
+      {
+        "alias": "selenium",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "self": {
+    "canonical": "Self",
+    "accepted": [],
+    "rejected": []
+  },
+  "semantic-kernel": {
+    "canonical": "Semantic Kernel",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "semantic kernel",
+        "reason": "equals its own id or canonical_name"
+      },
+      {
+        "alias": "semantic-kernel",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "sendgrid": {
+    "canonical": "SendGrid",
+    "accepted": [
+      "send grid"
+    ],
+    "rejected": [
+      {
+        "alias": "sendgrid",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "sentry": {
+    "canonical": "Sentry",
+    "accepted": [
+      "sentry.io"
+    ],
+    "rejected": [
+      {
+        "alias": "sentry",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "sequelize": {
+    "canonical": "Sequelize",
+    "accepted": [
+      "seq"
+    ],
+    "rejected": [
+      {
+        "alias": "sequelize",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "server-sent-events": {
+    "canonical": "Server-Sent Events",
+    "accepted": [
+      "server sent events"
+    ],
+    "rejected": []
+  },
+  "servicenow": {
+    "canonical": "ServiceNow",
+    "accepted": [
+      "service now"
+    ],
+    "rejected": [
+      {
+        "alias": "servicenow",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "shadcn-ui": {
+    "canonical": "shadcn/ui",
+    "accepted": [
+      "shadcn ui"
+    ],
+    "rejected": [
+      {
+        "alias": "shadcn/ui",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "shaderlab": {
+    "canonical": "ShaderLab",
+    "accepted": [
+      "shader lab"
+    ],
+    "rejected": [
+      {
+        "alias": "shaderlab",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "shell-script": {
+    "canonical": "Shell script",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "bash",
+        "reason": "equals an id of another entry"
+      },
+      {
+        "alias": "sh",
+        "reason": "equals an existing alias of another entry"
+      },
+      {
+        "alias": "shell",
+        "reason": "equals an id of another entry"
+      }
+    ]
+  },
+  "shen": {
+    "canonical": "Shen",
+    "accepted": [
+      "shen-lang",
+      "shen programming language"
+    ],
+    "rejected": []
+  },
+  "sieve": {
+    "canonical": "Sieve",
+    "accepted": [],
+    "rejected": []
+  },
+  "simulation-program-with-integrated-circuit-emphasis-spice": {
+    "canonical": "Simulation program with integrated circuit emphasis SPICE",
+    "accepted": [
+      "spice"
+    ],
+    "rejected": []
+  },
+  "singularity": {
+    "canonical": "Singularity",
+    "accepted": [],
+    "rejected": []
+  },
+  "skaffold": {
+    "canonical": "Skaffold",
+    "accepted": [],
+    "rejected": []
+  },
+  "slack": {
+    "canonical": "Slack",
+    "accepted": [
+      "slack.com",
+      "slack messaging"
+    ],
+    "rejected": []
+  },
+  "slang": {
+    "canonical": "Slang",
+    "accepted": [],
+    "rejected": []
+  },
+  "slash": {
+    "canonical": "Slash",
+    "accepted": [],
+    "rejected": []
+  },
+  "slice": {
+    "canonical": "Slice",
+    "accepted": [],
+    "rejected": []
+  },
+  "smali": {
+    "canonical": "Smali",
+    "accepted": [],
+    "rejected": []
+  },
+  "smarty": {
+    "canonical": "Smarty",
+    "accepted": [
+      "smarty template",
+      "smarty engine"
+    ],
+    "rejected": []
+  },
+  "smithy": {
+    "canonical": "Smithy",
+    "accepted": [],
+    "rejected": []
+  },
+  "snort": {
+    "canonical": "Snort",
+    "accepted": [],
+    "rejected": []
+  },
+  "snowflake": {
+    "canonical": "Snowflake",
+    "accepted": [
+      "snowflake db",
+      "snowflake data platform"
+    ],
+    "rejected": []
+  },
+  "solarwinds": {
+    "canonical": "SolarWinds",
+    "accepted": [],
+    "rejected": []
+  },
+  "solid-js": {
+    "canonical": "Solid.js",
+    "accepted": [
+      "solid",
+      "solidjs"
+    ],
+    "rejected": []
+  },
+  "solidity": {
+    "canonical": "Solidity",
+    "accepted": [],
+    "rejected": []
+  },
+  "solidstart": {
+    "canonical": "SolidStart",
+    "accepted": [],
+    "rejected": []
+  },
+  "spacy": {
+    "canonical": "spaCy",
+    "accepted": [
+      "spa cy",
+      "spacy library"
+    ],
+    "rejected": []
+  },
+  "splunk": {
+    "canonical": "Splunk",
+    "accepted": [],
+    "rejected": []
+  },
+  "spring-boot": {
+    "canonical": "Spring Boot",
+    "accepted": [
+      "springboot",
+      "spring boot framework"
+    ],
+    "rejected": []
+  },
+  "spring-framework": {
+    "canonical": "Spring Framework",
+    "accepted": [
+      "spring"
+    ],
+    "rejected": [
+      {
+        "alias": "spring framework",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "sqlalchemy": {
+    "canonical": "SQLAlchemy",
+    "accepted": [
+      "sql alchemy",
+      "sqlalchemy library"
+    ],
+    "rejected": []
+  },
+  "sqlite": {
+    "canonical": "SQLite",
+    "accepted": [
+      "sqlite3",
+      "sqlite database"
+    ],
+    "rejected": []
+  },
+  "sqlpl": {
+    "canonical": "SQLPL",
+    "accepted": [],
+    "rejected": []
+  },
+  "squirrel": {
+    "canonical": "Squirrel",
+    "accepted": [],
+    "rejected": []
+  },
+  "stan": {
+    "canonical": "Stan",
+    "accepted": [],
+    "rejected": []
+  },
+  "standard-ml": {
+    "canonical": "Standard ML",
+    "accepted": [],
+    "rejected": []
+  },
+  "stata": {
+    "canonical": "Stata",
+    "accepted": [],
+    "rejected": []
+  },
+  "statacorp-stata": {
+    "canonical": "StataCorp Stata",
+    "accepted": [],
+    "rejected": []
+  },
+  "statistica": {
+    "canonical": "STATISTICA",
+    "accepted": [],
+    "rejected": []
+  },
+  "statsmodels": {
+    "canonical": "Statsmodels",
+    "accepted": [],
+    "rejected": []
+  },
+  "storybook": {
+    "canonical": "Storybook",
+    "accepted": [],
+    "rejected": []
+  },
+  "strapi": {
+    "canonical": "Strapi",
+    "accepted": [],
+    "rejected": []
+  },
+  "streamlit": {
+    "canonical": "Streamlit",
+    "accepted": [],
+    "rejected": []
+  },
+  "stripe": {
+    "canonical": "Stripe",
+    "accepted": [],
+    "rejected": []
+  },
+  "sublime-text": {
+    "canonical": "Sublime Text",
+    "accepted": [],
+    "rejected": []
+  },
+  "supabase": {
+    "canonical": "Supabase",
+    "accepted": [],
+    "rejected": []
+  },
+  "supercollider": {
+    "canonical": "SuperCollider",
+    "accepted": [],
+    "rejected": []
+  },
+  "svelte": {
+    "canonical": "Svelte",
+    "accepted": [],
+    "rejected": []
+  },
+  "sveltekit": {
+    "canonical": "SvelteKit",
+    "accepted": [],
+    "rejected": []
+  },
+  "sway": {
+    "canonical": "Sway",
+    "accepted": [],
+    "rejected": []
+  },
+  "swc": {
+    "canonical": "SWC",
+    "accepted": [],
+    "rejected": []
+  },
+  "swift": {
+    "canonical": "Swift",
+    "accepted": [],
+    "rejected": []
+  },
+  "swig": {
+    "canonical": "SWIG",
+    "accepted": [],
+    "rejected": []
+  },
+  "symfony": {
+    "canonical": "Symfony",
+    "accepted": [],
+    "rejected": []
+  },
+  "systemverilog": {
+    "canonical": "SystemVerilog",
+    "accepted": [],
+    "rejected": []
+  },
+  "tableau": {
+    "canonical": "Tableau",
+    "accepted": [],
+    "rejected": []
+  },
+  "tact": {
+    "canonical": "Tact",
+    "accepted": [],
+    "rejected": []
+  },
+  "talon": {
+    "canonical": "Talon",
+    "accepted": [],
+    "rejected": []
+  },
+  "tanstack-router": {
+    "canonical": "TanStack Router",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "tanstack router",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "tanstack-table": {
+    "canonical": "TanStack Table",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "tanstack table",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "tauri": {
+    "canonical": "Tauri",
+    "accepted": [],
+    "rejected": []
+  },
+  "tcsh": {
+    "canonical": "Tcsh",
+    "accepted": [],
+    "rejected": []
+  },
+  "teal": {
+    "canonical": "Teal",
+    "accepted": [],
+    "rejected": []
+  },
+  "teamcity": {
+    "canonical": "TeamCity",
+    "accepted": [
+      "team city"
+    ],
+    "rejected": []
+  },
+  "tenable-nessus": {
+    "canonical": "Tenable Nessus",
+    "accepted": [
+      "nessus"
+    ],
+    "rejected": []
+  },
+  "tensorflow": {
+    "canonical": "TensorFlow",
+    "accepted": [
+      "tf"
+    ],
+    "rejected": []
+  },
+  "teradata-database": {
+    "canonical": "Teradata Database",
+    "accepted": [
+      "teradata"
+    ],
+    "rejected": []
+  },
+  "terra": {
+    "canonical": "Terra",
+    "accepted": [],
+    "rejected": []
+  },
+  "terraform": {
+    "canonical": "Terraform",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "tf",
+        "reason": "duplicate of an alias generated earlier this run"
+      }
+    ]
+  },
+  "thrift": {
+    "canonical": "Thrift",
+    "accepted": [],
+    "rejected": []
+  },
+  "ti-program": {
+    "canonical": "TI Program",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "ti program",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "tl-verilog": {
+    "canonical": "TL-Verilog",
+    "accepted": [
+      "tl verilog"
+    ],
+    "rejected": []
+  },
+  "together-ai": {
+    "canonical": "Together AI",
+    "accepted": [],
+    "rejected": []
+  },
+  "toit": {
+    "canonical": "Toit",
+    "accepted": [],
+    "rejected": []
+  },
+  "toml": {
+    "canonical": "TOML",
+    "accepted": [],
+    "rejected": []
+  },
+  "transact-sql": {
+    "canonical": "Transact-SQL",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "tsql",
+        "reason": "equals an id of another entry"
+      }
+    ]
+  },
+  "travis-ci": {
+    "canonical": "Travis CI",
+    "accepted": [],
+    "rejected": [
+      {
+        "alias": "travis ci",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "tree-sitter-query": {
+    "canonical": "Tree-sitter Query",
+    "accepted": [
+      "tree sitter query"
+    ],
+    "rejected": []
+  },
+  "trello": {
+    "canonical": "Trello",
+    "accepted": [],
+    "rejected": []
+  },
+  "trpc": {
+    "canonical": "tRPC",
+    "accepted": [
+      "t rpc"
+    ],
+    "rejected": []
+  },
+  "tsql": {
+    "canonical": "TSQL",
+    "accepted": [],
+    "rejected": []
+  },
+  "turbopack": {
+    "canonical": "Turbopack",
+    "accepted": [],
+    "rejected": []
+  },
+  "turborepo": {
+    "canonical": "Turborepo",
+    "accepted": [],
+    "rejected": []
+  },
+  "turing": {
+    "canonical": "Turing",
+    "accepted": [],
+    "rejected": []
+  },
+  "turso": {
+    "canonical": "Turso",
+    "accepted": [],
+    "rejected": []
+  },
+  "twilio": {
+    "canonical": "Twilio",
+    "accepted": [
+      "twilio api",
+      "twilio sms",
+      "twilio voice"
+    ],
+    "rejected": []
+  },
+  "typeorm": {
+    "canonical": "TypeORM",
+    "accepted": [
+      "type orm",
+      "typeorm.js",
+      "typeorm ts"
+    ],
+    "rejected": []
+  },
+  "ubuntu": {
+    "canonical": "Ubuntu",
+    "accepted": [
+      "ubuntu linux",
+      "ubuntu server"
+    ],
+    "rejected": []
+  },
+  "unified-modeling-language-uml": {
+    "canonical": "Unified modeling language UML",
+    "accepted": [
+      "uml",
+      "unified modeling language"
+    ],
+    "rejected": []
+  },
+  "unified-parallel-c": {
+    "canonical": "Unified Parallel C",
+    "accepted": [
+      "upc"
+    ],
+    "rejected": [
+      {
+        "alias": "unified parallel c",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "unix": {
+    "canonical": "UNIX",
+    "accepted": [
+      "unix os",
+      "unix system"
+    ],
+    "rejected": []
+  },
+  "unix-shell": {
+    "canonical": "UNIX Shell",
+    "accepted": [
+      "shell scripting",
+      "unix shell scripting"
+    ],
+    "rejected": []
+  },
+  "unrealscript": {
+    "canonical": "UnrealScript",
+    "accepted": [
+      "unreal script"
+    ],
+    "rejected": []
+  },
+  "untyped-plutus-core": {
+    "canonical": "Untyped Plutus Core",
+    "accepted": [
+      "untyped plutus"
+    ],
+    "rejected": []
+  },
+  "upstash": {
+    "canonical": "Upstash",
+    "accepted": [],
+    "rejected": []
+  },
+  "vagrant": {
+    "canonical": "Vagrant",
+    "accepted": [
+      "vagrant up",
+      "vagrant box"
+    ],
+    "rejected": []
+  },
+  "vala": {
+    "canonical": "Vala",
+    "accepted": [],
+    "rejected": []
+  },
+  "vbscript": {
+    "canonical": "VBScript",
+    "accepted": [
+      "visual basic script",
+      "vb script"
+    ],
+    "rejected": []
+  },
+  "vercel": {
+    "canonical": "Vercel",
+    "accepted": [
+      "vercel platform",
+      "vercel hosting"
+    ],
+    "rejected": []
+  },
+  "verilog": {
+    "canonical": "Verilog",
+    "accepted": [
+      "verilog hd",
+      "verilog-a"
+    ],
+    "rejected": []
+  },
+  "vertex-ai": {
+    "canonical": "Vertex AI",
+    "accepted": [
+      "vertex ai platform",
+      "vertex ai services"
+    ],
+    "rejected": []
+  },
+  "vhdl": {
+    "canonical": "VHDL",
+    "accepted": [
+      "vhsic hardware description language"
+    ],
+    "rejected": []
+  },
+  "vim": {
+    "canonical": "Vim",
+    "accepted": [
+      "vi improved",
+      "vim editor"
+    ],
+    "rejected": []
+  },
+  "visual-basic": {
+    "canonical": "Visual Basic",
+    "accepted": [
+      "vb"
+    ],
+    "rejected": [
+      {
+        "alias": "visual basic .net",
+        "reason": "equals a canonical_name"
+      }
+    ]
+  },
+  "visual-studio": {
+    "canonical": "Visual Studio",
+    "accepted": [
+      "vs",
+      "visual studio code"
+    ],
+    "rejected": []
+  },
+  "vite": {
+    "canonical": "Vite",
+    "accepted": [],
+    "rejected": []
+  },
+  "vitest": {
+    "canonical": "Vitest",
+    "accepted": [],
+    "rejected": []
+  },
+  "vllm": {
+    "canonical": "vLLM",
+    "accepted": [],
+    "rejected": []
+  },
+  "vmware": {
+    "canonical": "VMware",
+    "accepted": [
+      "vmw",
+      "vmware vsphere",
+      "vmware workstation",
+      "vmware fusion",
+      "vmware cloud"
+    ],
+    "rejected": []
+  },
+  "volt": {
+    "canonical": "Volt",
+    "accepted": [
+      "volt lang",
+      "volt programming",
+      "volt language",
+      "volt script",
+      "volt framework"
+    ],
+    "rejected": []
+  },
+  "vs-code": {
+    "canonical": "VS Code",
+    "accepted": [
+      "vscode",
+      "vs code editor",
+      "code editor"
+    ],
+    "rejected": [
+      {
+        "alias": "visual studio code",
+        "reason": "duplicate of an alias generated earlier this run"
+      },
+      {
+        "alias": "visual studio",
+        "reason": "equals a canonical_name"
+      }
+    ]
+  },
+  "vue-router": {
+    "canonical": "Vue Router",
+    "accepted": [
+      "vue routing",
+      "vue.js router",
+      "vuejs router",
+      "vue routing library"
+    ],
+    "rejected": [
+      {
+        "alias": "vue router",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "vue-js": {
+    "canonical": "Vue.js",
+    "accepted": [
+      "vue",
+      "vuejs",
+      "vue framework",
+      "vuejs framework"
+    ],
+    "rejected": [
+      {
+        "alias": "vue.js",
+        "reason": "equals its own id or canonical_name"
+      }
+    ]
+  },
+  "vuex": {
+    "canonical": "Vuex",
+    "accepted": [
+      "vuex state management",
+      "vuex store",
+      "vue.js state management",
+      "vue state management",
+      "vuejs state management"
+    ],
+    "rejected": []
+  },
+  "vyper": {
+    "canonical": "Vyper",
+    "accepted": [
+      "vyper lang",
+      "vyper programming",
+      "vyper language",
+      "vyper smart contracts",
+      "vyper contract"
+    ],
+    "rejected": []
+  },
+  "weaviate": {
+    "canonical": "Weaviate",
+    "accepted": [
+      "weaviate db",
+      "weaviate database",
+      "weaviate vector database",
+      "weaviate search",
+      "weaviate graph"
+    ],
+    "rejected": []
+  },
+  "webidl": {
+    "canonical": "WebIDL",
+    "accepted": [
+      "web idl",
+      "webidl language",
+      "webidl specification",
+      "webidl interface",
+      "webidl format"
+    ],
+    "rejected": []
+  },
+  "webpack": {
+    "canonical": "Webpack",
+    "accepted": [
+      "webpack bundler",
+      "webpack module bundler",
+      "webpack config",
+      "webpack dev server",
+      "webpack plugin"
+    ],
+    "rejected": []
+  },
+  "websockets": {
+    "canonical": "WebSockets",
+    "accepted": [
+      "web socket",
+      "web socket protocol",
+      "websocket api",
+      "websocket connection",
+      "websocket server"
+    ],
+    "rejected": []
+  },
+  "webstorm": {
+    "canonical": "WebStorm",
+    "accepted": [
+      "web storm",
+      "webstorm ide",
+      "webstorm editor",
+      "jetbrains webstorm",
+      "webstorm environment"
+    ],
+    "rejected": []
+  },
+  "wgsl": {
+    "canonical": "WGSL",
+    "accepted": [
+      "wgsl language",
+      "wgsl shader",
+      "wgsl programming",
+      "wgsl syntax",
+      "wgsl code"
+    ],
+    "rejected": []
+  },
+  "whiley": {
+    "canonical": "Whiley",
+    "accepted": [
+      "whiley lang",
+      "whiley programming",
+      "whiley language",
+      "whiley compiler",
+      "whiley code"
+    ],
+    "rejected": []
+  },
+  "wireshark": {
+    "canonical": "Wireshark",
+    "accepted": [
+      "wireshark tool",
+      "wireshark network analyzer",
+      "wireshark packet capture",
+      "wireshark capture",
+      "wireshark software"
+    ],
+    "rejected": []
+  },
+  "wisp": {
+    "canonical": "wisp",
+    "accepted": [
+      "wisp lang",
+      "wisp programming",
+      "wisp language",
+      "wisp script",
+      "wisp code"
+    ],
+    "rejected": []
+  },
+  "witcher-script": {
+    "canonical": "Witcher Script",
+    "accepted": [
+      "witcher script lang",
+      "witcher script language",
+      "witcher script code",
+      "witcher script syntax",
+      "witcher script programming"
+    ],
+    "rejected": []
+  },
+  "wollok": {
+    "canonical": "Wollok",
+    "accepted": [
+      "wollok lang",
+      "wollok programming",
+      "wollok language",
+      "wollok script",
+      "wollok code"
+    ],
+    "rejected": []
+  },
+  "wordpress": {
+    "canonical": "WordPress",
+    "accepted": [
+      "wp",
+      "wordpress cms",
+      "wordpress site",
+      "wordpress platform",
+      "wordpress theme"
+    ],
+    "rejected": []
+  },
+  "workday": {
+    "canonical": "Workday",
+    "accepted": [
+      "workday software",
+      "workday tool",
+      "workday platform",
+      "workday application",
+      "workday system"
+    ],
+    "rejected": []
+  },
+  "workos": {
+    "canonical": "WorkOS",
+    "accepted": [
+      "workos platform",
+      "workos tool",
+      "workos api",
+      "workos integration",
+      "workos service"
+    ],
+    "rejected": []
+  },
+  "xamarin": {
+    "canonical": "Xamarin",
+    "accepted": [
+      "xamarin forms",
+      "xamarin app",
+      "xamarin mobile",
+      "xamarin framework",
+      "xamarin development"
+    ],
+    "rejected": []
+  },
+  "xcode": {
+    "canonical": "Xcode",
+    "accepted": [
+      "xcode ide",
+      "xcode tool",
+      "xcode environment",
+      "xcode application",
+      "xcode software"
+    ],
+    "rejected": []
+  },
+  "xgboost": {
+    "canonical": "XGBoost",
+    "accepted": [
+      "xgboost library",
+      "xgboost algorithm",
+      "xgboost model",
+      "xgboost framework",
+      "xgboost regression"
+    ],
+    "rejected": []
+  },
+  "xmake": {
+    "canonical": "Xmake",
+    "accepted": [],
+    "rejected": []
+  },
+  "xojo": {
+    "canonical": "Xojo",
+    "accepted": [],
+    "rejected": []
+  },
+  "xonsh": {
+    "canonical": "Xonsh",
+    "accepted": [],
+    "rejected": []
+  },
+  "xproc": {
+    "canonical": "XProc",
+    "accepted": [],
+    "rejected": []
+  },
+  "xquery": {
+    "canonical": "XQuery",
+    "accepted": [],
+    "rejected": []
+  },
+  "xtend": {
+    "canonical": "Xtend",
+    "accepted": [],
+    "rejected": []
+  },
+  "yacc": {
+    "canonical": "Yacc",
+    "accepted": [],
+    "rejected": []
+  },
+  "yara": {
+    "canonical": "YARA",
+    "accepted": [],
+    "rejected": []
+  },
+  "yarn": {
+    "canonical": "Yarn",
+    "accepted": [
+      "yarn package manager",
+      "yarn.js"
+    ],
+    "rejected": []
+  },
+  "yii": {
+    "canonical": "Yii",
+    "accepted": [
+      "yii framework"
+    ],
+    "rejected": []
+  },
+  "zed": {
+    "canonical": "Zed",
+    "accepted": [],
+    "rejected": []
+  },
+  "zenscript": {
+    "canonical": "ZenScript",
+    "accepted": [],
+    "rejected": []
+  },
+  "zephir": {
+    "canonical": "Zephir",
+    "accepted": [],
+    "rejected": []
+  },
+  "zimpl": {
+    "canonical": "Zimpl",
+    "accepted": [],
+    "rejected": []
+  },
+  "zod": {
+    "canonical": "Zod",
+    "accepted": [],
+    "rejected": []
+  },
+  "zoom": {
+    "canonical": "Zoom",
+    "accepted": [
+      "zoom video conferencing",
+      "zoom.us"
+    ],
+    "rejected": []
+  },
+  "zustand": {
+    "canonical": "Zustand",
+    "accepted": [],
+    "rejected": []
+  }
+}

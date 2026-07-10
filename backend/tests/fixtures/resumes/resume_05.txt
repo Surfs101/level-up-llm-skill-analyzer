@@ -1,0 +1,66 @@
+Ahmed Ali
+Software Engineer | Full-Stack Engineer
+(929) 786-6553  |  ahmedkali841@gmail.com  |  New York, NY  |  GitHub  |  LinkedIn  |  Portfolio
+Queens College, City University of New York (CUNY), Flushing, NY
+Bachelor of Science in Computer Science
+Relevant Coursework:
+Graduated: Dec 2025
+Data Structures, Algorithms, Software Engineering, Database Systems, Cloud Computing, Web Development, Machine Learning
+SKILLS
+Languages: Python, TypeScript, JavaScript, C#, Java, C++, SQL
+Frontend: React, Next.js, Tailwind CSS, WPF
+Backend: FastAPI, .NET 8, Node.js, Express, REST APIs, SSE, Arq
+Databases: PostgreSQL, pgvector, SQLite, Redis, MongoDB
+Cloud & DevOps: AWS Lambda, S3, API Gateway, Docker, GitHub Actions, pytest, Playwright, k6
+AI/ML: OpenAI GPT-4o, RAG, OpenAI embeddings, PyTorch, Torchvision, Grad-CAM
+SELECTED PROJECTS
+SkillBridge.AI: Resume Intelligence Platform
+Next.js, React, TypeScript, Python, FastAPI, Arq, SSE, PostgreSQL, pgvector, Redis, OpenAI GPT-4o, R2  |  GitHub  |  Live
+Sep 2025 – Present
+• Led 4 engineers building an LLM platform comparing a resume and job posting to recommend skill-gap courses and projects.
+• Extracted matched and missing skills from resume and job text with a FlashText NLP matcher over a 900+ skill taxonomy.
+• Retrieved 200 of 5,000 courses with RAG and pgvector embeddings, then reranked to the top 2 by missing-skill coverage.
+• Generated two GPT-4o projects scoped to missing skills, with validators rejecting 30% of drafts breaking tech-stack rules.
+• Orchestrated the multi-stage analysis pipeline on Arq workers, streaming each stage's live progress to a Next.js UI over SSE.
+ConvLens: CNN Interpretability Platform
+Dec 2025 – Feb 2026
+Next.js, TypeScript, Tailwind CSS, FastAPI, PyTorch, Torchvision, AWS Lambda, S3, API Gateway, Docker  |  GitHub  |  Live
+• Productionized a CNN interpretability tool running images through 12 models, visualizing how each predicts.
+• Ran inference across 12 ImageNet models with PyTorch and torchvision, returning top-5 predictions per image.
+• Captured activations with PyTorch forward hooks, rendering the top-32 channel feature maps per hooked layer.
+• Overlaid multi-layer Grad-CAM heatmaps onto the image, highlighting regions driving each top class prediction.
+• Served jobs through an async pipeline with SHA-256 LRU caching, hits in <10ms versus 180–300ms inference.
+ShipCheck: Repository Quality Analyzer
+Jan 2026 – Apr 2026
+Next.js, React, TypeScript, Tailwind CSS, Python, FastAPI, PostgreSQL, NetworkX, tree-sitter, Playwright, k6  |  GitHub  |  Live
+• Engineered a static-analysis SaaS scoring public GitHub repos across 6 weighted quality categories.
+• Ingested repos via the GitHub REST API, capping scans at 250 files or 5MB for stable latency.
+• Parsed code with tree-sitter and Python AST to detect routes, smells, secrets, and dependency gaps.
+• Modeled a NetworkX import graph to flag cycles, god modules, central files, and orphans.
+• Authored a 9-analyzer scoring engine turning severity, confidence, and scope into fix recommendations.
+FactoryApp: Manufacturing ERP for an SMB Manufacturer
+WPF, C#, .NET, Node.js, Express, SQLite, QuestPDF  |  GitHub
+• Sold and deployed a .NET WPF ERP used by an SMB manufacturer for daily production.
+• Centralized data access in a C# repository over 11 SQLite tables, using injection-safe parameterized queries.
+• Wrapped stock adjustments in database transactions to keep inventory atomic and consistent.
+• Secured logins with PBKDF2-SHA256 at 210K iterations, 16-byte salts, and timing-safe compares.
+RELEVANT EXPERIENCE
+Feb 2026 – Apr 2026
+CUNY Tech Prep | New York, NY
+ML/AI Fellow
+• Selected for a competitive ML fellowship (under 100 of 11 CUNY colleges); shipped a full-stack LLM platform.
+• Improved release reliability with TDD and CI/CD gating every merge on automated tests.
+• Tuned RAG retrieval quality across embedding generation, vector search, and reranking experiments.
+Headstarter | Remote
+Jul 2025 – Present
+Jun 2024 – Aug 2024
+Software Engineering Fellow
+• Delivered production AI-integrated apps in a competitive SWE fellowship using React, Node.js, and Firebase.
+• Abstracted a Node.js proxy between React clients and AI APIs, centralizing rate limits and secret management.
+SUPPORTING EXPERIENCE
+DoorDash | Long Island City, NY
+Operations Associate
+Apr 2023 – Jun 2025
+• QA-tested internal dispatch workflows during live operations, catching 15–20% of order issues before dispatch.
+• Triaged reproducible bugs through Jira and Slack with structured repro steps, cutting issue turnaround by 30%.
+• Designed and implemented a severity-tagged incident workflow in Jira, improving cross-team response by 60%

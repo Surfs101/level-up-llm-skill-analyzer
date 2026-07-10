@@ -1,0 +1,3 @@
+Mobile Engineer. Build native apps in Swift and Kotlin, plus shared
+features in React Native. Backend is Java with Spring Boot. Data in
+MySQL. Ship through a CI/CD pipeline.

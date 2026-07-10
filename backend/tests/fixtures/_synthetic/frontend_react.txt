@@ -1,0 +1,4 @@
+Frontend Engineer focused on React and TypeScript.
+Shipped a Next.js app styled with Tailwind CSS, data fetching via
+TanStack Query. Comfortable in plain JavaScript too. Built reusable
+component libraries and cared deeply about accessibility and UX.

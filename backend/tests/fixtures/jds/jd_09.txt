@@ -1,0 +1,57 @@
+Simulation Engineer - AI Trainer- job post
+DataAnnotation
+4.1
+4.1 out of 5 stars
+Mount Vernon, NY•Remote
+$40 - $60 an hour - Part-time, Full-time, Contract
+Job details
+Here’s how the job details align with your profile.
+Pay
+
+$40 - $60 an hour
+Job type
+
+Part-time
+
+Contract
+
+Full-time
+Shift and schedule
+
+On demand
+&nbsp;
+Benefits
+Pulled from the full job description
+
+Flexible schedule
+&nbsp;
+Full job description
+Join the DataAnnotation team and contribute to developing cutting-edge AI systems, while enjoying the flexibility of remote work and setting your own schedule.
+
+We are looking for an experienced Simulation Engineer - AI Trainer to help advance AI development. AI models are increasingly capable of performing complex analytical and scientific reasoning — but these systems still need practitioners with real-world quantitative experience to validate whether the outputs actually hold up in practice. That's where you come in.
+
+As a member of DataAnnotation's team, you'll work closely with state-of-the-art AI models on tasks like evaluating AI-generated quantitative analysis, solving technical problems, and providing feedback that directly shapes how these systems reason about data, models, and scientific problems. Whether your background is in data science, astrophysics, economics, biostatistics, operations research, or any other quantitative field, if you think rigorously about data and models, your skills are directly applicable here. Some team members fit this work alongside a full-time role, while others treat it as their primary focus.
+
+To get started, once you sign up for an account, you'll take a short assessment (this serves as our version of an interview). If you pass, you'll receive an email confirmation, and paid work will become available on our platform.
+
+Benefits:
+
+Fully remote: work from anywhere in the US, Canada, UK, Ireland, Australia, and New Zealand.
+Flexible schedule: choose which projects you take on and when you work.
+Competitive pay: projects are paid hourly, up to $60 USD per hour. Opportunities for higher-paying projects are available with strong performance.
+Impact: help shape the future of AI systems built to reason about data and analytics.
+Responsibilities:
+
+Evaluate AI-generated quantitative work, including statistical analysis, predictive modeling, scientific reasoning, and data-driven insights, for technical accuracy and real-world validity.
+Design and solve quantitative problems used to train and benchmark AI systems, spanning areas like forecasting, experimental analysis, optimization, and statistical inference.
+Write clear technical explanations and well-documented analytical code.
+Provide feedback that directly shapes the next generation of AI models built for quantitative reasoning.
+Qualifications:
+
+2+ years of hands-on experience in a quantitative role or research environment — such as data science, statistics, economics, finance, physics, biology, epidemiology, operations research, or any adjacent field.
+Some coding experience required, with comfort writing and reviewing analytical code end-to-end.
+Practical experience with statistical methods, predictive modeling, and experiment design (e.g., A/B testing, hypothesis testing, regression, classification, time-series forecasting).
+Fluency in English (native or bilingual level) with strong writing skills.
+A bachelor's degree in a quantitative field is preferred (Statistics, Computer Science, Mathematics, Engineering, or similar); a master's or PhD is a plus.
+Relevant credentials are a plus (e.g., Kaggle Competition ranking, AWS/GCP ML certifications, or equivalent demonstrated expertise).
+Note: Payment is made via PayPal. We will never ask for any money from you. This job is only available to those in the US, Canada, UK, Ireland, Australia, and New Zealand.
